@@ -62,9 +62,16 @@ include_once('connect.php');
 														<select  class="form-control form-control-lg js-example-tags" id="otype" name="otype" id="organisation" required>
                                                         <?php
                                                         $sql = mysqli_query($con,"SELECT * FROM orginzation");
+                                                    if(mysqli_num_rows($sql)>0)
+                                                    {
+
+                                                    
                                                         $fetc = mysqli_fetch_array($sql);
                                                         ?>
                                                         <option value="<?=$fetc['or_type']?>"><?=$fetc['or_type']?></option>
+                                                        <?php
+                                                    }
+                                                        ?>
                                                         </select>
 													</div>
 												</div>

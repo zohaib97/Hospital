@@ -32,39 +32,137 @@ include_once('../database/db.php');
                         <div class="nk-content-inner">
                             <div class="nk-content-body">
                                 <div class="components-preview wide-md mx-auto">
-                                    <div class="nk-block-head nk-block-head-lg wide-sm">
-										 <h2 class="nk-block-title fw-normal">Refferels list</h2>
-                                       
-                                    </div>
-                                    <div>
-										<ul class="nk-menu">
-											<li class="nk-menu-item">
-												<span class="col-form-label font-weight-bold" style="font-size: 15px; color: black">Worklist Type</span>&nbsp;&nbsp;
-												<span class="nk-menu-text col-6"> 
-													<select name="worklist" id="worklist" class="form-control">
-														<option value="">- Select -</option>
-														<option value="Referrer Sent">Referrer Sent</option>
-														<option value="Referrer Accepted">Referrer Accepted</option>
-														<option value="Referrer  Rejected">Referrer  Rejected</option>
-														<option value="Appointment booked">Appointment booked</option>
-														<option value="Appointment Attended">Appointment Attended</option>
-														<option value="Appointment  Outcome">Appointment  Outcome</option>
-														<option value="Appointment DNA">Appointment DNA</option>
-														<option value="Appointment Cancelled">Appointment Cancelled</option>
-													</select>
-												</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-												<button id="btnshow" style="display: none;" class="btn btn-sm btn-info mt-1 float-right" onClick="workbltdata()">Load Result</button>
-											</li>
-										</ul>
-										
-									</div>
-									 <br>
-									<hr>
-									<br>
-									<center><span id="hideno">No Result loaded</span></center>
-									<br>
-                                    <div class="nk-block nk-block-lg" id="rdata" style="display: none;overflow: auto;">
-										
+							
+			
+                                    <div class="nk-block nk-block-lg" id="">
+                                    <div class="card card-preview">
+                                            <div class="card-inner">
+                                                <form method="post" id="appinsert">
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                        <h5>Appointment Request Details</h5>
+                                                    </div>
+                                                    
+                                                </div>
+                                                <hr>
+                                                    <?php
+                                                    $appid = $_GET['c_id'];
+                                                    $sql = mysqli_query($con,"SELECT * FROM tbl_serviceappointment join `services` ON tbl_serviceappointment.sp_serviceid = services.service_id WHERE sp_id = '$appid'");
+                                                    if(mysqli_num_rows($sql)>0)
+                                                    {
+                                                        $fe = mysqli_fetch_array($sql);
+                                                        $spid = $fe['service_speciality'];
+                                                        $clid = $fe['ser_cl_type'];
+                                              
+                                                        $sql1 = mysqli_query($con,"SELECT * FROM ser_specialty_add WHERE spec_id = '$spid'");
+                                                        $fe1 = mysqli_fetch_array($sql1);
+                                                        $sql2 = mysqli_query($con,"SELECT * FROM service_cliniciant WHERE cl_id = '$clid'");
+                                                        $fe2 = mysqli_fetch_array($sql2);
+                                                    }
+                                                   
+                                                    ?>
+                                                <div class="tab-content">
+                                                    <div class="row">
+                                                       
+                                                        <div class=" col-md-6 pb-2">
+                                            <span>UBRN Created Date : </span><span><?=$fe['sp_createdate']?></span>
+                                                        </div>
+                                                        </div>
+                                                        <div class="row">
+                                                        <div class="col-md-6 res">
+                                                        <span>UBRN : </span><span><?=$fe['sp_ubrn']?></span>
+                                                        </div>
+                                                        </div>
+                                                        <div class="row">
+                                                        <div class="col-md-6 res" id="btn2">
+                                                        <span>Speciality : </span><span><?=$fe1['spec_name']?></span>
+                                                        </div>
+                                                        </div>
+                                                        <div class="row">
+                                                        <div class="col-md-6 res" id="btn2">
+                                                        <span>Clinic Type : </span><span><?=$fe2['cl_type']?></span>
+                                                        </div>
+                                                        </div>
+                                                  
+                                                    <br>
+                                                    
+
+                                                </div>
+                                                <div class="mb-4" id="tabItem6">
+                                                <table class="nowrap nk-tb-list is-separate table-bordered" data-auto-responsive="false" id="myTable">
+			<thead>
+				<tr class="nk-tb-item nk-tb-head">
+					<!-- <th class="nk-tb-col nk-tb-col-check">
+						<div class="custom-control custom-control-sm custom-checkbox notext">
+							<input type="checkbox" class="custom-control-input" id="puid">
+							<label class="custom-control-label" for="puid"></label>
+						</div>
+					</th> -->
+					<th class="nk-tb-col tb-col-sm"><span>Location</span></th>
+				
+					<th class="nk-tb-col"><span>Refferer Alert</span></th>
+					<th class="nk-tb-col"><span>Service Name</span></th>
+					<th class="nk-tb-col"><span>Organisation Type</span></th>
+					<th class="nk-tb-col"><span>Indicative Wait time</span></th>
+					
+					
+					
+				</tr><!-- .nk-tb-item -->
+			</thead>
+            <tbody id="">
+            <?php
+            $q = mysqli_query($con,"SELECT * FROM tbl_serviceappointment join services ON tbl_serviceappointment.sp_serviceid = services.service_id WHERE sp_id = '$appid'");
+            $f = mysqli_fetch_array($q);
+            $sname =$f['service_name'];
+            $q1 = mysqli_query($con,"SELECT * FROM `service_name` WHERE s_id = '$sname'");
+            $f1 = mysqli_fetch_array($q1);
+            ?>
+            <tr class="nk-tb-item">
+	<!-- <td class="nk-tb-col nk-tb-col-check">
+		<div class="custom-control custom-control-sm custom-checkbox notext">
+			<input type="checkbox" class="custom-control-input gg" name="check[]" value="'.$id.'" id="check'.$id.'" checked="">
+			<label class="custom-control-label" for="check'.$id.'" onclick=""></label>
+		</div>
+	</td> -->
+	<td class="nk-tb-col tb-col-sm">
+		<span class="tb-product">
+			
+			<span class="title"><?=$f['service_location']?></span>
+		</span>
+	</td>
+	<td class="nk-tb-col">
+		<span class="tb-lead"><?=$f['service_refer']?></span>
+	</td>
+	<td class="nk-tb-col">
+		<span class="tb-lead"><?=$f1['s_name']?></span>
+	</td>
+	<td class="nk-tb-col">
+		<span class="tb-lead"></span>
+	</td>
+	<td class="nk-tb-col">
+		<span class="tb-lead"><?=$f['sp_iwt']?></span>
+	</td>
+
+            </tr>
+            </tbody>
+                                                </table>
+
+                                                </div>
+                                                <div class="mb-4" id="tabItem7">
+                                                
+
+                                                </div>
+                                                <div class="mb-4" id="tabItem8">
+                                                <div class=" col-md-3 pb-2">
+                                                          
+                                                        </div>
+
+                                                </div>
+
+                                                <a href="clinical-ref-info.php?c_id=<?=$appid?>" class="btn btn-info">Next</a>
+                                                </form>
+                                            </div>
+                                        </div>
                              
                                     </div>
 									<!-- <form method="post" id="attach" style="display: none;">
@@ -118,6 +216,7 @@ include_once('../database/db.php');
     <!-- app-root @e -->
   <script src="assets/js/example-toastr.js?ver=2.2.0"></script>
 </body>
+
 <script>
 	function fetchrefferels()
 	{
@@ -309,7 +408,7 @@ include_once('../database/db.php');
 		    	 $.ajax({    
         type: "POST",
         url: "phpcode.php", 
-		data:{refferelfetch :"btn"},	            
+		data:{apprefferelfetch :"btn"},	            
         success: function(response){                    
             $("#rdata").html(response); 
             //alert(response);
@@ -328,7 +427,7 @@ include_once('../database/db.php');
 				 $.ajax({    
         type: "POST",
         url: "phpcode.php", 
-		data:{refferelfetch1:"btn"},	            
+		data:{apprefferelfetch1:"btn"},	            
         success: function(response){                    
             $("#rdata").html(response); 
             //alert(response);
@@ -342,7 +441,7 @@ include_once('../database/db.php');
 				 $.ajax({    
         type: "POST",
         url: "phpcode.php", 
-		data:{refferelfetch2:"btn"},	            
+		data:{apprefferelfetch2:"btn"},	            
         success: function(response){                    
             $("#rdata").html(response); 
             //alert(response);
@@ -356,7 +455,7 @@ include_once('../database/db.php');
 				 $.ajax({    
         type: "POST",
         url: "phpcode.php", 
-		data:{refferelfetch3:"btn"},	            
+		data:{apprefferelfetch3:"btn"},	            
         success: function(response){                    
             $("#rdata").html(response); 
             //alert(response);
@@ -370,7 +469,7 @@ include_once('../database/db.php');
 				 $.ajax({    
         type: "POST",
         url: "phpcode.php", 
-		data:{refferelfetch4:"btn"},	            
+		data:{apprefferelfetch4:"btn"},	            
         success: function(response){                    
             $("#rdata").html(response); 
             //alert(response);
@@ -384,7 +483,7 @@ include_once('../database/db.php');
 				 $.ajax({    
         type: "POST",
         url: "phpcode.php", 
-		data:{refferelfetch5:"btn"},	            
+		data:{apprefferelfetch5:"btn"},	            
         success: function(response){                    
             $("#rdata").html(response); 
             //alert(response);
@@ -397,7 +496,7 @@ include_once('../database/db.php');
 				 $.ajax({    
         type: "POST",
         url: "phpcode.php", 
-		data:{refferelfetch6:"btn"},	            
+		data:{apprefferelfetch6:"btn"},	            
         success: function(response){                    
             $("#rdata").html(response); 
             //alert(response);
@@ -410,7 +509,7 @@ include_once('../database/db.php');
 				 $.ajax({    
         type: "POST",
         url: "phpcode.php", 
-		data:{refferelfetch7:"btn"},	            
+		data:{apprefferelfetch7:"btn"},	            
         success: function(response){                    
             $("#rdata").html(response); 
             //alert(response);

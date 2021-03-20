@@ -309,7 +309,7 @@ include_once('../database/db.php');
 		    	 $.ajax({    
         type: "POST",
         url: "phpcode.php", 
-		data:{refferelfetch :"btn"},	            
+		data:{apprefferelfetch :"btn"},	            
         success: function(response){                    
             $("#rdata").html(response); 
             //alert(response);
@@ -328,7 +328,7 @@ include_once('../database/db.php');
 				 $.ajax({    
         type: "POST",
         url: "phpcode.php", 
-		data:{refferelfetch1:"btn"},	            
+		data:{apprefferelfetch1:"btn"},	            
         success: function(response){                    
             $("#rdata").html(response); 
             //alert(response);
@@ -342,7 +342,7 @@ include_once('../database/db.php');
 				 $.ajax({    
         type: "POST",
         url: "phpcode.php", 
-		data:{refferelfetch2:"btn"},	            
+		data:{apprefferelfetch2:"btn"},	            
         success: function(response){                    
             $("#rdata").html(response); 
             //alert(response);
@@ -356,7 +356,7 @@ include_once('../database/db.php');
 				 $.ajax({    
         type: "POST",
         url: "phpcode.php", 
-		data:{refferelfetch3:"btn"},	            
+		data:{apprefferelfetch3:"btn"},	            
         success: function(response){                    
             $("#rdata").html(response); 
             //alert(response);
@@ -370,7 +370,7 @@ include_once('../database/db.php');
 				 $.ajax({    
         type: "POST",
         url: "phpcode.php", 
-		data:{refferelfetch4:"btn"},	            
+		data:{apprefferelfetch4:"btn"},	            
         success: function(response){                    
             $("#rdata").html(response); 
             //alert(response);
@@ -384,7 +384,7 @@ include_once('../database/db.php');
 				 $.ajax({    
         type: "POST",
         url: "phpcode.php", 
-		data:{refferelfetch5:"btn"},	            
+		data:{apprefferelfetch5:"btn"},	            
         success: function(response){                    
             $("#rdata").html(response); 
             //alert(response);
@@ -397,7 +397,7 @@ include_once('../database/db.php');
 				 $.ajax({    
         type: "POST",
         url: "phpcode.php", 
-		data:{refferelfetch6:"btn"},	            
+		data:{apprefferelfetch6:"btn"},	            
         success: function(response){                    
             $("#rdata").html(response); 
             //alert(response);
@@ -410,7 +410,7 @@ include_once('../database/db.php');
 				 $.ajax({    
         type: "POST",
         url: "phpcode.php", 
-		data:{refferelfetch7:"btn"},	            
+		data:{apprefferelfetch7:"btn"},	            
         success: function(response){                    
             $("#rdata").html(response); 
             //alert(response);

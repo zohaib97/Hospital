@@ -168,6 +168,9 @@ if(!isset($_SESSION['gprefferer'])){
 						$query = mysqli_query($con,"SELECT * FROM `tbl_ruser` WHERE `ur_email` = '$aid'");
 						$fetch = mysqli_fetch_array($query);
 									$id = $fetch['ur_id'];
+									$orid=$fetch["ur_orgtype"];
+						$ks=mysqli_query($con,"SELECT * FROM `orginzation` where orid ='$orid'");
+						$klo=mysqli_fetch_array($ks);
 									$qqqq = mysqli_query($con,"SELECT count(*) as a FROM tbl_consultantrefferels,tbl_refferelattachment WHERE tbl_refferelattachment.ra_refferelid=tbl_consultantrefferels.c_id and tbl_consultantrefferels.c_gpid = '$id' and reply='1' ");
 									$fds=mysqli_fetch_array($qqqq);
 									?>
