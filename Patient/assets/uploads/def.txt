@@ -1,0 +1,20 @@
+(IT) -> Information Technology.
+Definition:
+Second Phase of human brain.
+retrive,instruction,output from human brain.
+
+(ALgorithm) -> Set of instruction is called Algorithm. e.g: in daily routine our mind makes algorithm.
+
+interpreter,compiler in languages.
+
+(OOP) -> Object Oriented Languages.
+
+Object is real intity exist in world.
+objecct,class.
+classes is a blue print.
+
+there is 4 pillars in OOP.
+1. Inheritance.
+2. Abstraction.
+3. Encapsulation.
+4. Polymorphism.

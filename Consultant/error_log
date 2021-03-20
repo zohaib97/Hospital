@@ -1,0 +1,1 @@
+[14-Mar-2021 21:01:57 UTC] PHP Warning:  mysqli_fetch_array() expects parameter 1 to be mysqli_result, bool given in /home/extremeearn/hospital.extremeearn.com/Consultant/headernav.php on line 181
