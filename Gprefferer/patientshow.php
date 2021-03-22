@@ -1,3 +1,4 @@
+
 <?php
 include_once('../database/db.php');
 
@@ -62,13 +63,29 @@ include_once('../database/db.php');
                                                 <hr>
 
                                                 <div class="tab-content">
-                                                    <div class="row">
-                                                        <div class=" col-md-3 pb-2">
-                                                            <a href="#" type="button" class="btn btn-primary  " id="nhs"
-                                                                style="font-size: 12px;">Demographics</a>
+                                                    <div class="row align-item-center">
+                                                        <div class=" col-md-4  pb-2">
+                                                          
                                                         </div>
-                                                        <div class=" col-md-3 pb-2">
+                                                        <div class=" col-md-4 pb-2 d-flex">
+                                                              <a href="#" type="button" class="btn btn-primary mr-2 " id="nhs"
+                                                                style="font-size: 12px;">By Demographics</a>
+                                                             <a href="javascript:void(0)" onclick="javascript:$('#nhsdiv').show();$('#nhsno').hide();" type="button" class="btn btn-primary  "  
+                                                                style="font-size: 12px;">By NHS No</a>
+                                                        </div>
+                                                        <div class="col-md-2 res" id="btn">
+
+                                                        </div>
+                                                        <div class="col-md-2 res" id="btn2">
+
+                                                        </div>
+
+                                                    </div>
+                                                    <br>
+                                                    <div class="row"style="display: none;" id="nhsdiv">
+                                                         <div class=" col-md-3 mx-auto">
                                                             <div class="form-group">
+                                                                  <label for="">NHS No</label>
                                                                 <input style="border-color: #000000 ;"
                                                                     class="form-control" placeholder="search NHS NO"
                                                                     type="number" max="3" length id="nh3" value="NH-"
@@ -77,15 +94,7 @@ include_once('../database/db.php');
                                                                     onChange="ssearch(this.value)" id="nhs3">
                                                             </div>
                                                         </div>
-                                                        <div class="col-md-2 res" id="btn">
-
-                                                        </div>
-                                                        <div class="col-md-1 res" id="btn2">
-
-                                                        </div>
-
                                                     </div>
-                                                    <br>
                                                     <div class="row " id="nhsno" style="display: none;">
                                                         <div class="col-md-2 mx-auto  ">
                                                             <span></span>
@@ -94,12 +103,12 @@ include_once('../database/db.php');
                                                             <label for="">Name</label>
                                                             <input style="border-color: #000000" class="form-control"
                                                                 type="text" max="3" placeholder="Name" length id="nm"
-                                                                value="" required autocomplete="off">
+                                                                value="" required autocomplete="off" onChange="showsearch()">
                                                         </div>
                                                         <div class="col-md-2 pb-4">
                                                             <label for="">Surname</label>
                                                             <input style="border-color: #000000" class="form-control"
-                                                                type="text" placeholder="Surname" id="em" required
+                                                                type="text" placeholder="Surname"  onChange="showsearch()" id="em" required
                                                                 autocomplete="off">
                                                         </div>
                                                         <div class="col-md-2 pb-4">
@@ -484,8 +493,7 @@ $(function() {
 
     // INITIALIZE DATEPICKER PLUGIN
     $('.datepicker').datepicker({
-        clearBtn: true,
-        format: "dd/mm/yyyy"
+        clearBtn: true
     });
 
 
@@ -505,7 +513,7 @@ $(function() {
 
 
 function ssearch(ddd) {
-    $('#nhs3').prop('readonly', true);
+    $('#nhs3').attr('readonly', true);
     var nhs3 = $('#nhs3').val();
 
     var btn = document.getElementById('btn').innerHTML =
@@ -544,8 +552,8 @@ function spatient(ddd) {
 };
 
 function res() {
-    $('#nhs3').val('');
-    $('#nhs3').prop('readonly', false);
+    $('#nh3').val('');
+    $('#nh3').prop('readonly', false);
 };
 
 
@@ -553,6 +561,7 @@ function res() {
 $(document).ready(function() {
     $("#nhs").click(function() {
         $("#nhsno").show();
+        $("#nhsdiv").hide();
     });
 });
 
@@ -564,7 +573,7 @@ function showsearch() {
         NioApp.Toast("<h5>All fields Required</h5>", 'error', {
             position: 'top-right'
         });
-        $('#dob').val('');
+        // $('#dob').val('');
     } else {
         $('#nm').prop('readonly', true);
         $('#em').prop('readonly', true);

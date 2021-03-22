@@ -22,3 +22,9 @@
 [05-Mar-2021 01:45:11 UTC] PHP Warning:  include_once(): Failed opening 'staffajax/ajax.php' for inclusion (include_path='.:/opt/cpanel/ea-php74/root/usr/share/pear') in /home/extremeearn/Hospital.extremeearn.com/admin/createhospital.php on line 198
 [05-Mar-2021 01:47:12 UTC] PHP Warning:  include_once(staffajax/ajax.php): failed to open stream: No such file or directory in /home/extremeearn/Hospital.extremeearn.com/admin/createorginaztion.php on line 217
 [05-Mar-2021 01:47:12 UTC] PHP Warning:  include_once(): Failed opening 'staffajax/ajax.php' for inclusion (include_path='.:/opt/cpanel/ea-php74/root/usr/share/pear') in /home/extremeearn/Hospital.extremeearn.com/admin/createorginaztion.php on line 217
+[20-Mar-2021 21:49:37 UTC] PHP Parse error:  syntax error, unexpected '}' in /home/extremeearn/hospital.extremeearn.com/admin/phpcode.php on line 18
+[20-Mar-2021 21:49:37 UTC] PHP Parse error:  syntax error, unexpected '}' in /home/extremeearn/hospital.extremeearn.com/admin/phpcode.php on line 18
+[20-Mar-2021 21:49:37 UTC] PHP Parse error:  syntax error, unexpected '}' in /home/extremeearn/hospital.extremeearn.com/admin/phpcode.php on line 18
+[20-Mar-2021 21:49:43 UTC] PHP Parse error:  syntax error, unexpected '}' in /home/extremeearn/hospital.extremeearn.com/admin/phpcode.php on line 18
+[20-Mar-2021 21:49:44 UTC] PHP Parse error:  syntax error, unexpected '}' in /home/extremeearn/hospital.extremeearn.com/admin/phpcode.php on line 18
+[20-Mar-2021 21:50:11 UTC] PHP Parse error:  syntax error, unexpected '}' in /home/extremeearn/hospital.extremeearn.com/admin/phpcode.php on line 18

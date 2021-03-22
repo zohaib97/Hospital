@@ -179,10 +179,13 @@ $fetchsa=mysqli_fetch_array($qiu);
 								$f3=mysqli_fetch_array($q3);
 									$q4 = mysqli_query($con,"SELECT count(*) as a FROM `tbl_ruser` WHERE ur_orgtype = '$org' and ur_role_id = '5' and ur_status='not_approve'");
 								$f4=mysqli_fetch_array($q4);
+								$jk=mysqli_query($con,"SELECT  count(*) as a FROM `services`,tbl_serviceappointment WHERE services.m_id and tbl_serviceappointment.sp_serviceid and services.s_orgid ='$org'");
+ $klsa=mysqli_fetch_array($jk);
+ $fj=$klsa["a"];
 								$q5 = mysqli_query($con,"SELECT count(*) as a,nhsno FROM `tbl_app` WHERE orid = '$org'");
 								$f5=mysqli_fetch_array($q5);
 								
-								$total =$f1["a"]+$f2["a"]+$f3["a"]+$f4["a"]+$f5["a"];
+								$total =$f1["a"]+$f2["a"]+$f3["a"]+$f4["a"]+$f5["a"]+$fj;
 							?>
 							<sup class="badge badge-primary rounded-circle ml-n1 mt-n2"><?=$total?></sup>
 						</a>
@@ -216,6 +219,17 @@ $fetchsa=mysqli_fetch_array($qiu);
 										</div>
 									    <div class="nk-notification-content">
 											<div class="nk-notification-text">You have new <span> Appointment From NHS-No : '.$f5["nhsno"].' </span></div>
+											
+										</div>
+											</div>
+										<hr>';
+									}if($fj > 0){
+									    echo '<div class="nk-notification-item dropdown-inner">
+										<div class="nk-notification-icon">
+											<em class="icon icon-circle bg-warning-dim ni ni-curve-down-right"></em>
+										</div>
+									    <div class="nk-notification-content">
+											<div class="nk-notification-text">You have new <span> Service Appointment </span></div>
 											
 										</div>
 											</div>

@@ -81,7 +81,7 @@ $(document).ready(function(){
           url: "phpcode.php",
           data: {readRecord:readRecord},
          
-          success: function (data,status) {
+          success: function (data) {
             
             $('#rdata').html(data);
             

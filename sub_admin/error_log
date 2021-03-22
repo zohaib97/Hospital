@@ -46,3 +46,6 @@
 [16-Mar-2021 22:43:47 UTC] PHP Warning:  Cannot modify header information - headers already sent by (output started at /home/extremeearn/hospital.extremeearn.com/sub_admin/sidebar.php:1) in /home/extremeearn/hospital.extremeearn.com/sub_admin/headernav.php on line 8
 [17-Mar-2021 14:28:54 UTC] PHP Warning:  mysqli_num_rows() expects parameter 1 to be mysqli_result, bool given in /home/extremeearn/hospital.extremeearn.com/sub_admin/phpcode.php on line 1646
 [17-Mar-2021 14:29:22 UTC] PHP Warning:  mysqli_num_rows() expects parameter 1 to be mysqli_result, bool given in /home/extremeearn/hospital.extremeearn.com/sub_admin/phpcode.php on line 1631
+[20-Mar-2021 22:28:26 UTC] PHP Warning:  mysqli_num_rows() expects parameter 1 to be mysqli_result, bool given in /home/extremeearn/hospital.extremeearn.com/sub_admin/phpcode.php on line 1648
+[20-Mar-2021 22:29:25 UTC] PHP Warning:  mysqli_num_rows() expects parameter 1 to be mysqli_result, bool given in /home/extremeearn/hospital.extremeearn.com/sub_admin/phpcode.php on line 1633
+[22-Mar-2021 09:10:52 UTC] PHP Warning:  mysqli_num_rows() expects parameter 1 to be mysqli_result, bool given in /home/extremeearn/hospital.extremeearn.com/sub_admin/phpcode.php on line 1759

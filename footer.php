@@ -143,6 +143,9 @@
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 <script>
 $(document).ready(function(){
-    $('select').select2();
+    $('.select').select2();
+    $(".select1").select2({
+        tags:true
+    });
 });
 </script>

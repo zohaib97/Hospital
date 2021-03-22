@@ -221,6 +221,9 @@
 				else if(data == "gprefferer"){
 					window.location.href = "Gprefferer/index.php";
 				}
+				else if(data == "Optometrist"){
+				    	window.location.href = "Optometrist/index.php";
+				}
 				else if(data == "consultant"){
 					window.location.href = "Consultant/index.php";
 				}else if(data == "dentist"){

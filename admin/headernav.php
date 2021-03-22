@@ -14,10 +14,7 @@ include_once('connect.php');
                                     <img class="logo-dark logo-img" src="images/logo1.png" alt="logo-dark">
                                 </a>
                             </div><!-- .nk-header-brand -->
-                            <div class="nk-header-search ml-3 ml-xl-0">
-                                <em class="icon ni ni-search"></em>
-                                <input type="text" class="form-control border-transparent form-focus-none" placeholder="Search anything">
-                            </div><!-- .nk-header-news -->
+                            
                             <div class="nk-header-tools">
                                 <ul class="nk-quick-nav">
                                     <li class="dropdown chats-dropdown hide-mb-xs">
@@ -161,10 +158,15 @@ include_once('connect.php');
 
                        
 <?php
+$id=$_SESSION['superadmin'];
+$mkj=mysqli_query($con,"SELECT * FROM `admin` where id='$id'");
+$kls=mysqli_fetch_array($mkj);
+$orid=$kls["organization"];
  $e = mysqli_query($con,"SELECT COUNT(status) AS a FROM orginzation WHERE status ='NOT approved';");
  $row=mysqli_fetch_array($e);
  $w = mysqli_query($con,"SELECT COUNT(status) AS b FROM admin WHERE super_admin = '0' and  status ='not_approve';");
  $num=mysqli_fetch_array($w);
+ 
  $num1 = $num['b'];
  $num2 = $row['a'];
  $total = $num1 + $num2;
@@ -188,7 +190,6 @@ include_once('connect.php');
                         <div class="dropdown-menu dropdown-menu-xl dropdown-menu-right">
                             <div class="dropdown-head">
                                 <span class="sub-title nk-dropdown-title">Organisation Notifications</span>
-                                <a href="organizationunapprove.php">View All</a>
 
                                 <!--                                                <a href="#">Mark All as Read</a>-->
                             </div>
@@ -208,9 +209,9 @@ include_once('connect.php');
                                             <em class="icon icon-circle bg-warning-dim ni ni-curve-down-right"></em>
                                         </div>
                                         <div class="nk-notification-content">
-                                            <div class="nk-notification-text">New Organisation Registered For
+                                            <div class="nk-notification-text">New Organisation Registered Requested For
                                                 <span>Approval</span></div>
-                                            <div class="nk-notification-time"><?=$org['or_name']?></div>
+                                            <div class="nk-notification-time">Organisation Name : <?=$org['or_name']?></div>
                                         </div>
                                     </div>
                                     <?php
@@ -221,10 +222,12 @@ include_once('connect.php');
 
                                                     ?>
 
-
                                 </div><!-- .nk-notification -->
+                                
+
                             </div><!-- .nk-dropdown-body -->
                             <div class="dropdown-foot center">
+                                <a href="organizationunapprove.php" >View All</a>
                             </div>
                         </div>
                     <?php

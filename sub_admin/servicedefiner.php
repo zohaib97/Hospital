@@ -151,6 +151,7 @@ include_once('headernav.php');
 						</div>
 					</div>
 				</div>
+				<div class="col-lg-1 mt-4"><center>From</center></div>
 				<div class="col-lg-4">
 					<div class="form-group">
 						<label class="form-label" for="full-name-1"><sup class="text-danger">* </sup>Service Effective Date Range</label>
@@ -159,15 +160,16 @@ include_once('headernav.php');
 						</div>
 					</div>
 				</div>
-				<div class="col-lg-4"></div>
+			<div class="col-lg-2 mt-4"><center>To</center></div>
 				<div class="col-lg-4">
 					<div class="form-group">
-						<label class="form-label mt-3" for="full-name-1"></label>
+					<label class="form-label" for="full-name-1"><sup class="text-danger">* </sup>Service Effective Date Range</label>
 						<div class="form-control-wrap">
 							<input type="text" class="form-control datepicker" id="ser_effect2" name="ser_effect2" autocomplete="off">
 						</div>
 					</div>
 				</div>
+				<div class="col-lg-1 mt-4"><center></center></div>
 				<!-- <div class="col-lg-12">
 					<div class="form-group">
 						<label class="form-label" for="full-name-1">Service Transition Date</label>
@@ -194,7 +196,7 @@ include_once('headernav.php');
 						</div>
 					</div>
 				</div>
-				
+				<div class="col-lg-1 mt-4"><center></center></div>
 				<div class="col-lg-12">
 					<div class="form-group">
 						<label class="form-label" for="full-name-1">Publish</label>
@@ -566,12 +568,8 @@ include_once('headernav.php');
 								  <div class="form-group">
 									  <label class="col-form-label" for="full-name-1">Approximate Polling Time</label>
 									<div class="form-control-wrap">
-										<select class="form-control" name="po_aptime" id="po_aptime">
-											<option value="">- Select -</option>
-											<option value="03:00">03:00</option>
-											<option value="04:00">04:00</option>
-											<option value="05:00">05:00</option>
-										</select>
+										<input class="form-control" name="po_aptime" id="po_aptime" type="time" >
+										
 									</div>
 								</div> 		
 							  </div>
@@ -583,13 +581,8 @@ include_once('headernav.php');
 								  <div class="form-group">
 									<label class="col-form-label" for="full-name-1">Reservation Period</label>
 									<div class="form-control-wrap">
-										<select class="form-control" name="po_resp" id="po_resp">
-											<option value="">- Select -</option>
-											<option value="03:00">03:00</option>
-											<option value="04:00">04:00</option>
-											<option value="05:00">05:00</option>
-											<option value="06:00">06:00</option>
-										</select>
+									    <input type="time" class="form-control" name="po_resp" id="po_resp">
+									
 									</div>
 								</div> 		
 							  </div>

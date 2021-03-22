@@ -38,3 +38,13 @@
 [17-Mar-2021 12:30:26 UTC] PHP Warning:  mysqli_num_rows() expects parameter 1 to be mysqli_result, bool given in /home/extremeearn/hospital.extremeearn.com/php/phpcode.php on line 160
 [17-Mar-2021 12:30:26 UTC] PHP Warning:  mysqli_num_rows() expects parameter 1 to be mysqli_result, bool given in /home/extremeearn/hospital.extremeearn.com/php/phpcode.php on line 169
 [17-Mar-2021 12:30:26 UTC] PHP Warning:  mysqli_num_rows() expects parameter 1 to be mysqli_result, bool given in /home/extremeearn/hospital.extremeearn.com/php/phpcode.php on line 176
+[21-Mar-2021 12:14:33 UTC] PHP Parse error:  syntax error, unexpected end of file in /home/extremeearn/hospital.extremeearn.com/php/phpcode.php on line 392
+[21-Mar-2021 12:14:46 UTC] PHP Parse error:  syntax error, unexpected end of file in /home/extremeearn/hospital.extremeearn.com/php/phpcode.php on line 392
+[21-Mar-2021 12:14:48 UTC] PHP Parse error:  syntax error, unexpected end of file in /home/extremeearn/hospital.extremeearn.com/php/phpcode.php on line 392
+[21-Mar-2021 12:14:50 UTC] PHP Parse error:  syntax error, unexpected end of file in /home/extremeearn/hospital.extremeearn.com/php/phpcode.php on line 392
+[21-Mar-2021 12:14:53 UTC] PHP Parse error:  syntax error, unexpected end of file in /home/extremeearn/hospital.extremeearn.com/php/phpcode.php on line 392
+[21-Mar-2021 12:15:48 UTC] PHP Parse error:  syntax error, unexpected end of file in /home/extremeearn/hospital.extremeearn.com/php/phpcode.php on line 392
+[21-Mar-2021 12:15:59 UTC] PHP Parse error:  syntax error, unexpected end of file in /home/extremeearn/hospital.extremeearn.com/php/phpcode.php on line 392
+[21-Mar-2021 12:20:21 UTC] PHP Parse error:  syntax error, unexpected end of file in /home/extremeearn/hospital.extremeearn.com/php/phpcode.php on line 392
+[21-Mar-2021 12:20:23 UTC] PHP Parse error:  syntax error, unexpected end of file in /home/extremeearn/hospital.extremeearn.com/php/phpcode.php on line 392
+[21-Mar-2021 12:22:42 UTC] PHP Parse error:  syntax error, unexpected end of file in /home/extremeearn/hospital.extremeearn.com/php/phpcode.php on line 392

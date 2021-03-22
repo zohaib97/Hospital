@@ -173,7 +173,7 @@ include_once('../database/db.php');
 												   maxlength="3" required onchange="showsearch()">
 											</div>
 											
-											<div class="col-md-1" id="btn2">
+											<div class="col-md-2" id="btn2">
 
 											</div>
 											<div class="col-md-2" id="btn">
@@ -774,7 +774,7 @@ $(function () {
 // INITIALIZE DATEPICKER PLUGIN
 $('.datepicker').datepicker({
 	clearBtn: true,
-	format: "dd/mm/yyyy"
+	format: "mm/dd/yyyy"
 });
 
 

@@ -24,3 +24,11 @@
 [17-Mar-2021 10:43:11 UTC] PHP Warning:  mysqli_num_rows() expects parameter 1 to be mysqli_result, bool given in /home/extremeearn/hospital.extremeearn.com/Gprefferer/phpcode.php on line 946
 [17-Mar-2021 10:43:11 UTC] PHP Warning:  mysqli_num_rows() expects parameter 1 to be mysqli_result, bool given in /home/extremeearn/hospital.extremeearn.com/Gprefferer/phpcode.php on line 946
 [17-Mar-2021 10:43:37 UTC] PHP Warning:  mysqli_num_rows() expects parameter 1 to be mysqli_result, bool given in /home/extremeearn/hospital.extremeearn.com/Gprefferer/phpcode.php on line 946
+[21-Mar-2021 15:11:43 UTC] PHP Parse error:  syntax error, unexpected '.' in /home/extremeearn/hospital.extremeearn.com/Gprefferer/phpcode.php on line 1907
+[21-Mar-2021 15:11:43 UTC] PHP Parse error:  syntax error, unexpected '.' in /home/extremeearn/hospital.extremeearn.com/Gprefferer/phpcode.php on line 1907
+[21-Mar-2021 15:11:43 UTC] PHP Parse error:  syntax error, unexpected '.' in /home/extremeearn/hospital.extremeearn.com/Gprefferer/phpcode.php on line 1907
+[21-Mar-2021 15:11:43 UTC] PHP Parse error:  syntax error, unexpected '.' in /home/extremeearn/hospital.extremeearn.com/Gprefferer/phpcode.php on line 1907
+[21-Mar-2021 15:11:43 UTC] PHP Parse error:  syntax error, unexpected '.' in /home/extremeearn/hospital.extremeearn.com/Gprefferer/phpcode.php on line 1907
+[21-Mar-2021 15:11:47 UTC] PHP Parse error:  syntax error, unexpected '.' in /home/extremeearn/hospital.extremeearn.com/Gprefferer/phpcode.php on line 1907
+[21-Mar-2021 15:11:47 UTC] PHP Parse error:  syntax error, unexpected '.' in /home/extremeearn/hospital.extremeearn.com/Gprefferer/phpcode.php on line 1907
+[21-Mar-2021 15:12:09 UTC] PHP Parse error:  syntax error, unexpected '.' in /home/extremeearn/hospital.extremeearn.com/Gprefferer/phpcode.php on line 1907

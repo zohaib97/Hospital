@@ -12,12 +12,7 @@ $query = mysqli_query($con,"SELECT * FROM `tbl_patients` WHERE pt_nhsno = '$nsh'
 		<table class="nowrap nk-tb-list is-separate" data-auto-responsive="false" id="myTable">
 			<thead>
 				<tr class="nk-tb-item nk-tb-head">
-					<th class="nk-tb-col nk-tb-col-check">
-						<div class="custom-control custom-control-sm custom-checkbox notext">
-							<input type="checkbox" class="custom-control-input" id="puid">
-							<label class="custom-control-label" for="puid"></label>
-						</div>
-					</th>
+				
 					<th class="nk-tb-col tb-col-sm"><span>Name</span></th>
 				
 					<th class="nk-tb-col"><span>Mobile No</span></th>
@@ -39,12 +34,7 @@ $query = mysqli_query($con,"SELECT * FROM `tbl_patients` WHERE pt_nhsno = '$nsh'
 	$dob = $fetch['pt_dob'];
 
 echo'   <tr class="nk-tb-item">
-	<td class="nk-tb-col nk-tb-col-check">
-		<div class="custom-control custom-control-sm custom-checkbox notext">
-			<input type="checkbox" class="custom-control-input gg" name="check[]" value="'.$id.'" id="check'.$id.'" >
-			<label class="custom-control-label" for="check'.$id.'" onclick="showss('.$id.')"></label>
-		</div>
-	</td>
+
 	<td class="nk-tb-col tb-col-sm">
 		<span class="tb-product">
 			

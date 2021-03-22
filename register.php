@@ -89,7 +89,7 @@ include_once('database/db.php');
 							  </div>
 							  <div class="form-group col-lg-6">
 							    <label>Role</label>
-								<select class="form-control" id="conrole" name="role" autocomplete="off">
+								<select class="form-control select" id="conrole" name="role" autocomplete="off">
 								  <option>Select</option>
 								 <?php 
 									$q5 = mysqli_query($con,"SELECT * FROM `tbl_role` ");
@@ -105,11 +105,10 @@ include_once('database/db.php');
 							</div>
 							<div class="row" id="form2" style="display: none;">
 							<div class="form-group col-lg-6 mt-2">
-							    <select id="title" class="form-control" name="title"  aria-placeholder="Title" autocomplete="off" >
+							    <select id="title" class="form-control select" name="title"  aria-placeholder="Title" autocomplete="off" >
 										<option>--Select Title--</option>
 									
 										<option value="Mr">Mr</option>
-											<option value="Miss">Miss</option>
 												<option value="Mrs">Mrs</option>
 												<option value="Ms">Ms</option>
 												<option value="Dr">Dr</option>
@@ -117,7 +116,7 @@ include_once('database/db.php');
 									</select>
 							  </div>
 								<div class="form-group col-lg-6 mt-2">
-									<select id="orgtype" class="form-control" name="orgtype" onchange="alsk(this.value)" aria-placeholder="Organisation Type" >
+									<select id="orgtype" class="form-control select" name="orgtype" onchange="alsk(this.value)" aria-placeholder="Organisation Type" >
 										<option>--Select Organisation Type--</option>
 										<?php 
 										$q1s=mysqli_query($con,"SELECT * FROM `orginzation`");
@@ -365,6 +364,7 @@ function alsk(id){
 		data:{id:id,fetchorgdata:"btn"},
 		dataType:"JSON",
 		success:function(res){
+		    console.log(res);
 		$("#orgname").val(res.or_name);
 		$("#orgphno").val(res.or_phone);
 		$("#orgaddress").val(res.or_address);

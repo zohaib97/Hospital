@@ -28,7 +28,17 @@ include_once('database/db.php');
 	include_once('headernav.php');
 	?>
     <!-- END HEADER SECTION -->
-
+<style>
+.select2-container--default .select2-selection--single{
+    height:44px !important;
+}
+.select2-container--default .select2-selection--single .select2-selection__rendered{
+    line-height: 40px !important;
+}
+    .select2-container--default .select2-selection--single .select2-selection__arrow{
+            height: 10px !important; 
+    }
+</style>
     <!-- START PAGE BANNER AND BREADCRUMBS -->
     <section class="single-page-title-area" data-background="assets/img/bg/heading.png">
         <div class="auto-container">
@@ -81,8 +91,23 @@ include_once('database/db.php');
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label class="col-form-label" for="otype">Organisation Type</label>
-                                        <input type="text" class="form-control form-control-sm" id="otype" name="otype"
-                                            placeholder="Enter Type" name="otype" autocomplete="off" required>
+                                       		<select  class="form-control form-control-sm select1" id="otype" name="otype" style=" height: 44px !important;"  required>
+                                       		    <option value="">-Select Type-</option>
+                                                        <?php
+                                                        $sql = mysqli_query($con,"SELECT * FROM orginzation");
+                                                    if(mysqli_num_rows($sql)>0)
+                                                    {
+
+                                                    
+                                                        $fetc = mysqli_fetch_array($sql);
+                                                        ?>
+                                                        <option value="<?=$fetc['or_type']?>"><?=$fetc['or_type']?></option>
+                                                        <?php
+                                                    }
+                                                        ?>
+                                                        </select>
+                                                        <!--<input type="text" class="" id="otype" name="otype"-->
+                                            <!--placeholder="Enter Type" name="otype" autocomplete="off" required>-->
                                     </div>
                                 </div>
                                 <div class="col-md-6">
@@ -239,16 +264,16 @@ include_once('database/db.php');
                
                 if(data == 'Error'){
                    toastr.clear(); 
-               NioApp.Toast("<h5>Orginzation Didn't Add Successfully</h5>", 'error',{position:'top-right'});
+               NioApp.Toast("<h5>Organisation Didn't Add Successfully</h5>", 'error',{position:'top-right'});
                 }else if (data == "alreadynhs"){
 					toastr.clear();
-               NioApp.Toast("<h5>Already Orginzation Created</h5>", 'error',{position:'top-right'});
+               NioApp.Toast("<h5>Already Organisation Created</h5>", 'error',{position:'top-right'});
 				}
 				else if(data == "sss")
 					{
 					$('#oradd')[0].reset();
 					toastr.clear();
-               NioApp.Toast("<h5>Orginzation Added Successfully</h5>", 'success',{position:'top-right'});
+               NioApp.Toast("<h5>Organisation Added Successfully</h5>", 'success',{position:'top-right'});
 					
                 }
 			
@@ -260,7 +285,7 @@ include_once('database/db.php');
 
     });
     function clic(){
-    swal("Success!", "Orgnaisation has been registered please wait for admin approvel.", "success"); 
+    swal("Success!", "Organisation has been registered please wait for admin approvel.", "success"); 
 }
 	</script>
 

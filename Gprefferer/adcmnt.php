@@ -213,6 +213,27 @@ include_once('header.php');
 					<h6>Country:</h6>
 					<p class="mb-1"><?=$fetch4['pt_country']?></p>
 					</div>
+						<div class="col-md-6">
+					<h6>House No/Name:</h6>
+					<p class="mb-1"><?=$fetch4['pt_houseno']?></p>
+					</div>
+						<div class="col-md-6">
+					<h6>Street Name:</h6>
+					<p class="mb-1"><?=$fetch4['pt_streetname']?></p>
+					</div>
+						<div class="col-md-6">
+					<h6>Post Code:</h6>
+					<p class="mb-1"><?=$fetch4['pt_postcode']?></p>
+					</div>
+						<div class="col-md-6">
+					<h6>TelePhone Number:</h6>
+					<p class="mb-1"><?=$fetch4['pt_telno']?></p>
+					</div>
+						<div class="col-md-6">
+					<h6>Mobile Number:</h6>
+					<p class="mb-1"><?=$fetch4['pt_mobno']?></p>
+					</div>
+					
 					</div>
                 </div>
                 <div class="modal-footer bg-light">

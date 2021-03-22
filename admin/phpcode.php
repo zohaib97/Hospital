@@ -211,7 +211,7 @@ $query = mysqli_query($con,"SELECT * FROM orginzation INNER JOIN admin ON orginz
 				<tr class="nk-tb-item nk-tb-head">
 					<th class="nk-tb-col "><span>Name</span></th>
 					<th class="nk-tb-col"><span>Email</span></th>
-					<th class="nk-tb-col"><span>organisation</span></th>
+					<th class="nk-tb-col"><span>Oganisation Name</span></th>
 					<th class="nk-tb-col"><span>Password</span></th>
 					<th class="nk-tb-col"><span>Contact</span></th>
 					
@@ -1141,12 +1141,12 @@ $query = mysqli_query($con,"SELECT * FROM `orginzation` WHERE status = 'Approved
 		<table class="nowrap nk-tb-list is-separate" data-auto-responsive="false" id="myTable">
 		<thead>
 			<tr class="nk-tb-item nk-tb-head">
-				<th class="nk-tb-col"><span>Name</span></th>
+				<th class="nk-tb-col"><span>Organisation  Name</span></th>
 				<th class="nk-tb-col"><span>Type</span></th>
 				<th class="nk-tb-col"><span>Address</span></th>
 				<th class="nk-tb-col"><span>Contact</span></th>
 				<th class="nk-tb-col"><span>Code </span></th>
-				<th class="nk-tb-col"><span>1st Line Address</span></th>
+				<th class="nk-tb-col"><span>Frist Line Address</span></th>
 				<th class="nk-tb-col"><span>City</span></th>
 				<th class="nk-tb-col"><span>Postal code</span></th>
 				<th class="nk-tb-col"><span>Status</span></th>
@@ -1257,15 +1257,16 @@ $query = mysqli_query($con,"SELECT * FROM `orginzation` WHERE status ='Not appro
 	if($query)
 	{
 		echo'
-		<link rel="stylesheet" href="https://cdn.datatables.net/1.10.23/css/dataTables.bootstrap4.min.css">	<table class="nowrap nk-tb-list is-separate" data-auto-responsive="false" id="myTable">
+		<link rel="stylesheet" href="https://cdn.datatables.net/1.10.23/css/dataTables.bootstrap4.min.css">	
+		<table class="nowrap nk-tb-list is-separate" data-auto-responsive="false" id="myTable">
 		<thead>
 			<tr class="nk-tb-item nk-tb-head">
-				<th class="nk-tb-col tb-col-sm"><span>Name</span></th>
+				<th class="nk-tb-col tb-col-sm"><span>Organisation Name</span></th>
 				<th class="nk-tb-col"><span>Type</span></th>
 				<th class="nk-tb-col"><span>Address</span></th>
 				<th class="nk-tb-col"><span>Contact</span></th>
 				<th class="nk-tb-col"><span>Code </span></th>
-				<th class="nk-tb-col"><span>1st Line Address</span></th>
+				<th class="nk-tb-col"><span>First Line Address</span></th>
 				<th class="nk-tb-col"><span>City</span></th>
 				<th class="nk-tb-col"><span>Postal code</span></th>
 				<th class="nk-tb-col"><span>Status</span></th>

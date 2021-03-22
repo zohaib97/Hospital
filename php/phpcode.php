@@ -137,7 +137,15 @@ if(isset($_POST['loginpage']))
 			}
 			else
 			{ 
-				// for role user consultant
+				// for role user Optometrist
+				$qu1 = mysqli_query($con,"SELECT * FROM `tbl_ruser` WHERE `ur_email` = '$lemail' and `ur_pass` = '$lpass' and ur_role_id = '6'");
+				$nu1 = mysqli_num_rows($qu1);
+				if($nu1>0)
+				{
+					$_SESSION['consultant'] = $lemail;
+					echo "Optometrist";
+				}else {
+				    // for role user consultant
 				$qu1 = mysqli_query($con,"SELECT * FROM `tbl_ruser` WHERE `ur_email` = '$lemail' and `ur_pass` = '$lpass' and ur_role_id = '3'");
 				$nu1 = mysqli_num_rows($qu1);
 				if($nu1>0)
@@ -184,6 +192,7 @@ if(isset($_POST['loginpage']))
 						}
 						}
 					}
+				}
 				}
 			}
 		}
@@ -299,8 +308,7 @@ if(isset($_POST['resetpass']))
 				echo "notupdpass";
 			}
 		}		
-
-	}else {
+}else {
 		echo "notfoundcode";
 	}
 		
@@ -381,4 +389,5 @@ if(isset($_POST["addorginaztion"]))
 		echo "Error";
 	}
 }
+
 ?>

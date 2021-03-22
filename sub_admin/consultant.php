@@ -44,7 +44,7 @@ include_once('header.php');
                                     <option value="Nurse">Nurse</option>
                                     <option value="Dentist">Dentist</option>
                                     <option value="GP_Refferer">GP Refferer</option>
-
+                                    <option value="Optometrist">Optometrist</option>
                                     </select>
                                     </div>
                                     <br>
@@ -209,6 +209,21 @@ else if(Role == "GP_Refferer")
 
         });
 }
+else if(Role == "Optometrist")
+{
+    $.ajax({
+            type: "POST",
+            url: "phpcode.php",
+            data: {
+                Optometristbtn: "btn"
+            },
+            success: function(response) {
+                $("#adata").html(response);
+                //alert(response);
+            }
+
+        });
+}
     }
     $(document).ready(function() {
         fetchadmindata();
@@ -261,48 +276,6 @@ else if(Role == "GP_Refferer")
             }
         });
     };
-    // function aprovenotaprove(id,status){
-
-
-    // var name  = status;
-    // 	var ide = id;
-
-
-    // 	$.ajax({
-    //         type: 'POST',
-    //         url: 'phpcode.php',
-    //         data: {method:name,
-    // 			   id:ide,
-
-    // 			  },
-
-    //         success: function(data){
-
-    //             if(data == 'Error'){
-    //                toastr.clear();
-    // NioApp.Toast("<h5>Hospital didn't Updated</h5>", 'error',{position:'top-right'});
-
-    //             }
-    // 			else if(data == 'Success'){
-    // 			if(name == 'cactive') 
-    // 				{
-
-    // 					 toastr.clear();
-    // NioApp.Toast("<h5>Consultant De-Activated</h5>", 'error',{position:'top-right'});
-    // 			fetchadmindata();
-    // 				}
-    // 				else{
-    //           toastr.clear();
-    // NioApp.Toast("<h5>Consultant Activated Successfully</h5>", 'success',{position:'top-right'});
-    // 			fetchadmindata();
-
-    // 				}
-    //             }
-
-
-    //         }
-    //     });
-    // };
     function aprovenotaprove(id, status) {
 
 
@@ -349,7 +322,52 @@ else if(Role == "GP_Refferer")
             }
         });
     };
+    function oaprovenotaprove(id, status) {
 
+
+        var name = status;
+        var ide = id;
+
+
+        $.ajax({
+            type: 'POST',
+            url: 'phpcode.php',
+            data: {
+                method: name,
+                id: ide,
+
+            },
+
+            success: function(data) {
+
+                if (data == 'Error') {
+                    toastr.clear();
+                    NioApp.Toast("<h5>Optometrist didn't Updated</h5>", 'error', {
+                        position: 'top-right'
+                    });
+
+                } else if (data == 'Success') {
+                    if (name == 'mactive') {
+
+                        toastr.clear();
+                        NioApp.Toast("<h5>Optometrist De-Activated</h5>", 'error', {
+                            position: 'top-right'
+                        });
+                        fetchadmindata();
+                    } else {
+                        toastr.clear();
+                        NioApp.Toast("<h5>Optometrist Activated Successfully</h5>", 'success', {
+                            position: 'top-right'
+                        });
+                        fetchadmindata();
+
+                    }
+                }
+
+
+            }
+        });
+    };
     function openmodal1(id, fname, sname, email, pass, contact, depart, dob, roleid) {
         $('#mid').val(id);
         $('#roleid').val(roleid);

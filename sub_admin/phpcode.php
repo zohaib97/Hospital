@@ -1476,7 +1476,118 @@ if(isset($_POST['genralpbtn']))
 	';
 	}
 }
+if(isset($_POST['Optometristbtn']))
+{
+	$query = mysqli_query($con,"SELECT * FROM `tbl_ruser`,tbl_role,orginzation where tbl_role.ro_id=tbl_ruser.ur_role_id and tbl_ruser.ur_orgtype = orginzation.orid and tbl_ruser.ur_role_id='6'");
+				
+	if($query)
+	{
+		echo'<link rel="stylesheet" href="https://cdn.datatables.net/1.10.23/css/dataTables.bootstrap4.min.css">
+		
+		<table class="nowrap nk-tb-list is-separate " data-auto-responsive="false" id="myTable">
+					<thead>
+						<tr class="nk-tb-item nk-tb-head">
+						
+							<th class="nk-tb-col"><span>Full Name</span></th>
+							<th class="nk-tb-col"><span>Email</span></th>
+							<th class="nk-tb-col"><span>Password</span></th>
+							<th class="nk-tb-col"><span>Role</span></th>
+							<th class="nk-tb-col"><span>Orgnisation Type</span></th>
+							<th class="nk-tb-col"><span>Orgnisation Name</span></th>
+							<th class="nk-tb-col"><span>Status</span></th>
+							<th class="nk-tb-col nk-tb-col-tools">
+								<ul class="nk-tb-actions gx-1 my-n1">
+									<li class="mr-n1">
+										<div class="dropdown">
+											<a href="#" class="dropdown-toggle btn btn-icon btn-trigger" data-toggle="dropdown"><em class="icon ni ni-more-h"></em></a>
+											<div class="dropdown-menu dropdown-menu-right">
+												<ul class="link-list-opt no-bdr">
+													<li><a href="#"><em class="icon ni ni-edit"></em><span>Edit Selected</span></a></li>
+													<li><a href="#"><em class="icon ni ni-trash"></em><span>Remove Selected</span></a></li>
+													<li><a href="#"><em class="icon ni ni-bar-c"></em><span>Update Stock</span></a></li>
+													<li><a href="#"><em class="icon ni ni-invest"></em><span>Update Price</span></a></li>
+												</ul>
+											</div>
+										</div>
+									</li>
+								</ul>
+							</th>
+						</tr><!-- .nk-tb-item -->
+					</thead>
+					 <tbody id="">';
+		while($fetch = mysqli_fetch_array($query))
+		{
+	$mid = $fetch['ur_id'];
+	// $mname = $fetch['staff_fname'];
+	// $msname = $fetch['staff_sname'];
+	// $memail = $fetch['staff_email'];
+	// $mpass = $fetch['staff_pass'];
+	// $mphn = $fetch['staff_contact'];
+	// $mdepart = $fetch['staff_department'];
+	// $mdob = $fetch['staff_dob'];
+	// $mrole = $fetch['tbl_role'];
+	// $mrname = $fetch['role_name'];
 
+	echo'   <tr class="nk-tb-item">
+	
+	<td class="nk-tb-col">
+		<span class="tb-product">
+			<span class="tb-sub">'.$fetch['ur_fname'].$fetch["ur_sname"].'</span>
+		</span>
+	</td>
+	<td class="nk-tb-col">
+		<span class="tb-sub">'.$fetch['ur_email'].'</span>
+	</td>
+	<td class="nk-tb-col">
+		<span class="tb-sub">'.$fetch['ur_pass'].'</span>
+	</td>
+	<td class="nk-tb-col">
+	<span class="tb-sub">'.$fetch['ro_role'].'</span>
+	</td>
+	<td class="nk-tb-col">
+		<span class="tb-sub">'.$fetch['or_type'].'</span>
+	</td>
+	<td class="nk-tb-col">
+		<span class="tb-sub">'.$fetch['or_name'].'</span>
+	</td>
+	<td class="nk-tb-col">';
+	if($fetch["ur_status"] =="not_approve"){
+		echo '<span class="btn btn-danger" onclick="oaprovenotaprove(\''.$mid.'\',\''."o".$fetch["ur_status"].'\')">Not Active</span>';
+	}elseif($fetch["ur_status"] =="approve"){
+		echo '<span class="btn btn-success" onclick="oaprovenotaprove(\''.$mid.'\',\''."o".$fetch["ur_status"].'\')">Active</span>';
+	}
+	echo '</td>
+	<td class="nk-tb-col nk-tb-col-tools">
+		<ul class="nk-tb-actions gx-1 my-n1">
+			<li class="mr-n1">
+				<div class="dropdown">
+					<a href="#" class="dropdown-toggle btn btn-icon btn-trigger" data-toggle="dropdown"><em class="icon ni ni-more-h"></em></a>
+					<div class="dropdown-menu dropdown-menu-right">
+						<ul class="link-list-opt no-bdr">';
+			// <li><a href="javascript:void(0)" onClick="openmodal1('."'$mid'".','."'$mname'".','."'$msname'".','."'$memail'".','."'$mpass'".','."'$mphn'".','."'$mdepart'".','."'$mdob'".','."'$mrole'".')"><em class="icon ni ni-edit"></em><span>Edit</span></a></li>
+							echo '<li><a href="#"><em class="icon ni ni-eye"></em><span>View</span></a></li>
+							
+							<li><a href="javascript:void(0)" onClick="confirm('."'$mid'".')"><em class="icon ni ni-trash"></em><span>Remove</span></a></li>
+
+						</ul>
+					</div>
+				</div>
+			</li>
+		</ul>
+	</td>
+	</tr>';
+										
+		}
+		echo'</tbody> </table>
+		<script src="https://cdn.datatables.net/1.10.23/js/jquery.dataTables.min.js"></script>
+	<script src="https://cdn.datatables.net/1.10.23/js/dataTables.bootstrap4.min.js"></script>
+	<script>$(document).ready(function () {
+		$("#myTable").DataTable();
+	} )
+	</script>
+	';
+	}
+}
 // for Service Definer from sub_admin
 if(isset($_POST['servicadd']))
 	{
@@ -1956,6 +2067,33 @@ if(isset($_POST['method']))
 		}
 	//for Gp-refferer active
 	if($_POST['method'] == "gnot_approve")
+		{
+			
+			$id = $_POST['id'];
+			$query = "UPDATE `tbl_ruser` SET `ur_status` = 'approve' WHERE `ur_id` = '$id'";
+			$vq = mysqli_query($con,$query);
+			
+			if($vq)
+			{
+				echo("Success");
+			}
+			
+		}
+		if($_POST['method'] == "oapprove")
+			{
+				
+				$id = $_POST['id'];
+				$query = "UPDATE `tbl_ruser` SET `ur_status` = 'not_approve' WHERE `ur_id` = '$id'";
+				$vq = mysqli_query($con,$query);
+				
+				if($vq)
+				{
+					echo("Success");
+				}
+			
+		}
+	//for Gp-refferer active
+	if($_POST['method'] == "onot_approve")
 		{
 			
 			$id = $_POST['id'];

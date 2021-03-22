@@ -49,16 +49,14 @@ include_once('../database/db.php');
 													?>
 													<div class="form-group">
 														<label class="col-form-label" for="fname">Patient Title</label>
-														<input type="text" value="<?=$fe['ur_id']?>" id="rid" hidden="true" name="rid">										<input type="text" value="<?=$fe['ur_hid']?>" id="hid" hidden="true" name="hid">			
+														<input type="text" value="<?=$fe['ur_id']?>" id="rid" hidden="true" name="rid">									
+														<input type="text" value="<?=$fe['ur_hid']?>" id="hid" hidden="true" name="hid">			
 <!--														<input type="text" class="form-control form-control-lg" id="" value="" placeholder="Enter Title" name="ptitle" required>-->
 														<select name="ptitle" id="" class="form-control form-control-lg">
 															<option>- Select -</option>
 														<option value="Mr">Mr</option>
-											<option value="Miss">Miss</option>
 												<option value="Mrs">Mrs</option>
 												<option value="Ms">Ms</option>
-												<option value="Dr">Dr</option>
-												<option value="Prof">Prof</option>
 														</select>
 													</div>
 												</div>

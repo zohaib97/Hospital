@@ -33,7 +33,7 @@ include_once('../database/db.php');
                             <div class="nk-content-body">
                                 <div class="components-preview wide-md mx-auto">
                                     <div class="nk-block-head nk-block-head-lg wide-sm">
-										<h2 class="nk-block-title fw-normal">Create Refferel</h2>
+										<h2 class="nk-block-title fw-normal">Create Patient</h2>
                                     </div>
                                     <div class="nk-block nk-block-lg">
                                        <div class="card p-5">
@@ -54,11 +54,8 @@ include_once('../database/db.php');
 														<select name="ptitle" id="" class="form-control form-control-lg">
 															<option>- Select -</option>
 														<option value="Mr">Mr</option>
-											<option value="Miss">Miss</option>
 												<option value="Mrs">Mrs</option>
 												<option value="Ms">Ms</option>
-												<option value="Dr">Dr</option>
-												<option value="Prof">Prof</option>
 														</select>
 													</div>
 												</div>

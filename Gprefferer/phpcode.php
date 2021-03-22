@@ -162,18 +162,14 @@ if(isset($_POST['refferelfetch']))
 		<table class="nowrap nk-tb-list is-separate" data-auto-responsive="false" id="myTable">
 			<thead>
 				<tr class="nk-tb-item nk-tb-head">
-					<th class="nk-tb-col nk-tb-col-check">
-						<div class="custom-control custom-control-sm custom-checkbox notext">
-							<input type="checkbox" class="custom-control-input" id="puid">
-							<label class="custom-control-label" for="puid"></label>
-						</div>
-					</th>
+				
 					<th class="nk-tb-col"><span>Service Id</span></th>
 					<th class="nk-tb-col tb-col-sm"><span>Consultant Name</span></th>
 					<th class="nk-tb-col"><span>Service Name</span></th>
 					<th class="nk-tb-col"><span>NHS Number</span></th>
 					<th class="nk-tb-col"><span>Organisation Name</span></th>
 					<th class="nk-tb-col"><span>Status</span></th>
+						<th class="nk-tb-col"><span>Chat</span></th>
 				</tr><!-- .nk-tb-item -->
 			</thead>
 			 <tbody id="">';
@@ -182,12 +178,7 @@ if(isset($_POST['refferelfetch']))
 	$rfid = $fetch['c_id'];
 
 	echo'   <tr class="nk-tb-item">
-	<td class="nk-tb-col nk-tb-col-check">
-		<div class="custom-control custom-control-sm custom-checkbox notext">
-			<input type="checkbox" class="custom-control-input" name="check" id="'.$rfid.'" onclick="show('."'$rfid'".')">
-			<label class="custom-control-label" for="'.$rfid.'"></label>
-		</div>
-	</td>
+
 	<td class="nk-tb-col">
 		<span class="tb-lead">'.$fetch['c_serid'].'</span>
 	</td>
@@ -222,7 +213,9 @@ if(isset($_POST['refferelfetch']))
 
 	<span class="badge badge-danger">Un-Accepted</span>
 	</td>
-
+	<td class="nk-tb-col">
+		<a class="tb-lead btn btn-info btn-sm text-white" href="adcmnt.php?c_id='.$fetch["c_id"].'&coid='.$fetch["c_userid"].'&pid='.$fetch["c_rfid"].'">Chat </a>
+	</td>
 	';   
 	}
 	
@@ -947,6 +940,7 @@ if(isset($_POST['patientfetch']))
 	{
 		echo'<link rel="stylesheet" href="https://cdn.datatables.net/1.10.23/css/dataTables.bootstrap4.min.css">
 		<hr>
+	<h5>Patient List</h5>
 		<table class="nowrap nk-tb-list is-separate" data-auto-responsive="false" id="myTable">
 			<thead>
 				<tr class="nk-tb-item nk-tb-head">
@@ -974,7 +968,8 @@ if(isset($_POST['patientfetch']))
 	$nh = $fetch['pt_nhsno'];
 	$mobno = $fetch['pt_mobno'];
 	$sname = $fetch['pt_streetname'];
-	$dob = $fetch['pt_dob'];
+	$date =date_create($fetch['pt_dob']);
+	$dob = date_format($date,"d-m-Y");
 
 	echo'   <tr class="nk-tb-item">
 	<td class="nk-tb-col nk-tb-col-check">
@@ -1499,23 +1494,21 @@ if(isset($_POST['searchpatient']))
 {
 	$em = $_POST['em'];
 	$nm = $_POST['nm'];
-	$dob = $_POST['dob'];
-
+	$date=date_create($_POST['dob']);
+ 
+	$dob =date_format($date,"Y-m-d");
+    // echo $dob;
 $assa = mysqli_query($con,"SELECT * FROM `tbl_patients` where pt_name ='$nm' and pt_dob='$dob' and pt_surname='$em'");
 	// echo mysqli_error($con);
 	if($assa)
 	{
 		echo'<link rel="stylesheet" href="https://cdn.datatables.net/1.10.23/css/dataTables.bootstrap4.min.css">
 		<hr>
+		<h5>Patient List</h5>
 		<table class="nowrap nk-tb-list is-separate" data-auto-responsive="false" id="myTable">
 			<thead>
 				<tr class="nk-tb-item nk-tb-head">
-					<th class="nk-tb-col nk-tb-col-check">
-						<div class="custom-control custom-control-sm custom-checkbox notext">
-							<input type="checkbox" class="custom-control-input" id="puid">
-							<label class="custom-control-label" for="puid"></label>
-						</div>
-					</th>
+				
 					<th class="nk-tb-col tb-col-sm"><span>Name</span></th>
 				
 					<th class="nk-tb-col"><span>Mobile No</span></th>
@@ -1540,12 +1533,7 @@ $assa = mysqli_query($con,"SELECT * FROM `tbl_patients` where pt_name ='$nm' and
 
 
 echo'   <tr class="nk-tb-item">
-	<td class="nk-tb-col nk-tb-col-check">
-		<div class="custom-control custom-control-sm custom-checkbox notext">
-			<input type="checkbox" class="custom-control-input gg" name="check[]" value="'.$id.'" id="check'.$id.'" >
-			<label class="custom-control-label" for="check'.$id.'" onclick="showss('.$id.')"></label>
-		</div>
-	</td>
+	
 	<td class="nk-tb-col tb-col-sm">
 		<span class="tb-product">
 			
@@ -1700,13 +1688,15 @@ if(isset($_POST['searchpatienta']))
 {
 	$em = $_POST['em'];
 	$nm = $_POST['nm'];
-	$dob = $_POST['dob'];
+	$date=date_create($_POST['dob']);
+	$dob = date_format($date,"Y-m-d");
 
 $assa = mysqli_query($con,"SELECT * FROM `tbl_patients` where pt_name ='$nm' and pt_dob='$dob' and pt_surname='$em'");
 	if(mysqli_num_rows($assa)>0)
 	{
 		echo'<link rel="stylesheet" href="https://cdn.datatables.net/1.10.23/css/dataTables.bootstrap4.min.css">
 		<hr>
+			<h5>Patient List</h5>
 		<table class="nowrap nk-tb-list is-separate" data-auto-responsive="false" id="myTable">
 			<thead>
 				<tr class="nk-tb-item nk-tb-head">
@@ -1736,7 +1726,8 @@ $assa = mysqli_query($con,"SELECT * FROM `tbl_patients` where pt_name ='$nm' and
 	$mobno = $fetch['pt_mobno'];
 	$email = $fetch['pt_email'];
 	$sname = $fetch['pt_streetname'];
-	$dob = $fetch['pt_dob'];
+	$date=date_create($fetch['pt_dob']);
+	$dob = date_format($date,"d-m-Y");
     
 echo'   <tr class="nk-tb-item">
 	<td class="nk-tb-col nk-tb-col-check">
@@ -1789,7 +1780,7 @@ echo'   <tr class="nk-tb-item">
 if(isset($_POST['fetchconsultant']))
 {
 			$orgid = $_POST['org'];
-									 $q = mysqli_query($con,"SELECT * FROM `tbl_ruser` WHERE ur_role_id = '3' and ur_orgtype = '$orgid'");
+									 $q = mysqli_query($con,"SELECT * FROM `tbl_ruser` WHERE ur_role_id = '3' or ur_role_id = '6' and ur_orgtype = '$orgid'");
 									 if(mysqli_num_rows($q)>0)
 									 {
 										 while($fe = mysqli_fetch_array($q))
@@ -1857,12 +1848,7 @@ if(isset($_POST['apprefferelfetch']))
 		<table class="nowrap nk-tb-list is-separate" data-auto-responsive="false" id="myTable">
 			<thead>
 				<tr class="nk-tb-item nk-tb-head">
-					<th class="nk-tb-col nk-tb-col-check">
-						<div class="custom-control custom-control-sm custom-checkbox notext">
-							<input type="checkbox" class="custom-control-input" id="puid">
-							<label class="custom-control-label" for="puid"></label>
-						</div>
-					</th>
+				
 					<th class="nk-tb-col"><span>Service Id</span></th>
 					<th class="nk-tb-col tb-col-sm"><span>Consultant Name</span></th>
 					<th class="nk-tb-col"><span>Service Name</span></th>
@@ -1903,7 +1889,8 @@ if(isset($_POST['apprefferelfetch']))
 	</td>	
 	<td class="nk-tb-col">
 		<span class="tb-lead">'.$fetch['or_name'].'</span>
-	</td>';
+	</td>
+	';
 		if($fetch["c_status"] == 1 ){
  echo '
 	<td class="nk-tb-col">
