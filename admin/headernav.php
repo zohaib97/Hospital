@@ -161,7 +161,7 @@ include_once('connect.php');
 $id=$_SESSION['superadmin'];
 $mkj=mysqli_query($con,"SELECT * FROM `admin` where id='$id'");
 $kls=mysqli_fetch_array($mkj);
-$orid=$kls["organization"];
+$orid= isset($kls["organization"]);
  $e = mysqli_query($con,"SELECT COUNT(status) AS a FROM orginzation WHERE status ='NOT approved';");
  $row=mysqli_fetch_array($e);
  $w = mysqli_query($con,"SELECT COUNT(status) AS b FROM admin WHERE super_admin = '0' and  status ='not_approve';");

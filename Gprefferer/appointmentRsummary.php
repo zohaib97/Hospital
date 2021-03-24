@@ -116,6 +116,9 @@ include_once('../database/db.php');
             $sname =$f['service_name'];
             $q1 = mysqli_query($con,"SELECT * FROM `service_name` WHERE s_id = '$sname'");
             $f1 = mysqli_fetch_array($q1);
+            $orid = $fe['s_orgid'];
+            $mss = mysqli_query($con,"SELECT * FROM orginzation WHERE orid = '$orid'");
+            $fee = mysqli_fetch_array($mss);
             ?>
             <tr class="nk-tb-item">
 	<!-- <td class="nk-tb-col nk-tb-col-check">
@@ -137,7 +140,7 @@ include_once('../database/db.php');
 		<span class="tb-lead"><?=$f1['s_name']?></span>
 	</td>
 	<td class="nk-tb-col">
-		<span class="tb-lead"></span>
+		<span class="tb-lead"><?=$fee['or_type']?></span>
 	</td>
 	<td class="nk-tb-col">
 		<span class="tb-lead"><?=$f['sp_iwt']?></span>

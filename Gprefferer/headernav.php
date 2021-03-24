@@ -173,6 +173,12 @@ if(!isset($_SESSION['gprefferer'])){
 						$klo=mysqli_fetch_array($ks);
 									$qqqq = mysqli_query($con,"SELECT count(*) as a FROM tbl_consultantrefferels,tbl_refferelattachment WHERE tbl_refferelattachment.ra_refferelid=tbl_consultantrefferels.c_id and tbl_consultantrefferels.c_gpid = '$id' and reply='1' ");
 									$fds=mysqli_fetch_array($qqqq);
+									$mss = mysqli_query($con,"SELECT * FROM tbl_consultantrefferels,tbl_refferelattachment WHERE tbl_refferelattachment.ra_refferelid=tbl_consultantrefferels.c_id and tbl_consultantrefferels.c_gpid = '$id' and reply='1' ");
+									$fff= mysqli_fetch_array($mss);
+									$cid = $fff['ra_sender_id'];
+									$query = mysqli_query($con,"SELECT * FROM `tbl_ruser` WHERE `ur_id` = '$cid'");
+						$cfetch = mysqli_fetch_array($query);
+							
 									?>
 				        	<a href="#" class="dropdown-toggle nk-quick-nav-icon" data-toggle="dropdown" style="width: 37px;height: 37px;">
 							<i class="icon ni ni-bell"></i>
@@ -194,7 +200,7 @@ if(!isset($_SESSION['gprefferer'])){
 											<em class="icon icon-circle bg-warning-dim ni ni-curve-down-right"></em>
 										</div>
 										<div class="nk-notification-content">
-											<div class="nk-notification-text">You have New Refferel Reply</div>
+											<div class="nk-notification-text">You have New Refferel Reply From <?=$cfetch['ur_fname']?><?=$cfetch['ur_sname']?></div>
 											
 										</div>
 									</div>

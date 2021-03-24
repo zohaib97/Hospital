@@ -72,7 +72,7 @@ include_once('header.php');
 														$snq = mysqli_query($con, "SELECT * FROM `tbl_ruser` WHERE `ur_id` = '$sername'");
 															$serndata = mysqli_fetch_assoc($snq);
 														?>
-                                                        <span><?=$serndata["ur_name"]." ".$serndata['ur_sname']?> </span>
+                                                        <span><?=$serndata["ur_fname"]." ".$serndata['ur_sname']?> </span>
                                                     </li>
                                             
 
@@ -104,12 +104,17 @@ include_once('header.php');
                                                         style="font-size: 20px">Advice Conversation</h5>
                                                     <label for="" class="col-form-label">Comments</label>
                                                   
-                                                    <div id="fetchreply" style="height: 400px;overflow-y: scroll;">
+                                                    <div id="fetchreply" style="height: 300px;overflow-y: scroll;">
                                                         <!-- phpcode.php -->
                                                     </div>
                                                     <br>
-                                                    <span
-                                                        class="float-right p-2 bg-light w-100 col-form-label font-weight-bold">Advice
+                                                    
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <span
+                                                        class="float-left p-2 bg-light w-100 col-form-label font-weight-bold pl-0 ml-0">Advice
                                                         Status - <span class="text-info">Provider Response
                                                             Required</span></span>
                                                     <br>
@@ -117,7 +122,7 @@ include_once('header.php');
                                                     <br>
                                                     <form id="reply" enctype="multipart/form-data">
                                                     
-                                                        <div class="row bg-light p-1">
+                                                        <div class="row bg-light p-1 ml-0">
                                                             <div class="col-6">
                                                                 <label class="col-form-label" for="">Add
                                                                     Attachement</label>
@@ -144,11 +149,6 @@ include_once('header.php');
                                                                 class="btn btn-sm btn-info my-3 ml-3">Send</button>
                                                         </div>
                                                     </form>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-
                                     <!--
 									<br>
 								<hr>

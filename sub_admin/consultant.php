@@ -68,7 +68,7 @@ include_once('header.php');
         <!-- main @e -->
     </div>
     <!-- Modal Form -->
-    <div class="modal fade" tabindex="-1" id="modalForm2">
+    <!-- <div class="modal fade" tabindex="-1" id="modalForm1">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -117,12 +117,7 @@ include_once('header.php');
                                     <input type="text" class="form-control" id="mcontact" autocomplete="off" required name="mcontact">
                                 </div>
                             </div>
-                            <div class="form-group col-md-6">
-                                <label class="form-label" for="password">Department</label>
-                                <div class="form-control-wrap">
-                                    <input type="text" class="form-control" id="mdepart" autocomplete="off" required name="mdepart">
-                                </div>
-                            </div>
+                            
                         </div>
                         <div class="row">
                             <div class="form-group col-md-6">
@@ -143,6 +138,64 @@ include_once('header.php');
                 </div>
                 <div class="modal-footer bg-light">
                     <span class="sub-text">Consultant Update</span>
+                </div>
+            </div>
+        </div>
+    </div> -->
+    <div class="modal fade" tabindex="-1" id="modalForm2">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Gp-Refferer Info</h5>
+                    <a href="#" class="close" data-dismiss="modal" aria-label="Close">
+                        <em class="icon ni ni-cross"></em>
+                    </a>
+                </div>
+                <div class="modal-body">
+                    <form class="form-validate is-alter" id="aupdate" method="post">
+                        <div class="row">
+                            <div class="form-group col-md-6">
+                                <label class="form-label" for="first_name">First Name</label>
+                                <div class="form-control-wrap">
+                                  
+                                    <input type="text" class="form-control" id="gpfirst_name" name="fname" autocomplete="off" required>
+                                </div>
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label class="form-label" for="sure_name">Sure Name</label>
+                                <div class="form-control-wrap">
+                                    <input type="text" class="form-control" id="gpsure_name" name="sname" autocomplete="off" required>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="form-group col-md-6">
+                                <label class="form-label" for="memail">Email</label>
+                                <div class="form-control-wrap">
+                                    <input type="email" class="form-control" id="gpmemail" autocomplete="off" required name="memail">
+                                </div>
+                            </div>
+
+                            <div class="form-group col-md-6">
+                                <label class="form-label" for="mpass">Password</label>
+                                <div class="form-control-wrap">
+                                    <input type="text" class="form-control" id="gpmpass" autocomplete="off" required name="mpassword">
+                                </div>
+                            </div>
+                        </div>
+                        
+                      
+                        <br>
+                        <div class="row">
+                            <div class="form-group col-md-6">
+                                <button type="submit" class="btn btn-lg btn-primary" id="adminupdate">Save Informations</button>
+                            </div>
+                        </div>
+
+                    </form>
+                </div>
+                <div class="modal-footer bg-light">
+                    <span class="sub-text">GP-Refferer Update</span>
                 </div>
             </div>
         </div>
@@ -368,7 +421,53 @@ else if(Role == "Optometrist")
             }
         });
     };
-    function openmodal1(id, fname, sname, email, pass, contact, depart, dob, roleid) {
+
+    function eaprovenotaprove(id, status) {
+        $.ajax({
+            type: 'POST',
+            url: 'phpcode.php',
+            data: {
+                vid: id,
+                appgeneralbtn: "btn",
+                status: status
+            },
+
+            success: function(data) {
+alert(data);
+                if (data == 'Error') {
+
+                    toastr.clear();
+                    NioApp.Toast("<h5>General pratictional Didn't Delete</h5>", 'error', {
+                        position: 'top-right'
+                    });
+                } else if (data == 'Success') {
+
+                    toastr.clear();
+                    NioApp.Toast("<h5>General pratictional Active Successfully</h5>", 'success', {
+                        position: 'top-right'
+                    });
+                    fetchadmindata();
+                }
+                if (data == 'Errorr') {
+
+                    toastr.clear();
+                    NioApp.Toast("<h5>General pratictional Didn't Delete</h5>", 'error', {
+                        position: 'top-right'
+                    });
+                } else if (data == 'Successs') {
+
+                    toastr.clear();
+                    NioApp.Toast("<h5>General pratictional  Not Active Successfully</h5>", 'success', {
+                        position: 'top-right'
+                    });
+                    fetchadmindata();
+                }
+
+
+            }
+        });
+    }
+    function openmodal1(id, fname, sname, email, pass, contact, dob, roleid) {
         $('#mid').val(id);
         $('#roleid').val(roleid);
         $('#first_name').val(fname);
@@ -378,6 +477,17 @@ else if(Role == "Optometrist")
         $('#mcontact').val(contact);
         $('#mdepart').val(depart);
         $('#mdob').val(dob);
+
+        $('#modalForm1').modal('show');
+    };
+    function openmodal2(fname, sname, email, pass) {
+      
+     alert("hello");
+        $('#gpfirst_name').val(fname);
+        $('#gpsure_name').val(sname);
+        $('#gpmemail').val(email);
+        $('#gpmpass').val(pass);
+      
 
         $('#modalForm2').modal('show');
     };

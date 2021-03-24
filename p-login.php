@@ -209,7 +209,7 @@ $('.datepicker').datepicker({
 			contentType: false,
 			processData: false,
 			success: function(data){
-				alert(data);
+		
 				if(data == "error"){
 //					alert("Email Password Wrong!");
 					toastr.error("Email Password Wrong!");

@@ -156,15 +156,20 @@ include_once('header.php');
                                                         <!-- phpcode.php -->
                                                     </div>
                                                     <br>
-                                                    <span
-                                                        class="float-right p-2 bg-light w-100 col-form-label font-weight-bold">Advice
+                                                   
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <span
+                                                        class="float-right p-2 bg-light w-100 col-form-label font-weight-bold ml-0">Advice
                                                         Status - <span class="text-info">Provider Response
                                                             Required</span></span>
                                                     <br>
                                                     <br>
                                                     <br>
                                                     <form id="reply" enctype="multipart/form-data">
-                                                        <div class="row bg-light p-1">
+                                                        <div class="row bg-light p-1 ml-0">
                                                             <div class="col-6">
                                                                 <label class="col-form-label" for="">Add
                                                                     Attachement</label>
@@ -189,11 +194,6 @@ include_once('header.php');
                                                                 class="btn btn-sm btn-info my-3 ml-3">Send</button>
                                                         </div>
                                                     </form>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-
                                     <!--
 									<br>
 								<hr>

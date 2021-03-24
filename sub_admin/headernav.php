@@ -207,7 +207,7 @@ $fetchsa=mysqli_fetch_array($qiu);
 											<em class="icon icon-circle bg-warning-dim ni ni-curve-down-right"></em>
 										</div>
 									    <div class="nk-notification-content">
-											<div class="nk-notification-text">You have new <span>Dentist for Approval</span><sup class="badge badge-primary rounded-circle mt-n2">'.$f1["a"].'</sup></div>
+											<div class="nk-notification-text">You have new <span>Dentist for Approval</span></div>
 											<div class="nk-notification-time"><a href="dentist.php">View All</a></div>
 										</div>
 											</div>
@@ -242,7 +242,7 @@ $fetchsa=mysqli_fetch_array($qiu);
 											<em class="icon icon-circle bg-warning-dim ni ni-curve-down-right"></em>
 										</div>
 									    <div class="nk-notification-content">
-											<div class="nk-notification-text">You have new <span>Consultant for Approval</span><sup class="badge badge-primary rounded-circle mt-n2">'.$f2["a"].'</sup></div>
+											<div class="nk-notification-text">You have new <span>Consultant for Approval</span></div>
 											<div class="nk-notification-time"><a href="consultant.php">View All</a></div>
 										</div>
 											</div>
@@ -254,7 +254,7 @@ $fetchsa=mysqli_fetch_array($qiu);
 											<em class="icon icon-circle bg-warning-dim ni ni-curve-down-right"></em>
 										</div>
 									    <div class="nk-notification-content">
-											<div class="nk-notification-text">You have new <span>Community Nurse for Approval</span><sup class="badge badge-primary rounded-circle mt-n2">'.$f3["a"].'</sup></div>
+											<div class="nk-notification-text">You have new <span>Community Nurse for Approval</span></div>
 											<div class="nk-notification-time"><a href="nurse.php">View All</a></div>
 										</div>
 											</div>
@@ -265,7 +265,7 @@ $fetchsa=mysqli_fetch_array($qiu);
 											<em class="icon icon-circle bg-warning-dim ni ni-curve-down-right"></em>
 										</div>
 									    <div class="nk-notification-content">
-											<div class="nk-notification-text">You have new <span>General practitioner Referrer for Approval</span><sup class="badge badge-primary rounded-circle ">'.$f4["a"].'</sup></div>
+											<div class="nk-notification-text">You have new <span>General practitioner Referrer for Approval</span></div>
 											<div class="nk-notification-time"><a href="generalp.php">View All</a></div>
 										</div>
 											</div>

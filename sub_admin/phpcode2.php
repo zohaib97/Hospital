@@ -36,7 +36,8 @@ $query = mysqli_query($con,"SELECT * FROM `tbl_patients` WHERE pt_nhsno = '$nsh'
 	$nh = $fetch['pt_nhsno'];
 	$mobno = $fetch['pt_mobno'];
 	$sname = $fetch['pt_streetname'];
-	$dob = $fetch['pt_dob'];
+	$date1 = date_create($fetch['pt_dob']);
+	$dob1 = date_format($date1,"d-m-Y");
 
 echo'   <tr class="nk-tb-item">
 	<td class="nk-tb-col nk-tb-col-check">
@@ -61,7 +62,7 @@ echo'   <tr class="nk-tb-item">
 		<span class="tb-lead">'.$sname.'</span>
 	</td>
 	<td class="nk-tb-col">
-		<span class="tb-lead">'.$dob.'</span>
+		<span class="tb-lead">'.$dob1.'</span>
 	</td>
 	';
 		

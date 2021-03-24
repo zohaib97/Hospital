@@ -115,7 +115,9 @@ $query = mysqli_query($con,"SELECT * FROM `tbl_patients` WHERE pt_nhsno = '$nhs'
 	$nh = $fetch['pt_nhsno'];
 	$mobno = $fetch['pt_mobno'];
 	$sname = $fetch['pt_streetname'];
-	$dob = $fetch['pt_dob']; 
+	$date1 = date_create($fetch['pt_dob']);
+	$dob1 = date_format($date1,"d-m-Y");
+	
 
 echo'   <tr class="nk-tb-item">
 	<td class="nk-tb-col nk-tb-col-check">
@@ -140,7 +142,7 @@ echo'   <tr class="nk-tb-item">
 		<span class="tb-lead">'.$sname.'</span>
 	</td>
 	<td class="nk-tb-col">
-		<span class="tb-lead">'.$dob.'</span>
+		<span class="tb-lead">'.$dob1.'</span>
 	</td>
 	';
 		
@@ -892,7 +894,9 @@ if(isset($_POST['consultantbtn']))
 	if($query)
 	{
 		echo'<link rel="stylesheet" href="https://cdn.datatables.net/1.10.23/css/dataTables.bootstrap4.min.css">
-		
+		<button onclick="window.print()" class="btn btn-danger">Print</button>
+		<br>
+		<br>
 		<table class="nowrap nk-tb-list is-separate " data-auto-responsive="false" id="myTable">
 					<thead>
 						<tr class="nk-tb-item nk-tb-head">
@@ -901,8 +905,8 @@ if(isset($_POST['consultantbtn']))
 							<th class="nk-tb-col"><span>Email</span></th>
 							<th class="nk-tb-col"><span>Password</span></th>
 							<th class="nk-tb-col"><span>Role</span></th>
-							<th class="nk-tb-col"><span>Orgnization Type</span></th>
-							<th class="nk-tb-col "><span>Orgnization Name</span></th>
+							<th class="nk-tb-col"><span>Organisation Type</span></th>
+							<th class="nk-tb-col "><span>Organisation Name</span></th>
 							<th class="nk-tb-col "><span>Status</span></th>
 							<th class="nk-tb-col nk-tb-col-tools">
 								<ul class="nk-tb-actions gx-1 my-n1">
@@ -974,9 +978,9 @@ if(isset($_POST['consultantbtn']))
 					<div class="dropdown-menu dropdown-menu-right">
 						<ul class="link-list-opt no-bdr">';
 			// <li><a href="javascript:void(0)" onClick="openmodal1('."'$mid'".','."'$mname'".','."'$msname'".','."'$memail'".','."'$mpass'".','."'$mphn'".','."'$mdepart'".','."'$mdob'".','."'$mrole'".')"><em class="icon ni ni-edit"></em><span>Edit</span></a></li>
-							echo '<li><a href="#"><em class="icon ni ni-eye"></em><span>View</span></a></li>
+							// <li><a href="#"><em class="icon ni ni-eye"></em><span>View</span></a></li>
 							
-							<li><a href="javascript:void(0)" onClick="confirm('."'$mid'".')"><em class="icon ni ni-trash"></em><span>Remove</span></a></li>
+							echo '<li><a href="javascript:void(0)" onClick="confirm('."'$mid'".')"><em class="icon ni ni-trash"></em><span>Remove</span></a></li>
 
 						</ul>
 					</div>
@@ -1001,12 +1005,14 @@ if(isset($_POST['consultantbtn']))
 //fetch staff doctors data
 if(isset($_POST['doctorsbtn']))
 {
-$query = mysqli_query($con,"SELECT * FROM tbl_user JOIN staff_role on tbl_user.tbl_role=staff_role.role_id WHERE tbl_user.tbl_role = 4");
+	$query = mysqli_query($con,"SELECT * FROM tbl_user JOIN staff_role on tbl_user.tbl_role=staff_role.role_id WHERE tbl_user.tbl_role = 4");
 				
 	if($query)
 	{
 		echo'<link rel="stylesheet" href="https://cdn.datatables.net/1.10.23/css/dataTables.bootstrap4.min.css">
-		
+		<button onclick="window.print()" class="btn btn-danger">Print</button>
+		<br>
+		<br>
 		<table class="nowrap nk-tb-list is-separate" data-auto-responsive="false" id="myTable">
 					<thead>
 						<tr class="nk-tb-item nk-tb-head">
@@ -1056,7 +1062,7 @@ $query = mysqli_query($con,"SELECT * FROM tbl_user JOIN staff_role on tbl_user.t
 	$mrname = $fetch['role_name'];
 	$status = $fetch['staff_status'];
 
-echo'   <tr class="nk-tb-item">
+	echo'   <tr class="nk-tb-item">
 	<td class="nk-tb-col nk-tb-col-check">
 		<div class="custom-control custom-control-sm custom-checkbox notext">
 			<input type="checkbox" class="custom-control-input" id="puid1">
@@ -1114,17 +1120,17 @@ echo'   <tr class="nk-tb-item">
 			</li>
 		</ul>
 	</td>
-</tr>';
-										
-		}
-		echo'</tbody> </table>
-		<script src="https://cdn.datatables.net/1.10.23/js/jquery.dataTables.min.js"></script>
-<script src="https://cdn.datatables.net/1.10.23/js/dataTables.bootstrap4.min.js"></script>
-<script>$(document).ready(function () {
-    $("#myTable").DataTable();
-} )
-</script>;
-';
+	</tr>';
+											
+			}
+			echo'</tbody> </table>
+			<script src="https://cdn.datatables.net/1.10.23/js/jquery.dataTables.min.js"></script>
+	<script src="https://cdn.datatables.net/1.10.23/js/dataTables.bootstrap4.min.js"></script>
+	<script>$(document).ready(function () {
+		$("#myTable").DataTable();
+	} )
+	</script>;
+	';
 	}
 }
 
@@ -1140,7 +1146,9 @@ if(isset($_POST['nursebtn']))
 			if($query)
 			{
 				echo'<link rel="stylesheet" href="https://cdn.datatables.net/1.10.23/css/dataTables.bootstrap4.min.css">
-				
+				<button onclick="window.print()" class="btn btn-danger">Print</button>
+		<br>
+		<br>
 				<table class="nowrap nk-tb-list is-separate " data-auto-responsive="false" id="myTable">
 							<thead>
 								<tr class="nk-tb-item nk-tb-head">
@@ -1149,8 +1157,8 @@ if(isset($_POST['nursebtn']))
 									<th class="nk-tb-col"><span>Email</span></th>
 									<th class="nk-tb-col"><span>Password</span></th>
 									<th class="nk-tb-col"><span>Role</span></th>
-									<th class="nk-tb-col"><span>Orgnization Type</span></th>
-									<th class="nk-tb-col"><span>Orgnization Name</span></th>
+									<th class="nk-tb-col"><span>Organisation Type</span></th>
+									<th class="nk-tb-col"><span>Organisation Name</span></th>
 									<th class="nk-tb-col"><span>Status</span></th>
 									<th class="nk-tb-col nk-tb-col-tools">
 										<ul class="nk-tb-actions gx-1 my-n1">
@@ -1258,7 +1266,9 @@ if(isset($_POST['dentistbtn']))
 		if($query)
 		{
 			echo'<link rel="stylesheet" href="https://cdn.datatables.net/1.10.23/css/dataTables.bootstrap4.min.css">
-			
+			<button onclick="window.print()" class="btn btn-danger">Print</button>
+		<br>
+		<br>
 			<table class="nowrap nk-tb-list is-separate " data-auto-responsive="false" id="myTable">
 						<thead>
 							<tr class="nk-tb-item nk-tb-head">
@@ -1267,8 +1277,8 @@ if(isset($_POST['dentistbtn']))
 								<th class="nk-tb-col"><span>Email</span></th>
 								<th class="nk-tb-col"><span>Password</span></th>
 								<th class="nk-tb-col"><span>Role</span></th>
-								<th class="nk-tb-col"><span>Orgnization Type</span></th>
-								<th class="nk-tb-col"><span>Orgnization Name</span></th>
+								<th class="nk-tb-col"><span>Organisation Type</span></th>
+								<th class="nk-tb-col"><span>Organisation Name</span></th>
 								<th class="nk-tb-col"><span>Status</span></th>
 								<th class="nk-tb-col nk-tb-col-tools">
 									<ul class="nk-tb-actions gx-1 my-n1">
@@ -1371,7 +1381,9 @@ if(isset($_POST['genralpbtn']))
 	if($query)
 	{
 		echo'<link rel="stylesheet" href="https://cdn.datatables.net/1.10.23/css/dataTables.bootstrap4.min.css">
-		
+		<button onclick="window.print()" class="btn btn-danger">Print</button>
+		<br>
+		<br>
 		<table class="nowrap nk-tb-list is-separate " data-auto-responsive="false" id="myTable">
 					<thead>
 						<tr class="nk-tb-item nk-tb-head">
@@ -1380,8 +1392,8 @@ if(isset($_POST['genralpbtn']))
 							<th class="nk-tb-col"><span>Email</span></th>
 							<th class="nk-tb-col"><span>Password</span></th>
 							<th class="nk-tb-col"><span>Role</span></th>
-							<th class="nk-tb-col"><span>Orgnisation Type</span></th>
-							<th class="nk-tb-col"><span>Orgnisation Name</span></th>
+							<th class="nk-tb-col"><span>Organisation Type</span></th>
+							<th class="nk-tb-col"><span>Organisation Name</span></th>
 							<th class="nk-tb-col"><span>Status</span></th>
 							<th class="nk-tb-col nk-tb-col-tools">
 								<ul class="nk-tb-actions gx-1 my-n1">
@@ -1406,11 +1418,11 @@ if(isset($_POST['genralpbtn']))
 		while($fetch = mysqli_fetch_array($query))
 		{
 	$mid = $fetch['ur_id'];
-	// $mname = $fetch['staff_fname'];
-	// $msname = $fetch['staff_sname'];
-	// $memail = $fetch['staff_email'];
-	// $mpass = $fetch['staff_pass'];
-	// $mphn = $fetch['staff_contact'];
+	$mname = $fetch['ur_fname'];
+	$msname = $fetch['ur_sname'];
+	$memail = $fetch['ur_email'];
+	$mpass = $fetch['ur_pass'];
+	// $mphn = $fetch['ur_contact'];
 	// $mdepart = $fetch['staff_department'];
 	// $mdob = $fetch['staff_dob'];
 	// $mrole = $fetch['tbl_role'];
@@ -1453,9 +1465,10 @@ if(isset($_POST['genralpbtn']))
 					<div class="dropdown-menu dropdown-menu-right">
 						<ul class="link-list-opt no-bdr">';
 			// <li><a href="javascript:void(0)" onClick="openmodal1('."'$mid'".','."'$mname'".','."'$msname'".','."'$memail'".','."'$mpass'".','."'$mphn'".','."'$mdepart'".','."'$mdob'".','."'$mrole'".')"><em class="icon ni ni-edit"></em><span>Edit</span></a></li>
-							echo '<li><a href="#"><em class="icon ni ni-eye"></em><span>View</span></a></li>
+							 
+							//  <li><a href="javascript:void(0)"><em class="icon ni ni-eye" data-toggle="modal" data-target="#modalForm2" onClick="openmodal2('."'$mname'".','."'$msname'".','."'$memail'".','."'$mpass'".')"></em><span>View</span></a></li>
 							
-							<li><a href="javascript:void(0)" onClick="confirm('."'$mid'".')"><em class="icon ni ni-trash"></em><span>Remove</span></a></li>
+							 echo '<li><a href="javascript:void(0)" onClick="confirm('."'$mid'".')"><em class="icon ni ni-trash"></em><span>Remove</span></a></li>
 
 						</ul>
 					</div>
@@ -1470,7 +1483,9 @@ if(isset($_POST['genralpbtn']))
 		<script src="https://cdn.datatables.net/1.10.23/js/jquery.dataTables.min.js"></script>
 	<script src="https://cdn.datatables.net/1.10.23/js/dataTables.bootstrap4.min.js"></script>
 	<script>$(document).ready(function () {
-		$("#myTable").DataTable();
+		$("#myTable").DataTable({
+		
+		});
 	} )
 	</script>
 	';
@@ -1483,7 +1498,9 @@ if(isset($_POST['Optometristbtn']))
 	if($query)
 	{
 		echo'<link rel="stylesheet" href="https://cdn.datatables.net/1.10.23/css/dataTables.bootstrap4.min.css">
-		
+		<button onclick="window.print()" class="btn btn-danger">Print</button>
+		<br>
+		<br>
 		<table class="nowrap nk-tb-list is-separate " data-auto-responsive="false" id="myTable">
 					<thead>
 						<tr class="nk-tb-item nk-tb-head">
@@ -1492,8 +1509,8 @@ if(isset($_POST['Optometristbtn']))
 							<th class="nk-tb-col"><span>Email</span></th>
 							<th class="nk-tb-col"><span>Password</span></th>
 							<th class="nk-tb-col"><span>Role</span></th>
-							<th class="nk-tb-col"><span>Orgnisation Type</span></th>
-							<th class="nk-tb-col"><span>Orgnisation Name</span></th>
+							<th class="nk-tb-col"><span>Organisation Type</span></th>
+							<th class="nk-tb-col"><span>Organisation Name</span></th>
 							<th class="nk-tb-col"><span>Status</span></th>
 							<th class="nk-tb-col nk-tb-col-tools">
 								<ul class="nk-tb-actions gx-1 my-n1">
@@ -1592,6 +1609,7 @@ if(isset($_POST['Optometristbtn']))
 if(isset($_POST['servicadd']))
 	{
 		$ser_name = mysqli_real_escape_string($con, $_POST['ser_name']);
+		$ser_publish = mysqli_real_escape_string($con, $_POST['ser_pub']);
 		
 		$ser_cmnt = mysqli_real_escape_string($con, $_POST['ser_cmnts']);
 		$ser_refer = mysqli_real_escape_string($con, $_POST['ser_show']);
@@ -1659,7 +1677,7 @@ if(isset($_POST['servicadd']))
 	$orgname = $fet['or_name'];
 	
 		 // for service create
-		$query = mysqli_query($con, "INSERT INTO `services`(`service_id`, `service_name`, `service_r_t_support`, `service_cmnts`, `service_refer`, `service_location`, `service_speciality`, `service_a_type`, `service_gender`, `sender_bookable`, `service_e_date`, `service_e_date2`, `service_age`, `service_age2`, `service_caremenu`, `ser_cl_type`,`ser_res_reas`, `ser_res_cmnt`, `ser_instruct`, `ser_priority_rout`, `ser_priority_urg`, `ser_priority_wekex`, `ser_priority_2week`, `s_orgname`, `s_orgid`, `ser_create_id`, `ser_create_name`,`status`) VALUES ('$ser_ids','$ser_name','$chk','$res_cmnt','$ser_refer','$ser_loc','$ser_spe','$ser_app','$ser_gen','$ser_dire','$ser_eff','$ser_eff2','$ser_ager','$ser_ager2','$ser_care','$cltype','$res_reas','$res_cmnt','$ser_inst','$ser_rout','$ser_urg','$ser_weekend','$ser_toweek','$orgname','$orgid','$uaid','$name','approve')");	
+		$query = mysqli_query($con, "INSERT INTO `services`(`service_id`, `service_name`, `service_r_t_support`, `service_cmnts`, `service_refer`, `service_location`, `service_speciality`, `service_a_type`, `service_gender`, `sender_bookable`, `service_e_date`, `service_e_date2`, `service_age`, `service_age2`,`service_publish`,`service_caremenu`, `ser_cl_type`,`ser_res_reas`, `ser_res_cmnt`, `ser_instruct`, `ser_priority_rout`, `ser_priority_urg`, `ser_priority_wekex`, `ser_priority_2week`, `s_orgname`, `s_orgid`, `ser_create_id`, `ser_create_name`,`status`) VALUES ('$ser_ids','$ser_name','$chk','$res_cmnt','$ser_refer','$ser_loc','$ser_spe','$ser_app','$ser_gen','$ser_dire','$ser_eff','$ser_eff2','$ser_ager','$ser_ager2','$ser_publish','$ser_care','$cltype','$res_reas','$res_cmnt','$ser_inst','$ser_rout','$ser_urg','$ser_weekend','$ser_toweek','$orgname','$orgid','$uaid','$name','approve')");	
 	
 		if($query)
 		{
@@ -2043,7 +2061,20 @@ if(isset($_POST['method']))
 			$id = $_POST['id'];
 			$query = "UPDATE `tbl_ruser` SET `ur_status` = 'approve' WHERE `ur_id` = '$id'";
 			$vq = mysqli_query($con,$query);
-			
+			$feh = mysqli_fetch_array($vq);
+			$email=$feh["ur_email"];
+			$to      = $email;
+	$subject = 'For Approval ';
+	$message = '<html><body>';
+	$message .= '<h1>You Has Been Approved By Admin!</h1>';
+	$message .= '</body></html>';
+	$headers = 'From: info@deevloopers.com' . "\r\n" .
+		'Reply-To: info@deevloopers.com' . "\r\n" .
+		"MIME-Version: 1.0\r\n".
+		"Content-Type: text/html; charset=ISO-8859-1\r\n";
+		'X-Mailer: PHP/' . phpversion();
+	
+	mail($to, $subject, $message, $headers);
 			if($vq)
 			{
 				echo("Success");
@@ -2392,9 +2423,9 @@ if(isset($_POST['readRecord']))
 	<td class="nk-tb-col">
 		<span class="tb-lead">'.$fetch['s_orgname'].'</span>
 	</td>
-';
-			if($fetch["status"] =="not_approve"){
-		echo '<td class="nk-tb-col"><span class="btn btn-danger" id="gbtn" onclick="eaprovenotaprove(\''.$rfid.'\',\'g'.$fetch["status"].'\')">Not Active</span></td>';
+	';
+			if($fetch["status"] =="not_approve" || $fetch["service_publish"] == null){
+		echo '<td class="nk-tb-col"><span class="btn btn-danger" id="gbtn" onclick="eaprovenotaprove(\''.$rfid.'\',\'gnot_approve\')">Not Active</span></td>';
 	}elseif($fetch["status"] =="approve"){
 		echo '<td class="nk-tb-col"><span class="btn btn-success" id="gbtn" onclick="eaprovenotaprove(\''.$rfid.'\',\'g'.$fetch["status"].'\')">Active</span></td>';
 	}
@@ -2405,12 +2436,12 @@ if(isset($_POST['readRecord']))
 		
 		
 		<script src="https://cdn.datatables.net/1.10.23/js/jquery.dataTables.min.js"></script>
-<script src="https://cdn.datatables.net/1.10.23/js/dataTables.bootstrap4.min.js"></script>
-<script>$(document).ready(function () {
-    $("#myTable").DataTable();
-} )
-</script>
-';
+	<script src="https://cdn.datatables.net/1.10.23/js/dataTables.bootstrap4.min.js"></script>
+	<script>$(document).ready(function () {
+		$("#myTable").DataTable();
+	} )
+	</script>
+	';
 	}
 }
 if(isset($_POST["obtn"])){
@@ -2419,7 +2450,7 @@ if(isset($_POST["obtn"])){
 				
 				$id = $_POST['eid'];
 		
-				$query = "UPDATE `services` SET `status` = 'not_approve' WHERE `m_id` = '$id'";
+				$query = "UPDATE `services` SET `status` = 'not_approve',`service_publish` = '' WHERE `m_id` = '$id'";
 				$vq1 = mysqli_query($con,$query);
 				if($vq1)
 				{
@@ -2430,12 +2461,14 @@ if(isset($_POST["obtn"])){
 		{
 			
 			$id = $_POST['eid'];
-			$query = "UPDATE `services` SET `status` = 'approve' WHERE `m_id` = '$id'";
+			$query = "UPDATE `services` SET `status` = 'approve',`service_publish` = 'Publish' WHERE `m_id` = '$id'";
 			$vq = mysqli_query($con,$query);
 			
 			if($vq)
 			{
 				echo "Success" ;
+			}else{
+				echo"Error";
 			}
 			
 		}else{

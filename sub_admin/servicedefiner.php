@@ -187,7 +187,7 @@ include_once('headernav.php');
 						</div>
 					</div>
 				</div>
-				<div class="col-lg-2 mt-4"><center>to</center></div>
+				<div class="col-lg-2 mt-4"><center>To</center></div>
 				<div class="col-lg-4">
 					<div class="form-group">
 						<label class="form-label" for="full-name-1">Age Range Treated</label>
@@ -1109,6 +1109,7 @@ $("#servicedef").on('submit', function(e){
 e.preventDefault();
 
 var ser_name = $('#ser_name').val();
+var ser_publish = $('#ser_pub').val();
 
 var ser_cmnts = $('#ser_cmnts').val();
 var ser_loc = $('#ser_location').val();

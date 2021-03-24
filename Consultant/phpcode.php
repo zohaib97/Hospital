@@ -700,20 +700,37 @@ if(isset($_POST['fetchreplybtn']))
 		while($fe = mysqli_fetch_array($q)){
 			if($fe['reciever'] != $senderid)
 			{
-			echo' <div class="card p-2 col-md-7 float-right"
+			echo' <div class="card p-2 col-md-7 float-right "
 			style="background-color: skyblue;text-align: right;color:white;"
 			>
-			<spane>'.$fe['ra_message'].'</spane>
-			</div>
+			<spane>'.$fe['ra_message'].'</spane>';
+			if($fe['ra_attach'] != null)
+			{
+
+			echo'<a href="../Gprefferer/assets/uploads/'.$fe['ra_attach'].'" class="btn btn-white btn-sm col-md-5 p-0" download><i class="icon ni ni-arrow-down-round"></i>'.$fe['ra_attach'].'</a>';
+			}
+			echo'</div>
+
 			';
+			
 			}
 			else if($fe['reciever'] == $senderid)
 			{
+				$sid = $fe['ra_sender_id'];
+				$idq1 = mysqli_query($con, "SELECT * FROM `tbl_ruser` WHERE `ur_id` = '$sid'");
+			$dataid1 = mysqli_fetch_assoc($idq1);
 				echo' <div class="card p-2 float-left col-md-7"
 			style="background-color: white;text-align: left;"
 			>
+			<small>'.$fe['ra_date'].' '.$dataid1['ur_fname'].'<b> (Gp-Refferer)</b></small>
 			<spane>'.$fe['ra_message'].'</spane>
-			</div>
+			<br>';
+			if($fe['ra_attach'] != null)
+			{
+
+			echo'<a href="../Gprefferer/assets/uploads/'.$fe['ra_attach'].'" class="btn btn-info btn-sm col-md-5 p-0" download><i class="icon ni ni-arrow-down-round"></i>'.$fe['ra_attach'].'</a>';
+			}
+			echo'</div>
 			';
 			}
 		}

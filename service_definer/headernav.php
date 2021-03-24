@@ -5,6 +5,10 @@ include_once('../database/db.php');
 if(!isset($_SESSION['ser_id'])){
 	header('location: ../index.php');
 }
+$aid =$_SESSION["ser_id"];
+$qiu=mysqli_query($con,"SELECT * FROM `tbl_service_definer`,orginzation where tbl_service_definer.u_orgid = orginzation.orid and tbl_service_definer.u_serid='$aid'");
+$fetchsa=mysqli_fetch_array($qiu);
+    $org = $fetchsa['u_orgid'];
 ?> 
 
 <div class="nk-header nk-header-fixed is-light">

@@ -4,74 +4,147 @@ include_once('connect.php');
 //fetch staff services data
 if(isset($_POST['fetchservice']))
 {
-$query = mysqli_query($con,"SELECT * FROM `services`");
+$query = mysqli_query($con,"SELECT * FROM services  JOIN ser_specialty_add ON services.service_speciality=ser_specialty_add.spec_id JOIN app_type ON services.service_a_type=app_type.app_id JOIN service_cliniciant ON services.ser_cl_type=service_cliniciant.cl_id JOIN service_name ON services.service_name=service_name.s_id");
 				
-	if($query)
-	{
-		echo'<link rel="stylesheet" href="https://cdn.datatables.net/1.10.23/css/dataTables.bootstrap4.min.css">
+if($query)
+{
+	echo'<link rel="stylesheet" href="https://cdn.datatables.net/1.10.23/css/dataTables.bootstrap4.min.css">
+	
+	<table class="nowrap nk-tb-list is-separate" id="myTable">
+		<thead>
+			<tr class="nk-tb-item nk-tb-head">
+			
+				<th class="nk-tb-col"><span>ID</span></th>
+				<th class="nk-tb-col"><span>Service Name</span></th>
+				<th class="nk-tb-col"><span>Service Request</span></th>
+				<th class="nk-tb-col"><span>Service Comments</span></th>
+				<th class="nk-tb-col"><span>Service refer</span></th>
+				<th class="nk-tb-col"><span>Service Location</span></th>
+				<th class="nk-tb-col"><span>Speciality</span></th>
+				<th class="nk-tb-col"><span>Appointment type</span></th>
+				<th class="nk-tb-col"><span>Gender</span></th>
+				<th class="nk-tb-col"><span>Bookable</span></th>
+				<th class="nk-tb-col"><span>Effective Start Date</span></th>
+				<th class="nk-tb-col"><span>Effective End Date</span></th>
+				<th class="nk-tb-col"><span>Minimum Age range</span></th>
+				<th class="nk-tb-col"><span>Maximum Age range</span></th>
+				<th class="nk-tb-col"><span>Care Menu</span></th>
+				<th class="nk-tb-col"><span>Clination type</span></th>
+				<th class="nk-tb-col"><span>Reason For Restriction</span></th>
+				<th class="nk-tb-col"><span>Restriction Comments</span></th>
+				<th class="nk-tb-col"><span>Instructions</span></th>
+				<th class="nk-tb-col"><span>Priority Routine</span></th>
+				<th class="nk-tb-col"><span>Priority Urgent</span></th>
+				<th class="nk-tb-col"><span>Priority  Week</span></th>
+				<th class="nk-tb-col"><span>2 Week Wait</span></th>
+				<th class="nk-tb-col"><span>Organisation Name</span></th>
 		
-		<table class="nowrap nk-tb-list is-separate" data-auto-responsive="false" id="myTable">
-					<thead>
-						<tr class="nk-tb-item nk-tb-head">
-							<th class="nk-tb-col tb-col-sm"><span>Name</span></th>
-							<th class="nk-tb-col tb-col-sm"><span>Email</span></th>
-							<th class="nk-tb-col tb-col-sm"><span>Request Type</span></th>
-							<th class="nk-tb-col tb-col-sm"><span>Location</span></th>
-							<th class="nk-tb-col tb-col-sm"><span>Specialty</span></th>
-							<th class="nk-tb-col tb-col-sm"><span>Appointment Type</span></th>
-							<th class="nk-tb-col tb-col-sm"><span>Bookable</span></th>
-							
-						</tr><!-- .nk-tb-item -->
-					</thead>
-					 <tbody id="">';
-		while($fetch = mysqli_fetch_array($query))
-		{
-	$mid = $fetch['m_id'];
-	$mname = $fetch['service_id'];
-	$msname = $fetch['service_name'];
-	$memail = $fetch['sender_email'];
-	$mpass = $fetch['service_r_t_support'];
-	$mphn = $fetch['service_location'];
-	$mdepart = $fetch['service_speciality'];
-	$mdob = $fetch['service_a_type'];
-	$mrole = $fetch['sender_bookable'];
+
+				
+				
+			</tr><!-- .nk-tb-item -->
+		</thead>
+		 <tbody id="">';
+	while($fetch = mysqli_fetch_array($query))
+	{
+$rfid = $fetch['m_id'];
 
 echo'   <tr class="nk-tb-item">
-	<td class="nk-tb-col tb-col-sm">
-		<span class="tb-product">
-			
-			<span class="title">'.$fetch['service_name'].'</span>
-		</span>
-	</td>
-	<td class="nk-tb-col">
-		<span class="tb-sub">'.$fetch['sender_email'].'</span>
-	</td>
-	<td class="nk-tb-col">
-		<span class="tb-lead">'.$fetch['service_r_t_support'].'</span>
-	</td>
-	<td class="nk-tb-col">
-		<span class="tb-sub">'.$fetch['service_location'].'</span>
-	</td>
-	<td class="nk-tb-col">
-		<span class="tb-sub">'.$fetch['service_speciality'].'</span>
-	</td>
-	<td class="nk-tb-col">
-		<span class="tb-sub">'.$fetch['service_a_type'].'</span>
-	</td>
-	<td class="nk-tb-col">
-		<span class="tb-sub">'.$fetch['sender_bookable'].'</span>
-	</td>';
-										
-		}
-		echo'</tbody> </table>
-		<script src="https://cdn.datatables.net/1.10.23/js/jquery.dataTables.min.js"></script>
+
+<td class="nk-tb-col">
+	<span class="tb-product">
+		<span class="title">'.$fetch['service_id'].'</span>
+	</span>
+</td>
+<td class="nk-tb-col">
+	<span class="tb-lead">'.$fetch['s_name'].'</span>
+</td>
+<td class="nk-tb-col">
+	<span class="tb-lead">'.$fetch['service_r_t_support'].'</span>
+</td>
+<td class="nk-tb-col">
+	<span class="tb-lead">'.$fetch['service_cmnts'].'</span>
+</td>
+<td class="nk-tb-col">
+	<span class="tb-lead">'.$fetch['service_refer'].'</span>
+</td>
+<td class="nk-tb-col">
+	<span class="tb-lead">'.$fetch['service_location'].'</span>
+</td>
+<td class="nk-tb-col">
+<span class="tb-lead">'.$fetch['spec_name'].'</span>
+</td>
+<td class="nk-tb-col">
+<span class="tb-lead">'.$fetch['app_type'].'</span>
+</td>
+   <td class="nk-tb-col">
+<span class="tb-lead">'.$fetch['service_gender'].'</span>
+</td>
+ <td class="nk-tb-col">
+<span class="tb-lead">'.$fetch['sender_bookable'].'</span>
+</td>
+ <td class="nk-tb-col">
+<span class="tb-lead">'.$fetch['service_e_date'].'</span>
+</td>
+
+<td class="nk-tb-col ">
+	
+	<span class="tb-lead">'.$fetch['service_e_date2'].'</span>
+	
+</td>
+<td class="nk-tb-col ">
+		<span class="tb-lead">'.$fetch['service_age'].'</span>
+</td>
+<td class="nk-tb-col ">
+		<span class="tb-lead">'.$fetch['service_age2'].'</span>
+</td>
+<td class="nk-tb-col">
+		<span class="tb-lead">'.$fetch['service_caremenu'].'</span>
+</td>
+<td class="nk-tb-col">
+<span class="tb-lead">'.$fetch['cl_type'].'</span>
+ </td>
+ <td class="nk-tb-col">
+		<span class="tb-lead">'.$fetch['ser_res_reas'].'</span>
+</td>
+<td class="nk-tb-col">
+	<span class="tb-lead">'.$fetch['ser_res_cmnt'].'</span>
+</td>
+<td class="nk-tb-col">
+	<span class="tb-lead">'.$fetch['ser_instruct'].'</span>
+</td>
+<td class="nk-tb-col">
+	<span class="tb-lead">'.$fetch['ser_priority_rout'].'</span>
+</td>
+<td class="nk-tb-col">
+<span class="tb-lead">'.$fetch['ser_priority_urg'].'</span>
+</td>
+
+<td class="nk-tb-col">
+<span class="tb-lead">'.$fetch['ser_priority_wekex'].'</span>
+ </td>
+ <td class="nk-tb-col">
+	 <span class="title">'.$fetch['ser_priority_2week'].'</span>
+	</span>
+</td>
+<td class="nk-tb-col">
+	<span class="tb-lead">'.$fetch['s_orgname'].'</span>
+</td>
+';
+
+									
+	}
+	echo'</tbody> </table>
+	
+	
+	<script src="https://cdn.datatables.net/1.10.23/js/jquery.dataTables.min.js"></script>
 <script src="https://cdn.datatables.net/1.10.23/js/dataTables.bootstrap4.min.js"></script>
 <script>$(document).ready(function () {
-    $("#myTable").DataTable();
+	$("#myTable").DataTable();
 } )
-</script>;
+</script>
 ';
-	}
+}
 }
 
 //for staff manager delete
