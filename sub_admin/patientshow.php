@@ -491,9 +491,10 @@ $("#aupdate").on('submit', function(e) {
 <script>
 $(function() {
 
-    // INITIALIZE DATEPICKER PLUGIN
+  // INITIALIZE DATEPICKER PLUGIN
     $('.datepicker').datepicker({
-        clearBtn: true
+        clearBtn: true,
+        format: 'dd-mm-yyyy'
     });
 
 

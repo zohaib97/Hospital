@@ -80,6 +80,70 @@ echo'   <tr class="nk-tb-item">
 	}
 }
 
+//fetch Appointment Data
+if(isset($_POST['fetchappointment']))
+{
+    $ubrn = $_SESSION['patubrn'];
+$query = mysqli_query($con,"SELECT * FROM `tbl_patientappointment` join `services` on tbl_patientappointment.o_serviceid = services.service_id join orginzation on tbl_patientappointment.o_orgid = orginzation.orid join tbl_patients on tbl_patientappointment.o_patientid = tbl_patients.pt_id join tbl_ruser on tbl_patientappointment.o_refferelid = tbl_ruser.ur_id Where o_ubrn = '$ubrn' ");
+				
+	if($query)
+	{
+		echo'<link rel="stylesheet" href="https://cdn.datatables.net/1.10.23/css/dataTables.bootstrap4.min.css">
+		
+		<table class="nowrap nk-tb-list is-separate" data-auto-responsive="false" id="myTable">
+					<thead>
+						<tr class="nk-tb-item nk-tb-head">
+							<th class="nk-tb-col tb-col-sm"><span>UBRN</span></th>
+							<th class="nk-tb-col"><span>Organization Name</span></th>
+							<th class="nk-tb-col"><span>Service ID</span></th>
+							<th class="nk-tb-col"><span>Date</span></th>
+							<th class="nk-tb-col"><span>Time</span></th>
+						
+							<th class="nk-tb-col"><span>Reffered By</span></th>
+					
+							
+						</tr><!-- .nk-tb-item -->
+					</thead>
+					 <tbody id="" >';
+		while($fetch1 = mysqli_fetch_array($query))
+		{
+
+
+echo'   <tr class="nk-tb-item">
+	<td class="nk-tb-col tb-col-sm">
+		<span class="tb-product">
+			<span class="title">'.$fetch1['o_ubrn'].'</span>
+		</span>
+	</td>
+	<td class="nk-tb-col">
+		<span class="tb-sub">'.$fetch1['or_name'].'</span>
+	</td>
+	<td class="nk-tb-col">
+		<span class="tb-lead">'.$fetch1['o_serviceid'].'</span>
+	</td>
+	<td class="nk-tb-col">
+		<span class="tb-sub">'.$fetch1['o_date'].'</span>
+	</td>
+	<td class="nk-tb-col">
+		<span class="tb-sub">'.$fetch1['o_time'].'</span>
+	</td>
+	<td class="nk-tb-col">
+		<span class="tb-sub">'.$fetch1['ur_fname'].''.$fetch1['ur_sname'].'</span>
+	</td>
+	
+	';
+		}
+		echo'</tbody> </table>
+		<script src="https://cdn.datatables.net/1.10.23/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.10.23/js/dataTables.bootstrap4.min.js"></script>
+<script>$(document).ready(function () {
+    $("#myTable").DataTable();
+} )
+</script>
+';
+	}
+}
+
 //for add refferel
 if(isset($_POST['addrefferel']))
 {
@@ -142,6 +206,26 @@ if(isset($_POST['addpatient']))
 		echo "Error";
 	}
 }
+
+//for Add appointment
+if(isset($_POST['addappo']))
+{
+	
+extract($_POST);
+	
+	
+	$query = mysqli_query($con,"INSERT INTO `tbl_patientappointment`(`o_ubrn`, `o_orgid`, `o_serviceid`, `o_date`, `o_time`, `o_patientid`, `o_refferelid`) VALUES ('$ubrn','$orid','$serviceid','$date','$time','$patientid','$referalid')");
+	
+	if($query)
+	{
+		echo "Success";
+	}
+	else
+	{
+		echo "Error";
+	}
+}
+
 //for refferels fetch
 if(isset($_POST['refferelfetch']))
 {

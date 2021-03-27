@@ -58,23 +58,101 @@ include_once('header.php');
 
 
                                                     <li>
-                                                    
-                                                        <span class="font-weight-bold">Refferel ID</span>
+                                                        <?php 
+															if(isset($_GET['nhsno'])){
+													$nhsno = $_GET['nhsno'];
+													
+													$qref = mysqli_query($con, "SELECT * FROM `tbl_consultantrefferels` JOIN `tbl_patients` ON c_rfid = tbl_patients.pt_id JOIN `services` ON c_serid = services.service_id JOIN `tbl_ruser` ON tbl_ruser.ur_id = tbl_consultantrefferels.c_userid WHERE c_nhsno = '$nhsno'");
+													$dref = mysqli_fetch_assoc($qref);
+												}
+														?>
+                                                        <span class="font-weight-bold">Named Clinician</span>
                                                         <br>
-                                                        <span><?=$dref['ra_refferelid']?></span>
+                                                        <span><?=$dref["ur_fname"]." ".$dref['ur_sname']?></span>
                                                     </li>
                                                     <br>
                                                     <li>
-                                                        <span class="font-weight-bold">Consultant Name</span>
+                                                        <span class="font-weight-bold">Service Name</span>
                                                         <br>
                                                         <?php
-														$sername = $dref['ra_sender_id'];
-														$snq = mysqli_query($con, "SELECT * FROM `tbl_ruser` WHERE `ur_id` = '$sername'");
+														$sername = $dref['service_name'];
+														$snq = mysqli_query($con, "SELECT * FROM `service_name` WHERE `s_id` = '$sername'");
 															$serndata = mysqli_fetch_assoc($snq);
 														?>
-                                                        <span><?=$serndata["ur_fname"]." ".$serndata['ur_sname']?> </span>
+                                                        <span><?=$serndata['s_name'];?></span>
                                                     </li>
-                                            
+                                                    <br>
+                                                    <li>
+                                                         <span class="font-weight-bold">Priority: </span>
+                                                        <?php
+                                                         if($dref['ser_priority_rout'] != 0)
+                                                         {
+                                                        ?>
+                                                        
+                                                        <span>Routine</span>
+                                                        
+                                                        <?php
+                                                         }
+                                                         elseif($dref['ser_priority_urg'] != 0)
+                                                         {
+                                                             
+                                                         
+                                                        ?>
+                                                         <span>Urgent</span>
+                                                         <?php
+                                                         }
+                                                         
+                                                       
+                                                         elseif($dref['ser_priority_2week'] != 0)
+                                                         {
+                                                             
+                                                         
+                                                        ?>
+                                                         <span>2 Weeks</span>
+                                                         <?php
+                                                         }
+                                                         ?>
+                                                    </li>
+                                                    <br>
+                                                    <li>
+                                                        <span class="font-weight-bold">Speciality</span>
+                                                        <br>
+                                                        <?php
+														$serspec = $dref['service_speciality'];
+														$sspecq = mysqli_query($con, "SELECT * FROM `ser_specialty_add` WHERE `spec_id` = '$serspec'");
+															$serspecdata = mysqli_fetch_assoc($sspecq);
+														?>
+                                                        <span><?=$serspecdata['spec_name']?></span>
+                                                    </li>
+                                                    <br>
+                                                    <?php
+													if(isset($_GET['nhsno'])){
+													$nhsno = $_GET['nhsno'];
+													$qref = mysqli_query($con, "SELECT * FROM `tbl_consultantrefferels` JOIN `tbl_patients` ON c_rfid = tbl_patients.pt_id JOIN `services` ON c_serid = services.service_id JOIN `tbl_ruser` ON tbl_ruser.ur_id = tbl_consultantrefferels.c_gpid WHERE c_nhsno = '$nhsno'");
+													$dref = mysqli_fetch_assoc($qref);
+														$refid = $dref['c_id'];
+														echo"Refer ID : ".$refid;
+													}
+													?>
+													<input type="text" name="rfno" id="rfno" value="<?=$refid?>" hidden>
+                                                    <li>
+                                                        <span class="font-weight-bold">Referred By</span>
+                                                        <br>
+                                                        <span><?=$dref["ur_fname"]." ".$dref['ur_sname']?></span>
+                                                    </li>
+                                                    <br>
+                                                    <li>
+                                                        <span class="font-weight-bold">Registered Practice</span>
+                                                        <br>
+                                                        <span>Karachi
+                                                            Sindh
+                                                            Pakistan</span>
+                                                    </li>
+                                                    <br>
+                                                    <li>
+                                                        <span class="font-weight-bold">Telephone: </span>
+                                                        <span><?=$dref['pt_telno']?></span>
+                                                    </li>
 
                                                 </ul>
                                             </div>
@@ -91,7 +169,7 @@ include_once('header.php');
 												<span class="float-right p-2 bg-light w-100 col-form-label font-weight-bold">Patient Info - </span>
 												<button type="button" class="btn btn-info btn-sm float-right mt-1" onclick="showpat()">More Info</button>
 												<span class="text-dark">
-												Name: <?=$fetch2['pt_name']?></span>
+												Name: <?=$fetch2['pt_name']?>(<?=$fetch2['pt_title']?>)</span>
 												
 												<br>
 												
@@ -99,12 +177,12 @@ include_once('header.php');
 												Email: <?=$fetch2['pt_email']?>
 												</span>
 												<br>
+												<hr>
                                                 <div class="nk-block-head nk-block-head-lg wide-sm">
                                                     <h5 class="nk-block-title fw-normal col-form-label font-weight-bold"
                                                         style="font-size: 20px">Advice Conversation</h5>
-                                                    <label for="" class="col-form-label">Comments</label>
                                                   
-                                                    <div id="fetchreply" style="height: 300px;overflow-y: scroll;">
+                                                    <div id="fetchreply" style="height: 359px;overflow: hidden auto;">
                                                         <!-- phpcode.php -->
                                                     </div>
                                                     <br>
@@ -113,16 +191,24 @@ include_once('header.php');
                                             </div>
                                         </div>
                                     </div>
-                                    <span
-                                                        class="float-left p-2 bg-light w-100 col-form-label font-weight-bold pl-0 ml-0">Advice
-                                                        Status - <span class="text-info">Provider Response
-                                                            Required</span></span>
+                                    <hr>
+                                  
+                           
+                                </div>
+                                 <br>
+                                                    <br>
+                                <div>
+                                    
+                                      <div class="float-left p-4 bg-light col-form-label font-weight-bold ml-0 mb-3 col-md-12 rounded">
+                                          <p>Advice Status - <span class="text-info">Provider Response
+                                                            Required</span>
+                                                            </p></div>
                                                     <br>
                                                     <br>
                                                     <br>
-                                                    <form id="reply" enctype="multipart/form-data">
+                                                    <form id="reply" enctype="multipart/form-data" class="col-md-12 ml-0 float-left w-100">
                                                     
-                                                        <div class="row bg-light p-1 ml-0">
+                                                        <div class="row bg-light p-1 ml-0 w-100">
                                                             <div class="col-6">
                                                                 <label class="col-form-label" for="">Add
                                                                     Attachement</label>
@@ -143,30 +229,21 @@ include_once('header.php');
                                                                 <textarea
                                                                     placeholder="Enter advice response detail here"
                                                                     class="form-control" name="cmntad" id="" cols="30"
-                                                                    rows="3"></textarea>
+                                                                    rows="3" required></textarea>
                                                             </div>
                                                             <button type="submit"
                                                                 class="btn btn-sm btn-info my-3 ml-3">Send</button>
                                                         </div>
                                                     </form>
-                                    <!--
-									<br>
-								<hr>
-								<br>
--->
-                                    <!--									<center><span id="hideno">No Result loaded</span></center>-->
-                                    <!--
-								<div class="nk-block nk-block-lg" id="rdata">
-									
-								</div>
--->
-
-                                    <!-- nk-block -->
-                                </div><!-- .components-preview -->
+                                </div>
+                                <!-- .components-preview -->
                             </div>
                         </div>
                     </div>
-                    				<div class="modal fade" tabindex="-1" id="modalname">
+                
+                </div>
+                </div>
+                	<div class="modal fade" tabindex="-1" id="modalname">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -233,7 +310,6 @@ include_once('header.php');
             </div>
         </div>
     </div>
-                </div>
                 <!-- content @e -->
                 <!-- footer @s -->
                 <?php
@@ -303,7 +379,7 @@ $("#reply").on('submit', function(e) {
                 } else if (data == 'Success') {
 
                     toastr.clear();
-                    NioApp.Toast("<h5>Message Sent</h5>", 'success', {
+                    NioApp.Toast("<h5>Advice request has been sent to the provider</h5>", 'success', {
                         position: 'top-right'
                     });
                     $('#reply').trigger('reset');

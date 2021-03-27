@@ -629,17 +629,21 @@ function showpatient() {
 
     });
 };
-function showss(){
+function showss(checkbox){
 
-    if($('.dd').prop("checked") == true && $('.gg').prop("checked") == true)
+    if($(checkbox).prop("checked") == true && $('.gg').prop("checked") == true)
     {
         $('#btnsubmit').show();
     }
-    else if($('.dd').prop("checked") == true && $('.gg').prop("checked") == false)
+    else if($(checkbox).prop("checked") == true && $('.gg').prop("checked") == false)
     {
         $('#btnsubmit').hide();
     }
-    else if($('.dd').prop("checked") == false && $('.gg').prop("checked") == true)
+    else if($(checkbox).prop("checked") == false && $('.gg').prop("checked") == true)
+    {
+        $('#btnsubmit').hide();
+    }
+    else if($(checkbox).prop("checked") == false && $('.gg').prop("checked") == false)
     {
         $('#btnsubmit').hide();
     }
@@ -650,7 +654,8 @@ $("#appinsert").on('submit', function(e){
 		var pid = $("input:checkbox[name='check[]']:checked").val();
 			var refform = new FormData(this);
 			refform.append("check",$("input:checkbox[name='check[]']:checked").val());
-			refform.append("checkw",$("input:checkbox[name='checkw[]']:checked").val());
+			refform.append("checkw",$("input:radio[name='checkw']:checked").val());
+			refform.append("refferalid",<?=$fetch["ur_id"]?>);
 			refform.append("addapointment","btn");
 			
 			$.ajax({

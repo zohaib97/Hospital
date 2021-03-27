@@ -5,7 +5,11 @@ include_once('../database/db.php');
 if(!isset($_SESSION['gprefferer'])){
 	header('location: ../index.php');
 }
-
+			$aid = $_SESSION['gprefferer'];
+						$query = mysqli_query($con,"SELECT * FROM `tbl_ruser` WHERE `ur_email` = '$aid'");
+						$fetch = mysqli_fetch_array($query);
+									$id = $fetch['ur_id'];
+									$orid=$fetch["ur_orgtype"];
 ?> 
 
 <div class="nk-header nk-header-fixed is-light">
@@ -164,11 +168,7 @@ if(!isset($_SESSION['gprefferer'])){
 					<li class="dropdown notification-dropdown">
 <!--										 data-toggle="dropdown"-->
 	<?php
-									$aid = $_SESSION['gprefferer'];
-						$query = mysqli_query($con,"SELECT * FROM `tbl_ruser` WHERE `ur_email` = '$aid'");
-						$fetch = mysqli_fetch_array($query);
-									$id = $fetch['ur_id'];
-									$orid=$fetch["ur_orgtype"];
+						
 						$ks=mysqli_query($con,"SELECT * FROM `orginzation` where orid ='$orid'");
 						$klo=mysqli_fetch_array($ks);
 									$qqqq = mysqli_query($con,"SELECT count(*) as a FROM tbl_consultantrefferels,tbl_refferelattachment WHERE tbl_refferelattachment.ra_refferelid=tbl_consultantrefferels.c_id and tbl_consultantrefferels.c_gpid = '$id' and reply='1' ");
@@ -182,7 +182,7 @@ if(!isset($_SESSION['gprefferer'])){
 									?>
 				        	<a href="#" class="dropdown-toggle nk-quick-nav-icon" data-toggle="dropdown" style="width: 37px;height: 37px;">
 							<i class="icon ni ni-bell"></i>
-														<sup class="badge badge-primary rounded-circle ml-n1 mt-n2"><?=$fds["a"]?></sup>
+														<!--<sup class="badge badge-primary rounded-circle ml-n1 mt-n2"><?=$fds["a"]?></sup>-->
 						</a>
 						
 						<div class="dropdown-menu dropdown-menu-xl dropdown-menu-right">
@@ -207,7 +207,7 @@ if(!isset($_SESSION['gprefferer'])){
 								</div><!-- .nk-notification -->
 							</div><!-- .nk-dropdown-body -->
 							<div class="dropdown-foot center">
-								<a href="refferelsreply.php">View All</a>
+								<a href="refferels.php">View All</a>
 							</div>
 							<?php }?>
 						</div>

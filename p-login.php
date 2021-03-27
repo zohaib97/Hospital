@@ -82,6 +82,9 @@
 							  <div class="form-group col-lg-6 mt-2">
 								 <input type="number" class="form-control" id="u_em" placeholder="Your NHS no" name="nhsno" autocomplete="off" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"maxlength="10">
 							  </div>
+							  <div class="form-group col-lg-6 mt-2">
+								 <input type="number" class="form-control" id="u_em" placeholder="Your UBRN no" name="ubrn" autocomplete="off" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"maxlength="12">
+							  </div>
 							  <div class="form-group  col-lg-6 mt-2" >
 								 <input type="text"  class="form-control " onfocus="(this.type='date')" id="u_pass" placeholder="Date of Birth" name="dob" autocomplete="off"> 
 							
@@ -209,7 +212,7 @@ $('.datepicker').datepicker({
 			contentType: false,
 			processData: false,
 			success: function(data){
-		
+	
 				if(data == "error"){
 //					alert("Email Password Wrong!");
 					toastr.error("Email Password Wrong!");
@@ -217,6 +220,10 @@ $('.datepicker').datepicker({
 				
 				else if (data == "pati"){
 //					alert("Welcome");
+					window.location.href = "Patient/index.php";
+				}
+				else if (data == "error1"){
+//					alert("UBRN No Invalid");
 					window.location.href = "Patient/index.php";
 				}
 

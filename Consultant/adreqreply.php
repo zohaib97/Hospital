@@ -60,8 +60,8 @@ include_once('header.php');
                                                         <?php 
 															if(isset($_GET['nhsno'])){
 													$nhsno = $_GET['nhsno'];
-													
-													$qref = mysqli_query($con, "SELECT * FROM `tbl_consultantrefferels` JOIN `tbl_patients` ON c_rfid = tbl_patients.pt_id JOIN `services` ON c_serid = services.service_id JOIN `tbl_ruser` ON tbl_ruser.ur_id = tbl_consultantrefferels.c_userid WHERE c_nhsno = '$nhsno'");
+													$request_type=$_GET['request_type'];
+													$qref = mysqli_query($con, "SELECT * FROM `tbl_consultantrefferels` JOIN `tbl_patients` ON c_rfid = tbl_patients.pt_id JOIN `services` ON c_serid = services.service_id JOIN `tbl_ruser` ON tbl_ruser.ur_id = tbl_consultantrefferels.c_userid WHERE request_type='$request_type' and c_nhsno = '$nhsno'");
 													$dref = mysqli_fetch_assoc($qref);
 												}
 														?>
@@ -95,7 +95,7 @@ include_once('header.php');
                                                     <?php
 													if(isset($_GET['nhsno'])){
 													$nhsno = $_GET['nhsno'];
-													$qref = mysqli_query($con, "SELECT * FROM `tbl_consultantrefferels` JOIN `tbl_patients` ON c_rfid = tbl_patients.pt_id JOIN `services` ON c_serid = services.service_id JOIN `tbl_ruser` ON tbl_ruser.ur_id = tbl_consultantrefferels.c_gpid WHERE c_nhsno = '$nhsno'");
+													$qref = mysqli_query($con, "SELECT * FROM `tbl_consultantrefferels` JOIN `tbl_patients` ON c_rfid = tbl_patients.pt_id JOIN `services` ON c_serid = services.service_id JOIN `tbl_ruser` ON tbl_ruser.ur_id = tbl_consultantrefferels.c_gpid WHERE request_type='$request_type' and c_nhsno = '$nhsno'");
 													$dref = mysqli_fetch_assoc($qref);
 														$refid = $dref['c_id'];
 														echo"Refer ID : ".$refid;
@@ -144,10 +144,10 @@ include_once('header.php');
 												Email: <?=$fetch2['pt_email']?>
 												</span>
 												<br>
+												<hr>
                                                 <div class="nk-block-head nk-block-head-lg wide-sm">
                                                     <h5 class="nk-block-title fw-normal col-form-label font-weight-bold"
                                                         style="font-size: 20px">Advice Conversation</h5>
-                                                    <label for="" class="col-form-label">Comments</label>
                                                   
                                                    
                                                  
@@ -161,15 +161,19 @@ include_once('header.php');
                                             </div>
                                         </div>
                                     </div>
-                                    <span
-                                                        class="float-right p-2 bg-light w-100 col-form-label font-weight-bold ml-0">Advice
+                                   
+            
+			
+                                    <!-- nk-block -->
+                                </div><!-- .components-preview -->
+                                <br><br>
+                                <div>
+                                 <div class="float-right p-4 bg-light w-100 col-form-label font-weight-bold mb-3 ml-0"><p>Advice
                                                         Status - <span class="text-info">Provider Response
-                                                            Required</span></span>
-                                                    <br>
-                                                    <br>
-                                                    <br>
-                                                    <form id="reply" enctype="multipart/form-data">
-                                                        <div class="row bg-light p-1 ml-0">
+                                                            Required</span></p></div>
+                                                    
+                                                 <center>   <form id="reply" enctype="multipart/form-data">
+                                                        <div class="row bg-light p-1 ml-0 mr-0">
                                                             <div class="col-6">
                                                                 <label class="col-form-label" for="">Add
                                                                     Attachement</label>
@@ -188,24 +192,19 @@ include_once('header.php');
                                                                 <textarea
                                                                     placeholder="Enter advice response detail here"
                                                                     class="form-control" name="cmntad" id="" cols="30"
-                                                                    rows="3"></textarea>
+                                                                    rows="3" required></textarea>
                                                             </div>
                                                             <button type="submit"
                                                                 class="btn btn-sm btn-info my-3 ml-3">Send</button>
                                                         </div>
-                                                    </form>
-                                    <!--
-									<br>
-								<hr>
-								<br>
--->
-                                    <!--									<center><span id="hideno">No Result loaded</span></center>-->
-                                    <!--
-								<div class="nk-block nk-block-lg" id="rdata">
-									
-								</div>
--->
-				<div class="modal fade" tabindex="-1" id="modalname">
+                                                    </form> </center>
+                                                    </div>
+                            </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                	<div class="modal fade" tabindex="-1" id="modalname">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -272,12 +271,6 @@ include_once('header.php');
             </div>
         </div>
     </div>
-                                    <!-- nk-block -->
-                                </div><!-- .components-preview -->
-                            </div>
-                        </div>
-                    </div>
-                </div>
                 <!-- content @e -->
                 <!-- footer @s -->
                 <?php
@@ -436,7 +429,7 @@ $("#reply").on('submit', function(e) {
                 } else if (data == 'Success') {
 
                     toastr.clear();
-                    NioApp.Toast("<h5>Message Sent</h5>", 'success', {
+                    NioApp.Toast("<h5>The advice response has been sent to the referrer</h5>", 'success', {
                         position: 'top-right'
                     });
                     $('#reply').trigger('reset');

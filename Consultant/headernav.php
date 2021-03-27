@@ -186,7 +186,7 @@ if(!isset($_SESSION['consultant'])){
 											<em class="icon icon-circle bg-warning-dim ni ni-curve-down-right"></em>
 										</div>
 										<div class="nk-notification-content">
-											<div class="nk-notification-text">You have New Service Refferels <sup class="badge badge-primary rounded-circle ml-n1 mt-n2"><?=$rfcksj["a"]?></sup></div>
+											<div class="nk-notification-text">You have New Service Refferels</div>
 											
 										</div>
 									</div>
@@ -213,7 +213,7 @@ if(!isset($_SESSION['consultant'])){
 								</div>
 								<div class="user-info d-none d-xl-block">
 									<div class="user-status user-status-verified">verified</div>
-									<div class="user-name dropdown-indicator"><?=$fetch['ur_sname']?></div>
+									<div class="user-name dropdown-indicator"><?=$fetch["ur_fname"]." ".$fetch['ur_sname']?></div>
 								</div>
 							</div>
 						</a>

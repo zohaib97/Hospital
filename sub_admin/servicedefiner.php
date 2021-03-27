@@ -1278,7 +1278,7 @@ $(function()
       var quantity = parseInt($('#ser_ager2').val());
      if( quantityI > quantity)
       {
-		swal("warning!", "In Vallid Age Range", "warning");
+		swal("warning!", "Invalid Age Range", "warning");
       }
      
     });
@@ -1289,7 +1289,7 @@ $(function()
       var quantity = $('#ser_effect2').val();
      if( quantityI > quantity)
       {
-		swal("warning!", "In Vallid Date Range", "warning");
+		swal("warning!", "Invalid Date Range", "warning");
 		$('#ser_effect2').val('');
       }
      

@@ -56,7 +56,7 @@ if(isset($_POST['method']))
 		
 		if($vq)
 		{
-			echo("Success");
+			echo("Successs");
 		}
 		
 	}
@@ -86,7 +86,7 @@ if(isset($_POST['method']))
 		
 		if($vq)
 		{
-			echo("Success");
+			echo("Successs");
 		}
 		else{
 			echo"errorn";
@@ -1133,12 +1133,13 @@ if(isset($_POST["addorginaztion"]))
 //fetch orginaztion data
 if(isset($_POST['orginaztionfetch']))
 {
-$query = mysqli_query($con,"SELECT * FROM `orginzation` WHERE status = 'Approved' ");
+    $status=$_POST["status"];
+$query = mysqli_query($con,"SELECT * FROM `orginzation` WHERE status = '$status' ");
 	if($query)
 	{
 		echo'
 		<link rel="stylesheet" href="https://cdn.datatables.net/1.10.23/css/dataTables.bootstrap4.min.css">
-		<table class="nowrap nk-tb-list is-separate" data-auto-responsive="false" id="myTable">
+		<table class="nowrap nk-tb-list is-separate" data-auto-responsive="false" id="myTable" >
 		<thead>
 			<tr class="nk-tb-item nk-tb-head">
 				<th class="nk-tb-col"><span>Organisation  Name</span></th>

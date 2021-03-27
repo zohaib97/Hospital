@@ -2,10 +2,15 @@
 //session_start();
 include_once('../database/db.php');
 
-if (!isset($_SESSION['patnhs'])) {
+if (!isset($_SESSION['patnhs']) && !isset($_SESSION["patubrn"])) {
 	header('location: ../index.php');
 }
-
+$ubrn=$_SESSION["patubrn"];
+$kls=mysqli_query($con,"SELECT * FROM `tbl_serviceappointment`,tbl_ruser,services,orginzation where orginzation.orid=services.s_orgid and services.service_id=tbl_serviceappointment.sp_serviceid and tbl_ruser.ur_id=tbl_serviceappointment.sp_refferalid and tbl_serviceappointment.sp_ubrn='$ubrn'");
+$kop=mysqli_fetch_array($kls);
+$aid = $_SESSION['patnhs'];
+$query = mysqli_query($con, "SELECT * FROM `tbl_patients` WHERE `pt_nhsno` = '$aid'");
+$fetch = mysqli_fetch_array($query);
 ?>
 
 <div class="nk-header nk-header-fixed is-light">
@@ -163,9 +168,7 @@ if (!isset($_SESSION['patnhs'])) {
 					</li>
 				
 					<?php
-$aid = $_SESSION['patnhs'];
-$query = mysqli_query($con, "SELECT * FROM `tbl_patients` WHERE `pt_nhsno` = '$aid'");
-$fetch = mysqli_fetch_array($query);
+
 					if ($query) {
 					?>
 						<li class="dropdown user-dropdown">

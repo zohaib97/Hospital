@@ -92,7 +92,11 @@ include_once('header.php');
                              <div class="row">
                                  <div class="col-md-3">
                                 <p><b>Name :</b> <span><?=$fe["pt_name"]." ".$fe["pt_surname"]?></span></p>
-                                <p><b>Date Of Birth :</b> <span><?=$fe["pt_dob"]?></span></p>
+                                <p><b>Date Of Birth :</b> <span><?php
+                                
+                                $dates=date_create($fe["pt_dob"]);
+                                echo date_format($dates,"d/m/Y");
+                                ?></span></p>
 
                                 <p><b>NHS No :</b> <span><?=$fe["pt_nhsno"]?></span></p>
 

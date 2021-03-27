@@ -98,12 +98,16 @@ include_once('../database/db.php');
 							<label class="custom-control-label" for="puid"></label>
 						</div>
 					</th> -->
+						<th class="nk-tb-col tb-col-sm"><span>Request Type</span></th>
+						<th class="nk-tb-col"><span>Service Name</span></th>
+						<th class="nk-tb-col"><span>Indicative Wait time</span></th>
+						<th class="nk-tb-col"><span>Sender Bookable</span></th>
 					<th class="nk-tb-col tb-col-sm"><span>Location</span></th>
 				
 					<th class="nk-tb-col"><span>Refferer Alert</span></th>
-					<th class="nk-tb-col"><span>Service Name</span></th>
+					
 					<th class="nk-tb-col"><span>Organisation Type</span></th>
-					<th class="nk-tb-col"><span>Indicative Wait time</span></th>
+					
 					
 					
 					
@@ -119,6 +123,8 @@ include_once('../database/db.php');
             $orid = $fe['s_orgid'];
             $mss = mysqli_query($con,"SELECT * FROM orginzation WHERE orid = '$orid'");
             $fee = mysqli_fetch_array($mss);
+            $q2 = mysqli_query($con,"SELECT * FROM tbl_serviceappointment join tbl_consultantrefferels on tbl_consultantrefferels.c_serid = tbl_serviceappointment.sp_serviceid WHERE sp_id = '$appid'");
+            $f2 = mysqli_fetch_array($q2);
             ?>
             <tr class="nk-tb-item">
 	<!-- <td class="nk-tb-col nk-tb-col-check">
@@ -130,21 +136,32 @@ include_once('../database/db.php');
 	<td class="nk-tb-col tb-col-sm">
 		<span class="tb-product">
 			
-			<span class="title"><?=$f['service_location']?></span>
+			<span class="title"><?=$f2['request_type']?></span>
 		</span>
-	</td>
-	<td class="nk-tb-col">
-		<span class="tb-lead"><?=$f['service_refer']?></span>
 	</td>
 	<td class="nk-tb-col">
 		<span class="tb-lead"><?=$f1['s_name']?></span>
 	</td>
 	<td class="nk-tb-col">
-		<span class="tb-lead"><?=$fee['or_type']?></span>
-	</td>
-	<td class="nk-tb-col">
 		<span class="tb-lead"><?=$f['sp_iwt']?></span>
 	</td>
+	<td class="nk-tb-col">
+		<span class="tb-lead"><?=$f['sender_bookable']?></span>
+	</td>
+	<td class="nk-tb-col tb-col-sm">
+		<span class="tb-product">
+			
+			<span class="title"><?=$f['service_location']?></span>
+		</span>
+	</td>
+	<td class="nk-tb-col">
+		<span class="tb-lead" data-toggle="tooltip" title="<?=$f['service_refer']?>"><h5 class="icon ni ni-info-fill"></h5></span>
+	</td>
+	
+	<td class="nk-tb-col">
+		<span class="tb-lead"><?=$fee['or_type']?></span>
+	</td>
+	
 
             </tr>
             </tbody>

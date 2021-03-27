@@ -28,10 +28,35 @@ include_once('header.php');
 				<!-- main header @e -->
 				<!-- content @s -->
 				<div class="nk-content ">
+				    <?php
+				    $q = $_GET["c_id"];
+
+						$qref = mysqli_query($con, "SELECT * FROM `tbl_consultantrefferels` WHERE c_id = '$q'");
+						$dref = mysqli_fetch_assoc($qref);
+						if($dref['request_type'] == "Advice Request")
+						{
+						    
+						
+				    ?>
+				     <h2>Advice Request</h2>
+				     <?php
+						}
+						elseif($dref['request_type'] == "Appointment Request")
+						{
+						    
+						
+				     ?>
+				     <h2>Appointment Request</h2>
+				     <?php
+						}
+				     ?>
+				     <br>
 					<div class="container-fluid">
+					     
 						<div class="nk-content-inner">
 							<div class="nk-content-body">
 								<div class="components-preview wide-md mx-auto">
+								  
 									<div class="row">
 										<div class="col-lg-4 col-md-4 col-12">
 											<span class="col-form-label font-weight-bold" style="font-size: 15px; color: black">Summary Information</span>
@@ -292,7 +317,7 @@ function showpat()
 					} else if (data == 'Success') {
 						$('#cmntform')[0].reset();
 						toastr.clear();
-						NioApp.Toast("<h5>Message Sent</h5>", 'success', {
+						NioApp.Toast("<h5>Advice request has been sent to the provider</h5>", 'success', {
 							position: 'top-right'
 						});
 						window.setTimeout(function(){

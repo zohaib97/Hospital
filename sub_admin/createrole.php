@@ -73,7 +73,7 @@ include_once('header.php');
 													</div>
 													<div class="col-md-6">
 														<div class="form-group">
-															<label class="col-form-label" for="sname">Sure Name</label>
+															<label class="col-form-label" for="sname">Sur Name</label>
 															<input type="text" class="form-control form-control-lg" id="sname" value="" placeholder="Enter display name" autocomplete="off" name="staff_sname">
 														</div>
 													</div>

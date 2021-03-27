@@ -205,14 +205,25 @@ if(isset($_POST['loginpage1']))
 	
 	$lemail = mysqli_real_escape_string($con, $_POST['nhsno']);
 	$lpass = mysqli_real_escape_string($con, $_POST['dob']);
-	
+	$ubrn = mysqli_real_escape_string($con, $_POST['ubrn']);
 	$check = "SELECT * FROM `tbl_patients` where pt_nhsno ='$lemail' and pt_dob= '$lpass'";
 	$q = mysqli_query($con, $check);
 	$datacheck = mysqli_fetch_assoc($q);
 	$nl = mysqli_num_rows($q);
 		if($nl >0){
-			$_SESSION['patnhs'] = $lemail;
+		    $check1 = "SELECT * FROM `tbl_serviceappointment` where sp_ubrn ='$ubrn'";
+	$q1 = mysqli_query($con, $check1);
+	$row = mysqli_num_rows($q1);
+	if($row>0)
+	{
+	    $_SESSION['patnhs'] = $lemail;
+	    $_SESSION['patubrn'] = $ubrn;
 			echo "pati";
+	}
+	else{
+	    echo "error1";
+	}
+			
 		}else{
 			echo "error";
 		}

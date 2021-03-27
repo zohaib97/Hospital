@@ -88,7 +88,8 @@ include_once('../database/db.php');
 														<label class="col-form-label" for="depart">NHS No</label>
 														<input type="number" class="form-control form-control-lg"  id="nhsno" 
 														value="" name="nhsno" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
-												   maxlength="10" minlength="10" onchange="stringlength()">
+												   maxlength="10" minlength="10" onchange="stringlength(this.value)">
+												   <small id="valid-nhs"></small>
 													</div>
 												</div>
 												<div class="col-md-6">
@@ -340,7 +341,7 @@ include_once('../database/db.php');
         $('#pickedDate').html(pickedDate);
     });
 });
-function stringlength()
+function stringlength(nhs)
 { 
 var field = $('#nhsno').val(); 
 var mnlen = 10;
@@ -353,6 +354,30 @@ toastr.clear();
 $('#nhsno').val('');
 return false;
 }
+$.ajax({
+            type: 'POST',
+            url: 'phpcode.php',
+            data: {nhs:nhs,checknhs:"btn"},
+			
+            success: function(data){
+                console.log(data);
+     if(data == 'exists'){
+				$("#valid-nhs").html("NHS No is already exists").removeClass("text-success").addClass("text-danger");
+						 toastr.clear();
+    NioApp.Toast("<h5>NHS No is already exists</h5>", 'warning',{position:'top-right'});
+				// fetchadmindata();
+					}
+			if(data == 'not exists'){
+			    			$("#valid-nhs").html("NHS No is available for use").removeClass("text-danger").addClass("text-success");
+             toastr.clear();
+    NioApp.Toast("<h5>NHS No is available for use</h5>", 'success',{position:'top-right'});
+				// fetchadmindata();
+					
+					}
+                }
+			
+          
+            });
 
 }
 	</script>

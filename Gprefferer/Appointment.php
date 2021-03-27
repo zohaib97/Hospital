@@ -46,11 +46,9 @@ include_once('../database/db.php');
 														<option value="Referrer Sent">Referrer Sent</option>
 														<option value="Referrer Accepted">Referrer Accepted</option>
 														<option value="Referrer  Rejected">Referrer  Rejected</option>
-														<option value="Appointment booked">Appointment booked</option>
-														<option value="Appointment Attended">Appointment Attended</option>
-														<option value="Appointment  Outcome">Appointment  Outcome</option>
-														<option value="Appointment DNA">Appointment DNA</option>
-														<option value="Appointment Cancelled">Appointment Cancelled</option>
+														<option value="Advice Sent">Advice Sent</option>
+														<option value="Advice Accepted">Advice Accepted</option>
+														<option value="Advice Rejected">Advice Rejected</option>
 													</select>
 												</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 												<button id="btnshow" style="display: none;" class="btn btn-sm btn-info mt-1 float-right" onClick="workbltdata()">Load Result</button>
@@ -350,7 +348,7 @@ include_once('../database/db.php');
 
     });
 		}
-			if(work == "Appointment booked"){
+			if(work == "Advice Sent"){
 			document.getElementById('rdata').style.display = "block";
 			document.getElementById('hideno').style.display = "none";
 				 $.ajax({    
@@ -364,7 +362,7 @@ include_once('../database/db.php');
 
     });
 		}
-		if(work == "Appointment Attended"){
+		if(work == "Advice Accepted"){
 			document.getElementById('rdata').style.display = "block";
 			document.getElementById('hideno').style.display = "none";
 				 $.ajax({    
@@ -378,39 +376,13 @@ include_once('../database/db.php');
 
     });
 		}
-		if(work == "Appointment  Outcome"){
+		if(work == "Advice Rejected"){
 			document.getElementById('rdata').style.display = "block";
 			document.getElementById('hideno').style.display = "none";
 				 $.ajax({    
         type: "POST",
         url: "phpcode.php", 
 		data:{apprefferelfetch5:"btn"},	            
-        success: function(response){                    
-            $("#rdata").html(response); 
-            //alert(response);
-        }
-
-    });
-		}if(work == "Appointment DNA"){
-			document.getElementById('rdata').style.display = "block";
-			document.getElementById('hideno').style.display = "none";
-				 $.ajax({    
-        type: "POST",
-        url: "phpcode.php", 
-		data:{apprefferelfetch6:"btn"},	            
-        success: function(response){                    
-            $("#rdata").html(response); 
-            //alert(response);
-        }
-
-    });
-		}if(work == "Appointment Cancelled"){
-			document.getElementById('rdata').style.display = "block";
-			document.getElementById('hideno').style.display = "none";
-				 $.ajax({    
-        type: "POST",
-        url: "phpcode.php", 
-		data:{apprefferelfetch7:"btn"},	            
         success: function(response){                    
             $("#rdata").html(response); 
             //alert(response);

@@ -217,18 +217,18 @@ include_once('../database/db.php');
 								 </select>
 									 </div>
 								 <div class="col-md-4">
-									 <input type="text" name="rid" id="refferelid" hidden="true" value="">
+									 <!--<input type="text" name="rid" id="refferelid" hidden="true" value="">-->
 									 <label for="consultant">Consultant</label>
-									  <select class="form-control" name="consultant" id="consultant" disabled>
+									  <select class="form-control" name="consultant" id="consultant" disabled onchange="showproceed()">
 									  <option>Select</option>
 										  
 								 </select>
 									 </div>
 									 
 									 
-									 <div class="col-md-4">
+									 <div class="col-md-4" style="display:none;" id="proceed">
 									
-									 <input type="submit" class="btn btn-primary mt-5" name="rsubmit" value="Submit" id="rsubmit">
+									 <input type="submit" class="btn btn-primary mt-5" name="rsubmit" value="Continue With Selected Service" id="rsubmit">
 									 </div>
 								 </div>
 								
@@ -378,6 +378,10 @@ include_once('../database/db.php');
 </body>
 
 <script>
+function showproceed()
+{
+    $('#proceed').show();
+}
 function moveOnMax(field,nextFieldID){
   if(field.value.length >= field.maxLength){
     document.getElementById(nextFieldID).focus();
@@ -546,12 +550,14 @@ function getclint(vals){
 		
 		$("#attach").on('submit', function(e){
 		e.preventDefault();
+		var reqtype = $('#ref_reqt').val();
 		var coid = $('#consultant').val();
 		var pid = $("input:checkbox[name='check[]']:checked").val();
 			var refform = new FormData(this);
 			refform.append("check",$("input:checkbox[name='check[]']:checked").val());
 			refform.append("checkw",$("input:checkbox[name='checkw[]']:checked").val());
 			refform.append("addservicerefferel","btn");
+			refform.append("reqtype",reqtype);
 			
 			$.ajax({
 				url: 'phpcode.php',
@@ -564,6 +570,7 @@ function getclint(vals){
 					console.log(data);
 //	document.getElementById('tabItem7').innerHTML=data;
 //						
+
 				if(data["res"] == "success")
 					{
 						toastr.clear();
@@ -574,6 +581,11 @@ function getclint(vals){
 						{
 							toastr.clear();
                NioApp.Toast("<h5>Data Didn't Add Successfully</h5>", 'error',{position:'top-right'});
+						}
+						else if(data["res"] == "Already")
+						{
+							toastr.clear();
+               NioApp.Toast("<h5>Refferel Already Created</h5>", 'warning',{position:'top-right'});
 						}
 //			
 					}

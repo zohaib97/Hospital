@@ -68,9 +68,9 @@
                                         <li class="nk-menu-item">
                                             <a href="createorginaztion.php" class="nk-menu-link"><span class="nk-menu-text">Create Organisation</span></a>
                                         </li>
-                                        <li class="nk-menu-item">
-                                            <a href="organizationunapprove.php" class="nk-menu-link"><span class="nk-menu-text"> Not Approved Organisation</span></a>
-                                        </li>
+                                        <!--<li class="nk-menu-item">-->
+                                            <!--<a href="organizationunapprove.php" class="nk-menu-link"><span class="nk-menu-text"> Not Approved Organisation</span></a>-->
+                                        <!--</li>-->
                                        
                                     </ul><!-- .nk-menu-sub -->
                                 </li>

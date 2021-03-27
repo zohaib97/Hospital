@@ -32,6 +32,7 @@
                                 <li class="nk-menu-heading">
                                     <h6 class="overline-title text-primary-alt">Applications</h6>
                                 </li>
+                               
 <!--
 <!--								<li class="nk-menu-item">-->
 <!--								  <a href="createrefferel.php" class="nk-menu-link">-->
@@ -49,6 +50,12 @@
 								  <a href="appshow.php" class="nk-menu-link">
                                         <span class="nk-menu-icon"><em class="icon ni ni-users-fill"></em></span>
                                         <span class="nk-menu-text">Appointment</span>
+                                  </a>
+								</li>
+								<li class="nk-menu-item">
+								  <a href="appointmentlist.php" class="nk-menu-link">
+                                        <span class="nk-menu-icon"><em class="icon ni ni-users-fill"></em></span>
+                                        <span class="nk-menu-text">Appointment List</span>
                                   </a>
 								</li>
 								<!-- <li class="nk-menu-item">

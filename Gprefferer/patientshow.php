@@ -319,21 +319,96 @@ include_once('../database/db.php');
     </div>
     <!-- app-root @e -->
     <script src="assets/js/example-toastr.js?ver=2.2.0"></script>
+    <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalCenterTitle">Patient Details</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+     <div class="row">
+         <div class="col-md-6">
+             <h6>Title</h6>
+             <p id="title"></p>
+         </div>
+         
+         <div class="col-md-6">
+             <h6>Name</h6>
+             <p id="name"></p>
+         </div>
+         
+         <div class="col-md-6">
+             <h6>Email</h6>
+             <p id="email"></p>
+         </div>
+         
+         <div class="col-md-6">
+             <h6>NHs No</h6>
+             <p id="nhsnoo"></p>
+         </div>
+         <div class="col-md-6">
+             <h6>Date Of Birth</h6>
+             <p id="dobbb"></p>
+         </div>
+            <div class="col-md-6">
+             <h6>House No</h6>
+             <p id="hnoas"></p>
+         </div>
+            <div class="col-md-6">
+             <h6>Street Name</h6>
+             <p id="street"></p>
+         </div>
+            <div class="col-md-6">
+             <h6>Country</h6>
+             <p id="country"></p>
+         </div>
+            <div class="col-md-6">
+             <h6>City</h6>
+             <p id="city"></p>
+         </div>
+         <div class="col-md-6">
+             <h6>Postal Code</h6>
+             <p id="postss"></p>
+         </div>
+         <div class="col-md-6">
+             <h6>TelePhone Number</h6>
+             <p id="tele"></p>
+         </div>
+         <div class="col-md-6">
+             <h6>Mobile Number</h6>
+             <p id="mob"></p>
+         </div>
+         
+     </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
 </body>
 <script>
-// 	function fetchadmindata()
-// {
-// 	 $.ajax({    
-//     type: "POST",
-//     url: "phpcode.php", 
-// 	data:{fetchpatient:"btn"},          
-//     success: function(response){                    
-//         $("#adata").html(response); 
-//         //alert(response);
-//     }
+	function fetchpatientdetails(title,name,email,nhsno,dob,hno,street,country,city,post,tele,mob){
+    $("#title").html(title); 
+    $("#name").html(name);
+    $("#email").html(email);
+    $("#nhsnoo").html(nhsno);
+    $("#dobbb").html(dob);
+    $("#hnoas").html(hno);
+    $("#street").html(street);
+    $("#country").html(country);
+    $("#city").html(city);
+    $("#postss").html(post);
+    $("#tele").html(tele);
+    $("#mob").html(mob);
+$("#exampleModalCenter").modal("show");
+    }
 
-// });
-// }
+
 // 	$(document).ready(function(){
 // 		fetchadmindata();
 // 	});
@@ -493,6 +568,7 @@ $(function() {
 
     // INITIALIZE DATEPICKER PLUGIN
     $('.datepicker').datepicker({
+        dateformat:"d-m-Y",
         clearBtn: true
     });
 

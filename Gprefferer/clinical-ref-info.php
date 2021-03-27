@@ -34,21 +34,26 @@ include_once('header.php');
                                 <div class="components-preview wide-md mx-auto">
                                     <div class="nk-block-head nk-block-head-lg wide-sm">
                                         <h2 class="nk-block-title fw-normal">Clinical Referral Information</h2>
+                                        <span class=""><h5 class="nk-block-title fw-normal icon ni ni-check-fill-c bg-light text-primary p-1"> The Shortlist has been created successfully</h5></span>
                                 <?php
+                                $refferalid=$fetch["ur_id"];
                                 $appid = $_GET['c_id'];
-                                $sql = mysqli_query($con,"SELECT * FROM tbl_serviceappointment,`services`,tbl_patients where tbl_patients.pt_id=tbl_serviceappointment.sp_patientid and tbl_serviceappointment.sp_serviceid = services.service_id and sp_id = '$appid'");
+                                $sql = mysqli_query($con,"SELECT * FROM tbl_serviceappointment,tbl_consultantrefferels,`services`,tbl_patients where tbl_patients.pt_id=tbl_serviceappointment.sp_patientid and tbl_serviceappointment.sp_serviceid = services.service_id and tbl_consultantrefferels.c_gpid=tbl_serviceappointment.sp_refferalid and sp_id = '$appid' and sp_refferalid='$refferalid'");
                                 if(mysqli_num_rows($sql)>0)
                                 {
                                     $fe = mysqli_fetch_array($sql);
+                                    $date1=date_create($fe["createdate"]);
+                                    $dowb=date_format($date1,"d-m-Y ");
                                 }
                                 ?>
-                                <input type="hidden" id="ss" value="<?=$fe["pt_name"]." ".$fe["pt_surname"]?>">
+                                <input type="hidden" id="ss" value="<?=$fe["pt_name"]." ".$fe["pt_surname"]." ".date("d-m-Y")?>">
                                     </div>
                                     <div>
                                     <p><b>Referral By :</b> <?=$fetch["ur_fname"]." ".$fetch["ur_sname"]?></p>
+                                    <p><b>Organisation Phone :</b> <?=$fetch["or_phone"]?></p>
                                     <p><b>Organisation Name :</b> <?=$klo["or_name"]?></p>
                                     <p><b>Organisation Address :</b> <?=$klo["or_address"]?></p>
-                                    <p><b>Organisation Phone :</b> <?=$klo["or_phone"]?></p>
+                                    <p><b>Referral Created Date :</b> <?=$dowb?></p>
                                     <?php
                                     if($fe['ser_priority_rout'] != null)
                                     {

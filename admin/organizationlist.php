@@ -40,9 +40,20 @@ include_once('connect.php');
                                 <div class="components-preview wide-md mx-auto">
                                     <div class="nk-block-head nk-block-head-lg wide-sm">
 										 <h2 class="nk-block-title fw-normal">Organisation list</h2>
-                                       
+                                  
+                                  
+                                  <div class="mx-auto col-md-6">
+                                      <label class="">Select Organisation Type</label>
+                                       <select onchange="fetchhospitalsdata(this.value)" class="form-control mx-auto">
+                                                <option value="">--Select--</option>
+                                               <option value="Approved">Approved</option>
+                                               <option value="Not approved"> Not Approved</option>
+                                           </select>
+                                     
+                                       </div>
                                     </div>
-                                    <div class="nk-block nk-block-lg" id="hdata">
+                                    
+                                    <div class="nk-block nk-block-lg" id="hdata" style="overflow:auto;">
                                        
                                        <!-- .nk-tb-list -->
                                     </div> <!-- nk-block -->
@@ -96,12 +107,12 @@ include_once('connect.php');
   <script src="assets/js/example-toastr.js?ver=2.2.0"></script>
 </body>
 <script>
-	function fetchhospitalsdata()
+	function fetchhospitalsdata(status)
 	{
 		 $.ajax({    
         type: "POST",
         url: "phpcode.php", 
-		data:{orginaztionfetch:"btn"},	            
+		data:{status:status,orginaztionfetch:"btn"},	            
         success: function(response){                    
             $("#hdata").html(response); 
             //alert(response);
@@ -110,7 +121,8 @@ include_once('connect.php');
     });
 	}
 	$(document).ready(function(){
-		fetchhospitalsdata();
+	    var status="Approved";
+		fetchhospitalsdata(status);
 	});
 	function confirm(id)
 	{
@@ -179,19 +191,19 @@ include_once('connect.php');
             
                 }
 				else if(data == 'Success'){
-				if(name == 'hactive') 
-					{
-					
+			
 						 toastr.clear();
-    NioApp.Toast("<h5>Hospital De-Activated</h5>", 'error',{position:'top-right'});
-				fetchhospitalsdata();
+    NioApp.Toast("<h5>Hospital De-Activated Successfully</h5>", 'success',{position:'top-right'});
+    var status="Not approved";
+				fetchhospitalsdata(status);
 					}
-					else{
+					else if(data == "Successs") {
               toastr.clear();
     NioApp.Toast("<h5>Hospital Activated Successfully</h5>", 'success',{position:'top-right'});
-				fetchhospitalsdata();
+				var status="Approved";
+				fetchhospitalsdata(status);
 					
-					}
+					
                 }
 			
            

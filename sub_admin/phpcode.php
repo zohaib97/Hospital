@@ -190,21 +190,33 @@ if(isset($_POST['addpatient']))
 	
 	$sql = mysqli_query($con,"SELECT * FROM tbl_patients WHERE pt_nhsno = '$nhsno'");
 	$fe = mysqli_num_rows($sql);
+	if($fe >0)
+	{
+	    echo "nhs";
+	}
+	else{
 	$query = mysqli_query($con,"INSERT INTO `tbl_patients`(`pt_title`, `pt_name`, `pt_surname`, `pt_dob`, `pt_nhsno`, `pt_houseno`, `pt_streetname`, `pt_city`, `pt_country`, `pt_postcode`, `pt_telno`, `pt_mobno`, `pt_email`,`pt_hid`)VALUES('$ptitle','$pfirstname','$psurname','$pdob','$nhsno','$houseno','$streetname','$city','$country','$postalcode','$telephoneno','$mobileno','$email','$gphid')");
 	
 	if($query)
 	{
 		echo "Success";
 	}
-	else if($fe > 0)
-	{
-		echo "nhs";
-	}
 	else{
 		echo "Error";
 	}
 }
+}
 
+if(isset($_POST["checknhs"])){
+    extract($_POST);
+    $q=mysqli_query($con,"select * from tbl_patients where pt_nhsno ='$nhs'");
+    
+    if(mysqli_num_rows($q) > 0){
+        echo "exists";
+    }else{
+        echo "not exists";
+    }
+}
 
 
 //for staff manager delete
@@ -214,10 +226,33 @@ if(isset($_POST['deladmin']))
 		$vid = $_POST['vid'];
 		$vdel = "DELETE FROM `tbl_ruser` WHERE `ur_id` = '$vid'";
 		$vq = mysqli_query($con,$vdel);
-		if($vq){
+		if($vq >0){
 			echo "Success";
 		}else {
-			echo "Error";
+		    $vdel1 = "DELETE FROM `tbl_service_definer` WHERE `u_serid` = '$vid'";
+			$vq1 = mysqli_query($con,$vdel1);
+			if($vq1)
+			{
+			    echo "Success1";
+			}
+			else
+			{
+			    echo "Error";
+			}
+		} 
+}
+
+//for service definer delete
+if(isset($_POST['delsdefiner']))
+{
+		
+		$vid1 = $_POST['vid'];
+		$vdel1 = "DELETE FROM `tbl_service_definer` WHERE `u_serid` = '$vid1'";
+		$vq1 = mysqli_query($con,$vdel1);
+		if($vq1){
+			echo "Success";
+		}else {
+		  echo"Error";
 		} 
 }
 
@@ -981,6 +1016,121 @@ if(isset($_POST['consultantbtn']))
 							// <li><a href="#"><em class="icon ni ni-eye"></em><span>View</span></a></li>
 							
 							echo '<li><a href="javascript:void(0)" onClick="confirm('."'$mid'".')"><em class="icon ni ni-trash"></em><span>Remove</span></a></li>
+
+						</ul>
+					</div>
+				</div>
+			</li>
+		</ul>
+	</td>
+	</tr>';
+										
+		}
+		echo'</tbody> </table>
+		<script src="https://cdn.datatables.net/1.10.23/js/jquery.dataTables.min.js"></script>
+	<script src="https://cdn.datatables.net/1.10.23/js/dataTables.bootstrap4.min.js"></script>
+	<script>$(document).ready(function () {
+		$("#myTable").DataTable();
+	} )
+	</script>
+	';
+		}
+}
+
+//fetch staff Service Definer data
+if(isset($_POST['ServiceDefiner']))
+{
+	$em = $_SESSION['superadmin'];
+    $sql = mysqli_query($con,"SELECT * FROM admin WHERE email = '$em'");
+    $fet = mysqli_fetch_array($sql);
+    $org = $fet['organization'];
+	$query = mysqli_query($con,"SELECT * FROM `tbl_service_definer`,orginzation where tbl_service_definer.u_orgid = orginzation.orid and tbl_service_definer.u_orgid = '$org'");
+				
+	if($query)
+	{
+		echo'<link rel="stylesheet" href="https://cdn.datatables.net/1.10.23/css/dataTables.bootstrap4.min.css">
+		<button onclick="window.print()" class="btn btn-danger">Print</button>
+		<br>
+		<br>
+		<table class="nowrap nk-tb-list is-separate " data-auto-responsive="false" id="myTable">
+					<thead>
+						<tr class="nk-tb-item nk-tb-head">
+						
+							<th class="nk-tb-col"><span>Full Name</span></th>
+							<th class="nk-tb-col"><span>Email</span></th>
+							<th class="nk-tb-col"><span>Password</span></th>
+							<th class="nk-tb-col"><span>Role</span></th>
+							<th class="nk-tb-col"><span>Organisation Type</span></th>
+							<th class="nk-tb-col "><span>Organisation Name</span></th>
+						
+							<th class="nk-tb-col nk-tb-col-tools">
+								<ul class="nk-tb-actions gx-1 my-n1">
+									<li class="mr-n1">
+										<div class="dropdown">
+											<a href="#" class="dropdown-toggle btn btn-icon btn-trigger" data-toggle="dropdown"><em class="icon ni ni-more-h"></em></a>
+											<div class="dropdown-menu dropdown-menu-right">
+												<ul class="link-list-opt no-bdr">
+													<li><a href="#"><em class="icon ni ni-edit"></em><span>Edit Selected</span></a></li>
+													<li><a href="#"><em class="icon ni ni-trash"></em><span>Remove Selected</span></a></li>
+													<li><a href="#"><em class="icon ni ni-bar-c"></em><span>Update Stock</span></a></li>
+													<li><a href="#"><em class="icon ni ni-invest"></em><span>Update Price</span></a></li>
+												</ul>
+											</div>
+										</div>
+									</li>
+								</ul>
+							</th>
+						</tr><!-- .nk-tb-item -->
+					</thead>
+					 <tbody id="">';
+		while($fetch = mysqli_fetch_array($query))
+		{
+	$mid = $fetch['u_serid'];
+	// $mname = $fetch['staff_fname'];
+	// $msname = $fetch['staff_sname'];
+	// $memail = $fetch['staff_email'];
+	// $mpass = $fetch['staff_pass'];
+	// $mphn = $fetch['staff_contact'];
+	// $mdepart = $fetch['staff_department'];
+	// $mdob = $fetch['staff_dob'];
+	// $mrole = $fetch['tbl_role'];
+	// $mrname = $fetch['role_name'];
+
+	echo'   <tr class="nk-tb-item">
+	
+	<td class="nk-tb-col ">
+		<span class="tb-product">
+		<span class="tb-sub">'.$fetch['u_sername'].'</span>
+		</span>
+	</td>
+	<td class="nk-tb-col">
+		<span class="tb-sub">'.$fetch['u_seremail'].'</span>
+	</td>
+	<td class="nk-tb-col">
+		<span class="tb-sub">'.$fetch['u_serpass'].'</span>
+	</td>
+	<td class="nk-tb-col">
+	    <span class="tb-sub">Service Definer</span>
+	</td>
+	<td class="nk-tb-col">
+		<span class="tb-sub">'.$fetch['or_type'].'</span>
+	</td>
+	<td class="nk-tb-col">
+		<span class="tb-sub">'.$fetch['or_name'].'</span>
+	</td>
+	';
+	echo '
+	<td class="nk-tb-col nk-tb-col-tools">
+		<ul class="nk-tb-actions gx-1 my-n1">
+			<li class="mr-n1">
+				<div class="dropdown">
+					<a href="#" class="dropdown-toggle btn btn-icon btn-trigger" data-toggle="dropdown"><em class="icon ni ni-more-h"></em></a>
+					<div class="dropdown-menu dropdown-menu-right">
+						<ul class="link-list-opt no-bdr">';
+			// <li><a href="javascript:void(0)" onClick="openmodal1('."'$mid'".','."'$mname'".','."'$msname'".','."'$memail'".','."'$mpass'".','."'$mphn'".','."'$mdepart'".','."'$mdob'".','."'$mrole'".')"><em class="icon ni ni-edit"></em><span>Edit</span></a></li>
+							// <li><a href="#"><em class="icon ni ni-eye"></em><span>View</span></a></li>
+							
+							echo '<li><a href="javascript:void(0)" onClick="confirm1('."'$mid'".')"><em class="icon ni ni-trash"></em><span>Remove</span></a></li>
 
 						</ul>
 					</div>
@@ -2061,7 +2211,8 @@ if(isset($_POST['method']))
 			$id = $_POST['id'];
 			$query = "UPDATE `tbl_ruser` SET `ur_status` = 'approve' WHERE `ur_id` = '$id'";
 			$vq = mysqli_query($con,$query);
-			$feh = mysqli_fetch_array($vq);
+			$fs=mysqli_query($con,"select * from tbl_ruser where ur_id='$id'");
+			$feh = mysqli_fetch_array($fs);
 			$email=$feh["ur_email"];
 			$to      = $email;
 	$subject = 'For Approval ';
@@ -2075,7 +2226,7 @@ if(isset($_POST['method']))
 		'X-Mailer: PHP/' . phpversion();
 	
 	mail($to, $subject, $message, $headers);
-			if($vq)
+			if($vq > 0)
 			{
 				echo("Success");
 			}
@@ -2102,6 +2253,21 @@ if(isset($_POST['method']))
 			
 			$id = $_POST['id'];
 			$query = "UPDATE `tbl_ruser` SET `ur_status` = 'approve' WHERE `ur_id` = '$id'";
+				$fs=mysqli_query($con,"select * from tbl_ruser where ur_id='$id'");
+			$feh = mysqli_fetch_array($fs);
+			$email=$feh["ur_email"];
+			$to      = $email;
+	$subject = 'For Approval ';
+	$message = '<html><body>';
+	$message .= '<h1>You Has Been Approved By Admin!</h1>';
+	$message .= '</body></html>';
+	$headers = 'From: info@deevloopers.com' . "\r\n" .
+		'Reply-To: info@deevloopers.com' . "\r\n" .
+		"MIME-Version: 1.0\r\n".
+		"Content-Type: text/html; charset=ISO-8859-1\r\n";
+		'X-Mailer: PHP/' . phpversion();
+	
+	mail($to, $subject, $message, $headers);
 			$vq = mysqli_query($con,$query);
 			
 			if($vq)
@@ -2130,7 +2296,21 @@ if(isset($_POST['method']))
 			$id = $_POST['id'];
 			$query = "UPDATE `tbl_ruser` SET `ur_status` = 'approve' WHERE `ur_id` = '$id'";
 			$vq = mysqli_query($con,$query);
-			
+				$fs=mysqli_query($con,"select * from tbl_ruser where ur_id='$id'");
+			$feh = mysqli_fetch_array($fs);
+			$email=$feh["ur_email"];
+			$to      = $email;
+	$subject = 'For Approval ';
+	$message = '<html><body>';
+	$message .= '<h1>You Has Been Approved By Admin!</h1>';
+	$message .= '</body></html>';
+	$headers = 'From: info@deevloopers.com' . "\r\n" .
+		'Reply-To: info@deevloopers.com' . "\r\n" .
+		"MIME-Version: 1.0\r\n".
+		"Content-Type: text/html; charset=ISO-8859-1\r\n";
+		'X-Mailer: PHP/' . phpversion();
+	
+	mail($to, $subject, $message, $headers);
 			if($vq)
 			{
 				echo("Success");
@@ -2178,11 +2358,13 @@ if(isset($_POST['searchpatient']))
 {
 	$em = $_POST['em'];
 	$nm = $_POST['nm'];
-	$dob = $_POST['dob'];
+$date=date_create($_POST['dob']);
+ 
+	$dob =date_format($date,"Y-m-d");
 
 	$assa = mysqli_query($con,"SELECT * FROM `tbl_patients` where pt_name ='$nm' and pt_dob='$dob' and pt_surname='$em'");
 	// echo mysqli_error($con);
-	if($assa)
+	if(mysqli_num_rows($assa) >0)
 	{
 		echo'<link rel="stylesheet" href="https://cdn.datatables.net/1.10.23/css/dataTables.bootstrap4.min.css">
 		<hr>
@@ -2219,7 +2401,9 @@ if(isset($_POST['searchpatient']))
 	$sn = $fetch['pt_surname'];
 	$mobno = $fetch['pt_mobno'];
 	$sname = $fetch['pt_streetname'];
-	$dob = $fetch['pt_dob'];
+	$date=date_create($fetch['pt_dob']);
+ 
+	$dob =date_format($date,"d-m-Y");
 	$em = $fetch['pt_email'];
 
 

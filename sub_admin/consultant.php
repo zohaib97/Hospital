@@ -45,6 +45,7 @@ include_once('header.php');
                                     <option value="Dentist">Dentist</option>
                                     <option value="GP_Refferer">GP Refferer</option>
                                     <option value="Optometrist">Optometrist</option>
+                                    <option value="ServiceDefiner">Service Definer</option>
                                     </select>
                                     </div>
                                     <br>
@@ -234,6 +235,19 @@ if(Role == "consultant")
 
     });
 }
+else if(Role == "ServiceDefiner")
+    {
+    $.ajax({    
+        type: "POST",
+        url: "phpcode.php", 
+		data:{ServiceDefiner:"btn"},	            
+        success: function(response){                    
+            $("#adata").html(response); 
+            //alert(response);
+        }
+
+    });
+}
 else if(Role == "Dentist")
 {
     $.ajax({    
@@ -291,8 +305,22 @@ else if(Role == "Optometrist")
             confirmButtonText: 'Yes, delete it!'
         }).then(function(result) {
             if (result.value) {
-                Swal.fire('Deleted!', 'Manager has been deleted.', 'success');
+                // Swal.fire('Deleted!', 'Manager has been deleted.', 'success');
                 deleteadmin(id);
+            }
+        });
+    }
+    function confirm1(id) {
+        Swal.fire({
+            title: 'Are you sure?',
+            text: "You won't be able to revert this!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonText: 'Yes, delete it!'
+        }).then(function(result) {
+            if (result.value) {
+                // Swal.fire('Deleted!', 'Manager has been deleted.', 'success');
+                deletsdefiner(id);
             }
         });
     }
@@ -313,17 +341,51 @@ else if(Role == "Optometrist")
                 if (data == 'Error') {
 
                     toastr.clear();
-                    NioApp.Toast("<h5>Manager Didn't Delete</h5>", 'error', {
+                    NioApp.Toast("<h5>User Didn't Delete</h5>", 'error', {
                         position: 'top-right'
                     });
                 } else if (data == 'Success') {
 
                     toastr.clear();
-                    NioApp.Toast("<h5>Manager Delete Successfully</h5>", 'success', {
+                    NioApp.Toast("<h5>User Deleted Successfully</h5>", 'success', {
                         position: 'top-right'
                     });
                     fetchadmindata();
                 }
+               
+
+
+            }
+        });
+    };
+    function deletsdefiner(id) {
+
+        var vid1 = id;
+        $.ajax({
+            type: 'POST',
+            url: 'phpcode.php',
+            data: {
+                vid: vid1,
+                delsdefiner: "btn"
+            },
+
+            success: function(data) {
+
+                if (data == 'Error') {
+
+                    toastr.clear();
+                    NioApp.Toast("<h5>Service Definer Didn't Delete</h5>", 'error', {
+                        position: 'top-right'
+                    });
+                } else if (data == 'Success') {
+
+                    toastr.clear();
+                    NioApp.Toast("<h5>Service Definer Deleted Successfully</h5>", 'success', {
+                        position: 'top-right'
+                    });
+                    fetchadmindata();
+                }
+               
 
 
             }
@@ -354,10 +416,10 @@ else if(Role == "Optometrist")
                     });
 
                 } else if (data == 'Success') {
-                    if (name == 'mactive') {
+                    if (name == 'capprove') {
 
                         toastr.clear();
-                        NioApp.Toast("<h5>Consultant De-Activated</h5>", 'error', {
+                        NioApp.Toast("<h5>Consultant De-Activated</h5>", 'success', {
                             position: 'top-right'
                         });
                         fetchadmindata();
@@ -400,10 +462,10 @@ else if(Role == "Optometrist")
                     });
 
                 } else if (data == 'Success') {
-                    if (name == 'mactive') {
+                    if (name == 'oapprove') {
 
                         toastr.clear();
-                        NioApp.Toast("<h5>Optometrist De-Activated</h5>", 'error', {
+                        NioApp.Toast("<h5>Optometrist De-Activated</h5>", 'success', {
                             position: 'top-right'
                         });
                         fetchadmindata();
@@ -433,7 +495,7 @@ else if(Role == "Optometrist")
             },
 
             success: function(data) {
-alert(data);
+// alert(data);
                 if (data == 'Error') {
 
                     toastr.clear();

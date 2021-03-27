@@ -19,7 +19,7 @@ $query = mysqli_query($con,"SELECT * FROM `tbl_patients` WHERE pt_nhsno = '$nsh'
 					<th class="nk-tb-col"><span>NHS no</span></th>
 					<th class="nk-tb-col"><span>Street Name</span></th>
 					<th class="nk-tb-col"><span>Date of Birth</span></th>
-					
+					<th class="nk-tb-col"><span>View Details</span></th>
 					
 				</tr><!-- .nk-tb-item -->
 			</thead>
@@ -39,7 +39,7 @@ echo'   <tr class="nk-tb-item">
 	<td class="nk-tb-col tb-col-sm">
 		<span class="tb-product">
 			
-			<span class="title">'.$name.'</span>
+			<span class="title">'.$name." ".$fetch["pt_surname"].'</span>
 		</span>
 	</td>
 	<td class="nk-tb-col">
@@ -53,6 +53,9 @@ echo'   <tr class="nk-tb-item">
 	</td>
 	<td class="nk-tb-col">
 		<span class="tb-lead">'.$dob.'</span>
+	</td>
+		<td class="nk-tb-col">
+		<a class="tb-lead" style="cursor: pointer;" onclick="fetchpatientdetails(\''.$fetch["pt_title"].'\',\''.$name." ".$fetch["pt_surname"].'\',\''.$fetch["pt_email"].'\',\''.$nh.'\',\''.$dob.'\',\''.$fetch["pt_houseno"].'\',\''.$sname.'\',\''.$fetch["pt_country"].'\',\''.$fetch["pt_city"].'\',\''.$fetch["pt_postcode"].'\',\''.$fetch["pt_telno"].'\',\''.$fetch["pt_mobno"].'\')">View Details</a>
 	</td>
 	';
 		

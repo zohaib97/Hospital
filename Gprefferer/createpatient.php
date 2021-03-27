@@ -50,7 +50,7 @@ include_once('../database/db.php');
 													<div class="form-group">
 														<label class="col-form-label" for="fname">Patient Title</label>
 														<input type="text" value="<?=$few['ur_id']?>" id="rid" hidden="true" name="rid">										<input type="text" value="<?=$fe['ur_hid']?>" id="hid" hidden="true" name="hid">			
-<!--														<input type="text" class="form-control form-control-lg" id="" value="" placeholder="Enter Title" name="ptitle" required>-->
+<!--														<input type="text" class="form-control form-control-lg"  placeholder="Enter Title" name="ptitle" required>-->
 														<select name="ptitle" id="" class="form-control form-control-lg">
 															<option>- Select -</option>
 														<option value="Mr">Mr</option>
@@ -62,19 +62,19 @@ include_once('../database/db.php');
 												<div class="col-md-6">
 													<div class="form-group">
 														<label class="col-form-label" for="sname">Patient Firstname</label>
-														<input type="text" class="form-control form-control-lg" id="" value="" placeholder="Enter First name" name="pfirstname" required autocomplete="off">
+														<input type="text" class="form-control form-control-lg"  placeholder="Enter First name" name="pfirstname" required autocomplete="off">
 													</div>
 												</div>
 												<div class="col-md-6">
 													<div class="form-group">
 														<label class="col-form-label" for="email">Patient Surname</label>
-														<input type="text" class="form-control form-control-lg" id="" value="" placeholder="Enter Surname" name="psurname" required autocomplete="off"> 
+														<input type="text" class="form-control form-control-lg"  placeholder="Enter Surname" name="psurname" required autocomplete="off"> 
 													</div>
 												</div>
 												<div class="col-md-6">
 													<div class="form-group">
 														<label class="col-form-label" for="pno">Patient Date of Birth</label>
-														<input type="text" class="form-control form-control-lg datepicker" id="" value="" placeholder="Date of Birth" name="pdob" required autocomplete="off">
+														<input type="text" class="form-control form-control-lg datepicker"  placeholder="Date of Birth" name="pdob" required autocomplete="off">
 													</div>
 												</div>
 												<div class="col-md-6">
@@ -87,31 +87,32 @@ include_once('../database/db.php');
 														<label class="col-form-label" for="depart">NHS No</label>
 														<input type="number" class="form-control form-control-lg" id="nhs" 
 														value="" name="nhsno" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
-												   maxlength="10" autocomplete="off">
+												   maxlength="10" autocomplete="off" onchange="checknhs(this.value)">
+												       <small id="valid-nhs"></small>
 													</div>
 												</div>
 												<div class="col-md-6">
 													<div class="form-group">
 														<label class="col-form-label" for="dob">House No/Name</label>
-														<input type="text" class="form-control form-control-lg" id="" value="" placeholder="House no" name="houseno" required autocomplete="off">
+														<input type="text" class="form-control form-control-lg"  placeholder="House no" name="houseno" required autocomplete="off">
 													</div>
 												</div>
 												<div class="col-md-6">
 													<div class="form-group">
 														<label class="col-form-label" for="mpass">Street Name</label>
-														<input type="text" class="form-control form-control-lg" id="" value="" placeholder="Street Name" name="streetname" required autocomplete="off">
+														<input type="text" class="form-control form-control-lg"  placeholder="Street Name" name="streetname" required autocomplete="off">
 													</div>
 												</div>
 												<div class="col-md-6">
 													<div class="form-group">
 														<label class="col-form-label" for="cpass">City</label>
-														<input type="text" class="form-control form-control-lg" id="" value="" placeholder="City" name="city" required autocomplete="off">
+														<input type="text" class="form-control form-control-lg"  placeholder="City" name="city" required autocomplete="off">
 													</div>
 												</div>
 												<div class="col-md-6" id="">
 													<div class="form-group">
 														<label class="col-form-label" for="rno">POST Code</label>
-														<input type="text" class="form-control form-control-lg" id="" value="" placeholder="Postal Code" name="postalcode" required autocomplete="off">
+														<input type="text" class="form-control form-control-lg"  placeholder="Postal Code" name="postalcode" required autocomplete="off">
 													</div>
 												</div>
 												<div class="col-md-6">
@@ -127,19 +128,20 @@ include_once('../database/db.php');
 												<div class="col-md-6" id="">
 													<div class="form-group">
 														<label class="col-form-label" for="rno">Home Telephone Number</label>
-														<input type="number" class="form-control form-control-lg" id="" value="" placeholder="Enter Telephone no" name="telephoneno" required autocomplete="off">
+														<input type="number" class="form-control form-control-lg"  placeholder="Enter Telephone no" name="telephoneno" required autocomplete="off">
 													</div>
 												</div>
 												<div class="col-md-6" id="">
 													<div class="form-group">
 														<label class="col-form-label" for="rno">Mobile Number</label>
-														<input type="number" class="form-control form-control-lg" id="" value="" placeholder="Enter Mobile no" name="mobileno" required autocomplete="off">
+														<input type="number" class="form-control form-control-lg"  placeholder="Enter Mobile no" name="mobileno" required autocomplete="off">
 													</div>
 												</div>
 												<div class="col-md-6" id="">
 													<div class="form-group">
 														<label class="col-form-label" for="rno">Email</label>
-														<input type="email" class="form-control form-control-lg" id="" value="" placeholder="Enter Email" name="email" required autocomplete="off"> 
+														<input type="email" class="form-control form-control-lg"  onchange="checkemail(this.value)" placeholder="Enter Email" name="email" required autocomplete="off"> 
+												        <small id="valid-email"></small>
 													</div>
 												</div>
 <!--
@@ -185,15 +187,15 @@ include_once('../database/db.php');
     // INITIALIZE DATEPICKER PLUGIN
     $('.datepicker').datepicker({
         clearBtn: true,
-        format: "dd/mm/yyyy"
+        format: "dd-mm-yyyy"
     });
 
 
     // FOR DEMO PURPOSE
-    $('#reservationDate').on('change', function () {
-        var pickedDate = $('input').val();
-        $('#pickedDate').html(pickedDate);
-    });
+    // $('#reservationDate').on('change', function () {
+    //     var pickedDate = $('input').val();
+    //     $('#pickedDate').html(pickedDate);
+    // });
 });
 //	function confirm(id)
 //	{
@@ -210,48 +212,67 @@ include_once('../database/db.php');
 //      }
 //    });
 //	}
-//	function aprovenotaprove(id,status,email){
-//	
-//	
-//	var name  = status;
-//		var ide = id;
-//		var em = email;
-//
-//		$.ajax({
-//            type: 'POST',
-//            url: 'phpcode.php',
-//            data: {method:name,
-//				   id:ide,
-//				  em:em,
-//				  },
-//			
-//            success: function(data){
-//      
-//                if(data == 'Error'){
-//                   toastr.clear();
-//    NioApp.Toast("<h5>Admin didn't Updated</h5>", 'error',{position:'top-right'});
-//            
-//                }
-//				else if(data == 'Success'){
-//				if(name == 'aapprove') 
-//					{
-//					
-//						 toastr.clear();
-//    NioApp.Toast("<h5>Admin Approval Rejected</h5>", 'error',{position:'top-right'});
-//				fetchadmindata();
-//					}
-//					else{
-//              toastr.clear();
-//    NioApp.Toast("<h5>Admin Approved Successfully</h5>", 'success',{position:'top-right'});
-//				fetchadmindata();
-//					
-//					}
-//                }
-//			
-//           
-//            }
-//        });
-//	};
+	function checkemail(email){
+	
+
+
+		$.ajax({
+            type: 'POST',
+            url: 'phpcode.php',
+            data: {email:email,checkemail:"btn"  },
+            success: function(data){
+                 console.log(data);
+     if(data == 'exists'){
+				$("#valid-email").html("Email is already exists").removeClass("text-success").addClass("text-danger");
+						 toastr.clear();
+    NioApp.Toast("<h5>Email is already exists</h5>", 'warning',{position:'top-right'});
+				// fetchadmindata();
+					}
+			if(data == 'not exists'){
+			    
+			    	$("#valid-email").html("Email is available for use").removeClass("text-danger").addClass("text-success");
+			
+			    
+             toastr.clear();
+    NioApp.Toast("<h5>Email is available for use</h5>", 'success',{position:'top-right'});
+				// fetchadmindata();
+					
+					}
+                }
+			
+          
+            });
+        };
+        	function checknhs(nhs){
+	
+
+
+		$.ajax({
+            type: 'POST',
+            url: 'phpcode.php',
+            data: {nhs:nhs,checknhs:"btn"},
+			
+            success: function(data){
+                console.log(data);
+     if(data == 'exists'){
+				$("#valid-nhs").html("NHS No is already exists").removeClass("text-success").addClass("text-danger");
+						 toastr.clear();
+    NioApp.Toast("<h5>NHS No is already exists</h5>", 'warning',{position:'top-right'});
+				// fetchadmindata();
+					}
+			if(data == 'not exists'){
+			    			$("#valid-nhs").html("NHS No is available for use").removeClass("text-danger").addClass("text-success");
+             toastr.clear();
+    NioApp.Toast("<h5>NHS No is available for use</h5>", 'success',{position:'top-right'});
+				// fetchadmindata();
+					
+					}
+                }
+			
+          
+            });
+        };
+
 //	function deleteadmin(id){
 //		
 //		var vid = id;
@@ -309,7 +330,7 @@ include_once('../database/db.php');
                 $('#patientadd').css("opacity",".5");
             },
             success: function(data){
-      
+                console.log(data);
                 if(data == 'Error'){
                    toastr.clear(); 
                NioApp.Toast("<h5>patient didn't add Successfully</h5>", 'error',{position:'top-right'});
