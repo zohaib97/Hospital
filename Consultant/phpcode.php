@@ -290,8 +290,7 @@ if(isset($_POST['serrefferelfetch1']))
 	//	SELECT * FROM `services`,`tbl_consultantrefferels`,`tbl_refferels`,`tbl_patients`,`hospitals`,`refer_advice` WHERE refer_advice.ref_hid = services.s_hos_id AND tbl_patients.pt_hid = services.s_hos_id AND services.s_hos_id = hospitals.hid AND tbl_consultantrefferels.c_rfid = tbl_refferels.rf_id AND tbl_consultantrefferels.c_serid = services.service_id AND c_userid = '$id' LIMIT 3
 
 	if ($query) {
-	    $qki=mysqli_query($con,"select * from tbl_refferelattachment  where ra_refferelid='".$fetch["c_id"]."' ORDER BY ra_id DESC LIMIT 1");
-$hks=mysqli_fetch_array($qki);
+	    
 		echo '<link rel="stylesheet" href="https://cdn.datatables.net/1.10.23/css/dataTables.bootstrap4.min.css">
 
 <div style="overflow-x:scroll;">
@@ -343,7 +342,7 @@ $hks=mysqli_fetch_array($qki);
 <span class="tb-lead">' . $fetch['pt_name'] . '</span>
 </td>
 <td class="nk-tb-col">
-<a href="adreqreply.php?nhsno='.$fetch['pt_nhsno'].'&pid='.$fetch["c_rfid"].'" class="btn btn-info btn-sm">Chat</a>
+<a href="adreqreply.php?nhsno='.$fetch['pt_nhsno'].'&pid='.$fetch["c_rfid"].'&request_type=Advice Request" class="btn btn-info btn-sm">Open</a>
 </td>
 <td class="nk-tb-col">
 <span class="badge badge-danger">Response</span>
@@ -526,7 +525,7 @@ if(isset($_POST['serrefferelfetch3']))
 <span class="tb-lead">' . $fetch['pt_name'] . '</span>
 </td>
 <td class="nk-tb-col">
-<a href="adreqreply.php?nhsno='.$fetch['pt_nhsno'].'&pid='.$fetch["c_rfid"].'" class="btn btn-info btn-sm">Chat</span >
+<a href="adreqreply.php?nhsno='.$fetch['pt_nhsno'].'&pid='.$fetch["c_rfid"].'&request_type=Appointment Request" class="btn btn-info btn-sm">Chat</a>
 </td>';
 if($fetch["c_status"]==0){
 echo '
@@ -624,7 +623,7 @@ if(isset($_POST['serrefferelfetch4']))
 <span class="tb-lead">' . $fetch['pt_name'] . '</span>
 </td>
 <td class="nk-tb-col">
-<a href="adreqreply.php?nhsno='.$fetch['pt_nhsno'].'&pid='.$fetch["c_rfid"].'" class="btn btn-info btn-sm">Chat</a>
+<a href="adreqreply.php?nhsno='.$fetch['pt_nhsno'].'&pid='.$fetch["c_rfid"].'&request_type=Appointment Request" class="btn btn-info btn-sm">Chat</a>
 </td>';
 if($fetch["c_status"]==0){
 echo '

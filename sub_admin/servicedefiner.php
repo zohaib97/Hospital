@@ -1279,6 +1279,7 @@ $(function()
      if( quantityI > quantity)
       {
 		swal("warning!", "Invalid Age Range", "warning");
+		$('#ser_ager2').val('');
       }
      
     });

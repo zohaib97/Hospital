@@ -523,8 +523,15 @@ if(isset($_POST['refferelfetch3']))
 	$f = mysqli_fetch_array($q);
 	$id = $f['ur_id'];
 	$q1 = mysqli_query($con, "SELECT * FROM `tbl_consultantrefferels` WHERE c_gpid = '$id' and request_type = 'Advice request'");
+	if(mysqli_num_rows($q1) > 0)
+	{
 		$f1 = mysqli_fetch_array($q1);
 		$refferid = $f1['c_id'];
+	}
+	else
+	{
+	$refferid = '';
+	
 
 	$query = mysqli_query($con,"SELECT * FROM `tbl_consultantrefferels`JOIN tbl_ruser ON tbl_ruser.ur_id = tbl_consultantrefferels.c_userid JOIN services ON services.service_id = tbl_consultantrefferels.c_serid JOIN service_name ON service_name.s_id = services.service_name JOIN service_cliniciant ON services.ser_cl_type= service_cliniciant.cl_id JOIN ser_specialty_add ON services.service_speciality = ser_specialty_add.spec_id JOIN orginzation ON orginzation.orid = tbl_consultantrefferels.c_orgid join tbl_refferelattachment on tbl_consultantrefferels.c_id = tbl_refferelattachment.ra_refferelid where c_gpid = '$id' and tbl_refferelattachment.ra_refferelid = '$refferid' and request_type = 'Advice request' GROUP BY c_serid and c_userid");
 
@@ -658,6 +665,7 @@ $hks=mysqli_fetch_array($qki);
 	</script>
 	';
 		}
+	}
 }
 //for refferels fetch4
 if(isset($_POST['refferelfetch4']))
@@ -668,8 +676,15 @@ if(isset($_POST['refferelfetch4']))
 	$f = mysqli_fetch_array($q);
 	$id = $f['ur_id'];
 	$q1 = mysqli_query($con, "SELECT * FROM `tbl_consultantrefferels` WHERE c_gpid = '$id' and request_type = 'Advice request'");
+	if(mysqli_num_rows($q1) > 0)
+	{
 		$f1 = mysqli_fetch_array($q1);
 		$refferid = $f1['c_id'];
+	}
+	else
+	{
+	$refferid = '';
+		
 	
 	$query = mysqli_query($con,"SELECT * FROM `tbl_consultantrefferels`JOIN tbl_ruser ON tbl_ruser.ur_id = tbl_consultantrefferels.c_userid JOIN services ON services.service_id = tbl_consultantrefferels.c_serid JOIN service_name ON service_name.s_id = services.service_name JOIN orginzation ON orginzation.orid = tbl_consultantrefferels.c_orgid join tbl_refferelattachment on tbl_consultantrefferels.c_id = tbl_refferelattachment.ra_refferelid where c_gpid = '$id' and tbl_refferelattachment.ra_refferelid = '$refferid' and request_type != 'Appointment Request' and c_status= 1 GROUP BY c_serid");
 
@@ -761,6 +776,7 @@ if(isset($_POST['refferelfetch4']))
 	</script>
 	';
 		}
+	}
 }
 
 //for refferels fetch1
@@ -772,8 +788,15 @@ if(isset($_POST['refferelfetch5']))
 	$f = mysqli_fetch_array($q);
 	$id = $f['ur_id'];
 	$q1 = mysqli_query($con, "SELECT * FROM `tbl_consultantrefferels` WHERE c_gpid = '$id' and request_type = 'Advice request'");
+	if(mysqli_num_rows($q1) > 0)
+	{
 		$f1 = mysqli_fetch_array($q1);
 		$refferid = $f1['c_id'];
+	}
+	else
+	{
+	$refferid = '';
+	
 	
 	$query = mysqli_query($con,"SELECT * FROM `tbl_consultantrefferels`JOIN tbl_ruser ON tbl_ruser.ur_id = tbl_consultantrefferels.c_userid JOIN services ON services.service_id = tbl_consultantrefferels.c_serid JOIN service_name ON service_name.s_id = services.service_name JOIN orginzation ON orginzation.orid = tbl_consultantrefferels.c_orgid join tbl_refferelattachment on tbl_consultantrefferels.c_id = tbl_refferelattachment.ra_refferelid where c_gpid = '$id' and tbl_refferelattachment.ra_refferelid = '$refferid' and request_type != 'Appointment Request' and c_status= 0 GROUP BY c_serid ");
 
@@ -866,6 +889,7 @@ if(isset($_POST['refferelfetch5']))
 	</script>
 	';
 		}
+	}
 }
 
 
@@ -878,8 +902,15 @@ if(isset($_POST['refferelfetch6']))
 	$f = mysqli_fetch_array($q);
 	$id = $f['ur_id'];
 	$q1 = mysqli_query($con, "SELECT * FROM `tbl_consultantrefferels` WHERE c_gpid = '$id'");
+	if(mysqli_num_rows($q1) > 0)
+	{
 		$f1 = mysqli_fetch_array($q1);
 		$refferid = $f1['c_id'];
+	}
+	else
+	{
+	$refferid = '';
+		
 	
 	$query = mysqli_query($con,"SELECT * FROM `tbl_consultantrefferels`JOIN tbl_ruser ON tbl_ruser.ur_id = tbl_consultantrefferels.c_userid JOIN services ON services.service_id = tbl_consultantrefferels.c_serid JOIN service_name ON service_name.s_id = services.service_name JOIN orginzation ON orginzation.orid = tbl_consultantrefferels.c_orgid join tbl_refferelattachment on tbl_consultantrefferels.c_id = tbl_refferelattachment.ra_refferelid where c_gpid = '$id' and tbl_refferelattachment.ra_refferelid = '$refferid' and tbl_refferelattachment.reply='1' and request_type != 'Appointment Request'");
 
@@ -972,6 +1003,7 @@ if(isset($_POST['refferelfetch6']))
 	</script>
 	';
 		}
+	}
 }
 
 
@@ -984,8 +1016,15 @@ if(isset($_POST['refferelfetch7']))
 	$f = mysqli_fetch_array($q);
 	$id = $f['ur_id'];
 	$q1 = mysqli_query($con, "SELECT * FROM `tbl_consultantrefferels` WHERE c_gpid = '$id'");
+	if(mysqli_num_rows($q1) > 0)
+	{
 		$f1 = mysqli_fetch_array($q1);
 		$refferid = $f1['c_id'];
+	}
+	else
+	{
+	$refferid = '';
+		
 	
 	$query = mysqli_query($con,"SELECT * FROM `tbl_consultantrefferels`JOIN tbl_ruser ON tbl_ruser.ur_id = tbl_consultantrefferels.c_userid JOIN services ON services.service_id = tbl_consultantrefferels.c_serid JOIN service_name ON service_name.s_id = services.service_name JOIN orginzation ON orginzation.orid = tbl_consultantrefferels.c_orgid join tbl_refferelattachment on tbl_consultantrefferels.c_id = tbl_refferelattachment.ra_refferelid where c_gpid = '$id' and tbl_refferelattachment.ra_refferelid = '$refferid' and tbl_refferelattachment.reply='1' and request_type != 'Appointment Request'");
 
@@ -1078,6 +1117,7 @@ if(isset($_POST['refferelfetch7']))
 	</script>
 	';
 		}
+	}
 }
 
 //for patient fetch
@@ -2841,8 +2881,25 @@ if(isset($_POST['addapointment']))
 {
 	extract($_POST);
 	$sql = mysqli_query($con,"INSERT INTO `tbl_serviceappointment`(`sp_ubrn`, `sp_patientid`, `sp_serviceid`, `sp_iwt`,`sp_refferalid`) VALUES ('$ubrn','$check','$checkw','$iwt','$refferalid')");
+	$sql2 = mysqli_query($con,"SELECT * FROM tbl_patients WHERE pt_id = '$check'");
+	$ar = mysqli_fetch_array($sql2);
+	$email1 = $ar['pt_email'];
 	if($sql)
 	{
+		$to      = $email1;
+	$subject = 'Appoiontment';
+	$message = '<html><body>';
+	$message .= '<h1>You Have Recieved An Appointment!</h1>';
+	$message .= '<p>Check your account and book appointment<p>';
+	$message .= '</body></html>';
+	$headers = 'From: info@deevloopers.com' . "\r\n" .
+		'Reply-To: info@deevloopers.com' . "\r\n" .
+		"MIME-Version: 1.0\r\n".
+		"Content-Type: text/html; charset=ISO-8859-1\r\n";
+		'X-Mailer: PHP/' . phpversion();
+	
+	mail($to, $subject, $message, $headers);
+
 		echo json_encode(array("res"=>"success","c_id"=>mysqli_insert_id($con)));
 	}
 	else

@@ -85,7 +85,7 @@ include_once('header.php');
                                                             <div class="data-group">
                                                                 <div class="amount"><?php
                                                                 $q=mysqli_query($con,"SELECT count(*) as a FROM `tbl_serviceappointment` WHERE sp_refferalid ='$id'");
-                                                                if($q >0){
+                                                                if(mysqli_num_rows($q) >0){
                                                                 $r=mysqli_fetch_array($q);
                                                                 echo $r["a"];
                                                                 }?></div>
@@ -111,7 +111,7 @@ include_once('header.php');
                                                             <div class="data-group">
                                                                 <div class="amount"><?php
                                                                 $q=mysqli_query($con,"SELECT count(*) as a FROM `tbl_consultantrefferels`  where request_type='Advice Request' and c_userid ='$id'");
-                                                                if($q > 0){
+                                                                if(mysqli_num_rows($q) > 0){
                                                                 $r=mysqli_fetch_array($q);
                                                                 echo $r["a"];
                                                                 }
