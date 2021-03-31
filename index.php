@@ -516,7 +516,7 @@
 							<h4>Send Us Message</h4>
 							<p>Lorem ipsum dolor sit amet consectetur adipiscing elit sed do eiusmod tempor incididunt.</p>
 							<div class="appointment-form">
-								<form>
+								<form method="post" id="send_message">
 									<div class="row">
 										<div class="form-group col-lg-6">
 											<input name="aname" class="form-control" id="afirst-name" placeholder="Your Name" required="required" type="text">
@@ -528,7 +528,7 @@
 										<textarea rows="6" name="rmessage" class="form-control" id="adescription" placeholder="Your Message Here..." required="required"></textarea>
 										</div>
 										<div class="form-group col-lg-6">
-											<a title="Click here to submit your message!" class="btn btn-lg btn-app-form">Send Message</a>
+											<button type="submit" class="btn btn-lg btn-apfm">Send Message</button>
 										</div>
 									</div>
 								</form>
@@ -777,7 +777,46 @@
 	
    
 </body>
+<script src="ajax-load/register_ajax.js"></script>
+<script>
+     $("#send_message").on("submit", function(e){
+	e.preventDefault();
+	
 
 
+		
+		var send_messag = new FormData(this);
+		send_messag.append("sendmessage","btn");
+		
+		$.ajax({
+			url: '../php/phpcode.php',
+			type: 'post',
+			data: send_messag,
+			contentType: false,
+			processData: false,
+			beforeSend: function(){
+				alert('hello');
+			},
+			success: function(data){
+			    
+				if(data == "mailerror"){
+//					alert("Wrong E-Mail");
+					toastr.error("Wrong E-Mail");
+				}else{
+				
+					$("#send_message")[0].reset();
+//					alert("Mail has been send!");
+					toastr.success("Mail has been send! to Administration They will contact you soon");
+//					$('#app').hide();
+				}
+			
+			
+	
+			}	
+	
+	
+});
+});
+</script>
 <!-- Mirrored from tm.hashtheme.com/se/sensive-preview3/sensive/index.html by HTTrack Website Copier/3.x [XR&CO'2014], Thu, 04 Mar 2021 09:43:15 GMT -->
 </html>

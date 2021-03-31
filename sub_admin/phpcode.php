@@ -241,6 +241,20 @@ if(isset($_POST['deladmin']))
 			}
 		} 
 }
+if(isset($_POST['delservice']))
+{
+		
+		$vid = $_POST['vid'];
+		$vdel = "DELETE  FROM `services` WHERE `m_id` = '$vid'";
+		$vq = mysqli_query($con,$vdel);
+		if($vq >0){
+			echo "Success";
+		}else {
+		  
+			    echo "Error";
+			
+		} 
+}
 
 //for service definer delete
 if(isset($_POST['delsdefiner']))
@@ -701,7 +715,7 @@ echo'<div class="card-aside-wrap">
 if(isset($_POST['fetchserbtndata']))
 {
 	$sernameq = mysqli_query($con, "SELECT * FROM `service_name`");
-	echo'<option>- Select -</option>';
+	echo'<option value="">- Select -</option>';
  while($datarole = mysqli_fetch_assoc($sernameq)){ 
  	echo'<option value='.$datarole['s_id'].'>'.$datarole['s_name'].'</option>';
  }
@@ -2516,7 +2530,23 @@ if(isset($_POST['readRecord']))
 					<th class="nk-tb-col"><span>2 Week Wait</span></th>
 					<th class="nk-tb-col"><span>Organisation Name</span></th>
 					<th class="nk-tb-col"><span>Status</span></th>
-
+	<th class="nk-tb-col nk-tb-col-tools">
+								<ul class="nk-tb-actions gx-1 my-n1">
+									<li class="mr-n1">
+										<div class="dropdown">
+											<a href="#" class="dropdown-toggle btn btn-icon btn-trigger" data-toggle="dropdown"><em class="icon ni ni-more-h"></em></a>
+											<div class="dropdown-menu dropdown-menu-right">
+												<ul class="link-list-opt no-bdr">
+													<li><a href="#"><em class="icon ni ni-edit"></em><span>Edit Selected</span></a></li>
+													<li><a href="#"><em class="icon ni ni-trash"></em><span>Remove Selected</span></a></li>
+													<li><a href="#"><em class="icon ni ni-bar-c"></em><span>Update Stock</span></a></li>
+													<li><a href="#"><em class="icon ni ni-invest"></em><span>Update Price</span></a></li>
+												</ul>
+											</div>
+										</div>
+									</li>
+								</ul>
+							</th>
 					
 					
 				</tr><!-- .nk-tb-item -->
@@ -2529,9 +2559,7 @@ if(isset($_POST['readRecord']))
 	echo'   <tr class="nk-tb-item">
 
 	<td class="nk-tb-col">
-		<span class="tb-product">
-			<span class="title">'.$fetch['service_id'].'</span>
-		</span>
+		'.$fetch['service_id'].'
 	</td>
 	<td class="nk-tb-col">
 		<span class="tb-lead">'.$fetch['s_name'].'</span>
@@ -2608,12 +2636,30 @@ if(isset($_POST['readRecord']))
 		<span class="tb-lead">'.$fetch['s_orgname'].'</span>
 	</td>
 	';
-			if($fetch["status"] =="not_approve" || $fetch["service_publish"] == null){
+	if($fetch["status"] =="not_approve" || $fetch["service_publish"] == null){
 		echo '<td class="nk-tb-col"><span class="btn btn-danger" id="gbtn" onclick="eaprovenotaprove(\''.$rfid.'\',\'gnot_approve\')">Not Active</span></td>';
 	}elseif($fetch["status"] =="approve"){
 		echo '<td class="nk-tb-col"><span class="btn btn-success" id="gbtn" onclick="eaprovenotaprove(\''.$rfid.'\',\'g'.$fetch["status"].'\')">Active</span></td>';
 	}
-	
+	echo '
+	<td class="nk-tb-col nk-tb-col-tools">
+		<ul class="nk-tb-actions gx-1 my-n1">
+			<li class="mr-n1">
+				<div class="dropdown">
+					<a href="#" class="dropdown-toggle btn btn-icon btn-trigger" data-toggle="dropdown"><em class="icon ni ni-more-h"></em></a>
+					<div class="dropdown-menu dropdown-menu-right">
+						<ul class="link-list-opt no-bdr">
+						
+							
+							<li><a href="javascript:void(0)" onClick="confirm('.$fetch['m_id'].')"><em class="icon ni ni-trash"></em><span>Remove</span></a></li>
+
+						</ul>
+					</div>
+				</div>
+			</li>
+		</ul>
+	</td>
+	</tr>';
 										
 		}
 		echo'</tbody> </table>
@@ -2622,7 +2668,7 @@ if(isset($_POST['readRecord']))
 		<script src="https://cdn.datatables.net/1.10.23/js/jquery.dataTables.min.js"></script>
 	<script src="https://cdn.datatables.net/1.10.23/js/dataTables.bootstrap4.min.js"></script>
 	<script>$(document).ready(function () {
-		$("#myTable").DataTable();
+		$("#myTable").DataTable({responsive:true});
 	} )
 	</script>
 	';

@@ -234,57 +234,39 @@ if(isset($_POST['loginpage1']))
 // for forgot pass email send
 if(isset($_POST['passmailsend']))
 {
-	
+	$code =rand();
 	$passemail = test_input(mysqli_real_escape_string($con, $_POST['fo_email']));
-	
-	$mailcheck = mysqli_query($con, "SELECT * FROM `admin` WHERE `email` = '$passemail'");
-	$dataforpass = mysqli_fetch_assoc($mailcheck);
+	mysqli_query($con,"UPDATE `tbl_ruser` SET `code` = '$code' WHERE `ur_email` = '$passemail'");
+	$mailcheck = mysqli_query($con, "SELECT * FROM `tbl_ruser` WHERE `ur_email` = '$passemail'");
+	$dataforpass = mysqli_fetch_array($mailcheck);
 	$count = mysqli_num_rows($mailcheck);
 	
-	if($count>0){
+	if($count > 0 ){
 		
 //		$data = $checkcu->fetch_assoc();
 			
 			$name = $dataforpass['name'];
-			$code = $dataforpass['code'];
+// 			$code = $dataforpass['code'];
 			
-	// Include PHPMailer library files
-	require 'PHPMailer/src/Exception.php';
-	require 'PHPMailer/src/PHPMailer.php';
-	require 'PHPMailer/src/SMTP.php';
-			
-			$mail = new PHPMailer;
-
-		$mail->isSMTP();
-		$mail->Host     = 'smtp.gmail.com';
-		$mail->SMTPAuth = true;
-		$mail->Username = 'mb365992@gmail.com';
-		$mail->Password = '$(momina)';
-		$mail->SMTPSecure = 'tls';
-		$mail->Port     = 587;
-
-		$mail->setFrom('mb365992@gmail.com', 'Admin');
-		$mail->addReplyTo('mb365992@gmail.com', 'Admin');
-
-		// Add a recipient
-		$mail->addAddress($passemail);
-			
-		// Email subject
-		$subject = "Reset Pssword Link";
-		$mail->Subject = $subject;
-
-		// Set email format to HTML
-		$mail->isHTML(true);
-
-		// Email body content
-		$mailContent = "<h2>Forgot Password Link</h2> <br>
+	$to      = $passemail;
+	$subject = 'Forgot Password Link';
+	$message = '<html><body>';
+	$message .= "<h2>Forgot Password Link</h2> <br>
 				Hi, <strong class='font-weight-bold text-dark'>$name,</strong> 
 				Please click the given link to reset your password! <br>
-				http://localhost/mediku/hospital/forgotpass.php?code=$code";
-		$mail->Body = $mailContent;
+				http://hospital.extremeearn.com/forgotpass.php?code=$code";
+	$message .= '</body></html>';
+	$headers = 'From: info@deevloopers.com' . "\r\n" .
+		'Reply-To: info@deevloopers.com' . "\r\n" .
+		"MIME-Version: 1.0\r\n".
+		"Content-Type: text/html; charset=ISO-8859-1\r\n";
+		'X-Mailer: PHP/' . phpversion();
+	
+$e=	mail($to, $subject, $message, $headers);
+	
 
 //		Send email
-		if(!$mail->send()){
+		if(!$e){
 			echo "mailerror";
 		}
 		else{
@@ -304,14 +286,14 @@ if(isset($_POST['resetpass']))
 		
 		$rcode = $_POST['rcode'];
 		
-		$checkcode = mysqli_query($con, "SELECT * FROM `admin` WHERE `code` = '$rcode'");
+		$checkcode = mysqli_query($con, "SELECT * FROM `tbl_ruser` WHERE `code` = '$rcode'");
 		$roc = mysqli_num_rows($checkcode);
 		if($roc>0){
 			$rpass = test_input(mysqli_real_escape_string($con, $_POST['r_pass']));
 			$rcpass = test_input(mysqli_real_escape_string($con , $_POST['r_cpass']));
 
 //			$qre = mysqli_query($con, "UPDATE `admin` `SET` `password`= '$rpass' WHERE `code` = '$rcode'");
-			$qre = $con->query("UPDATE `admin` SET `password` = '$rpass' WHERE `code` = '$rcode'");
+			$qre = $con->query("UPDATE `tbl_ruser` SET `ur_pass` = '$rpass' WHERE `code` = '$rcode'");
 			
 			if($qre){
 				echo "updpasssuc";
@@ -399,6 +381,42 @@ if(isset($_POST["addorginaztion"]))
 	}else{
 		echo "Error";
 	}
+}
+
+// for Send Message
+if(isset($_POST['sendmessage']))
+{
+	
+$aname = $_POST['aname'];
+$rmessage = $_POST['rmessage'];
+$aemail = $_POST['aemail'];
+	$to      = "zohaibkhan4822@gmail.com";
+	$subject = 'Support Message';
+	$message = '<html><body>';
+	$message .= "<h2>Support Message</h2> <br>
+			From :<strong class='font-weight-bold text-dark'>".$aname."</strong> 
+			<br>
+			<h4>Message</h4>
+			<p>".$rmessage."</p>
+			";
+	$message .= '</body></html>';
+	$headers = 'From: '.$aemail . "\r\n" .
+		'Reply-To: '.$aemail . "\r\n" .
+		"MIME-Version: 1.0\r\n".
+		"Content-Type: text/html; charset=ISO-8859-1\r\n";
+		'X-Mailer: PHP/' . phpversion();
+	
+$e=	mail($to, $subject, $message, $headers);
+	
+
+//		Send email
+		if(!$e){
+			echo "mailerror";
+		}
+		else{
+			echo"sendmail";
+		}
+
 }
 
 ?>

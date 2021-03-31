@@ -37,14 +37,14 @@
 			<div class="row">
 				<div class="col-lg-8 col-md-8 col-sm-12 col-12">
 					<div class="single-page-title">
-						<h2>Login</h2>
+						<h2>Fogot Password</h2>
 					</div>
 				</div>
 				<div class="col-lg-4 col-md-4 col-sm-12 col-12">
 					<ol class="breadcrumb">
 					  <li class="breadcrumb-item"><a href="#"><span class="lnr lnr-home"></span></a></li>
 					  <li class="breadcrumb-item">Pages</li>
-					  <li class="breadcrumb-item active">Login</li>
+					  <li class="breadcrumb-item active">Fogot Password</li>
 					</ol>
 				</div>
 			</div>
@@ -60,7 +60,7 @@
             <div class="row">
 				<div class="col-lg-8 text-center mx-auto">
                     <div class="section-title">
-                        <h3>Login <span>Here</span></h3>
+                        <h3>Reset <span>Your Password</span></h3>
                         <span class="line"></span>
                     </div>
 				</div>
@@ -70,24 +70,25 @@
             <div class="row mt-5">
 				<div class="col-lg-8 mx-auto">
                     <div class="appointment-form-ma">
-                        <form method="post" id="login_popup">
+                        <form method="post" id="reset_pass">
                             <div class="row">
-							  
+							  <input type="hidden" name="rcode" value="<?=$_GET['code']?>">
 							  
 							 
 							
 							
 							  <div class="form-group col-lg-6 mt-2">
-								 <input type="email" class="form-control" id="u_em" placeholder="Your Email" name="log_email" autocomplete="off">
+								 <input type="password" class="form-control" id="r_pass" placeholder="Password" name="r_pass" autocomplete="off">
+								 <span toggle="#r_pass" class="far fa-eye-slash  toggle-password field-icon"></span>
 							  </div>
 							  <div class="form-group col-lg-6 mt-2">
-								 <input type="password" class="form-control" id="u_pass" placeholder="Password" name="log_password" autocomplete="off"> 
-								 <span toggle="#u_pass" class="far fa-eye-slash  toggle-password field-icon"></span>
+								 <input type="password" class="form-control" id="r_cpass" placeholder="Confirm Password" name="r_cpass" autocomplete="off"> 
+								 <span toggle="#r_cpass" class="far fa-eye-slash  toggle-password field-icon"></span>
 
 							  </div>
-							  <a href="#" onClick="clodelogmodal()" class="btn float-right" data-toggle="modal" data-target="#exampleModal">Forgot Password</a>
+							  <!--<a href="#" onClick="clodelogmodal()" class="btn float-right" data-toggle="modal" data-target="#exampleModal">Forgot Password</a>-->
 							  <div class="form-group col-lg-12">
-								 <button type="submit" class="btn btn-apfm">Login <i class="icofont icofont-thin-right"></i></button>
+								 <button type="submit" class="btn btn-apfm">Reset <i class="icofont icofont-thin-right"></i></button>
 							  </div>
                             </div>
                         </form>
@@ -204,29 +205,53 @@
 </body>
 <script src="ajax-load/register_ajax.js"></script>
 <script>
-//     (function($) {
-//               $("#forgot_popup").validate({
-//                 submitHandler: function(form) {
-//                   var form_btn = $(form).find('button[type="submit"]');
-//                   var form_result_div = '#form-result';
-//                   $(form_result_div).remove();
-//                   form_btn.before('<div id="form-result" class="alert alert-success" role="alert" style="display: none;"></div>');
-//                   var form_btn_old_msg = form_btn.html();
-// //                  form_btn.html(form_btn.prop('disabled', true).data("loading-text"));
-//                   $(form).ajaxSubmit({
-//                     dataType:  'json',
-//                     success: function(data) {
-//                       if( data.status == 'true' ) {
-//                         $(form).find('.form-control').val('');
-//                       }
-//                       form_btn.prop('disabled', false).html(form_btn_old_msg);
-//                       $(form_result_div).html(data.message).fadeIn('slow');
-//                       setTimeout(function(){ $(form_result_div).fadeOut('slow') }, 6000);
-//                     }
-//                   });
-//                 }
-//               });
-//             })(jQuery);
+(function($) {
+                  $("#reset_pass").validate({
+                    submitHandler: function(form) {
+                      var form_btn = $(form).find('button[type="submit"]');
+                      var form_result_div = '#form-result';
+                      $(form_result_div).remove();
+                      form_btn.before('<div id="form-result" class="alert alert-success" role="alert" style="display: none;"></div>');
+                      var form_btn_old_msg = form_btn.html();
+//                      form_btn.html(form_btn.prop('disabled', true).data("loading-text"));
+                      $(form).ajaxSubmit({
+                        dataType:  'json',
+                        success: function(data) {
+                          if( data.status === 'true' ) {
+                            $(form).find('.form-control').val('');
+                          }
+                          form_btn.prop('disabled', false).html(form_btn_old_msg);
+                          $(form_result_div).html(data.message).fadeIn('slow');
+                          setTimeout(function(){ $(form_result_div).fadeOut('slow') }, 6000);
+                        }
+                      });
+                    }
+                  });
+                })(jQuery);
+
+    (function($) {
+              $("#forgot_popup").validate({
+                submitHandler: function(form) {
+                  var form_btn = $(form).find('button[type="submit"]');
+                  var form_result_div = '#form-result';
+                  $(form_result_div).remove();
+                  form_btn.before('<div id="form-result" class="alert alert-success" role="alert" style="display: none;"></div>');
+                  var form_btn_old_msg = form_btn.html();
+//                  form_btn.html(form_btn.prop('disabled', true).data("loading-text"));
+                  $(form).ajaxSubmit({
+                    dataType:  'json',
+                    success: function(data) {
+                      if( data.status == 'true' ) {
+                        $(form).find('.form-control').val('');
+                      }
+                      form_btn.prop('disabled', false).html(form_btn_old_msg);
+                      $(form_result_div).html(data.message).fadeIn('slow');
+                      setTimeout(function(){ $(form_result_div).fadeOut('slow') }, 6000);
+                    }
+                  });
+                }
+              });
+            })(jQuery);
 </script>
 <script>
 		toastr.options = {
@@ -269,12 +294,15 @@
 			success: function(data){
 				
 				if(data == "empasserr"){
+//					alert("Email Password Wrong!");
 					toastr.error("Email Password Wrong!");
 				}
 				else if(data == "apperror"){
+//					alert('You are not approved');
 					toastr.error("Please fill all fields!");
 				}
 				else if (data == "subadmin"){
+//					alert("Welcome");
 					window.location.href = "sub_admin/index.php";
 				}else if(data == "servicead"){
 					window.location.href = "service_definer/index.php";

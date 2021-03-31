@@ -85,3 +85,5 @@ Stack trace:
 [25-Mar-2021 11:20:55 UTC] PHP Warning:  mysqli_fetch_array() expects parameter 1 to be mysqli_result, bool given in /home/extremeearn/hospital.extremeearn.com/Gprefferer/phpcode.php on line 757
 [25-Mar-2021 11:21:08 UTC] PHP Warning:  mysqli_fetch_array() expects parameter 1 to be mysqli_result, bool given in /home/extremeearn/hospital.extremeearn.com/Gprefferer/phpcode.php on line 653
 [25-Mar-2021 11:21:30 UTC] PHP Warning:  mysqli_fetch_array() expects parameter 1 to be mysqli_result, bool given in /home/extremeearn/hospital.extremeearn.com/Gprefferer/phpcode.php on line 653
+[30-Mar-2021 21:10:10 UTC] PHP Warning:  Use of undefined constant this - assumed 'this' (this will throw an Error in a future version of PHP) in /home/extremeearn/hospital.extremeearn.com/Gprefferer/phpcode.php on line 1358
+[30-Mar-2021 21:10:10 UTC] PHP Warning:  Use of undefined constant this - assumed 'this' (this will throw an Error in a future version of PHP) in /home/extremeearn/hospital.extremeearn.com/Gprefferer/phpcode.php on line 1358

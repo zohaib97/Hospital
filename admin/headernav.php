@@ -209,7 +209,7 @@ $orid= isset($kls["organization"]);
                                             <em class="icon icon-circle bg-warning-dim ni ni-curve-down-right"></em>
                                         </div>
                                         <div class="nk-notification-content">
-                                            <div class="nk-notification-text">New Organisation Registered Requested For
+                                            <div class="nk-notification-text">New Organisation Registered <br>Requested For
                                                 <span>Approval</span></div>
                                             <div class="nk-notification-time">Organisation Name : <?=$org['or_name']?></div>
                                         </div>
@@ -227,7 +227,7 @@ $orid= isset($kls["organization"]);
 
                             </div><!-- .nk-dropdown-body -->
                             <div class="dropdown-foot center">
-                                <a href="organizationunapprove.php" >View All</a>
+                                <a href="organizationlist.php" >View All</a>
                             </div>
                         </div>
                     <?php

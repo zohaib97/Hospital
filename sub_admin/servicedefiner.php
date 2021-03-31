@@ -547,20 +547,12 @@ include_once('headernav.php');
 									</div>
 									</div> 		
 							  </div>
-								<div class="col-lg-6">
+								<div class="col-lg-6 mt-5">
 								  <div class="form-group">
-									<div class="form-control-wrap">
+									<div class="form-group mt-4">
 										<label class="col-form-label" for="full-name-1">Days</label>
-										<select style="margin-top: 79px !important;" class="form-control mt-5" name="po_day" id="po_day">
-											<option value="">Day(s)</option>
-											<?php 
-											for ($i=1; $i <= 30; $i++) { 
-											echo '<option value="'.$i.'">'.$i.'</option>';
-											}
-											?>
-											
-
-										</select>
+										<input type="number" class="form-control " name="po_day" id="po_day">
+									
 									</div>
 								</div>
 							  </div>
@@ -1281,6 +1273,11 @@ $(function()
 		swal("warning!", "Invalid Age Range", "warning");
 		$('#ser_ager2').val('');
       }
+      if( quantityI == quantity)
+      {
+		swal("warning!", "Invalid Age Range", "warning");
+		$('#ser_ager2').val('');
+      }
      
     });
 	
@@ -1293,7 +1290,11 @@ $(function()
 		swal("warning!", "Invalid Date Range", "warning");
 		$('#ser_effect2').val('');
       }
-     
+     if( quantityI == quantity)
+      {
+		swal("warning!", "Invalid Date Range", "warning");
+		$('#ser_effect2').val('');
+      }
     });
  }); 
 

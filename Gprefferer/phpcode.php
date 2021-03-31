@@ -527,11 +527,7 @@ if(isset($_POST['refferelfetch3']))
 	{
 		$f1 = mysqli_fetch_array($q1);
 		$refferid = $f1['c_id'];
-	}
-	else
-	{
-	$refferid = '';
-	
+
 
 	$query = mysqli_query($con,"SELECT * FROM `tbl_consultantrefferels`JOIN tbl_ruser ON tbl_ruser.ur_id = tbl_consultantrefferels.c_userid JOIN services ON services.service_id = tbl_consultantrefferels.c_serid JOIN service_name ON service_name.s_id = services.service_name JOIN service_cliniciant ON services.ser_cl_type= service_cliniciant.cl_id JOIN ser_specialty_add ON services.service_speciality = ser_specialty_add.spec_id JOIN orginzation ON orginzation.orid = tbl_consultantrefferels.c_orgid join tbl_refferelattachment on tbl_consultantrefferels.c_id = tbl_refferelattachment.ra_refferelid where c_gpid = '$id' and tbl_refferelattachment.ra_refferelid = '$refferid' and request_type = 'Advice request' GROUP BY c_serid and c_userid");
 
@@ -1162,10 +1158,11 @@ if(isset($_POST['patientfetch']))
 
 	echo'   <tr class="nk-tb-item">
 	<td class="nk-tb-col nk-tb-col-check">
-		<div class="custom-control custom-control-sm custom-checkbox notext">
-			<input type="checkbox" class="custom-control-input gg" name="check[]" value="'.$id.'" id="check'.$id.'"  checked="">
-			<label class="custom-control-label" for="check'.$id.'" onclick="showss('.$id.')"></label>
+		<div class="custom-control custom-control-sm custom-radio notext">
+			<input type="radio" class="custom-control-input gg" name="check" value="'.$id.'" id="check'.$id.'"  onclick="kk(\''.$fetch['pt_title'].'\')">
+			<label class="custom-control-label" for="check'.$id.'" ></label>
 		</div>
+		
 	</td>
 	<td class="nk-tb-col tb-col-sm">
 		<span class="tb-product">
@@ -1249,7 +1246,7 @@ if(isset($_POST['apppatientfetch']))
 	<td class="nk-tb-col nk-tb-col-check">
 		<div class="custom-control custom-control-sm custom-checkbox notext">
 			<input type="checkbox" class="custom-control-input gg" name="check[]" value="'.$id.'" id="check'.$id.'">
-			<label class="custom-control-label" for="check'.$id.'" onclick="showss('.$id.')"></label>
+			<label class="custom-control-label" for="check'.$id.'" ></label>
 		</div>
 	</td>
 	<td class="nk-tb-col tb-col-sm">
@@ -1358,8 +1355,8 @@ $query = mysqli_query($con,"SELECT * FROM `services` WHERE ".$res." and ser_cl_t
 
 echo'   <tr class="nk-tb-item">
 	<td class="nk-tb-col nk-tb-col-check">
-		<div class="custom-control custom-control-sm custom-checkbox notext">
-			<input type="checkbox" class="custom-control-input dd" value="'.$id.'" name="checkw[]" id="'.$id.'" onclick="showss('.$id.')" checked="">
+		<div class="custom-control custom-control-sm custom-radio notext">
+			<input type="radio" class="custom-control-input dd" value="'.$id.'" name="checkw" id="'.$id.'" onclick="showss(this,\''.$mobno.'\')" >
 			<label class="custom-control-label" for="'.$id.'"></label>
 		</div>
 	</td>
@@ -1457,7 +1454,7 @@ $query = mysqli_query($con,"SELECT * FROM `tbl_consultantrefferels` join `servic
 echo'   <tr class="nk-tb-item">
 	<td class="nk-tb-col nk-tb-col-check">
 		<div class="custom-control custom-control-sm custom-radio notext">
-			<input type="radio" class="custom-control-input dd" onclick="showss(this)" value="'.$id.'" name="checkw" id="'.$id.'">
+			<input type="radio" class="custom-control-input dd" onclick="showss(this,\''.$mobno.'\')" value="'.$id.'" name="checkw" id="'.$id.'">
 			<label class="custom-control-label" for="'.$id.'" ></label>
 		</div>
 	</td>
@@ -1966,9 +1963,9 @@ $assa = mysqli_query($con,"SELECT * FROM `tbl_patients` where pt_name ='$nm' and
     
 echo'   <tr class="nk-tb-item">
 	<td class="nk-tb-col nk-tb-col-check">
-		<div class="custom-control custom-control-sm custom-checkbox notext">
-			<input type="checkbox" class="custom-control-input gg" name="check[]" value="'.$id.'" id="check'.$id.'" checked="">
-			<label class="custom-control-label" for="check'.$id.'" onclick="showss('.$id.')"></label>
+		<div class="custom-control custom-control-sm custom-radio notext">
+			<input type="radio" class="custom-control-input gg" name="check" value="'.$id.'" id="check'.$id.'" onclick="kk(\''.$fetch['pt_title'].'\')">
+			<label class="custom-control-label" for="check'.$id.'" ></label>
 		</div>
 	</td>
 	<td class="nk-tb-col tb-col-sm">
@@ -2881,6 +2878,7 @@ if(isset($_POST['addapointment']))
 {
 	extract($_POST);
 	$sql = mysqli_query($con,"INSERT INTO `tbl_serviceappointment`(`sp_ubrn`, `sp_patientid`, `sp_serviceid`, `sp_iwt`,`sp_refferalid`) VALUES ('$ubrn','$check','$checkw','$iwt','$refferalid')");
+$dd=mysqli_insert_id($con);
 	$sql2 = mysqli_query($con,"SELECT * FROM tbl_patients WHERE pt_id = '$check'");
 	$ar = mysqli_fetch_array($sql2);
 	$email1 = $ar['pt_email'];
@@ -2900,7 +2898,7 @@ if(isset($_POST['addapointment']))
 	
 	mail($to, $subject, $message, $headers);
 
-		echo json_encode(array("res"=>"success","c_id"=>mysqli_insert_id($con)));
+		echo json_encode(array("res"=>"success","c_id"=>$dd));
 	}
 	else
 	{

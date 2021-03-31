@@ -208,7 +208,7 @@ $fetchsa=mysqli_fetch_array($qiu);
 										</div>
 									    <div class="nk-notification-content">
 											<div class="nk-notification-text">You have new <span>Dentist for Approval</span></div>
-											<div class="nk-notification-time"><a href="dentist.php">View All</a></div>
+											<div class="nk-notification-time"><a href="consultant.php?role=Dentist">View All</a></div>
 										</div>
 											</div>
 										<hr>';
@@ -243,7 +243,7 @@ $fetchsa=mysqli_fetch_array($qiu);
 										</div>
 									    <div class="nk-notification-content">
 											<div class="nk-notification-text">You have new <span>Consultant for Approval</span></div>
-											<div class="nk-notification-time"><a href="consultant.php">View All</a></div>
+											<div class="nk-notification-time"><a href="consultant.php?role=consultant">View All</a></div>
 										</div>
 											</div>
 										<hr>';
@@ -255,7 +255,7 @@ $fetchsa=mysqli_fetch_array($qiu);
 										</div>
 									    <div class="nk-notification-content">
 											<div class="nk-notification-text">You have new <span>Community Nurse for Approval</span></div>
-											<div class="nk-notification-time"><a href="nurse.php">View All</a></div>
+											<div class="nk-notification-time"><a href="consultant.php?role=Nurse">View All</a></div>
 										</div>
 											</div>
 										<hr>';
@@ -266,7 +266,7 @@ $fetchsa=mysqli_fetch_array($qiu);
 										</div>
 									    <div class="nk-notification-content">
 											<div class="nk-notification-text">You have new <span>General practitioner Referrer for Approval</span></div>
-											<div class="nk-notification-time"><a href="generalp.php">View All</a></div>
+											<div class="nk-notification-time"><a href="consultant.php?role=GP_Refferer">View All</a></div>
 										</div>
 											</div>
 										';

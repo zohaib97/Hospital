@@ -77,18 +77,20 @@ include_once('../database/db.php');
 							</ul>
 							<div class="tab-content">
 								<div class="tab-pane active" id="tabItem5">
+								    <input type="hidden" id="servicegender">
+								    <input type="hidden" id="patientgender">
 								  <span>Search By :</span>
 									<form>
 									<div class="row">
-										<div class="col-md-3">
+										<div class="col-md-4">
 											<input type="radio" name="searchby" id="nhs" onClick="nhsshow()">
 									<label for="nhs">NHS Number</label>
 										</div>
-										<div class="col-md-3">
-											<input type="radio" name="searchby" id="ubrn" onClick="nhsshow()">
-									<label for="ubrn">UBRN</label>
-										</div>
-										<div class="col-md-3">
+									<!--	<div class="col-md-3">-->
+									<!--		<input type="radio" name="searchby" id="ubrn" onClick="nhsshow()">-->
+									<!--<label for="ubrn">UBRN</label>-->
+									<!--	</div>-->
+										<div class="col-md-4">
 										<input type="radio" name="searchby" id="demographics" onClick="nhsshow()">
 									<label for="demographics">Demographics</label>
 										</div>
@@ -428,13 +430,14 @@ function getclint(vals){
 
 	
 });
-	function showss(id){
+	function showss(id,gender){
 	
-		if($(".dd").prop("checked")==true)
+		if($(id).prop("checked")==true)
 			{
-					if($(".gg").prop("checked")==true){
+		if($(".gg").prop("checked")==true){
  
-				$('#attach').toggle();
+				$('#attach').show();
+				$("#servicegender").val(gender);
 					}
 				else{
 				$('#attach').hide();
@@ -546,16 +549,27 @@ function getclint(vals){
 				});
 				
 			});
-			
+			function kk(gender){
+			    $("#patientgender").val(gender);
+			}
 		
 		$("#attach").on('submit', function(e){
 		e.preventDefault();
+		if(  $("#patientgender").val()== "Mr" && $("#servicegender").val() == "Female"){
+		    NioApp.Toast("<h5>This Service Only Available For Female</h5>", 'warning',{position:'top-right'});
+		}
+		if(($("#patientgender").val()== "Ms" && $("#servicegender").val()== "Male") || ($("#patientgender").val()== "Mrs" && $("#servicegender").val()== "Male")){
+		     NioApp.Toast("<h5>This Service Only Available For Male</h5>", 'warning',{position:'top-right'});
+		    
+		}
+		else{
+		    	if(  $("#patientgender").val()== "Mr" && $("#servicegender").val() == "Male"){
 		var reqtype = $('#ref_reqt').val();
 		var coid = $('#consultant').val();
-		var pid = $("input:checkbox[name='check[]']:checked").val();
+		var pid = $("input:radio[name='check']:checked").val();
 			var refform = new FormData(this);
-			refform.append("check",$("input:checkbox[name='check[]']:checked").val());
-			refform.append("checkw",$("input:checkbox[name='checkw[]']:checked").val());
+			refform.append("check",$("input:radio[name='check']:checked").val());
+			refform.append("checkw",$("input:radio[name='checkw']:checked").val());
 			refform.append("addservicerefferel","btn");
 			refform.append("reqtype",reqtype);
 			
@@ -590,7 +604,51 @@ function getclint(vals){
 //			
 					}
 				});
-				
+		    	}
+		    	if(($("#patientgender").val()== "Ms" && $("#servicegender").val()== "Female") || ($("#patientgender").val()== "Mrs" && $("#servicegender").val()== "Female")){
+		    		var reqtype = $('#ref_reqt').val();
+		var coid = $('#consultant').val();
+		var pid = $("input:radio[name='check']:checked").val();
+			var refform = new FormData(this);
+			refform.append("check",$("input:radio[name='check']:checked").val());
+			refform.append("checkw",$("input:radio[name='checkw']:checked").val());
+			refform.append("addservicerefferel","btn");
+			refform.append("reqtype",reqtype);
+			
+			$.ajax({
+				url: 'phpcode.php',
+				type: 'post',
+				data: refform,
+				contentType: false,
+				processData: false,
+				dataType:"JSON",
+				success: function(data){
+					console.log(data);
+//	document.getElementById('tabItem7').innerHTML=data;
+//						
+
+				if(data["res"] == "success")
+					{
+						toastr.clear();
+               NioApp.Toast("<h5>Data Added Successfully</h5>", 'success',{position:'top-right'});
+						window.location.href = "adcmnt.php?c_id="+data["c_id"]+"&coid="+coid+"&pid="+pid+"";
+					}
+					else if(data["res"] == "Error")
+						{
+							toastr.clear();
+               NioApp.Toast("<h5>Data Didn't Add Successfully</h5>", 'error',{position:'top-right'});
+						}
+						else if(data["res"] == "Already")
+						{
+							toastr.clear();
+               NioApp.Toast("<h5>Refferel Already Created</h5>", 'warning',{position:'top-right'});
+						}
+//			
+					}
+				});
+		    	    
+		    	}
+		}
 			});
 
 	

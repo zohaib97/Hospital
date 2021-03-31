@@ -91,7 +91,54 @@ $(document).ready(function(){
    }
    
    
-   
+   function deleteadmin(id) {
+
+        var vid = id;
+        $.ajax({
+            type: 'POST',
+            url: 'phpcode.php',
+            data: {
+                vid: vid,
+                delservice: "btn"
+            },
+
+            success: function(data) {
+
+                if (data == 'Error') {
+
+                    toastr.clear();
+                    NioApp.Toast("<h5>Service Didn't Delete</h5>", 'error', {
+                        position: 'top-right'
+                    });
+                } else if (data == 'Success') {
+
+                    toastr.clear();
+                    NioApp.Toast("<h5>Service Deleted Successfully</h5>", 'success', {
+                        position: 'top-right'
+                    });
+                    readRecord();
+                }
+               
+
+
+            }
+        });
+    };
+    
+    function confirm(id) {
+        Swal.fire({
+            title: 'Are you sure?',
+            text: "You won't be able to revert this!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonText: 'Yes, delete it!'
+        }).then(function(result) {
+            if (result.value) {
+                // Swal.fire('Deleted!', 'Manager has been deleted.', 'success');
+                deleteadmin(id);
+            }
+        });
+    }
      function eaprovenotaprove(id,status) {
         $.ajax({
             type: 'POST',

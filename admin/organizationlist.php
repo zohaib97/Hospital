@@ -121,7 +121,7 @@ include_once('connect.php');
     });
 	}
 	$(document).ready(function(){
-	    var status="Approved";
+	    var status="Not approved";
 		fetchhospitalsdata(status);
 	});
 	function confirm(id)

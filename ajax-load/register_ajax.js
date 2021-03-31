@@ -18,6 +18,46 @@ toastr.options = {
   "hideMethod": "fadeOut"
 };
 
+
+    $("#send_message").on("submit", function(e){
+	e.preventDefault();
+	
+
+
+		
+		var send_messag = new FormData(this);
+		send_messag.append("sendmessage","btn");
+		
+		$.ajax({
+			url: '../php/phpcode.php',
+			type: 'post',
+			data: send_messag,
+			contentType: false,
+			processData: false,
+// 			beforeSend: function(){
+// 				alert('hello');
+// 			},
+			success: function(data){
+			    
+				if(data == "mailerror"){
+//					alert("Wrong E-Mail");
+					toastr.error("Wrong E-Mail");
+				}else{
+				
+					$("#send_message")[0].reset();
+//					alert("Mail has been send!");
+					toastr.success("Mail has been send! to Administration They will contact you soon");
+//					$('#app').hide();
+				}
+			
+			
+	
+			}	
+	
+	
+});
+});
+
 // ajax_insert register user
 	
 	$("#register_popup").on("submit", function(e)
@@ -114,72 +154,71 @@ toastr.options = {
 
 // for login
 
-$("#login_popup").on("submit", function(e)
-					 {
-	e.preventDefault();
+// $("#login_popup").on("submit", function(e)
+// 					 {
+// 	e.preventDefault();
 	
-	var logemail = $('#u_em').val();
-	var logpass = $('#u_pass').val();
+// 	var logemail = $('#u_em').val();
+// 	var logpass = $('#u_pass').val();
 	
-	if(logemail != '' && logpass != ''){
+// 	if(logemail != '' && logpass != ''){
 		
-		var loginform = new FormData(this);
+// 		var loginform = new FormData(this);
 		
-		loginform.append("loginpage","btn");
+// 		loginform.append("loginpage","btn");
 		
-		$.ajax({
+// 		$.ajax({
 			
-			url: 'php/phpcode.php',
-			type: 'post',
-			data: loginform,
-			contentType: false,
-			processData: false,
-			success: function(data){
-				alert(data);
-				if(data == "empasserr"){
-//					alert("Email Password Wrong!");
-					toastr.error("Email Password Wrong!");
-				}
-				else if(data == "apperror"){
-//					alert('You are not approved');
-					toastr.error("Please fill all fields!");
-				}
-				else if (data == "subadmin"){
-//					alert("Welcome");
-					window.location.href = "sub_admin/index.php";
-				}else if(data == "servicead"){
-					window.location.href = "service_definer/index.php";
-				}
-				else if(data == "gprefferer"){
-					window.location.href = "Gprefferer/index.php";
-				}
-				else if(data == "consultant"){
-					window.location.href = "Consultant/index.php";
-				}else if(data == "dentist"){
+// 			url: 'php/phpcode.php',
+// 			type: 'post',
+// 			data: loginform,
+// 			contentType: false,
+// 			processData: false,
+// 			success: function(data){
+// 				if(data == "empasserr"){
+// //					alert("Email Password Wrong!");
+// 					toastr.error("Email Password Wrong!");
+// 				}
+// 				else if(data == "apperror"){
+// //					alert('You are not approved');
+// 					toastr.error("Please fill all fields!");
+// 				}
+// 				else if (data == "subadmin"){
+// //					alert("Welcome");
+// 					window.location.href = "sub_admin/index.php";
+// 				}else if(data == "servicead"){
+// 					window.location.href = "service_definer/index.php";
+// 				}
+// 				else if(data == "gprefferer"){
+// 					window.location.href = "Gprefferer/index.php";
+// 				}
+// 				else if(data == "consultant"){
+// 					window.location.href = "Consultant/index.php";
+// 				}else if(data == "dentist"){
 				
-					window.location.href = "Dentist/index.php";
-				}
-				else if(data == "gpractional"){
+// 					window.location.href = "Dentist/index.php";
+// 				}
+// 				else if(data == "gpractional"){
 				
-					window.location.href = "General_Practitional/index.php";
-				}
-				else if(data == "cnurse"){
+// 					window.location.href = "General_Practitional/index.php";
+// 				}
+// 				else if(data == "cnurse"){
 				
-					window.location.href = "Community_nurse/index.php";
-				}else if(data == "gptuser"){
-					window.location.href = "Gprefferer/index.php";
-				}
-			}
+// 					window.location.href = "Community_nurse/index.php";
+// 				}else if(data == "gptuser"){
+// 					window.location.href = "Gprefferer/index.php";
+// 				}
+// 			}
 				
-		});
-	}else{
-//		alert("Please fill all fields!");
-		toastr.error("Please fill all fields!");
-		document.getElementById("u_em").style.borderColor = "red";
-		document.getElementById("u_pass").style.borderColor = "red";
-	} 
+// 		});
+// 	}else{
+// //		alert("Please fill all fields!");
+// 		toastr.error("Please fill all fields!");
+// 		document.getElementById("u_em").style.borderColor = "red";
+// 		document.getElementById("u_pass").style.borderColor = "red";
+// 	} 
 	
-});
+// });
 
 
 
@@ -297,15 +336,16 @@ $("#forgot_popup").on("submit", function(e){
 			data: forgot_pass,
 			contentType: false,
 			processData: false,
-//			beforeSend: function(){
-//				$('#app').show();
-//			},
+			beforeSend: function(){
+				$("#mailsendbtn").attr("disabled",true);
+			},
 			success: function(data){
+			 //   alert(data);
 				if(data == "wrongmail"){
 //					alert("Wrong E-Mail");
 					toastr.error("Wrong E-Mail");
-				}else{
-					$("#mailsendbtn").attr("disabled","disabled");
+				}if(data == "sendmail"){
+					$("#mailsendbtn").attr("disabled",false);
 					$("#forgot_popup")[0].reset();
 //					alert("Mail has been send!");
 					toastr.success("Mail has been send! to" + p_email);
@@ -351,7 +391,7 @@ $("#reset_pass").on("submit", function(e){
 					else if(data == "notupdpass"){
 //						alert("Not Updated");
 						toastr.error("Something went wrong");
-					}else {
+					}else if(data == "updpasssuc"){
 						$("#btnsave").attr("disabled","disabled");
 						$("#reset_pass")[0].reset();
 //						alert("Updated Successfully");

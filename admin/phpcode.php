@@ -133,6 +133,9 @@ if(isset($_POST['addsubadmin']))
 	$contact = $_POST['sacontact'];
 	$organization = $_POST['saorganization'];
 	// $address = $_POST['saaddress'];
+	date_default_timezone_set('Asia/Karachi');
+	$time =  date('h:i:s a', time());
+	$code = bin2hex(random_bytes(5));
 	
 	$aid = $_POST['cid'];
 	
@@ -142,7 +145,7 @@ if(isset($_POST['addsubadmin']))
 	if($nhsc>0){
 		echo"alreadynhs";
 	}else {
-		$query = mysqli_query($con,"INSERT INTO `admin`(`name`, `email`, `password`, `contact`, `organization`,`status`,`on/off`) VALUES ('$name','$email','$password','$contact','$organization','approve','off')");
+		$query = mysqli_query($con,"INSERT INTO `admin`(`name`, `email`, `password`, `contact`, `organization`,`time`,`status`,`code`,`on/off`) VALUES ('$name','$email','$password','$contact','$organization','$time','approve','$code','off')");
 	
 		if($query)
 		{

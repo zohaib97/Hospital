@@ -357,7 +357,8 @@ include_once('../database/db.php');
         type: "POST",
         url: "phpcode.php", 
 		data:{refferelfetch3:"btn"},	            
-        success: function(response){                    
+        success: function(response){      
+            // alert(response);
             $("#rdata").html(response); 
             //alert(response);
         }

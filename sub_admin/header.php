@@ -14,5 +14,17 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.css" />
+    <style>
+    table.dataTable.dtr-inline.collapsed > tbody > tr:not(.child) > td:first-child:before, table.dataTable.dtr-inline.collapsed > tbody > tr:not(.child) > th:first-child:before {
 
+   font-family: "Nioicon" !important;
+    margin-right: 0.4rem !important;
+    background: #23d01700 !important;
+    color: #080505 !important;
+    border: 1px solid #928f8ffa !important;
+    padding: 2px !important;
+    border-radius: 50% !important;
+}
+
+    </style>
 </head>
