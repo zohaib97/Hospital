@@ -7,7 +7,7 @@
 				<div class="row">
 					<div class="col-lg-3 col-md-3 col-sm-6 col-7 mx-md-auto mx-sm-auto mx-auto pl-0">
 						<div class="logo">
-							<a href="index.html">
+							<a href="index.php">
 							   <img class="img-fluid" src="assets/img/logo.png" alt="" style="max-width:39%;">
 							</a>
 						</div>
@@ -91,6 +91,7 @@
 									<!--</li>-->
 									<li><a href="index.php" >Home</a></li>
 										<li><a href="login.php" >Login</a></li>
+										<li><a href="p-login.php" class="nav-link">Patient Login</a></li>
 											<li><a href="register.php" >Register</a></li>
 									<li><a href="reg_organization.php">Register Organisation</a></li>
 

@@ -130,46 +130,73 @@ if(isset($_POST['loginpage']))
 		}else {
 		$qu = mysqli_query($con,"SELECT * FROM `tbl_ruser` WHERE `ur_email` = '$lemail' and `ur_pass` = '$lpass' and ur_role_id = '5'");
 			$nu = mysqli_num_rows($qu);
+			$fenu=mysqli_fetch_array($qu);
 			if($nu>0)
 			{
+			    if($fenu["ur_status"] == "approve"){
 				$_SESSION['gprefferer'] = $lemail;
 				echo "gprefferer";
+			    }else{
+			        echo "not approve";
+			    }
 			}
 			else
 			{ 
 				// for role user Optometrist
 				$qu1 = mysqli_query($con,"SELECT * FROM `tbl_ruser` WHERE `ur_email` = '$lemail' and `ur_pass` = '$lpass' and ur_role_id = '6'");
 				$nu1 = mysqli_num_rows($qu1);
+					$fenu1=mysqli_fetch_array($qu1);
 				if($nu1>0)
 				{
+				    if($fenu1["ur_status"]=="approve"){
 					$_SESSION['consultant'] = $lemail;
 					echo "Optometrist";
+				    }else{
+			        echo "not approve";
+			    }
 				}else {
 				    // for role user consultant
 				$qu1 = mysqli_query($con,"SELECT * FROM `tbl_ruser` WHERE `ur_email` = '$lemail' and `ur_pass` = '$lpass' and ur_role_id = '3'");
 				$nu1 = mysqli_num_rows($qu1);
+					$fenu1=mysqli_fetch_array($qu1);
 				if($nu1>0)
 				{
+				    if($fenu1["ur_status"]=="approve"){
 					$_SESSION['consultant'] = $lemail;
+				
 					echo "consultant";
+					
+				}else{
+			        echo "not approve";
+			    }
 				}else {
 					
 					// for role user dentist
 				$dq = mysqli_query($con,"SELECT * FROM `tbl_ruser` WHERE `ur_email` = '$lemail' and `ur_pass` = '$lpass' and ur_role_id = '1'");
 				$dnq = mysqli_num_rows($dq);
+				$fenu2=mysqli_fetch_array($dq);
 				if($dnq>0)
 					{
+				if($fenu2["ur_status"]=="approve"){
 						$_SESSION['dentistem'] = $lemail;
 						echo "dentist";
+					}else{
+			        echo "not approve";
+			    }
 					}
 					else
 					{
 						$gpra = mysqli_query($con,"SELECT * FROM `tbl_ruser` WHERE `ur_email` = '$lemail' and `ur_pass` = '$lpass' and ur_role_id = '2'");
 				$dnq = mysqli_num_rows($gpra);
+				$fenu3=mysqli_fetch_array($gpra);
 						if($dnq>0)
 					{
+				if($fenu3["ur_status"]=="approve"){
 						$_SESSION['gpractional'] = $lemail;
 						echo "gpractional";
+					}else{
+			        echo "not approve";
+			    }
 					}
 						else
 						{
@@ -182,9 +209,14 @@ if(isset($_POST['loginpage']))
 					}if($dnq>0){
 							$tuserq = mysqli_query($con, "SELECT * FROM `tbl_user` WHERE `staff_email` = '$lemail' and `staff_pass` = '$lpass' and `tbl_role` = '5'");
 							$qnum = mysqli_num_rows($tuserq);
+							$fenu5=mysqli_fetch_array($tuserq);
 							if($qnum>0){
+				if($fenu5["ur_status"]=="approve"){
 								$_SESSION['gprefferer'] = $lemail;
 								echo "gptuser";
+							}else{
+			        echo "not approve";
+			    }
 							}
 						  }
 						  else{
@@ -388,7 +420,7 @@ if(isset($_POST['sendmessage']))
 {
 	
 $aname = $_POST['aname'];
-$rmessage = $_POST['rmessage'];
+$rmessage = strip_tags($_POST['rmessage']);
 $aemail = $_POST['aemail'];
 	$to      = "zohaibkhan4822@gmail.com";
 	$subject = 'Support Message';

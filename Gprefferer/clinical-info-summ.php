@@ -168,7 +168,7 @@ include_once('header.php');
     }
     function nexyt(){
         toastr.clear();
-   NioApp.Toast("<h5>Appointment Update Successfully!</h5>", 'success',{position:'top-right'});
+   NioApp.Toast("<h5>Appointment Sent Successfully!</h5>", 'success',{position:'top-right'});
    setTimeout(function(){window.location.href="index.php";},2000);
                         
                     

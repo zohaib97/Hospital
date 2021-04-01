@@ -296,7 +296,7 @@ $("#reg_form").on("submit", function(e)
 		var postcode = $('#postcode').val();
 		var role = $('#conrole').val();
 		
-		if(fname != '' && sname != '' && email != '' && pass != '' && role != '' && proregno !=''){
+		if(fname != '' && sname != '' && email != '' && pass != '' && role != '' && proregno !='' && orgname !=''){
 			
 			
 

@@ -43,7 +43,21 @@ include_once('../database/db.php');
 												<span class="nk-menu-text col-6"> 
 													<select name="worklist" id="worklist" class="form-control">
 														<option value="">-- Select --</option>
-													
+													<?php
+													$rtype = $_GET['reqtype'];
+													if($rtype == "Advice request")
+													{
+													?>
+														<option value="Advice Sent" selected>Advice Sent</option>
+														<?php
+													}
+													if($rtype == "Appointment Request")
+													{
+														?>
+														<option value="Referrer Sent" selected>Referrer Sent</option>
+														<?php
+													}
+													?>
 														<option value="Advice Sent">Advice Sent</option>
 														<option value="Advice Accepted">Advice Accepted</option>
 														<option value="Advice Rejected">Advice Rejected</option>
@@ -134,6 +148,37 @@ include_once('../database/db.php');
 	}
 	$(document).ready(function(){
 		fetchrefferels();
+	var workl=	$('#worklist').val();
+		if(workl == "Advice Sent")
+		{
+		    document.getElementById('rdata').style.display = "block";
+			document.getElementById('hideno').style.display = "none";
+				 $.ajax({    
+        type: "POST",
+        url: "phpcode.php", 
+		data:{refferelfetch3:"btn"},	            
+        success: function(response){      
+         
+            $("#rdata").html(response); 
+            //alert(response);
+        }
+		});
+		}
+		else if(workl == "Referrer Sent")
+		{
+		    	 $.ajax({    
+        type: "POST",
+        url: "phpcode.php", 
+		data:{refferelfetch :"btn"},	            
+        success: function(response){                    
+            $("#rdata").html(response); 
+            //alert(response);
+        }
+
+    });
+			document.getElementById('rdata').style.display = "block";
+			document.getElementById('hideno').style.display = "none";
+		}
 	});
 	function show(id){
 	
@@ -358,7 +403,7 @@ include_once('../database/db.php');
         url: "phpcode.php", 
 		data:{refferelfetch3:"btn"},	            
         success: function(response){      
-            // alert(response);
+         
             $("#rdata").html(response); 
             //alert(response);
         }
@@ -412,9 +457,9 @@ include_once('../database/db.php');
     });
 	}
 
-	$(document).ready(function(){
-		fetchrefferels();
-	});
+// 	$(document).ready(function(){
+// 		fetchrefferels();
+// 	});
 
 	</script>
 </html>

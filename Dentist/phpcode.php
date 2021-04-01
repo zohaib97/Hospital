@@ -179,11 +179,11 @@ if(isset($_POST['upddentistbtn']))
 //		$drole = $_POST['droleid'];
 		$dfname = $_POST['dfname'];
 		$dsname = $_POST['dsname'];
-		$demail = $_POST['demail'];
-		$dcon = $_POST['dcont'];
-		$dob = $_POST['dob'];
+		$pass = $_POST['pass'];
+		$city = $_POST['city'];
+	
 		
-		$query = mysqli_query($con,"UPDATE `tbl_ruser` SET `ur_fname` = '$dfname',`ur_sname` = '$dsname',`ur_email` ='$demail',`ur_contact` = '$dcon',`ur_dob` = '$dob' WHERE `ur_id` = '$did'");
+		$query = mysqli_query($con,"UPDATE `tbl_ruser` SET `ur_fname` = '$dfname',`ur_sname` = '$dsname',`ur_pass` ='$pass',`ur_city` = '$city' WHERE `ur_id` = '$did'");
 	
 	//$query = mysqli_query($con,"UPDATE `tbl_ruser` SET `ur_fname` = '$dfname', `ur_sname` = '$dsname' ,`ur_email` = '$demail', `ur_contact` = '$dcon' WHERE `ur_id` = '$did' and `ur_role_id` = '$drole'");
 		
@@ -203,9 +203,9 @@ if(isset($_POST['upddentisbtn']))
 	{
 		$doid = $_POST['daid'];
 //		$drid = $_POST['droleido'];
-		$dorg = $_POST['dorgani'];
+		$dorg = $_POST['address'];
 		
-	$query = mysqli_query($con,"UPDATE `tbl_ruser` SET `ur_org` = '$dorg' WHERE `ur_id` = '$doid'");
+	$query = mysqli_query($con,"UPDATE `tbl_ruser` SET `ur_address` = '$dorg' WHERE `ur_id` = '$doid'");
 		
 		if($query)
 		{
@@ -234,10 +234,10 @@ while($fetch = mysqli_fetch_array($query))
 	$sname = $fetch['ur_sname'];
 	$remail = $fetch['ur_email'];
 	$rpass = $fetch['ur_pass'];
-	$contact = $fetch['ur_contact'];
-	$org = $fetch['ur_org'];
+	$city = $fetch['ur_city'];
+	$address = $fetch['ur_address'];
 	$drileid = $fetch['ur_role_id'];
-	$dob = $fetch['ur_dob'];
+
 	
 
 echo'<div class="card-aside-wrap">
@@ -262,7 +262,7 @@ echo'<div class="card-aside-wrap">
 				<div class="data-head">
 					<h6 class="overline-title">Basics</h6>
 				</div>
-			<div class="data-item" onClick="cupdmodal('."'$id'".','."'$fname'".','."'$sname'".','."'$remail'".','."'$contact'".','."'$org'".','."'$drileid'".','."'$dob'".')">
+			<div class="data-item" onClick="cupdmodal('."'$id'".','."'$fname'".','."'$sname'".','."'$rpass'".','."'$city'".','."'$address'".','."'$drileid'".')">
 					<div class="data-col">
 						<span class="data-label">First Name</span>
 						<span class="data-value">'.$fetch['ur_fname'].'</span>
@@ -270,7 +270,7 @@ echo'<div class="card-aside-wrap">
 					<div class="data-col data-col-end"><span class="data-more"><em class="icon ni ni-forward-ios"></em></span></div>
 				</div>
 				<!-- data-item -->
-	<div class="data-item" onClick="cupdmodal('."'$id'".','."'$fname'".','."'$sname'".','."'$remail'".','."'$contact'".','."'$org'".','."'$drileid'".','."'$dob'".')">
+	<div class="data-item" onClick="cupdmodal('."'$id'".','."'$fname'".','."'$sname'".','."'$rpass'".','."'$city'".','."'$address'".','."'$drileid'".')">
 					<div class="data-col">
 						<span class="data-label">Sur Name</span>
 						<span class="data-value">'.$fetch['ur_sname'].'</span>
@@ -278,43 +278,31 @@ echo'<div class="card-aside-wrap">
 					<div class="data-col data-col-end"><span class="data-more"><em class="icon ni ni-forward-ios"></em></span></div>
 				</div>
 				<!-- data-item -->
-				<div class="data-item">
+				<div class="data-item" onClick="cupdmodal('."'$id'".','."'$fname'".','."'$sname'".','."'$rpass'".','."'$city'".','."'$address'".','."'$drileid'".')">
 					<div class="data-col">
 						<span class="data-label">Password</span>
 						<span class="data-value">'.$fetch['ur_pass'].'</span>
 					</div>
-					<div class="data-col data-col-end"><span class="data-more disable"><em class="icon ni ni-lock-alt"></em></span></div>
+					<div class="data-col data-col-end"><span class="data-more disable"><em class="icon ni ni-forward-ios"></em></span></div>
 				</div>
 				<!-- data-item -->
-				<div class="data-item" onClick="cupdmodal('."'$id'".','."'$fname'".','."'$sname'".','."'$remail'".','."'$contact'".','."'$org'".','."'$drileid'".','."'$dob'".')">
+				<div class="data-item">
 					<div class="data-col">
 						<span class="data-label">Email</span>
 						<span class="data-value text-soft">'.$fetch['ur_email'].'</span>
 					</div>
-					<div class="data-col data-col-end"><span class="data-more"><em class="icon ni ni-forward-ios"></em></span></div>
+					<div class="data-col data-col-end"><span class="data-more"><em class="icon ni ni-lock-alt"></em></span></div>
 				</div>
 				<!-- data-item -->
-				<div class="data-item" onClick="cupdmodal('."'$id'".','."'$fname'".','."'$sname'".','."'$remail'".','."'$contact'".','."'$org'".','."'$drileid'".','."'$dob'".')">
+				<div class="data-item" onClick="cupdmodal('."'$id'".','."'$fname'".','."'$sname'".','."'$rpass'".','."'$city'".','."'$address'".','."'$drileid'".')">
 					<div class="data-col">
-						<span class="data-label">Phone Number</span>
-						<span class="data-value text-soft">'.$fetch['ur_contact'].'</span>
+						<span class="data-label">City</span>
+						<span class="data-value text-soft">'.$fetch['ur_city'].'</span>
 					</div>
 					<div class="data-col data-col-end"><span class="data-more"><em class="icon ni ni-forward-ios"></em></span></div>
 				</div><!-- data-item -->
-				<div class="data-item" onClick="cupdmodal('."'$id'".','."'$fname'".','."'$sname'".','."'$remail'".','."'$contact'".','."'$org'".','."'$drileid'".','."'$dob'".')">
-					<div class="data-col">
-						<span class="data-label">Organization</span>
-						<span class="data-value">'.$fetch['ur_org'].'</span>
-					</div>
-					<div class="data-col data-col-end"><span class="data-more"><em class="icon ni ni-forward-ios"></em></span></div>
-				</div>
-				<div class="data-item" onClick="cupdmodal('."'$id'".','."'$fname'".','."'$sname'".','."'$remail'".','."'$contact'".','."'$org'".','."'$drileid'".','."'$dob'".')">
-					<div class="data-col">
-						<span class="data-label">Date of Birth</span>
-						<span class="data-value">'.$fetch['ur_dob'].'</span>
-					</div>
-					<div class="data-col data-col-end"><span class="data-more"><em class="icon ni ni-forward-ios"></em></span></div>
-				</div>
+			
+			
 				<!-- data-item -->
 			</div>
 			<!-- data-list -->

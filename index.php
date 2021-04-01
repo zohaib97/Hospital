@@ -777,26 +777,22 @@
 	
    
 </body>
-<script src="ajax-load/register_ajax.js"></script>
+<!--<script src="ajax-load/register_ajax.js"></script>-->
 <script>
      $("#send_message").on("submit", function(e){
 	e.preventDefault();
-	
-
-
-		
 		var send_messag = new FormData(this);
 		send_messag.append("sendmessage","btn");
 		
 		$.ajax({
-			url: '../php/phpcode.php',
+			url: 'php/phpcode.php',
 			type: 'post',
 			data: send_messag,
 			contentType: false,
 			processData: false,
-			beforeSend: function(){
-				alert('hello');
-			},
+// 			beforeSend: function(){
+// 				alert('hello');
+// 			},
 			success: function(data){
 			    
 				if(data == "mailerror"){

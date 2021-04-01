@@ -223,10 +223,10 @@ include_once('../database/db.php');
 	        data:{fekk:"btn",cid:cid,status:status},
 	        success:function(res){
 	        if(res == "success"){
-	            fetchrefferels();
+	            workbltdata();
 	        }
 	        if(res == "successs"){
-	            fetchrefferels();
+	            workbltdata();
 	        }
 	        }
 	    })

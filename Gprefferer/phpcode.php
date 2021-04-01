@@ -523,11 +523,15 @@ if(isset($_POST['refferelfetch3']))
 	$f = mysqli_fetch_array($q);
 	$id = $f['ur_id'];
 	$q1 = mysqli_query($con, "SELECT * FROM `tbl_consultantrefferels` WHERE c_gpid = '$id' and request_type = 'Advice request'");
-	if(mysqli_num_rows($q1) > 0)
+if(mysqli_num_rows($q1) > 0)
 	{
 		$f1 = mysqli_fetch_array($q1);
 		$refferid = $f1['c_id'];
-
+	}
+	else
+	{
+	$refferid = '';
+	}	
 
 	$query = mysqli_query($con,"SELECT * FROM `tbl_consultantrefferels`JOIN tbl_ruser ON tbl_ruser.ur_id = tbl_consultantrefferels.c_userid JOIN services ON services.service_id = tbl_consultantrefferels.c_serid JOIN service_name ON service_name.s_id = services.service_name JOIN service_cliniciant ON services.ser_cl_type= service_cliniciant.cl_id JOIN ser_specialty_add ON services.service_speciality = ser_specialty_add.spec_id JOIN orginzation ON orginzation.orid = tbl_consultantrefferels.c_orgid join tbl_refferelattachment on tbl_consultantrefferels.c_id = tbl_refferelattachment.ra_refferelid where c_gpid = '$id' and tbl_refferelattachment.ra_refferelid = '$refferid' and request_type = 'Advice request' GROUP BY c_serid and c_userid");
 
@@ -661,7 +665,7 @@ $hks=mysqli_fetch_array($qki);
 	</script>
 	';
 		}
-	}
+	
 }
 //for refferels fetch4
 if(isset($_POST['refferelfetch4']))
@@ -680,7 +684,7 @@ if(isset($_POST['refferelfetch4']))
 	else
 	{
 	$refferid = '';
-		
+	}
 	
 	$query = mysqli_query($con,"SELECT * FROM `tbl_consultantrefferels`JOIN tbl_ruser ON tbl_ruser.ur_id = tbl_consultantrefferels.c_userid JOIN services ON services.service_id = tbl_consultantrefferels.c_serid JOIN service_name ON service_name.s_id = services.service_name JOIN orginzation ON orginzation.orid = tbl_consultantrefferels.c_orgid join tbl_refferelattachment on tbl_consultantrefferels.c_id = tbl_refferelattachment.ra_refferelid where c_gpid = '$id' and tbl_refferelattachment.ra_refferelid = '$refferid' and request_type != 'Appointment Request' and c_status= 1 GROUP BY c_serid");
 
@@ -772,7 +776,7 @@ if(isset($_POST['refferelfetch4']))
 	</script>
 	';
 		}
-	}
+	
 }
 
 //for refferels fetch1
@@ -793,6 +797,7 @@ if(isset($_POST['refferelfetch5']))
 	{
 	$refferid = '';
 	
+	}
 	
 	$query = mysqli_query($con,"SELECT * FROM `tbl_consultantrefferels`JOIN tbl_ruser ON tbl_ruser.ur_id = tbl_consultantrefferels.c_userid JOIN services ON services.service_id = tbl_consultantrefferels.c_serid JOIN service_name ON service_name.s_id = services.service_name JOIN orginzation ON orginzation.orid = tbl_consultantrefferels.c_orgid join tbl_refferelattachment on tbl_consultantrefferels.c_id = tbl_refferelattachment.ra_refferelid where c_gpid = '$id' and tbl_refferelattachment.ra_refferelid = '$refferid' and request_type != 'Appointment Request' and c_status= 0 GROUP BY c_serid ");
 
@@ -885,7 +890,7 @@ if(isset($_POST['refferelfetch5']))
 	</script>
 	';
 		}
-	}
+	
 }
 
 
@@ -1141,7 +1146,7 @@ if(isset($_POST['patientfetch']))
 					<th class="nk-tb-col"><span>NHS no</span></th>
 					<th class="nk-tb-col"><span>Street Name</span></th>
 					<th class="nk-tb-col"><span>Date of Birth</span></th>
-					
+					<th class="nk-tb-col"><span>View Details</span></th>
 					
 				</tr><!-- .nk-tb-item -->
 			</thead>
@@ -1181,6 +1186,9 @@ if(isset($_POST['patientfetch']))
 	</td>
 	<td class="nk-tb-col">
 		<span class="tb-lead">'.$dob.'</span>
+	</td>
+		<td class="nk-tb-col">
+		<a class="tb-lead" style="cursor: pointer;" onclick="fetchpatientdetails(\''.$fetch["pt_title"].'\',\''.$name." ".$fetch["pt_surname"].'\',\''.$fetch["pt_email"].'\',\''.$nh.'\',\''.$dob.'\',\''.$fetch["pt_houseno"].'\',\''.$sname.'\',\''.$fetch["pt_country"].'\',\''.$fetch["pt_city"].'\',\''.$fetch["pt_postcode"].'\',\''.$fetch["pt_telno"].'\',\''.$fetch["pt_mobno"].'\')">View Details</a>
 	</td>
 	';
 		
@@ -1871,7 +1879,7 @@ $da = date_format($date,"d-m-Y");
 			echo' <div class="card p-2 col-md-7 float-right "
 			style="background-color: skyblue;text-align: right;color:white;"
 			>
-			<small><b>'.$da.' Sent By '.$dataid['ur_fname'].' ('.$dataid["title"].') (Referring Clinician)</b></small>
+			<small><b>'.$da.' Sent By '.$dataid['ur_fname']." ".$dataid['ur_sname'].' ('.$dataid["title"].') (Referring Clinician)</b></small>
 			<spane>'.$fe['ra_message'].'</spane>';
 			if($fe['ra_attach'] != null)
 			{
@@ -1895,7 +1903,7 @@ $da = date_format($date,"d-m-Y");
 				echo' <div class="card p-2 float-left col-md-7"
 			style="background-color: white;text-align: left;"
 			>
-			<small><b>'.$da.' Sent By '.$dataid1['ur_fname'].' ('.$dataid1["title"].') (Service Provider Clinician)</b></small>
+			<small><b>'.$da.' Sent By '.$dataid1['ur_fname']." ".$dataid1['ur_sname'].' ('.$dataid1["title"].') (Service Provider Clinician)</b></small>
 			<span>'.$fe['ra_message'].'</span>
 			<br>
 			</div>
@@ -1945,6 +1953,7 @@ $assa = mysqli_query($con,"SELECT * FROM `tbl_patients` where pt_name ='$nm' and
 					<th class="nk-tb-col"><span>Street Name</span></th>
 					<th class="nk-tb-col"><span>Email</span></th>
 					<th class="nk-tb-col"><span>Date of Birth</span></th>
+						<th class="nk-tb-col"><span>View Details</span></th>
 					
 					
 				</tr><!-- .nk-tb-item -->
@@ -1988,6 +1997,9 @@ echo'   <tr class="nk-tb-item">
 	</td>
 	<td class="nk-tb-col">
 		<span class="tb-lead">'.$dob.'</span>
+	</td>
+		<td class="nk-tb-col">
+		<a class="tb-lead" style="cursor: pointer;" onclick="fetchpatientdetails(\''.$fetch["pt_title"].'\',\''.$name." ".$fetch["pt_surname"].'\',\''.$fetch["pt_email"].'\',\''.$nh.'\',\''.$dob.'\',\''.$fetch["pt_houseno"].'\',\''.$sname.'\',\''.$fetch["pt_country"].'\',\''.$fetch["pt_city"].'\',\''.$fetch["pt_postcode"].'\',\''.$fetch["pt_telno"].'\',\''.$fetch["pt_mobno"].'\')">View Details</a>
 	</td>
 	';
 		
@@ -2368,12 +2380,7 @@ if(isset($_POST['apprefferelfetch3']))
 		<table class="nowrap nk-tb-list is-separate" data-auto-responsive="false" id="myTable">
 			<thead>
 				<tr class="nk-tb-item nk-tb-head">
-					<th class="nk-tb-col nk-tb-col-check">
-						<div class="custom-control custom-control-sm custom-checkbox notext">
-							<input type="checkbox" class="custom-control-input" id="puid">
-							<label class="custom-control-label" for="puid"></label>
-						</div>
-					</th>
+				
 				<th class="nk-tb-col"><span>Service Id</span></th>
 					<th class="nk-tb-col tb-col-sm"><span>Consultant Name</span></th>
 					<th class="nk-tb-col"><span>Service Name</span></th>
@@ -2392,12 +2399,7 @@ if(isset($_POST['apprefferelfetch3']))
 	$rfid = $fetch['c_id'];
 
 	echo'   <tr class="nk-tb-item">
-	<td class="nk-tb-col nk-tb-col-check">
-		<div class="custom-control custom-control-sm custom-checkbox notext">
-			<input type="checkbox" class="custom-control-input" name="check" id="'.$rfid.'" onclick="show('."'$rfid'".')">
-			<label class="custom-control-label" for="'.$rfid.'"></label>
-		</div>
-	</td>
+	
 	<td class="nk-tb-col">
 		<span class="tb-lead">'.$fetch['c_serid'].'</span>
 	</td>
@@ -2477,12 +2479,7 @@ if(isset($_POST['apprefferelfetch4']))
 		<table class="nowrap nk-tb-list is-separate" data-auto-responsive="false" id="myTable">
 			<thead>
 				<tr class="nk-tb-item nk-tb-head">
-					<th class="nk-tb-col nk-tb-col-check">
-						<div class="custom-control custom-control-sm custom-checkbox notext">
-							<input type="checkbox" class="custom-control-input" id="puid">
-							<label class="custom-control-label" for="puid"></label>
-						</div>
-					</th>
+					
 					<th class="nk-tb-col"><span>Service Id</span></th>
 					<th class="nk-tb-col tb-col-sm"><span>Consultant Name</span></th>
 					<th class="nk-tb-col"><span>Service Name</span></th>
@@ -2498,12 +2495,7 @@ if(isset($_POST['apprefferelfetch4']))
 	$rfid = $fetch['c_id'];
 
 	echo'   <tr class="nk-tb-item">
-	<td class="nk-tb-col nk-tb-col-check">
-		<div class="custom-control custom-control-sm custom-checkbox notext">
-			<input type="checkbox" class="custom-control-input" name="check" id="'.$rfid.'" onclick="show('."'$rfid'".')">
-			<label class="custom-control-label" for="'.$rfid.'"></label>
-		</div>
-	</td>
+	
 	<td class="nk-tb-col">
 		<span class="tb-lead">'.$fetch['c_serid'].'</span>
 	</td>
@@ -2581,12 +2573,7 @@ if(isset($_POST['apprefferelfetch5']))
 		<table class="nowrap nk-tb-list is-separate" data-auto-responsive="false" id="myTable">
 			<thead>
 				<tr class="nk-tb-item nk-tb-head">
-					<th class="nk-tb-col nk-tb-col-check">
-						<div class="custom-control custom-control-sm custom-checkbox notext">
-							<input type="checkbox" class="custom-control-input" id="puid">
-							<label class="custom-control-label" for="puid"></label>
-						</div>
-					</th>
+					
 					<th class="nk-tb-col"><span>Service Id</span></th>
 					<th class="nk-tb-col tb-col-sm"><span>Consultant Name</span></th>
 					<th class="nk-tb-col"><span>Service Name</span></th>
@@ -2603,12 +2590,7 @@ if(isset($_POST['apprefferelfetch5']))
 	$rfid = $fetch['c_id'];
 
 	echo'   <tr class="nk-tb-item">
-	<td class="nk-tb-col nk-tb-col-check">
-		<div class="custom-control custom-control-sm custom-checkbox notext">
-			<input type="checkbox" class="custom-control-input" name="check" id="'.$rfid.'" onclick="show('."'$rfid'".')">
-			<label class="custom-control-label" for="'.$rfid.'"></label>
-		</div>
-	</td>
+	
 	<td class="nk-tb-col">
 		<span class="tb-lead">'.$fetch['c_serid'].'</span>
 	</td>
@@ -2675,7 +2657,7 @@ if(isset($_POST['apprefferelfetch6']))
 	$id = $f['ur_id'];
 	
 	
-	$query = mysqli_query($con,"SELECT * FROM `tbl_consultantrefferels` JOIN tbl_ruser ON tbl_ruser.ur_id = tbl_consultantrefferels.c_userid JOIN services ON services.m_id = tbl_consultantrefferels.c_rfid JOIN service_name ON service_name.s_id = services.service_name JOIN orginzation ON orginzation.orid = tbl_consultantrefferels.c_orgid where c_gpid = '$id'");
+	$query = mysqli_query($con,"SELECT * FROM `tbl_serviceappointment` JOIN services ON services.service_id = tbl_serviceappointment.sp_serviceid JOIN service_name on service_name.s_id = services.service_name JOIN tbl_ruser ON tbl_ruser.ur_id = tbl_serviceappointment.sp_refferalid JOIN tbl_patients on tbl_patients.pt_id= tbl_serviceappointment.sp_patientid WHERE tbl_ruser.ur_email = '$e'");
 
 	// $query = mysqli_query($con,"SELECT * FROM `tbl_consultantrefferels`,orginzation,tbl_patients where orginzation.orid=tbl_consultantrefferels.c_orgid and tbl_patients.pt_nhsno=tbl_consultantrefferels.c_nhsno and c_gpid = '$id'");
 	if($query)
@@ -2685,19 +2667,13 @@ if(isset($_POST['apprefferelfetch6']))
 		<table class="nowrap nk-tb-list is-separate" data-auto-responsive="false" id="myTable">
 			<thead>
 				<tr class="nk-tb-item nk-tb-head">
-					<th class="nk-tb-col nk-tb-col-check">
-						<div class="custom-control custom-control-sm custom-checkbox notext">
-							<input type="checkbox" class="custom-control-input" id="puid">
-							<label class="custom-control-label" for="puid"></label>
-						</div>
-					</th>
+					
 				<th class="nk-tb-col"><span>Service Id</span></th>
-					<th class="nk-tb-col tb-col-sm"><span>Consultant Name</span></th>
+					<th class="nk-tb-col tb-col-sm"><span>Refferer Name</span></th>
 					<th class="nk-tb-col"><span>Service Name</span></th>
 					<th class="nk-tb-col"><span>NHS Number</span></th>
-					<th class="nk-tb-col tb-col-sm"><span>Organisation Name</span></th>
-					<th class="nk-tb-col"><span>Status</span></th>
-					<th class="nk-tb-col"><span>Action</span></th>
+					<th class="nk-tb-col tb-col-sm"><span>Patient Name</span></th>
+				
 					
 				</tr><!-- .nk-tb-item -->
 			</thead>
@@ -2707,14 +2683,9 @@ if(isset($_POST['apprefferelfetch6']))
 	$rfid = $fetch['c_id'];
 
 	echo'   <tr class="nk-tb-item">
-	<td class="nk-tb-col nk-tb-col-check">
-		<div class="custom-control custom-control-sm custom-checkbox notext">
-			<input type="checkbox" class="custom-control-input" name="check" id="'.$rfid.'" onclick="show('."'$rfid'".')">
-			<label class="custom-control-label" for="'.$rfid.'"></label>
-		</div>
-	</td>
+	
 	<td class="nk-tb-col">
-		<span class="tb-lead">'.$fetch['c_serid'].'</span>
+		<span class="tb-lead">'.$fetch['sp_serviceid'].'</span>
 	</td>
 	<td class="nk-tb-col tb-col-sm">
 		<span class="tb-product">
@@ -2728,31 +2699,13 @@ if(isset($_POST['apprefferelfetch6']))
 	
 	
 	<td class="nk-tb-col">
-		<span class="tb-lead">'.$fetch['c_nhsno'].'</span>
+		<span class="tb-lead">'.$fetch['pt_nhsno'].'</span>
 	</td>	
 	<td class="nk-tb-col">
-		<span class="tb-lead">'.$fetch['or_name'].'</span>
+		<span class="tb-lead">'.$fetch['pt_name'].'</span>
 	</td>';
-		if($fetch["c_status"] == 1 ){
- echo '
-	<td class="nk-tb-col">
+	
 
-	<span class="badge badge-primary ">Accepted</span>
-	</td>
-
-	';   
-	}if($fetch["c_status"] == 0 ){
-	echo '
-	<td class="nk-tb-col">
-
-	<span class="badge badge-danger">Un-Accepted</span>
-	</td>
-
-	';   
-	}
-	echo'<td class="nk-tb-col">
-	<span class=""><a href="createappointment.php" class="btn btn-info btn-sm">Refer to Appointment</a></span>
-	</td>';	
 											
 			}
 			echo'</tbody> </table>
@@ -2914,4 +2867,191 @@ if(isset($_POST["insdf"])){
 	echo "0";
 	}
 }
+
+
+//fetch Consultant data
+if(isset($_POST['gpfetchupdate']))
+{
+$e=	$_SESSION['gprefferer'];
+$query = mysqli_query($con,"SELECT * FROM `tbl_ruser` WHERE ur_email = '$e'");
+if($query)
+{
+while($fetch = mysqli_fetch_array($query))
+{
+	$id = $fetch['ur_id'];
+	$name = $fetch['ur_fname'];
+	$address = $fetch['ur_address'];
+	$city = $fetch['ur_city'];
+    $postcode = $fetch['ur_postcode'];
+echo'<div class="card-aside-wrap">
+
+	<div class="card-inner card-inner-lg">
+		<div class="nk-block-head nk-block-head-lg">
+			<div class="nk-block-between">
+				<div class="nk-block-head-content">
+					<h4 class="nk-block-title">Personal Information</h4>
+					<div class="nk-block-des">
+						<p>Basic info, like your name and address, that you use on Nio Platform.</p>
+					</div>
+				</div>
+				<div class="nk-block-head-content align-self-start d-lg-none">
+					<a href="#" class="toggle btn btn-icon btn-trigger mt-n1" data-target="userAside"><em class="icon ni ni-menu-alt-r"></em></a>
+				</div>
+			</div>
+		</div><!-- .nk-block-head -->
+
+		<div class="nk-block">
+			<div class="nk-data data-list">
+				<div class="data-head">
+					<h6 class="overline-title">Basics</h6>
+				</div>
+
+				<div class="data-item" onClick="cupdmodal('."'$id'".','."'$name'".','."'$city'".','."'$address'".','."'$postcode'".')">
+					<div class="data-col">
+						<span class="data-label">Full Name</span>
+						<span class="data-value">'.$fetch['ur_fname'].'</span>
+					</div>
+					<div class="data-col data-col-end"><span class="data-more"><em class="icon ni ni-forward-ios"></em></span></div>
+				</div><!-- data-item -->
+				<div class="data-item" onClick="cupdmodal('."'$id'".','."'$name'".','."'$city'".','."'$address'".','."'$postcode'".')">
+					<div class="data-col">
+						<span class="data-label">Display Name</span>
+						<span class="data-value">'.$fetch['ur_fname'].'</span>
+					</div>
+					<div class="data-col data-col-end"><span class="data-more"><em class="icon ni ni-forward-ios"></em></span></div>
+				</div><!-- data-item -->
+				<div class="data-item">
+					<div class="data-col">
+						<span class="data-label">Email</span>
+						<span class="data-value">'.$fetch['ur_email'].'</span>
+					</div>
+					<div class="data-col data-col-end"><span class="data-more disable"><em class="icon ni ni-lock-alt"></em></span></div>
+				</div><!-- data-item -->
+				<div class="data-item" onClick="cupdmodal('."'$id'".','."'$name'".','."'$city'".','."'$address'".','."'$postcode'".')">
+					<div class="data-col">
+						<span class="data-label">City</span>
+						<span class="data-value text-soft">'.$fetch['ur_city'].'</span>
+					</div>
+					<div class="data-col data-col-end"><span class="data-more"><em class="icon ni ni-forward-ios"></em></span></div>
+				</div><!-- data-item -->
+				<div class="data-item" onClick="cupdmodal('."'$id'".','."'$name'".','."'$city'".','."'$address'".','."'$postcode'".')">
+					<div class="data-col">
+						<span class="data-label">Address</span>
+						<span class="data-value">'.$fetch['ur_address'].'</span>
+					</div>
+					<div class="data-col data-col-end"><span class="data-more"><em class="icon ni ni-forward-ios"></em></span></div>
+				</div>
+				<!-- data-item -->
+			</div>
+			<!-- data-list -->
+
+			<!-- data-list -->
+		</div><!-- .nk-block -->
+	</div>
+	<div class="card-aside card-aside-left user-aside toggle-slide toggle-slide-left toggle-break-lg" data-content="userAside" data-toggle-screen="lg" data-toggle-overlay="true">
+		<div class="card-inner-group" data-simplebar>
+			<div class="card-inner">
+				<div class="user-card">
+					<div class="user-avatar bg-primary">
+						<span>AB</span>
+					</div>
+					<div class="user-info">
+						<span class="lead-text">'.$fetch['ur_fname'].'</span>
+						<span class="sub-text">'.$fetch['ur_email'].'</span>
+					</div>
+					<div class="user-action">
+						<div class="dropdown">
+							<a class="btn btn-icon btn-trigger mr-n2" data-toggle="dropdown" href="#"><em class="icon ni ni-more-v"></em></a>
+							<div class="dropdown-menu dropdown-menu-right">
+								<ul class="link-list-opt no-bdr">
+									<li><a href="#"><em class="icon ni ni-camera-fill"></em><span>Change Photo</span></a></li>
+									<li><a href="#"><em class="icon ni ni-edit-fill"></em><span>Update Profile</span></a></li>
+								</ul>
+							</div>
+						</div>
+					</div>
+				</div><!-- .user-card -->
+			</div><!-- .card-inner -->
+			<div class="card-inner">
+				<div class="user-account-info py-0">
+					<h6 class="overline-title-alt">Super Admin</h6>
+
+				</div>
+			</div>
+
+		</div><!-- .card-inner-group -->
+	</div>
+	<!-- card-aside -->
+</div>';
+
+	}
+	}
+}
+
+//for profile update
+if(isset($_POST['updategp']))
+	{
+		$id = $_POST['id'];
+		$name = $_POST['name'];
+		$city = $_POST['city'];
+		$postcode = $_POST['postcode'];
+		
+//		$select = mysqli_query($con,"SELECT * FROM `admin` WHERE `id` = '$id'");
+//		$fetc = mysqli_fetch_array($select);
+//		if($_FILES['uploadedimages']['name']!=''&& $_FILES['uploadedimages']['name']!= null)
+//		{
+//	$file = $_FILES['uploadedimages']['name'];
+//			move_uploaded_file($_FILES['uploadedimages']['tmp_name'],'../customer/assets/images/avatars/'.$file);
+//		}
+//		else
+//		{
+//			$file = $fetc['profile_pic'];	
+//		}
+//	
+		$query = mysqli_query($con,"UPDATE `tbl_ruser` SET `ur_fname`='$name',`ur_city`='$city',`ur_postcode`='$postcode' WHERE `ur_id` = '$id'");
+		
+		if($query)
+		{
+		
+			echo "Success";
+			
+		}
+		else
+		{
+			echo("Error");
+		}
+	}
+
+if(isset($_POST['updategpaddress']))
+	{
+		$id = $_POST['aid'];
+		
+		$address = $_POST['address'];
+		
+		
+//		$select = mysqli_query($con,"SELECT * FROM `admin` WHERE `id` = '$id'");
+//		$fetc = mysqli_fetch_array($select);
+//		if($_FILES['uploadedimages']['name']!=''&& $_FILES['uploadedimages']['name']!= null)
+//		{
+//	$file = $_FILES['uploadedimages']['name'];
+//			move_uploaded_file($_FILES['uploadedimages']['tmp_name'],'../customer/assets/images/avatars/'.$file);
+//		}
+//		else
+//		{
+//			$file = $fetc['profile_pic'];	
+//		}
+//	
+		$query = mysqli_query($con,"UPDATE `tbl_ruser` SET `ur_address` = '$address' WHERE `ur_id` = '$id'");
+		
+		if($query)
+		{
+		
+			echo "Success";
+			
+		}
+		else
+		{
+			echo("Error");
+		}
+	}
 ?>

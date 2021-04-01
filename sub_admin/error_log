@@ -105,3 +105,7 @@
 [30-Mar-2021 14:51:04 UTC] PHP Warning:  mysqli_num_rows() expects parameter 1 to be mysqli_result, bool given in /home/extremeearn/hospital.extremeearn.com/sub_admin/phpcode.php on line 1927
 [30-Mar-2021 19:49:18 UTC] PHP Warning:  mysqli_num_rows() expects parameter 1 to be mysqli_result, bool given in /home/extremeearn/hospital.extremeearn.com/sub_admin/phpcode.php on line 1941
 [30-Mar-2021 20:28:00 UTC] PHP Warning:  mysqli_num_rows() expects parameter 1 to be mysqli_result, bool given in /home/extremeearn/hospital.extremeearn.com/sub_admin/phpcode.php on line 1941
+[31-Mar-2021 14:36:02 UTC] PHP Warning:  mysqli_num_rows() expects parameter 1 to be mysqli_result, bool given in /home/extremeearn/hospital.extremeearn.com/sub_admin/phpcode.php on line 1941
+[31-Mar-2021 14:37:56 UTC] PHP Warning:  mysqli_num_rows() expects parameter 1 to be mysqli_result, bool given in /home/extremeearn/hospital.extremeearn.com/sub_admin/phpcode.php on line 1941
+[31-Mar-2021 14:59:12 UTC] PHP Warning:  mysqli_num_rows() expects parameter 1 to be mysqli_result, bool given in /home/extremeearn/hospital.extremeearn.com/sub_admin/phpcode.php on line 1941
+[31-Mar-2021 20:39:26 UTC] PHP Warning:  mysqli_num_rows() expects parameter 1 to be mysqli_result, bool given in /home/extremeearn/hospital.extremeearn.com/sub_admin/phpcode.php on line 1941

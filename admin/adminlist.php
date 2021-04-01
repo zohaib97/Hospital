@@ -90,10 +90,23 @@ include_once('connect.php');
                         </div>
 							</div>
 						<div class="form-group">
-                            <label class="form-label" for="address">Address</label>
+                            <label class="form-label" for="address">Organisation</label>
                             <div class="form-control-wrap">
-							
-                                <input type="text" class="form-control" id="address" required name="address">
+								<select id="saorganization" name="saorganization" class="form-control form-control-lg">
+														<option>Select</option>
+															<?php
+															$sql = mysqli_query($con,"SELECT * FROM `orginzation` where status='Approved'");
+															while($fe = mysqli_fetch_array($sql))
+															{
+																
+															
+															?>
+															<option value="<?=$fe['orid']?>"><?=$fe['or_name']?></option>
+															
+															<?php
+															}
+															?>
+														</select>
                             </div>
                         </div>
 						<div class="row">
@@ -231,14 +244,14 @@ include_once('connect.php');
             }
         });
 	};
-	  function openmodal1(id,name,email,address,password,contact) {
+	  function openmodal1(id,name,email,address,password,contact,organization) {
         $('#id').val(id);
         $('#full-name').val(name);
         $('#email').val(email);
         $('#address').val(address);
         $('#password').val(password);
         $('#contact').val(contact);
-  
+        $("#saorganization").val(organization);
 		
         $('#modalForm2').modal('show');
     };
@@ -248,7 +261,7 @@ include_once('connect.php');
 		
 		var adname = $('#full-name').val();
 		var ademail = $('#email').val();
-		var adadd = $('#address').val();
+		var adadd = $('#saorganization').val();
 		var adcont = $('#contact').val();
 		var adpass = $('#password').val();
 		

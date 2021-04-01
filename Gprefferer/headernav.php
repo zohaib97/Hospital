@@ -175,6 +175,7 @@ if(!isset($_SESSION['gprefferer'])){
 									$fds=mysqli_fetch_array($qqqq);
 									$mss = mysqli_query($con,"SELECT * FROM tbl_consultantrefferels,tbl_refferelattachment WHERE tbl_refferelattachment.ra_refferelid=tbl_consultantrefferels.c_id and tbl_consultantrefferels.c_gpid = '$id' and reply='1' ");
 									$fff= mysqli_fetch_array($mss);
+									$reqtype = $fff['request_type'];
 									$cid = $fff['ra_sender_id'];
 									$query = mysqli_query($con,"SELECT * FROM `tbl_ruser` WHERE `ur_id` = '$cid'");
 						$cfetch = mysqli_fetch_array($query);
@@ -182,7 +183,7 @@ if(!isset($_SESSION['gprefferer'])){
 									?>
 				        	<a href="#" class="dropdown-toggle nk-quick-nav-icon" data-toggle="dropdown" style="width: 37px;height: 37px;">
 							<i class="icon ni ni-bell"></i>
-														<!--<sup class="badge badge-primary rounded-circle ml-n1 mt-n2"><?=$fds["a"]?></sup>-->
+														<sup class="badge badge-primary rounded-circle ml-n1 mt-n2"><?=$fds["a"]?></sup>
 						</a>
 						
 						<div class="dropdown-menu dropdown-menu-xl dropdown-menu-right">
@@ -207,7 +208,7 @@ if(!isset($_SESSION['gprefferer'])){
 								</div><!-- .nk-notification -->
 							</div><!-- .nk-dropdown-body -->
 							<div class="dropdown-foot center">
-								<a href="refferels.php">View All</a>
+								<a href="refferels.php?reqtype=<?=$reqtype?>">View All</a>
 							</div>
 							<?php }?>
 						</div>
@@ -247,7 +248,7 @@ if(!isset($_SESSION['gprefferer'])){
 							</div>
 							<div class="dropdown-inner">
 								<ul class="link-list">
-									<!-- <li><a href="user-profile.php"><em class="icon ni ni-user-alt"></em><span>View Profile</span></a></li> -->
+									 <li><a href="user-profile.php"><em class="icon ni ni-user-alt"></em><span>View Profile</span></a></li> 
 									<li><a class="dark-switch" href="#"><em class="icon ni ni-moon"></em><span>Dark Mode</span></a></li>
 								</ul>
 							</div>

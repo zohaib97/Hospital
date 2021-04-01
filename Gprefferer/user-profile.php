@@ -1,5 +1,5 @@
 <?php
-//session_start();
+
 include_once('../database/db.php');
 ?>
 
@@ -76,32 +76,29 @@ include_once('../database/db.php');
                             <div class="row gy-4">
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <label class="form-label" for="full-name">Frist Name</label>
-										<input type="text" value="" id="dcid" hidden="true" name="did">
-									
-                                        <input type="text" class="form-control form-control-lg" id="dfname" value="" placeholder="Enter Full name" name="dfname">
+                                        <label class="form-label" for="full-name">Full Name</label>
+										<input type="text" value="" id="cid" hidden="true" name="id">
+                                        <input type="text" class="form-control form-control-lg" id="full-name" value="" placeholder="Enter Full name" name="name">
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <label class="form-label" for="display-name">Sure Name</label>
-                                        <input type="text" class="form-control form-control-lg" id="dsname" value="" placeholder="Enter display name" name="dsname">
+                                        <label class="form-label" for="display-name">Display Name</label>
+                                        <input type="text" class="form-control form-control-lg" id="display-name" value="" placeholder="Enter display name">
                                     </div>
                                 </div>
                                 <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label class="form-label" for="pass">Password</label>
-                                        <input type="text" class="form-control form-control-lg" id="pass" value="" placeholder="Phone Number" name="pass">
-                                    </div>
-                                </div>
-								<div class="col-md-6">
                                     <div class="form-group">
                                         <label class="form-label" for="phone-no">City</label>
-                                        <input type="text" class="form-control form-control-lg" id="city" value="" placeholder="City" name="city">
+                                        <input type="text" class="form-control form-control-lg" id="city" value="" placeholder="Phone Number" name="city">
                                     </div>
                                 </div>
-							
-								
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label class="form-label" for="postcode">Postcode</label>
+                                        <input type="text" class="form-control form-control-lg" id="postcode" value="" placeholder="Postcode" name="postcode">
+                                    </div>
+                                </div>
                                 
                                 <div class="col-12">
                                     <div class="custom-control custom-switch">
@@ -125,14 +122,13 @@ include_once('../database/db.php');
 							<!-- .tab-pane -->
 						
                         <div class="tab-pane" id="address">
-							<form method="post" id="updateorganization">
+							<form method="post" id="updateaddress">
                             <div class="row gy-4">
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <label class="form-label" for="address">Address</label>
-										<input type="text" value="" id="daid" hidden="true" name="daid">
-										
-                                        <input type="text" class="form-control form-control-lg" id="address1" value="" name="address">
+                                        <label class="form-label" for="address-l1">Address Line</label>
+										<input type="text" value="" id="aid" hidden="true" name="aid">
+                                        <input type="text" class="form-control form-control-lg" id="address-l1" value="" name="address">
                                     </div>
                                 </div>
                                 
@@ -161,12 +157,12 @@ include_once('../database/db.php');
 
 </html>
 <script>
-	function fetchdentist()
+	function fetchadmindata()
 	{
 		 $.ajax({    
         type: "POST",
         url: "phpcode.php",
-		data:{dentistbtndata:"btn"},
+		data:{gpfetchupdate:"btn"},
         success: function(response){
             $("#profile").html(response);
             //alert(response);
@@ -175,13 +171,13 @@ include_once('../database/db.php');
     });
 	}
 	$(document).ready(function(){
-		fetchdentist();
+		fetchadmindata();
 	});
 $("#updateform").on("submit", function(e){
         	e.preventDefault();
 	
 		var formdata = new FormData(this);
-		formdata.append("upddentistbtn","btn");
+		formdata.append("updategp","btn");
         $.ajax({
             type: 'POST',
             url: 'phpcode.php',
@@ -195,18 +191,16 @@ $("#updateform").on("submit", function(e){
             success: function(data){
       
                 if(data == 'Error'){
-		
                      toastr.clear();
-    NioApp.Toast("<h5>Dentist didn't Updated</h5>", 'error',{position:'top-right'});
+    NioApp.Toast("<h5>Profile didn't Updated</h5>", 'error',{position:'top-right'});
            
                 }
 				else if(data == 'Success'){
-			
 					$('#updateform')[0].reset();
 					 toastr.clear();
-    NioApp.Toast("<h5>Dentist Updated Successfully</h5>", 'success',{position:'top-right'});
+    NioApp.Toast("<h5>Profile Updated Successfully</h5>", 'success',{position:'top-right'});
            
-				fetchdentist();
+				fetchadmindata();
 					$('#profile-edit').modal('hide');
 					
                 }
@@ -218,11 +212,11 @@ $("#updateform").on("submit", function(e){
         });
 
     });
-	$("#updateorganization").on('submit', function(e){
+	$("#updateaddress").on('submit', function(e){
 		
         	e.preventDefault();
 		var formdata = new FormData(this);
-		formdata.append("upddentisbtn","btn");
+		formdata.append("updategpaddress","btn");
         $.ajax({
             type: 'POST',
             url: 'phpcode.php',
@@ -236,17 +230,15 @@ $("#updateform").on("submit", function(e){
             success: function(data){
       
                 if(data == 'Error'){
-				
                      toastr.clear();
-    NioApp.Toast("<h5>Dentist didnot Update</h5>", 'error',{position:'top-right'});
+    NioApp.Toast("<h5>Profile didnot Update</h5>", 'error',{position:'top-right'});
              
                 }
 				else if(data == 'Success'){
-				
 					$('#updateaddress')[0].reset();
               toastr.clear();
-    NioApp.Toast("<h5>Dentist Updated Successfully</h5>", 'success',{position:'top-right'});
-	fetchdentist();
+    NioApp.Toast("<h5>Profile Updated Successfully</h5>", 'success',{position:'top-right'});
+	fetchadmindata();
 					$('#profile-edit').modal('hide');
 					
                 }
@@ -258,17 +250,15 @@ $("#updateform").on("submit", function(e){
         });
 
     });
-	
-	function cupdmodal(id, fname, sname, pass, city, address, rdid) {
-
-        $('#dcid').val(id);
-        $('#daid').val(id);
-        $('#dfname').val(fname);
-        $('#dsname').val(sname);
-		$('#pass').val(pass);
-		$('#city').val(city);
-		$('#address1').val(address);
-	
+	function cupdmodal(id, name, city, address, postcode) {
+		
+        $('#cid').val(id);
+        $('#aid').val(id);
+        $('#full-name').val(name);
+        $('#display-name').val(name);
+        $('#city').val(city);
+		$('#address-l1').val(address);
+		$('#postcode').val(postcode);
 		
 		
         $('#profile-edit').modal('show');

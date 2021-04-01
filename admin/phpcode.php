@@ -282,7 +282,7 @@ echo
 					<a href="#" class="dropdown-toggle btn btn-icon btn-trigger" data-toggle="dropdown"><em class="icon ni ni-more-h"></em></a>
 					<div class="dropdown-menu dropdown-menu-right">
 						<ul class="link-list-opt no-bdr">
-							<li><a href="javascript:void(0)" onClick="openmodal1('."'$id'".','."'$name'".','."'$email'".','."'$address'".','."'$password'".','."'$contact'".')"><em class="icon ni ni-edit"></em><span>Edit</span></a></li>
+							<li><a href="javascript:void(0)" onClick="openmodal1('."'$id'".','."'$name'".','."'$email'".','."'$address'".','."'$password'".','."'$contact'".','."'$organization'".')"><em class="icon ni ni-edit"></em><span>Edit</span></a></li>
 							
 							<li><a href="javascript:void(0)" onClick="confirm('."'$id'".')"><em class="icon ni ni-trash"></em><span>Remove</span></a></li>
 
@@ -692,7 +692,7 @@ if(isset($_POST['updatehadmin']))
 		$id = $_POST['id'];
 		$name = $_POST['name'];
 		$email = $_POST['email'];
-		$address = $_POST['address'];
+		$address = $_POST['saorganization'];
 		$password = $_POST['password'];
 		$contact = $_POST['contact'];
 	
@@ -703,7 +703,7 @@ if(isset($_POST['updatehadmin']))
 			echo"staffemailalready";
 		}else {
 	
-		$query = mysqli_query($con,"UPDATE `admin` SET `name`='$name',`email` = '$email',`address` = '$address',`password` = '$password',`contact` = '$contact' WHERE `id` = '$id'");
+		$query = mysqli_query($con,"UPDATE `admin` SET `name`='$name',`email` = '$email',`organization` = '$address',`password` = '$password',`contact` = '$contact' WHERE `id` = '$id'");
 		
 		if($query)
 		{

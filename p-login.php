@@ -215,7 +215,7 @@ $('.datepicker').datepicker({
 	
 				if(data == "error"){
 //					alert("Email Password Wrong!");
-					toastr.error("Email Password Wrong!");
+					toastr.error("Please Provide Correct Information!");
 				}
 				
 				else if (data == "pati"){

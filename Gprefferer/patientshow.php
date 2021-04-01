@@ -91,7 +91,7 @@ include_once('../database/db.php');
                                                                     type="number" max="3" length id="nh3" value="NH-"
                                                                     oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
                                                                     maxlength="10" required
-                                                                    onChange="ssearch(this.value)" id="nhs3">
+                                                                    onChange="ssearch(this.value)">
                                                             </div>
                                                         </div>
                                                     </div>
@@ -127,7 +127,7 @@ include_once('../database/db.php');
                                                     </div>
 
                                                 </div>
-                                                <div class="mb-4" id="tabItem6">
+                                                <div class="mb-4" id="tabItem6" style="overflow: auto;">
 
 
                                                 </div>
@@ -589,11 +589,11 @@ $(function() {
 
 
 function ssearch(ddd) {
-    $('#nhs3').attr('readonly', true);
-    var nhs3 = $('#nhs3').val();
+    $('#nh3').attr('readonly', true);
+    var nhs3 = $('#nh3').val();
 
     var btn = document.getElementById('btn').innerHTML =
-        '<a href="javascript:void(0)" class="btn btn-info" id="patient" onClick="spatient(' + ddd + ')">Search</a>';
+        '<a href="javascript:void(0)" class="btn btn-info" id="patient" onClick="spatient(\'' + ddd + '\')">Search</a>';
     document.getElementById('btn2').innerHTML =
         '<a href="javascript:void(0)" class="btn btn-primary" id="patient" onClick="res()">Reset</a>';
 
@@ -601,6 +601,7 @@ function ssearch(ddd) {
 };
 
 function spatient(ddd) {
+
     $.ajax({
         type: "POST",
         url: "phpcode2.php",

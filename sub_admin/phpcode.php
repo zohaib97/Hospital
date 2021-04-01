@@ -103,7 +103,7 @@ $query = mysqli_query($con,"SELECT * FROM `tbl_patients` WHERE pt_nhsno = '$nhs'
 					<th class="nk-tb-col"><span>NHS no</span></th>
 					<th class="nk-tb-col"><span>Street Name</span></th>
 					<th class="nk-tb-col"><span>Date of Birth</span></th>
-					
+					<th class="nk-tb-col"><span>View Details</span></th>
 					
 				</tr><!-- .nk-tb-item -->
 			</thead>
@@ -143,6 +143,9 @@ echo'   <tr class="nk-tb-item">
 	</td>
 	<td class="nk-tb-col">
 		<span class="tb-lead">'.$dob1.'</span>
+	</td>
+		<td class="nk-tb-col">
+		<a class="tb-lead" style="cursor: pointer;" onclick="fetchpatientdetails(\''.$fetch["pt_title"].'\',\''.$name." ".$fetch["pt_surname"].'\',\''.$fetch["pt_email"].'\',\''.$nh.'\',\''.$dob1.'\',\''.$fetch["pt_houseno"].'\',\''.$sname.'\',\''.$fetch["pt_country"].'\',\''.$fetch["pt_city"].'\',\''.$fetch["pt_postcode"].'\',\''.$fetch["pt_telno"].'\',\''.$fetch["pt_mobno"].'\')">View Details</a>
 	</td>
 	';
 		
@@ -2459,7 +2462,9 @@ $date=date_create($_POST['dob']);
 						<a href="#" class="dropdown-toggle btn btn-icon btn-trigger" data-toggle="dropdown"><em class="icon ni ni-more-h"></em></a>
 						<div class="dropdown-menu dropdown-menu-right">
 							<ul class="link-list-opt no-bdr">';
-						echo '<li><a href="#"><em class="icon ni ni-eye"></em><span>View</span></a></li>
+						echo '<li>
+		
+	<a  onclick="fetchpatientdetails(\''.$fetch["pt_title"].'\',\''.$name." ".$fetch["pt_surname"].'\',\''.$fetch["pt_email"].'\',\''.$nh.'\',\''.$dob1.'\',\''.$fetch["pt_houseno"].'\',\''.$sname.'\',\''.$fetch["pt_country"].'\',\''.$fetch["pt_city"].'\',\''.$fetch["pt_postcode"].'\',\''.$fetch["pt_telno"].'\',\''.$fetch["pt_mobno"].'\')"><em class="icon ni ni-eye"></em><span>View Details</span></a></li>
 								
 								<li><a href="javascript:void(0)" onClick="confirm('."'$mid'".')"><em class="icon ni ni-trash"></em><span>Remove</span></a></li>
 
@@ -2531,21 +2536,7 @@ if(isset($_POST['readRecord']))
 					<th class="nk-tb-col"><span>Organisation Name</span></th>
 					<th class="nk-tb-col"><span>Status</span></th>
 	<th class="nk-tb-col nk-tb-col-tools">
-								<ul class="nk-tb-actions gx-1 my-n1">
-									<li class="mr-n1">
-										<div class="dropdown">
-											<a href="#" class="dropdown-toggle btn btn-icon btn-trigger" data-toggle="dropdown"><em class="icon ni ni-more-h"></em></a>
-											<div class="dropdown-menu dropdown-menu-right">
-												<ul class="link-list-opt no-bdr">
-													<li><a href="#"><em class="icon ni ni-edit"></em><span>Edit Selected</span></a></li>
-													<li><a href="#"><em class="icon ni ni-trash"></em><span>Remove Selected</span></a></li>
-													<li><a href="#"><em class="icon ni ni-bar-c"></em><span>Update Stock</span></a></li>
-													<li><a href="#"><em class="icon ni ni-invest"></em><span>Update Price</span></a></li>
-												</ul>
-											</div>
-										</div>
-									</li>
-								</ul>
+								Delete
 							</th>
 					
 					
@@ -2643,21 +2634,7 @@ if(isset($_POST['readRecord']))
 	}
 	echo '
 	<td class="nk-tb-col nk-tb-col-tools">
-		<ul class="nk-tb-actions gx-1 my-n1">
-			<li class="mr-n1">
-				<div class="dropdown">
-					<a href="#" class="dropdown-toggle btn btn-icon btn-trigger" data-toggle="dropdown"><em class="icon ni ni-more-h"></em></a>
-					<div class="dropdown-menu dropdown-menu-right">
-						<ul class="link-list-opt no-bdr">
-						
-							
-							<li><a href="javascript:void(0)" onClick="confirm('.$fetch['m_id'].')"><em class="icon ni ni-trash"></em><span>Remove</span></a></li>
-
-						</ul>
-					</div>
-				</div>
-			</li>
-		</ul>
+	<a href="javascript:void(0)" onClick="confirm('.$fetch['m_id'].')" class="btn btn-danger mt-1"><em class="icon ni ni-trash"></em><span>Remove</span></a>
 	</td>
 	</tr>';
 										

@@ -153,6 +153,7 @@ include_once('../database/db.php');
 						document.getElementById('sercpass').style.borderColor = "#28a745";
 						document.getElementById('sercontact').style.borderColor = "#28a745";
 							$('#servicedef').trigger('reset');
+							setInterval(function(){ window.location.href="consultant.php?role=ServiceDefiner"; }, 3000);
 						}
 					}
 				});

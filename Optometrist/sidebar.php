@@ -33,12 +33,12 @@
                                     <h6 class="overline-title text-primary-alt">Applications</h6>
                                 </li>
 								
-								<li class="nk-menu-item">
-									<a href="refferels.php" class="nk-menu-link">
-										<span class="nk-menu-icon"><em class="icon ni ni-swap"></em></span>
-										<span class="nk-menu-text">Refferels</span>
-									</a>
-								</li>
+								<!--<li class="nk-menu-item">-->
+								<!--	<a href="refferels.php" class="nk-menu-link">-->
+								<!--		<span class="nk-menu-icon"><em class="icon ni ni-swap"></em></span>-->
+								<!--		<span class="nk-menu-text">Refferels</span>-->
+								<!--	</a>-->
+								<!--</li>-->
 								<li class="nk-menu-item">
 									<a href="servicerefferels.php" class="nk-menu-link">
 										<span class="nk-menu-icon"><em class="icon ni ni-swap"></em></span>

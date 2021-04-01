@@ -49,6 +49,7 @@ include_once('../database/db.php');
 														<option value="Advice Sent">Advice Sent</option>
 														<option value="Advice Accepted">Advice Accepted</option>
 														<option value="Advice Rejected">Advice Rejected</option>
+															<option value="Appointment Sent">Appointment Sent</option>
 													</select>
 												</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 												<button id="btnshow" style="display: none;" class="btn btn-sm btn-info mt-1 float-right" onClick="workbltdata()">Load Result</button>
@@ -383,6 +384,20 @@ include_once('../database/db.php');
         type: "POST",
         url: "phpcode.php", 
 		data:{apprefferelfetch5:"btn"},	            
+        success: function(response){                    
+            $("#rdata").html(response); 
+            //alert(response);
+        }
+
+    });
+		}
+		if(work == "Appointment Sent"){
+			document.getElementById('rdata').style.display = "block";
+			document.getElementById('hideno').style.display = "none";
+				 $.ajax({    
+        type: "POST",
+        url: "phpcode.php", 
+		data:{apprefferelfetch6:"btn"},	            
         success: function(response){                    
             $("#rdata").html(response); 
             //alert(response);

@@ -44,12 +44,12 @@
                                         <span class="nk-menu-text">Create GP Refferer</span>
                                   </a>
 								</li> -->
-								<li class="nk-menu-item">
-								  <a href="createstaff.php" class="nk-menu-link">
-                                        <span class="nk-menu-icon"><em class="icon ni ni-users-fill"></em></span>
-                                        <span class="nk-menu-text">Create Staff</span>
-                                  </a>
-								</li>
+								<!--<li class="nk-menu-item">-->
+								<!--  <a href="createstaff.php" class="nk-menu-link">-->
+        <!--                                <span class="nk-menu-icon"><em class="icon ni ni-users-fill"></em></span>-->
+        <!--                                <span class="nk-menu-text">Create Staff</span>-->
+        <!--                          </a>-->
+								<!--</li>-->
 								<li class="nk-menu-item">
 									<a href="createrole.php" class="nk-menu-link">
                                         <span class="nk-menu-icon"><em class="icon ni ni-users-fill"></em></span>

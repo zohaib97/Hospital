@@ -267,7 +267,9 @@
 			contentType: false,
 			processData: false,
 			success: function(data){
-				
+				if(data =="not approve"){
+				    	toastr.warning("you can't login wait for admin approval!");
+				}
 				if(data == "empasserr"){
 					toastr.error("Email Password Wrong!");
 				}
