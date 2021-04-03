@@ -284,14 +284,14 @@ $fetchsa=mysqli_fetch_array($qiu);
 						$aid = $_SESSION['a_id'];
 						$query = mysqli_query($con,"SELECT * FROM `admin` WHERE `id` = '$aid' and super_admin = '0'");
 						$fetch = mysqli_fetch_array($query);
-						if($query)
+						if(mysqli_num_rows($query)>0)
 						{
 					?>
 					<li class="dropdown user-dropdown">
 						<a href="#" class="dropdown-toggle mr-n1" data-toggle="dropdown">
 							<div class="user-toggle">
 								<div class="user-avatar sm">
-									<em class="icon ni ni-user-alt"></em>
+								<img src="images/avatar/<?=$fetch['image']?>">
 								</div>
 								<div class="user-info d-none d-xl-block">
 									<div class="user-status user-status-verified">verified</div>
@@ -303,7 +303,7 @@ $fetchsa=mysqli_fetch_array($qiu);
 							<div class="dropdown-inner user-card-wrap bg-lighter d-none d-md-block">
 								<div class="user-card">
 									<div class="user-avatar">
-
+									<img src="images/avatar/<?=$fetch['image']?>">
 									</div>
 
 									<div class="user-info">

@@ -916,7 +916,7 @@ echo'<div class="card-aside-wrap">
 			<div class="card-inner">
 				<div class="user-card">
 					<div class="user-avatar bg-primary">
-						<span>AB</span>
+					<img src="images/avatar/'.$fetch['image'].'">
 					</div>
 					<div class="user-info">
 						<span class="lead-text">'.$fetch['ur_fname'].'</span>
@@ -958,7 +958,17 @@ if(isset($_POST['updateconsul']))
 		$name = $_POST['name'];
 		$city = $_POST['city'];
 		$postcode = $_POST['postcode'];
-		
+		$select = mysqli_query($con,"SELECT * FROM `tbl_ruser` WHERE `ur_id`='$id'");
+		$fetch = mysqli_fetch_array($select);
+		if($_FILES['image']['name']!=''&& $_FILES['image']['name']!= null)
+		{
+		$file = $_FILES['image']['name'];
+			move_uploaded_file($_FILES['image']['tmp_name'],'images/avatar/'.$file);
+		}
+		else
+		{
+			$file = $fetch['image'];
+		}
 //		$select = mysqli_query($con,"SELECT * FROM `admin` WHERE `id` = '$id'");
 //		$fetc = mysqli_fetch_array($select);
 //		if($_FILES['uploadedimages']['name']!=''&& $_FILES['uploadedimages']['name']!= null)
@@ -971,7 +981,7 @@ if(isset($_POST['updateconsul']))
 //			$file = $fetc['profile_pic'];	
 //		}
 //	
-		$query = mysqli_query($con,"UPDATE `tbl_ruser` SET `ur_fname`='$name',`ur_city`='$city',`ur_postcode`='$postcode' WHERE `ur_id` = '$id'");
+		$query = mysqli_query($con,"UPDATE `tbl_ruser` SET `ur_fname`='$name',`ur_city`='$city',`ur_postcode`='$postcode',`image`='$file' WHERE `ur_id` = '$id'");
 		
 		if($query)
 		{

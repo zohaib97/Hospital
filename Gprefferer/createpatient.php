@@ -79,6 +79,12 @@ include_once('../database/db.php');
 												</div>
 												<div class="col-md-6">
 													<div class="form-group">
+														<label class="col-form-label" for="age">Age</label>
+														<input type="text" class="form-control form-control-lg"  placeholder="Age" name="age" required autocomplete="off" id="age">
+													</div>
+												</div>
+												<div class="col-md-6">
+													<div class="form-group">
 														<?php 
 														$em = $_SESSION['gprefferer'];
 														$q = mysqli_query($con,"SELECT * FROM `tbl_ruser` WHERE `ur_email` = '$em'");

@@ -648,8 +648,17 @@ function getclint(vals){
 		     NioApp.Toast("<h5>This Service Only Available For Male</h5>", 'warning',{position:'top-right'});
 		    
 		}
+		var ptage =$('#ptage').val();
+	var servage2 = $('#servage2').val();
+	var servage =$('#servage').val();
+	
+		if(ptage > servage2 || ptage < servage)
+					{
+						NioApp.Toast("<h5>Your Age doesn't match to service age range</h5>", 'warning',{position:'top-right'});
+					}
 		else{
 		    	if(  $("#patientgender").val()== "Mr" && $("#servicegender").val() == "Male"){
+					
 		var reqtype = $('#ref_reqt').val();
 		var coid = $('#consultant').val();
 		var pid = $("input:radio[name='check']:checked").val();
@@ -690,6 +699,7 @@ function getclint(vals){
 //			
 					}
 				});
+			
 		    	}
 		    	if(($("#patientgender").val()== "Ms" && $("#servicegender").val()== "Female") || ($("#patientgender").val()== "Mrs" && $("#servicegender").val()== "Female")){
 		    		var reqtype = $('#ref_reqt').val();

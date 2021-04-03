@@ -679,7 +679,7 @@ echo'<div class="card-aside-wrap">
 			<div class="card-inner">
 				<div class="user-card">
 					<div class="user-avatar bg-primary">
-						<span>AB</span>
+					<img src="images/avatar/'.$fetch['image'].'">
 					</div>
 					<div class="user-info">
 						<span class="lead-text">'.$fetch['name'].'</span>
@@ -701,7 +701,7 @@ echo'<div class="card-aside-wrap">
 			<div class="card-inner">
 				<div class="user-account-info py-0">
 					<h6 class="overline-title-alt">Super Admin</h6>
-
+			
 				</div>
 			</div>
 
@@ -717,10 +717,18 @@ echo'<div class="card-aside-wrap">
 // for fetch service name
 if(isset($_POST['fetchserbtndata']))
 {
+	$snameid = $_POST['snameid'];
 	$sernameq = mysqli_query($con, "SELECT * FROM `service_name`");
 	echo'<option value="">- Select -</option>';
  while($datarole = mysqli_fetch_assoc($sernameq)){ 
+	 if($datarole['s_name']==$snameid)
+	 {
+		echo'<option value='.$datarole['s_id'].' selected>'.$datarole['s_name'].'</option>';
+
+	 }
+	 else{
  	echo'<option value='.$datarole['s_id'].'>'.$datarole['s_name'].'</option>';
+	 }
  }
 }
 
@@ -737,9 +745,14 @@ if(isset($_POST['fetchserlocbtn']))
 // for fetch service speciality
 if(isset($_POST['fetchspecbtn']))
 {
+	$specid = $_POST['specid'];
 	$serlq = mysqli_query($con, "SELECT * FROM `ser_specialty_add`");
 	echo'<option>- Select -</option>';
 	while($fetchloc = mysqli_fetch_assoc($serlq)){
+		if($fetchloc['spec_name'] == $specid)
+		{
+		echo'<option value='.$fetchloc['spec_id'].' selected>'.$fetchloc['spec_name'].'</option>';
+		}
 		echo'<option value='.$fetchloc['spec_id'].'>'.$fetchloc['spec_name'].'</option>';
 	}
 
@@ -748,10 +761,17 @@ if(isset($_POST['fetchspecbtn']))
 // for fetch service appointment
 if(isset($_POST['fetchappbtn']))
 {
+	$apptypeid = $_POST['apptypeid'];
 	$serappq = mysqli_query($con, "SELECT * FROM `app_type`");
 	echo'<option>- Select -</option>';
 	while($fetchapp = mysqli_fetch_assoc($serappq)){
+		if($fetchapp['app_type']==$apptypeid)
+		{
+			echo'<option value='.$fetchapp['app_id'].' selected>'.$fetchapp['app_type'].'</option>';
+		}
+		else{
 		echo'<option value='.$fetchapp['app_id'].'>'.$fetchapp['app_type'].'</option>';
+		}
 	}
 }
 
@@ -760,9 +780,9 @@ if(isset($_POST['fetchappbtn']))
 
 if(isset($_POST['clinical']))
 {
-	
+	$cltypeid = $_POST['cltypeid'];
 $clinicaltype = $_POST['clinical'];
-echo "$clinicaltype";
+
 
 	$query = "SELECT * from `service_cliniciant` WHERE cl_spectype = '$clinicaltype' ";
 
@@ -770,7 +790,13 @@ echo "$clinicaltype";
 
 	if ($result->num_rows > 0) {
  	   while ($row = $result->fetch_assoc()) {
-		echo '<option value="'.$row['cl_id'].'">'.$row['cl_type'].'</option>';
+			if($row['cl_type']==$cltypeid)
+			{
+		echo '<option value="'.$row['cl_id'].'" selected>'.$row['cl_type'].'</option>';
+			}
+			else{
+				echo '<option value="'.$row['cl_id'].'">'.$row['cl_type'].'</option>';
+			}
  	    }
 	}else{
 	    echo '<option value="">State not available</option>'; 
@@ -803,7 +829,17 @@ if(isset($_POST['updateadmin']))
 		$id = $_POST['id'];
 		$name = $_POST['name'];
 		$contact = $_POST['contact'];
-		
+		$select = mysqli_query($con,"SELECT * FROM `admin` WHERE `id`='$id'");
+		$fetch = mysqli_fetch_array($select);
+		if($_FILES['image']['name']!=''&& $_FILES['image']['name']!= null)
+		{
+		$file = $_FILES['image']['name'];
+			move_uploaded_file($_FILES['image']['tmp_name'],'images/avatar/'.$file);
+		}
+		else
+		{
+			$file = $fetch['image'];
+		}
 		
 //		$select = mysqli_query($con,"SELECT * FROM `admin` WHERE `id` = '$id'");
 //		$fetc = mysqli_fetch_array($select);
@@ -817,7 +853,7 @@ if(isset($_POST['updateadmin']))
 //			$file = $fetc['profile_pic'];	
 //		}
 //	
-		$query = mysqli_query($con,"UPDATE `admin` SET `name`='$name',`contact`='$contact' WHERE `id` = '$id'");
+		$query = mysqli_query($con,"UPDATE `admin` SET `name`='$name',`contact`='$contact',`image` = '$file' WHERE `id` = '$id'");
 		
 		if($query)
 		{
@@ -1829,19 +1865,19 @@ if(isset($_POST['servicadd']))
 			$codeapp = rand(0000,9999);
 			$ser_ids =  mysqli_real_escape_string($con, $codeapp);
 	
-	// login user || admin ID
-	$uaid = $_SESSION['a_id'];
-	// fetch data hospital and admin for hospitals name
-	$e = $_SESSION['superadmin'];
-	
-	$q = mysqli_query($con,"SELECT * FROM `admin` WHERE `email` = '$e'");
-	$af = mysqli_fetch_array($q);
-	$id = $af['organization'];
-	$name = $af['name'];
-	$sql = mysqli_query($con,"SELECT * FROM orginzation WHERE orid = '$id'");
-	$fet = mysqli_fetch_array($sql);
-	$orgid = $fet['orid'];
-	$orgname = $fet['or_name'];
+		// login user || admin ID
+		$uaid = $_SESSION['a_id'];
+		// fetch data hospital and admin for hospitals name
+		$e = $_SESSION['superadmin'];
+		
+		$q = mysqli_query($con,"SELECT * FROM `admin` WHERE `email` = '$e'");
+		$af = mysqli_fetch_array($q);
+		$id = $af['organization'];
+		$name = $af['name'];
+		$sql = mysqli_query($con,"SELECT * FROM orginzation WHERE orid = '$id'");
+		$fet = mysqli_fetch_array($sql);
+		$orgid = $fet['orid'];
+		$orgname = $fet['or_name'];
 	
 		 // for service create
 		$query = mysqli_query($con, "INSERT INTO `services`(`service_id`, `service_name`, `service_r_t_support`, `service_cmnts`, `service_refer`, `service_location`, `service_speciality`, `service_a_type`, `service_gender`, `sender_bookable`, `service_e_date`, `service_e_date2`, `service_age`, `service_age2`,`service_publish`,`service_caremenu`, `ser_cl_type`,`ser_res_reas`, `ser_res_cmnt`, `ser_instruct`, `ser_priority_rout`, `ser_priority_urg`, `ser_priority_wekex`, `ser_priority_2week`, `s_orgname`, `s_orgid`, `ser_create_id`, `ser_create_name`,`status`) VALUES ('$ser_ids','$ser_name','$chk','$res_cmnt','$ser_refer','$ser_loc','$ser_spe','$ser_app','$ser_gen','$ser_dire','$ser_eff','$ser_eff2','$ser_ager','$ser_ager2','$ser_publish','$ser_care','$cltype','$res_reas','$res_cmnt','$ser_inst','$ser_rout','$ser_urg','$ser_weekend','$ser_toweek','$orgname','$orgid','$uaid','$name','approve')");	
@@ -2538,6 +2574,9 @@ if(isset($_POST['readRecord']))
 	<th class="nk-tb-col nk-tb-col-tools">
 								Delete
 							</th>
+							<th class="nk-tb-col nk-tb-col-tools">
+							<span>Action</span>
+							</th>
 					
 					
 				</tr><!-- .nk-tb-item -->
@@ -2633,8 +2672,27 @@ if(isset($_POST['readRecord']))
 		echo '<td class="nk-tb-col"><span class="btn btn-success" id="gbtn" onclick="eaprovenotaprove(\''.$rfid.'\',\'g'.$fetch["status"].'\')">Active</span></td>';
 	}
 	echo '
-	<td class="nk-tb-col nk-tb-col-tools">
+	<td class="nk-tb-col">
 	<a href="javascript:void(0)" onClick="confirm('.$fetch['m_id'].')" class="btn btn-danger mt-1"><em class="icon ni ni-trash"></em><span>Remove</span></a>
+	</td>
+	<td class="nk-tb-col nk-tb-col-tools">
+		<ul class="nk-tb-actions gx-1 my-n1">
+			<li class="mr-n1">
+				<div class="dropdown">
+					<a href="#" class="dropdown-toggle btn btn-icon btn-trigger" data-toggle="dropdown"><em class="icon ni ni-more-h"></em></a>
+					<div class="dropdown-menu dropdown-menu-right">
+						<ul class="link-list-opt no-bdr">';
+			// <li><a href="javascript:void(0)" onClick="openmodal1('."'$mid'".','."'$mname'".','."'$msname'".','."'$memail'".','."'$mpass'".','."'$mphn'".','."'$mdepart'".','."'$mdob'".','."'$mrole'".')"><em class="icon ni ni-edit"></em><span>Edit</span></a></li>
+							 
+							//  <li><a href="javascript:void(0)"><em class="icon ni ni-eye" data-toggle="modal" data-target="#modalForm2" onClick="openmodal2('."'$mname'".','."'$msname'".','."'$memail'".','."'$mpass'".')"></em><span>View</span></a></li>
+							
+							 echo '<li><a href="updateservice.php?sid='.$fetch['m_id'].'"><em class="icon ni ni-edit"></em><span>Edit</span></a></li>
+
+						</ul>
+					</div>
+				</div>
+			</li>
+		</ul>
 	</td>
 	</tr>';
 										
@@ -2645,7 +2703,7 @@ if(isset($_POST['readRecord']))
 		<script src="https://cdn.datatables.net/1.10.23/js/jquery.dataTables.min.js"></script>
 	<script src="https://cdn.datatables.net/1.10.23/js/dataTables.bootstrap4.min.js"></script>
 	<script>$(document).ready(function () {
-		$("#myTable").DataTable({responsive:true});
+		$("#myTable").DataTable({});
 	} )
 	</script>
 	';
@@ -2682,5 +2740,110 @@ if(isset($_POST["obtn"])){
 		    echo "sss";
 		}
 }
+
+// for Service Update from sub_admin
+if(isset($_POST['servicupdate']))
+	{
+			$serviceid = $_POST['serviceid'];
+		$ser_name = mysqli_real_escape_string($con, $_POST['ser_name']);
+		$ser_publish = mysqli_real_escape_string($con, $_POST['ser_pub']);
+		
+		$ser_cmnt = mysqli_real_escape_string($con, $_POST['ser_cmnts']);
+		$ser_refer = mysqli_real_escape_string($con, $_POST['ser_show']);
+		$ser_loc = mysqli_real_escape_string($con, $_POST['ser_location']);
+		$ser_spe = mysqli_real_escape_string($con, $_POST['ser_speciality']);
+		$ser_app = mysqli_real_escape_string($con, $_POST['ser_apptype']);
+		$ser_gen = mysqli_real_escape_string($con, $_POST['ser_gen']);
+		$ser_dire = mysqli_real_escape_string($con, $_POST['ser_direct']);
+		$ser_eff = mysqli_real_escape_string($con, $_POST['ser_effect']);
+		$ser_eff2 = mysqli_real_escape_string($con, $_POST['ser_effect2']);
+		// $ser_tdate = mysqli_real_escape_string($con, $_POST['ser_tdate']);
+		$ser_ager = mysqli_real_escape_string($con, $_POST['ser_ager']);
+		$ser_ager2 = mysqli_real_escape_string($con, $_POST['ser_ager2']);
+		$ser_care = mysqli_real_escape_string($con, $_POST['ser_carem']);
+		//		$ser_pass = mysqli_real_escape_string($con, $_POST['ser_pass']);
+		$cltype = mysqli_real_escape_string($con, $_POST['ser_cltype']);
+		$res_reas = mysqli_real_escape_string($con, $_POST['re_reason']);
+		$res_cmnt = mysqli_real_escape_string($con, $_POST['re_cmnt']);
+		$ser_conn = mysqli_real_escape_string($con, $_POST['ser_conname']);
+		$ser_conad = mysqli_real_escape_string($con, $_POST['ser_conadd']);
+		$ser_concoun = mysqli_real_escape_string($con, $_POST['ser_concount']);
+		$ser_conpos = mysqli_real_escape_string($con, $_POST['ser_conpost']);
+		// $ser_conton = mysqli_real_escape_string($con, $_POST['ser_sontown']);
+		$ser_hpcont = mysqli_real_escape_string($con, $_POST['hp_con']);
+		$ser_hpfax = mysqli_real_escape_string($con, $_POST['hp_fax']);
+		$ser_hptex = mysqli_real_escape_string($con, $_POST['hp_text']);
+		$ser_hpemail = mysqli_real_escape_string($con, $_POST['hp_email']);
+		$ser_patel = mysqli_real_escape_string($con, $_POST['pa_tel']);
+		$ser_paop = mysqli_real_escape_string($con, $_POST['pa_hop']);
+		$ser_poen = mysqli_real_escape_string($con, $_POST['po_end']);
+		$ser_pore = mysqli_real_escape_string($con, $_POST['po_rec']);
+		$ser_poday = mysqli_real_escape_string($con, $_POST['po_day']);
+		$ser_poapxit = mysqli_real_escape_string($con, $_POST['po_aptime']);
+		$ser_pores = mysqli_real_escape_string($con, $_POST['po_resp']);
+		$ser_popro = mysqli_real_escape_string($con, $_POST['po_prosys']);
+		$ser_inst = mysqli_real_escape_string($con, $_POST['ser_ins']);
+		//		$ser_priosup = mysqli_real_escape_string($con, $_POST['ser_priosup']);
+		$ser_rout = mysqli_real_escape_string($con, $_POST['ser_routin']);
+		$ser_urg = mysqli_real_escape_string($con, $_POST['ser_urgent']);
+		$ser_toweek = mysqli_real_escape_string($con, $_POST['ser_towweek']);
+		$ser_weekend = mysqli_real_escape_string($con, $_POST['ser_weekend']);
+	
+		$ser_reqt = $_POST['ser_reqt'];
+		$chk = "";
+		foreach($ser_reqt as $chek){
+		$chk .= $chek.",";
+		}
+	
+	
+		
+	
+		// login user || admin ID
+		$uaid = $_SESSION['a_id'];
+		// fetch data hospital and admin for hospitals name
+		$e = $_SESSION['superadmin'];
+		
+		$q = mysqli_query($con,"SELECT * FROM `admin` WHERE `email` = '$e'");
+		$af = mysqli_fetch_array($q);
+		$id = $af['organization'];
+		$name = $af['name'];
+		$sql = mysqli_query($con,"SELECT * FROM orginzation WHERE orid = '$id'");
+		$fet = mysqli_fetch_array($sql);
+		$orgid = $fet['orid'];
+		$orgname = $fet['or_name'];
+	
+		 // for service create
+		$query = mysqli_query($con, "UPDATE `services` SET `service_name`='$ser_name',`service_r_t_support`='$chk',`service_cmnts`='$ser_cmnt',`service_refer`='$ser_refer',`service_location`='$ser_loc',`service_speciality`='$ser_spe',`service_a_type`='$ser_app',`service_gender`='$ser_gen',`sender_bookable`='$ser_dire',`service_e_date`='$ser_eff',`service_e_date2`='$ser_eff2',`service_age`='$ser_ager',`service_age2`='$ser_ager2',`service_publish`='$ser_publish',`service_caremenu`='$ser_care',`ser_cl_type`='$cltype',`ser_res_reas`='$res_reas',`ser_res_cmnt`='$res_cmnt',`ser_instruct`='$ser_inst',`ser_priority_rout`='$ser_rout',`ser_priority_urg`='$ser_urg',`ser_priority_wekex`='$ser_weekend',`ser_priority_2week`='$ser_toweek' WHERE m_id = '$serviceid'");	
+	
+		if($query)
+		{
+			// for service contact
+		
+			
+			$sercon = mysqli_query($con, "UPDATE `ser_contact` SET `scon_name`='$ser_conn',`scon_add`='$ser_conad',`scon_coun`='$ser_concoun',`scon_postal`='$ser_conpos',`scon_town`='$ser_conpos',`hp_ctel`='$ser_hpcont',`hp_faxn`='$ser_hpfax',`hp_texttel`='$ser_hptex',`hp_pemail`='$ser_hpemail',`pa_tel`='$ser_patel',`pa_hop`='$ser_paop' WHERE sertbl_id = '$serviceid'");
+			
+			if($sercon){
+				// for slot amangement
+			
+				
+				$slotq = mysqli_query($con, "UPDATE `slot_management` SET `sm_untilend`='$ser_poen',`sm_recever`='$ser_pore',`sm_days`='$ser_poday',`sm_reserperiod`='$ser_pores',`sm_providesys`='$ser_popro',`sm_approxi`='$ser_poapxit' WHERE sm_ser_id = '$serviceid'");
+				
+				if($slotq){
+					echo "Successapps";
+				}else
+				  {
+					echo("errorinslotm");
+				  }
+			}else{
+				echo("errorinsercon");
+			}
+			
+		}else {
+			echo("errorservice");
+		}
+		
+	}
+
+
 
 ?>

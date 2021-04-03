@@ -175,8 +175,8 @@ if(!isset($_SESSION['gprefferer'])){
 									$fds=mysqli_fetch_array($qqqq);
 									$mss = mysqli_query($con,"SELECT * FROM tbl_consultantrefferels,tbl_refferelattachment WHERE tbl_refferelattachment.ra_refferelid=tbl_consultantrefferels.c_id and tbl_consultantrefferels.c_gpid = '$id' and reply='1' ");
 									$fff= mysqli_fetch_array($mss);
-									$reqtype = $fff['request_type'];
-									$cid = $fff['ra_sender_id'];
+									$reqtype = isset($fff['request_type']);
+									$cid = isset($fff['ra_sender_id']);
 									$query = mysqli_query($con,"SELECT * FROM `tbl_ruser` WHERE `ur_id` = '$cid'");
 						$cfetch = mysqli_fetch_array($query);
 							
@@ -222,7 +222,7 @@ if(!isset($_SESSION['gprefferer'])){
 						<a href="#" class="dropdown-toggle mr-n1" data-toggle="dropdown">
 							<div class="user-toggle">
 								<div class="user-avatar sm">
-									<em class="icon ni ni-user-alt"></em>
+								<img src="images/avatar/<?=$fetch['image']?>">
 								</div>
 								<div class="user-info d-none d-xl-block">
 									<div class="user-status user-status-verified">verified</div>
@@ -234,7 +234,7 @@ if(!isset($_SESSION['gprefferer'])){
 							<div class="dropdown-inner user-card-wrap bg-lighter d-none d-md-block">
 								<div class="user-card">
 									<div class="user-avatar">
-
+									<img src="images/avatar/<?=$fetch['image']?>">
 									</div>
 
 									<div class="user-info">

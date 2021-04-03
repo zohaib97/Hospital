@@ -120,7 +120,7 @@ if(isset($_POST['addpatient']))
 	$pfirstname = $_POST['pfirstname'];
 	$psurname = $_POST['psurname'];
 	$date=date_create($_POST['pdob']);
-// 	echo $_POST['pdob']; 
+	// 	echo $_POST['pdob']; 
 	$pdob = date_format($date,"Y-m-d");
 	$nhsno = $_POST['nhsno'];
 	$houseno = $_POST['houseno'];
@@ -131,6 +131,7 @@ if(isset($_POST['addpatient']))
 	$telephoneno = $_POST['telephoneno'];
 	$mobileno = $_POST['mobileno'];
 	$email = $_POST['email'];
+	$age = $_POST['age'];
 	$sql = mysqli_query($con,"SELECT * FROM tbl_patients WHERE pt_nhsno = '$nhsno'");
 	$fe = mysqli_num_rows($sql);
 	if($fe >0)
@@ -138,7 +139,7 @@ if(isset($_POST['addpatient']))
 	    echo "nhs";
 	}
 	else{
-	$query = mysqli_query($con,"INSERT INTO `tbl_patients`(`pt_title`, `pt_name`, `pt_surname`, `pt_dob`, `pt_nhsno`, `pt_houseno`, `pt_streetname`, `pt_city`, `pt_country`, `pt_postcode`, `pt_telno`, `pt_mobno`, `pt_email`,`pt_hid`)VALUES('$ptitle','$pfirstname','$psurname','$pdob','$nhsno','$houseno','$streetname','$city','$country','$postalcode','$telephoneno','$mobileno','$email','$gphid')");
+	$query = mysqli_query($con,"INSERT INTO `tbl_patients`(`pt_title`, `pt_name`, `pt_surname`, `pt_dob`, `pt_nhsno`, `pt_houseno`, `pt_streetname`, `pt_city`, `pt_country`, `pt_postcode`, `pt_telno`, `pt_mobno`, `pt_email`,`pt_hid`,`pt_age`)VALUES('$ptitle','$pfirstname','$psurname','$pdob','$nhsno','$houseno','$streetname','$city','$country','$postalcode','$telephoneno','$mobileno','$email','$gphid','$age')");
 	
 	if($query)
 	{
@@ -147,7 +148,7 @@ if(isset($_POST['addpatient']))
 	else{
 		echo "Error";
 	}
-}
+	}
 }
 if(isset($_POST["checkemail"])){
     extract($_POST);
@@ -1131,6 +1132,7 @@ if(isset($_POST['patientfetch']))
 		echo'<link rel="stylesheet" href="https://cdn.datatables.net/1.10.23/css/dataTables.bootstrap4.min.css">
 		<hr>
 	<h5>Patient List</h5>
+	
 		<table class="nowrap nk-tb-list is-separate" data-auto-responsive="false" id="myTable">
 			<thead>
 				<tr class="nk-tb-item nk-tb-head">
@@ -1192,11 +1194,12 @@ if(isset($_POST['patientfetch']))
 	</td>
 	';
 		
-	
+	echo'<input type="text" value="'.$fetch["pt_age"].'" hidden id="ptage">';
 										
 		}
 		echo'</tbody> </table>
 		<button class="btn btn-info float-right" onClick="showmyref()">Refer/Advice</button>
+		
 		<script src="https://cdn.datatables.net/1.10.23/js/jquery.dataTables.min.js"></script>
 	<script src="https://cdn.datatables.net/1.10.23/js/dataTables.bootstrap4.min.js"></script>
 	<script>$(document).ready(function () {
@@ -1297,113 +1300,114 @@ if(isset($_POST['apppatientfetch']))
 //for service fetch
 if(isset($_POST['searchservice']))
 {
-	$res="";
-	$periority = $_POST['ref_priority'];
-	$speciality = $_POST['ref_spec'];
-	$cliniciantype = $_POST['ref_cltype'];
-if($periority == "Routine")
-{ 
-	$res ="ser_priority_rout !=''";
+		$res="";
+		$periority = $_POST['ref_priority'];
+		$speciality = $_POST['ref_spec'];
+		$cliniciantype = $_POST['ref_cltype'];
+	if($periority == "Routine")
+	{ 
+		$res ="ser_priority_rout !=''";
 
-}elseif($periority == "Urgent")
-{
-	$res ="ser_priority_urg !=''";
-}
- elseif($periority == "2 Week Wait")
- {
-	 $res ="ser_priority_2week !=''";
- }
-$query = mysqli_query($con,"SELECT * FROM `services` WHERE ".$res." and ser_cl_type = '$cliniciantype' and service_speciality = '$speciality'");
-	echo mysqli_error($con);
-	if(mysqli_num_rows($query) >0)
+	}elseif($periority == "Urgent")
 	{
-		echo'<link rel="stylesheet" href="https://cdn.datatables.net/1.10.23/css/dataTables.bootstrap4.min.css">
-		<hr>
-		<table class="nowrap nk-tb-list is-separate" data-auto-responsive="false" id="myTable1" >
-			<thead>
-				<tr class="nk-tb-item nk-tb-head">
-					<th class="nk-tb-col nk-tb-col-check">
-						<div class="custom-control custom-control-sm custom-checkbox notext">
-							<input type="checkbox" class="custom-control-input" id="puid">
-							<label class="custom-control-label" for="puid"></label>
-						</div>
-					</th>
-					<th class="nk-tb-col tb-col-sm"><span>Service Name</span></th>
-				
-					<th class="nk-tb-col"><span>Service Speciality</span></th>
-					<th class="nk-tb-col"><span>Gender</span></th>
-					<th class="nk-tb-col"><span>Clinician Type</span></th>
-					<th class="nk-tb-col"><span>Service Location</span></th>
-					
-					
-				</tr><!-- .nk-tb-item -->
-			</thead>
-			 <tbody id="">';
-		while($fetch = mysqli_fetch_array($query))
-		{
-	$name = $fetch['service_name'];
-			$sql = mysqli_query($con,"SELECT * FROM `service_name` WHERE s_id = '$name'");
-			$fe = mysqli_fetch_array($sql);
-			$name = $fe['s_name'];
-	$nh = $fetch['service_speciality'];
-			$sql1 = mysqli_query($con,"SELECT * FROM `ser_specialty_add` WHERE spec_id = '$nh'");
-			$fe1 = mysqli_fetch_array($sql1);
-			$nh = $fe1['spec_name'];
-	$mobno = $fetch['service_gender'];
-			
-	$sname = $fetch['ser_cl_type'];
-			$sql2 = mysqli_query($con,"SELECT * FROM `service_cliniciant` WHERE cl_id = '$sname'");
-			$fe2 = mysqli_fetch_array($sql2);
-			$sname =$fe2['cl_type'];
-	// $dob = $fetch['service_location'];
-	// 		$sql3 = mysqli_query($con,"SELECT * FROM `service_location` WHERE lo_id = '$dob'");
-	// 		$fe3 = mysqli_fetch_array($sql3);
-	// 		$dob = $fe3['lo_location'];
-	$id = $fetch['service_id'];
-
-echo'   <tr class="nk-tb-item">
-	<td class="nk-tb-col nk-tb-col-check">
-		<div class="custom-control custom-control-sm custom-radio notext">
-			<input type="radio" class="custom-control-input dd" value="'.$id.'" name="checkw" id="'.$id.'" onclick="showss(this,\''.$mobno.'\')" >
-			<label class="custom-control-label" for="'.$id.'"></label>
-		</div>
-	</td>
-	<td class="nk-tb-col tb-col-sm">
-		<span class="tb-product">
-			
-			<span class="title">'.$name.'</span>
-		</span>
-	</td>
-	<td class="nk-tb-col">
-		<span class="tb-lead">'.$nh.'</span>
-	</td>
-	<td class="nk-tb-col">
-		<span class="tb-lead">'.$mobno.'</span>
-	</td>
-	<td class="nk-tb-col">
-		<span class="tb-lead">'.$sname.'</span>
-	</td>
-	<td class="nk-tb-col">
-		<span class="tb-lead">'.$fetch['service_location'].'</span>
-	</td>
-	';
-		
-	
-										
-		}
-		echo'</tbody> </table>
-	
-		<script src="https://cdn.datatables.net/1.10.23/js/jquery.dataTables.min.js"></script>
-<script src="https://cdn.datatables.net/1.10.23/js/dataTables.bootstrap4.min.js"></script>
-<script>$(document).ready(function () {
-    $("#myTable1").DataTable();
-} )
-</script>
-';
+		$res ="ser_priority_urg !=''";
 	}
- else{
-	 echo "Data Not Found";
- }
+	elseif($periority == "2 Week Wait")
+	{
+		$res ="ser_priority_2week !=''";
+	}
+	$query = mysqli_query($con,"SELECT * FROM `services` WHERE ".$res." and ser_cl_type = '$cliniciantype' and service_speciality = '$speciality'");
+		echo mysqli_error($con);
+		if(mysqli_num_rows($query) >0)
+		{
+			echo'<link rel="stylesheet" href="https://cdn.datatables.net/1.10.23/css/dataTables.bootstrap4.min.css">
+			<hr>
+			<table class="nowrap nk-tb-list is-separate" data-auto-responsive="false" id="myTable1" >
+				<thead>
+					<tr class="nk-tb-item nk-tb-head">
+						<th class="nk-tb-col nk-tb-col-check">
+							<div class="custom-control custom-control-sm custom-checkbox notext">
+								<input type="checkbox" class="custom-control-input" id="puid">
+								<label class="custom-control-label" for="puid"></label>
+							</div>
+						</th>
+						<th class="nk-tb-col tb-col-sm"><span>Service Name</span></th>
+					
+						<th class="nk-tb-col"><span>Service Speciality</span></th>
+						<th class="nk-tb-col"><span>Gender</span></th>
+						<th class="nk-tb-col"><span>Clinician Type</span></th>
+						<th class="nk-tb-col"><span>Service Location</span></th>
+						
+						
+					</tr><!-- .nk-tb-item -->
+				</thead>
+				<tbody id="">';
+			while($fetch = mysqli_fetch_array($query))
+			{
+		$name = $fetch['service_name'];
+				$sql = mysqli_query($con,"SELECT * FROM `service_name` WHERE s_id = '$name'");
+				$fe = mysqli_fetch_array($sql);
+				$name = $fe['s_name'];
+		$nh = $fetch['service_speciality'];
+				$sql1 = mysqli_query($con,"SELECT * FROM `ser_specialty_add` WHERE spec_id = '$nh'");
+				$fe1 = mysqli_fetch_array($sql1);
+				$nh = $fe1['spec_name'];
+		$mobno = $fetch['service_gender'];
+				
+		$sname = $fetch['ser_cl_type'];
+				$sql2 = mysqli_query($con,"SELECT * FROM `service_cliniciant` WHERE cl_id = '$sname'");
+				$fe2 = mysqli_fetch_array($sql2);
+				$sname =$fe2['cl_type'];
+		// $dob = $fetch['service_location'];
+		// 		$sql3 = mysqli_query($con,"SELECT * FROM `service_location` WHERE lo_id = '$dob'");
+		// 		$fe3 = mysqli_fetch_array($sql3);
+		// 		$dob = $fe3['lo_location'];
+		$id = $fetch['service_id'];
+
+	echo'   <tr class="nk-tb-item">
+		<td class="nk-tb-col nk-tb-col-check">
+			<div class="custom-control custom-control-sm custom-radio notext">
+				<input type="radio" class="custom-control-input dd" value="'.$id.'" name="checkw" id="'.$id.'" onclick="showss(this,\''.$mobno.'\')" >
+				<label class="custom-control-label" for="'.$id.'"></label>
+			</div>
+		</td>
+		<td class="nk-tb-col tb-col-sm">
+			<span class="tb-product">
+				
+				<span class="title">'.$name.'</span>
+			</span>
+		</td>
+		<td class="nk-tb-col">
+			<span class="tb-lead">'.$nh.'</span>
+		</td>
+		<td class="nk-tb-col">
+			<span class="tb-lead">'.$mobno.'</span>
+		</td>
+		<td class="nk-tb-col">
+			<span class="tb-lead">'.$sname.'</span>
+		</td>
+		<td class="nk-tb-col">
+			<span class="tb-lead">'.$fetch['service_location'].'</span>
+		</td>
+		';
+			
+		echo'<input type="text" value="'.$fetch['service_age2'].'" hidden id="servage2">
+		<input type="text" value="'.$fetch['service_age'].'" hidden id="servage">';
+											
+			}
+			echo'</tbody> </table>
+		
+			<script src="https://cdn.datatables.net/1.10.23/js/jquery.dataTables.min.js"></script>
+	<script src="https://cdn.datatables.net/1.10.23/js/dataTables.bootstrap4.min.js"></script>
+	<script>$(document).ready(function () {
+		$("#myTable1").DataTable();
+	} )
+	</script>
+	';
+		}
+	else{
+		echo "Data Not Found";
+	}
 }
 
 //for Appointment service fetch
@@ -2953,7 +2957,7 @@ echo'<div class="card-aside-wrap">
 			<div class="card-inner">
 				<div class="user-card">
 					<div class="user-avatar bg-primary">
-						<span>AB</span>
+					<img src="images/avatar/'.$fetch['image'].'">
 					</div>
 					<div class="user-info">
 						<span class="lead-text">'.$fetch['ur_fname'].'</span>
@@ -2995,7 +2999,17 @@ if(isset($_POST['updategp']))
 		$name = $_POST['name'];
 		$city = $_POST['city'];
 		$postcode = $_POST['postcode'];
-		
+		$select = mysqli_query($con,"SELECT * FROM `tbl_ruser` WHERE `ur_id`='$id'");
+		$fetch = mysqli_fetch_array($select);
+		if($_FILES['image']['name']!=''&& $_FILES['image']['name']!= null)
+		{
+		$file = $_FILES['image']['name'];
+			move_uploaded_file($_FILES['image']['tmp_name'],'images/avatar/'.$file);
+		}
+		else
+		{
+			$file = $fetch['image'];
+		}
 //		$select = mysqli_query($con,"SELECT * FROM `admin` WHERE `id` = '$id'");
 //		$fetc = mysqli_fetch_array($select);
 //		if($_FILES['uploadedimages']['name']!=''&& $_FILES['uploadedimages']['name']!= null)
@@ -3008,7 +3022,7 @@ if(isset($_POST['updategp']))
 //			$file = $fetc['profile_pic'];	
 //		}
 //	
-		$query = mysqli_query($con,"UPDATE `tbl_ruser` SET `ur_fname`='$name',`ur_city`='$city',`ur_postcode`='$postcode' WHERE `ur_id` = '$id'");
+		$query = mysqli_query($con,"UPDATE `tbl_ruser` SET `ur_fname`='$name',`ur_city`='$city',`ur_postcode`='$postcode',`image` = '$file' WHERE `ur_id` = '$id'");
 		
 		if($query)
 		{

@@ -99,7 +99,12 @@ include_once('../database/db.php');
                                         <input type="text" class="form-control form-control-lg" id="postcode" value="" placeholder="Postcode" name="postcode">
                                     </div>
                                 </div>
-                                
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label class="form-label" for="phone-no">Profile Image</label>
+                                        <input type="file" class="form-control form-control-lg" id="image" name="image">
+                                    </div>
+                                </div>
                                 <div class="col-12">
                                     <div class="custom-control custom-switch">
                                         <input type="checkbox" class="custom-control-input" id="latest-sale">

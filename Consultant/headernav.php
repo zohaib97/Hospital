@@ -209,7 +209,7 @@ if(!isset($_SESSION['consultant'])){
 						<a href="#" class="dropdown-toggle mr-n1" data-toggle="dropdown">
 							<div class="user-toggle">
 								<div class="user-avatar sm">
-									<em class="icon ni ni-user-alt"></em>
+								<img src="images/avatar/<?=$fetch['image']?>">
 								</div>
 								<div class="user-info d-none d-xl-block">
 									<div class="user-status user-status-verified">verified</div>
@@ -221,7 +221,7 @@ if(!isset($_SESSION['consultant'])){
 							<div class="dropdown-inner user-card-wrap bg-lighter d-none d-md-block">
 								<div class="user-card">
 									<div class="user-avatar">
-
+									<img src="images/avatar/<?=$fetch['image']?>">
 									</div>
 
 									<div class="user-info">

@@ -39,7 +39,7 @@ include_once('header.php');
                                     <div class="col-md-6">
                                         <label for="Role">Select Role</label>
                                     <select class="form-control" id="Role" onchange="fetchadmindata()">
-                                    <option>Select</option>
+                                    <option value="">Select</option>
                                     <option value="consultant">Consultant</option>
                                     <option value="Nurse">Nurse</option>
                                     <option value="Dentist">Dentist</option>
@@ -205,11 +205,8 @@ include_once('header.php');
     <script src="assets/js/example-toastr.js?ver=2.2.0"></script>
 </body>
 <script>
-$(document).ready(function(){
-   $("#Role").val("<?=$_GET["role"]?>");
-   fetchadmindata();
-});
     function fetchadmindata() {
+        
 var Role = $('#Role').val();
 if(Role == "consultant")
 {
@@ -220,6 +217,7 @@ if(Role == "consultant")
                 consultantbtn: "btn"
             },
             success: function(response) {
+             
                 $("#adata").html(response);
                 //alert(response);
             }
@@ -274,6 +272,7 @@ else if(Role == "GP_Refferer")
                 genralpbtn: "btn"
             },
             success: function(response) {
+        
                 $("#adata").html(response);
                 //alert(response);
             }
@@ -296,9 +295,11 @@ else if(Role == "Optometrist")
         });
 }
     }
-    $(document).ready(function() {
-        fetchadmindata();
-    });
+    $(document).ready(function(){
+   $("#Role").val("<?=isset($_GET["role"])?>");
+   fetchadmindata();
+});
+
 
     function confirm(id) {
         Swal.fire({
