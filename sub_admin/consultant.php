@@ -24,6 +24,13 @@ include_once('header.php');
                 <!-- main header @s -->
                 <?php
                 include_once('headernav.php');
+                 $id = $_SESSION['a_id'];
+								$sql = mysqli_query($con,"SELECT * FROM admin WHERE id = '$id'");
+								$fetch = mysqli_fetch_array($sql);
+								$orgid = $fetch['organization'];
+								$sql1 = mysqli_query($con,"SELECT * FROM orginzation WHERE orid = '$orgid'");
+								$fetch1 = mysqli_fetch_array($sql1);
+								$ortype = $fetch1['or_type'];
                 ?>
                 <!-- main header @e -->
                 <!-- content @s -->
@@ -34,18 +41,52 @@ include_once('header.php');
                                 <div class="components-preview wide-md mx-auto">
                                     <div class="nk-block-head nk-block-head-lg wide-sm">
                                         <h2 class="nk-block-title fw-normal">Users List</h2>
-
+<input type="text" name="orname" id="orname" value="<?=$fetch1['or_name']?>" hidden>
                                     </div>
                                     <div class="col-md-6">
                                         <label for="Role">Select Role</label>
                                     <select class="form-control" id="Role" onchange="fetchadmindata()">
-                                    <option value="">Select</option>
+                                        <option selected>Select</option>
+                                         <?php
+                           $id = $_SESSION['a_id'];
+								$sql = mysqli_query($con,"SELECT * FROM admin WHERE id = '$id'");
+								$fetch = mysqli_fetch_array($sql);
+								$orgid = $fetch['organization'];
+								$sql1 = mysqli_query($con,"SELECT * FROM orginzation WHERE orid = '$orgid'");
+								$fetch1 = mysqli_fetch_array($sql1);
+								$ortype = $fetch1['or_type'];
+								if($ortype == "NHS Hospital")
+								{
+                           ?>
+                                    
                                     <option value="consultant">Consultant</option>
-                                    <option value="Nurse">Nurse</option>
-                                    <option value="Dentist">Dentist</option>
-                                    <option value="GP_Refferer">GP Refferer</option>
-                                    <option value="Optometrist">Optometrist</option>
                                     <option value="ServiceDefiner">Service Definer</option>
+                                    <?php
+								}
+								elseif($ortype == "GP Practice")
+								{
+                                    ?>
+                                     <option value="GP_Refferer">GP Refferer</option>
+                                     <?php
+								}
+								elseif($ortype == "Opticians")
+								{
+                                     ?>
+                                      <option value="Optometrist">Optometrist</option>
+                                      <?php
+								}
+								elseif($ortype == "Dental Practice" || $ortype == "Community Hospital")
+								{
+                                      ?>
+                                      <option value="GP_Refferer">GP Refferer</option>
+                                      <?php
+                                      }
+                                      ?>
+                                    <!--<option value="Nurse">Nurse</option>-->
+                                    <!--<option value="Dentist">Dentist</option>-->
+                                   
+                                   
+                                    
                                     </select>
                                     </div>
                                     <br>
@@ -153,12 +194,12 @@ include_once('header.php');
                     </a>
                 </div>
                 <div class="modal-body">
-                    <form class="form-validate is-alter" id="aupdate" method="post">
+                    <form class="form-validate is-alter" id="gpupdate" method="post">
                         <div class="row">
                             <div class="form-group col-md-6">
                                 <label class="form-label" for="first_name">First Name</label>
                                 <div class="form-control-wrap">
-                                  
+                                  <input type="text" id="gpid" name="gpid" hidden>
                                     <input type="text" class="form-control" id="gpfirst_name" name="fname" autocomplete="off" required>
                                 </div>
                             </div>
@@ -173,14 +214,14 @@ include_once('header.php');
                             <div class="form-group col-md-6">
                                 <label class="form-label" for="memail">Email</label>
                                 <div class="form-control-wrap">
-                                    <input type="email" class="form-control" id="gpmemail" autocomplete="off" required name="memail">
+                                    <input type="email" class="form-control" id="gpemail" autocomplete="off" required name="gpemail">
                                 </div>
                             </div>
 
                             <div class="form-group col-md-6">
                                 <label class="form-label" for="mpass">Password</label>
                                 <div class="form-control-wrap">
-                                    <input type="text" class="form-control" id="gpmpass" autocomplete="off" required name="mpassword">
+                                    <input type="text" class="form-control" id="gppass" autocomplete="off" required name="gppassword">
                                 </div>
                             </div>
                         </div>
@@ -189,7 +230,7 @@ include_once('header.php');
                         <br>
                         <div class="row">
                             <div class="form-group col-md-6">
-                                <button type="submit" class="btn btn-lg btn-primary" id="adminupdate">Save Informations</button>
+                                <button type="submit" class="btn btn-lg btn-primary" id="gpsubmit">Save Informations</button>
                             </div>
                         </div>
 
@@ -201,23 +242,85 @@ include_once('header.php');
             </div>
         </div>
     </div>
+    <div class="modal fade" tabindex="-1" id="modalForm3">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Service Definer Info</h5>
+                    <a href="#" class="close" data-dismiss="modal" aria-label="Close">
+                        <em class="icon ni ni-cross"></em>
+                    </a>
+                </div>
+                <div class="modal-body">
+                    <form class="form-validate is-alter" id="sdrupdate" method="post">
+                        <div class="row">
+                            <div class="form-group col-md-6">
+                                <label class="form-label" for="first_name">Name</label>
+                                <div class="form-control-wrap">
+                                  <input type="text" id="sdrid" name="sdrid" hidden>
+                                    <input type="text" class="form-control" id="sdrfirstname" name="sdrname" autocomplete="off" required>
+                                </div>
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label class="form-label" for="sure_name">Contact</label>
+                                <div class="form-control-wrap">
+                                    <input type="text" class="form-control" id="sdrcontact" name="sdrcontact" autocomplete="off" required>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="form-group col-md-6">
+                                <label class="form-label" for="memail">Email</label>
+                                <div class="form-control-wrap">
+                                    <input type="email" class="form-control" id="sdremail" autocomplete="off" required name="sdremail">
+                                </div>
+                            </div>
+
+                            <div class="form-group col-md-6">
+                                <label class="form-label" for="mpass">Password</label>
+                                <div class="form-control-wrap">
+                                    <input type="text" class="form-control" id="sdrpass" autocomplete="off" required name="sdrpassword">
+                                </div>
+                            </div>
+                        </div>
+                        
+                      
+                        <br>
+                        <div class="row">
+                            <div class="form-group col-md-6">
+                                <button type="submit" class="btn btn-lg btn-primary" id="sdrsubmit">Save Informations</button>
+                            </div>
+                        </div>
+
+                    </form>
+                </div>
+                <div class="modal-footer bg-light">
+                    <span class="sub-text">Service Definer Update</span>
+                </div>
+            </div>
+        </div>
+    </div>
     <!-- app-root @e -->
     <script src="assets/js/example-toastr.js?ver=2.2.0"></script>
 </body>
 <script>
+$(document).ready(function(){
+   $("#Role").val("<?=$_GET["role"]?>");
+   fetchadmindata();
+});
     function fetchadmindata() {
-        
 var Role = $('#Role').val();
 if(Role == "consultant")
 {
+    var orgname= $('#orname').val();
         $.ajax({
             type: "POST",
             url: "phpcode.php",
             data: {
+                orgname:orgname,
                 consultantbtn: "btn"
             },
             success: function(response) {
-             
                 $("#adata").html(response);
                 //alert(response);
             }
@@ -239,10 +342,11 @@ if(Role == "consultant")
 }
 else if(Role == "ServiceDefiner")
     {
+        var orgname= $('#orname').val();
     $.ajax({    
         type: "POST",
         url: "phpcode.php", 
-		data:{ServiceDefiner:"btn"},	            
+		data:{orgname:orgname,ServiceDefiner:"btn"},	            
         success: function(response){                    
             $("#adata").html(response); 
             //alert(response);
@@ -265,14 +369,15 @@ else if(Role == "Dentist")
 }
 else if(Role == "GP_Refferer")
 {
+   var orgname= $('#orname').val();
     $.ajax({
             type: "POST",
             url: "phpcode.php",
             data: {
+                orgname:orgname,
                 genralpbtn: "btn"
             },
             success: function(response) {
-        
                 $("#adata").html(response);
                 //alert(response);
             }
@@ -281,10 +386,12 @@ else if(Role == "GP_Refferer")
 }
 else if(Role == "Optometrist")
 {
+    var orgname= $('#orname').val();
     $.ajax({
             type: "POST",
             url: "phpcode.php",
             data: {
+                orgname:orgname,
                 Optometristbtn: "btn"
             },
             success: function(response) {
@@ -295,11 +402,9 @@ else if(Role == "Optometrist")
         });
 }
     }
-    $(document).ready(function(){
-   $("#Role").val("<?=isset($_GET["role"])?>");
-   fetchadmindata();
-});
-
+    $(document).ready(function() {
+        fetchadmindata();
+    });
 
     function confirm(id) {
         Swal.fire({
@@ -442,6 +547,52 @@ else if(Role == "Optometrist")
             }
         });
     };
+     function aprovenotaprovesd(id, status) {
+
+
+        var name = status;
+        var ide = id;
+
+
+        $.ajax({
+            type: 'POST',
+            url: 'phpcode.php',
+            data: {
+                method: name,
+                id: ide,
+
+            },
+
+            success: function(data) {
+
+                if (data == 'Error') {
+                    toastr.clear();
+                    NioApp.Toast("<h5>Service Definer didn't Updated</h5>", 'error', {
+                        position: 'top-right'
+                    });
+
+                } else if (data == 'Success') {
+                    if (name == 'sdrapprove') {
+
+                        toastr.clear();
+                        NioApp.Toast("<h5>Service Definer De-Activated</h5>", 'success', {
+                            position: 'top-right'
+                        });
+                        fetchadmindata();
+                    } else {
+                        toastr.clear();
+                        NioApp.Toast("<h5>Service Definer Activated Successfully</h5>", 'success', {
+                            position: 'top-right'
+                        });
+                        fetchadmindata();
+
+                    }
+                }
+
+
+            }
+        });
+    };
     function oaprovenotaprove(id, status) {
 
 
@@ -547,22 +698,33 @@ else if(Role == "Optometrist")
 
         $('#modalForm1').modal('show');
     };
-    function openmodal2(fname, sname, email, pass) {
+    function openmodal2(id,fname,sname,email,pass) {
       
-     alert("hello");
+   
         $('#gpfirst_name').val(fname);
         $('#gpsure_name').val(sname);
-        $('#gpmemail').val(email);
-        $('#gpmpass').val(pass);
-      
+        $('#gpemail').val(email);
+        $('#gppass').val(pass);
+      $('#gpid').val(id);
 
         $('#modalForm2').modal('show');
     };
-    $("#aupdate").on('submit', function(e) {
+       function openmodal3(id,name,contact,email,pass) {
+      
+   
+        $('#sdrfirstname').val(name);
+        $('#sdrcontact').val(contact);
+        $('#sdremail').val(email);
+        $('#sdrpass').val(pass);
+      $('#sdrid').val(id);
+
+        $('#modalForm3').modal('show');
+    };
+    $("#gpupdate").on('submit', function(e) {
         e.preventDefault();
 
         var formdata = new FormData(this);
-        formdata.append("updatehadmin", "btn");
+        formdata.append("updategp", "btn");
         $.ajax({
             type: 'POST',
             url: 'phpcode.php',
@@ -570,20 +732,20 @@ else if(Role == "Optometrist")
             contentType: false,
             processData: false,
             beforeSend: function() {
-                $('#adminupdate').attr("disabled", "disabled");
-                $('#aupdate').css("opacity", ".5");
+                $('#gpsubmit').attr("disabled", "disabled");
+                $('#gpupdate').css("opacity", ".5");
             },
             success: function(data) {
-                //				alert(data);
+                			
                 if (data == 'Error') {
                     toastr.clear();
-                    NioApp.Toast("<h5>Admin didn't update Successfully</h5>", 'error', {
+                    NioApp.Toast("<h5>Staff didn't update Successfully</h5>", 'error', {
                         position: 'top-right'
                     });
                 } else if (data == 'Success') {
-                    $('#aupdate')[0].reset();
+                    $('#gpupdate')[0].reset();
                     toastr.clear();
-                    NioApp.Toast("<h5>Admin Updated Successfully</h5>", 'success', {
+                    NioApp.Toast("<h5>Staff Updated Successfully</h5>", 'success', {
                         position: 'top-right'
                     });
                     fetchadmindata();
@@ -591,8 +753,48 @@ else if(Role == "Optometrist")
 
                 }
 
-                $('#aupdate').css("opacity", "");
-                $("#adminupdate").removeAttr("disabled");
+                $('#gpupdate').css("opacity", "");
+                $("#gpsubmit").removeAttr("disabled");
+            }
+
+        });
+
+    });
+     $("#sdrupdate").on('submit', function(e) {
+        e.preventDefault();
+
+        var formdata = new FormData(this);
+        formdata.append("updatesdr", "btn");
+        $.ajax({
+            type: 'POST',
+            url: 'phpcode.php',
+            data: formdata,
+            contentType: false,
+            processData: false,
+            beforeSend: function() {
+                $('#sdrubmit').attr("disabled", "disabled");
+                $('#sdrpdate').css("opacity", ".5");
+            },
+            success: function(data) {
+                			
+                if (data == 'Error') {
+                    toastr.clear();
+                    NioApp.Toast("<h5>Service Definer didn't update Successfully</h5>", 'error', {
+                        position: 'top-right'
+                    });
+                } else if (data == 'Success') {
+                    $('#sdrupdate')[0].reset();
+                    toastr.clear();
+                    NioApp.Toast("<h5>Service Definer Updated Successfully</h5>", 'success', {
+                        position: 'top-right'
+                    });
+                    fetchadmindata();
+                    $('#modalForm3').modal('hide');
+
+                }
+
+                $('#sdrupdate').css("opacity", "");
+                $("#sdrsubmit").removeAttr("disabled");
             }
 
         });

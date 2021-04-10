@@ -87,21 +87,7 @@ include_once('database/db.php');
 								 <span toggle="#conpass" class="far fa-eye-slash  toggle-password field-icon"></span>
 
 							  </div>
-							  <div class="form-group col-lg-6">
-							    <label>Role</label>
-								<select class="form-control select" id="conrole" name="role" autocomplete="off">
-								  <option>Select</option>
-								 <?php 
-									$q5 = mysqli_query($con,"SELECT * FROM `tbl_role` ");
-									while($ef = mysqli_fetch_array($q5))
-									{
-									?>
-									<option value="<?=$ef['ro_id']?>"><?=$ef['ro_role']?></option>
-									<?php
-									}
-									?>
-								</select>
-							  </div>
+							  
 							</div>
 							<div class="row" id="form2" style="display: none;">
 							<div class="form-group col-lg-6 mt-2">
@@ -116,28 +102,28 @@ include_once('database/db.php');
 									</select>
 							  </div>
 								<div class="form-group col-lg-6 mt-2">
-									<select id="orgtype" class="form-control select" name="orgtype" onchange="alsk(this.value)" aria-placeholder="Organisation Type" >
+									<select id="orgtype" class="form-control select" name="orgtype"  aria-placeholder="Organisation Type" onchange="orgname1(this.value)">
 										<option>--Select Organisation Type--</option>
 										<?php 
-										$q1s=mysqli_query($con,"SELECT * FROM `orginzation`");
+										$q1s=mysqli_query($con,"SELECT * FROM `organisation_type`");
 										while($ds=mysqli_fetch_array($q1s)){
 										?>
-										<option value="<?=$ds["orid"]?>"><?=$ds["or_type"]?></option>
+										<option value="<?=$ds["ort_name"]?>"><?=$ds["ort_name"]?></option>
 										<?php }?>
 									</select>
 							  </div>
 								<div class="form-group col-lg-6 mt-2">
-								 <input type="text" class="form-control" id="orgname" readonly placeholder="Organisation Name" name="orgname" autocomplete="off">
+								  
+									<select id="orgname" class="form-control select" name="orgname"  aria-placeholder="Organisation Name" onchange="alsk(this.value)">
+									    	</select>
 							  </div>
 								<div class="form-group col-lg-6 mt-2">
 								 <input type="text" class="form-control" id="orgphno" readonly placeholder="Organisation Phone No" name="orgphno" autocomplete="off">
 							  </div>
-								<div class="form-group col-lg-6 mt-2">
-								 <input type="text" class="form-control" id="orgaddress" readonly placeholder="Organisation Address" name="orgaddress" autocomplete="off">
-							  </div>
+							
 							
 							  <div class="form-group col-lg-6 mt-2">
-								 <input type="text" class="form-control" id="proregno" placeholder="Professional Registration No" name="proregno" autocomplete="off">
+								 <input type="text" class="form-control" id="proregno" placeholder="Professional Registration No" name="proregno" autocomplete="off" onchange="proregnocheck()">
 							  </div>
 							  <div class="form-group col-lg-6 mt-2">
 								 <input type="text" class="form-control" id="orgcode" readonly placeholder="Organisation Code" name="orgcode" autocomplete="off">
@@ -145,11 +131,29 @@ include_once('database/db.php');
 							  <div class="form-group col-lg-6 mt-2">
 								 <input type="text" class="form-control" id="1staddress" readonly placeholder="1st Line Address" name="address" autocomplete="off">
 							  </div>
+							  	<div class="form-group col-lg-6 mt-2">
+								 <input type="text" class="form-control" id="orgaddress" readonly placeholder="2nd Line Address" name="orgaddress" autocomplete="off">
+							  </div>
 							  <div class="form-group col-lg-6 mt-2">
 								 <input type="text" class="form-control" id="city" readonly placeholder="City" name="city" autocomplete="off">
 								</div>
 							 <div class="form-group col-lg-6 mt-2">
 								 <input type="text" class="form-control" id="postcode" readonly placeholder="Post Code" name="postcode" autocomplete="off">
+							  </div>
+							  <div class="form-group col-lg-6">
+							    <label>Role</label>
+								<select class="form-control select" id="conrole" name="role" autocomplete="off">
+								  <option>Select</option>
+								 <?php 
+									$q5 = mysqli_query($con,"SELECT * FROM `tbl_role` ");
+									while($ef = mysqli_fetch_array($q5))
+									{
+									?>
+									<option value="<?=$ef['ro_id']?>"><?=$ef['ro_role']?></option>
+									<?php
+									}
+									?>
+								</select>
 							  </div>
 							</div>
 						<div class="row">
@@ -248,6 +252,42 @@ include_once('database/db.php');
   "showMethod": "fadeIn",
   "hideMethod": "fadeOut"
 };
+function proregnocheck()
+{
+   var no = $('#proregno').val();
+
+    $.ajax({
+		url:"php/phpcode.php",
+		type:"POST",
+		data:{proregno:no,proregcheck:"btn"},
+	
+		success:function(res){
+		 
+		    if(res == "already")
+		    {
+		        toastr.error("Professional Registration No Already Exist!");
+		        $('#proregno').val('');
+		    }
+		}
+	});
+}
+
+$('#orgtype').on('change',function(){
+    var orgtype = $('#orgtype').val();
+
+    $.ajax({
+		url:"php/phpcode.php",
+		type:"POST",
+		data:{org:orgtype,fetchrole:"btn"},
+	
+		success:function(res){
+		    
+	document.getElementById("conrole").innerHTML=res;
+		}
+	})
+    
+})
+
 	function clodelogmodal(){
 	$("#regmodal").hide();
 }
@@ -342,6 +382,9 @@ $("#reg_form").on("submit", function(e)
 						else if(data == "Error"){
 							toastr.error("Did not Register Successfully");
 						}
+						else if(data == "already"){
+								 toastr.error("Postcode Already Registered");
+						}
 					}
 
 				
@@ -357,6 +400,20 @@ $("#reg_form").on("submit", function(e)
 		}
 		
 	});
+function orgname1(name){
+ 
+	$.ajax({
+		url:"php/phpcode.php",
+		type:"POST",
+		data:{name:name,fetchorgname:"btn"},
+	
+		success:function(res){
+		    console.log(res);
+		document.getElementById("orgname").innerHTML=res;
+		}
+	})
+}
+
 function alsk(id){
 	$.ajax({
 		url:"php/phpcode.php",
@@ -365,7 +422,7 @@ function alsk(id){
 		dataType:"JSON",
 		success:function(res){
 		    console.log(res);
-		$("#orgname").val(res.or_name);
+	
 		$("#orgphno").val(res.or_phone);
 		$("#orgaddress").val(res.or_address);
 		$("#orgcode").val(res.or_code);

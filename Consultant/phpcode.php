@@ -193,7 +193,7 @@ $hks=mysqli_fetch_array($qki2);
 </td>
 
 <td class="nk-tb-col">
-<span class="tb-lead">' . $fetch['ur_sname'] . '</span>
+<span class="tb-lead">'.$fetch['ur_fname'].''. $fetch['ur_sname'] . '</span>
 </td>
 <td class="nk-tb-col">
 <span class="tb-lead">' . $fetch['s_name'] . '</span>
@@ -241,7 +241,7 @@ echo'<td class="nk-tb-col">
 <span class="tb-lead">' . $fetch['pt_name'] . '</span>
 </td>
 <td class="nk-tb-col">
-<a href="adreqreply.php?nhsno='.$fetch['pt_nhsno'].'&pid='.$fetch["c_rfid"].'&request_type=Advice Request" class="btn btn-info btn-sm">Open</a>
+<a href="adreqreply.php?nhsno='.$fetch['pt_nhsno'].'&pid='.$fetch["c_rfid"].'&request_type=Advice Request" class="btn btn-info btn-sm">View Refferer</a>
 </td>';
 if($fetch["c_status"]==0){
 echo '
@@ -325,7 +325,7 @@ if(isset($_POST['serrefferelfetch1']))
 </td>
 
 <td class="nk-tb-col">
-<span class="tb-lead">' . $fetch['ur_sname'] . '</span>
+<span class="tb-lead">'.$fetch['ur_fname'].''. $fetch['ur_sname'] . '</span>
 </td>
 <td class="nk-tb-col">
 <span class="tb-lead">' . $fetch['s_name'] . '</span>
@@ -342,7 +342,7 @@ if(isset($_POST['serrefferelfetch1']))
 <span class="tb-lead">' . $fetch['pt_name'] . '</span>
 </td>
 <td class="nk-tb-col">
-<a href="adreqreply.php?nhsno='.$fetch['pt_nhsno'].'&pid='.$fetch["c_rfid"].'&request_type=Advice Request" class="btn btn-info btn-sm">Open</a>
+<a href="adreqreply.php?nhsno='.$fetch['pt_nhsno'].'&pid='.$fetch["c_rfid"].'&request_type=Advice Request" class="btn btn-info btn-sm">View Refferer</a>
 </td>
 <td class="nk-tb-col">
 <span class="badge badge-danger">Response</span>
@@ -413,7 +413,7 @@ $hks=mysqli_fetch_array($qki2);
 </td>
 
 <td class="nk-tb-col">
-<span class="tb-lead">' . $fetch['ur_sname'] . '</span>
+<span class="tb-lead">'.$fetch['ur_fname'].''. $fetch['ur_sname'] . '</span>
 </td>
 <td class="nk-tb-col">
 <span class="tb-lead">' . $fetch['s_name'] . '</span>
@@ -461,7 +461,7 @@ echo'<td class="nk-tb-col">
 <span class="tb-lead">' . $fetch['pt_name'] . '</span>
 </td>
 <td class="nk-tb-col">
-<a href="adreqreply.php?nhsno='.$fetch['pt_nhsno'].'&pid='.$fetch["c_rfid"].'&request_type=Appointment Request" class="btn btn-info btn-sm">Chat</a>
+<a href="adreqreply.php?nhsno='.$fetch['pt_nhsno'].'&pid='.$fetch["c_rfid"].'&request_type=Appointment Request" class="btn btn-info btn-sm">View Refferer</a>
 </td>';
 if($fetch["c_status"]==0){
 echo '
@@ -542,7 +542,7 @@ if(isset($_POST['serrefferelfetch3']))
 </td>
 
 <td class="nk-tb-col">
-<span class="tb-lead">' . $fetch['ur_sname'] . '</span>
+<span class="tb-lead">'.$fetch['ur_fname'].''. $fetch['ur_sname'] . '</span>
 </td>
 <td class="nk-tb-col">
 <span class="tb-lead">' . $fetch['s_name'] . '</span>
@@ -559,7 +559,7 @@ if(isset($_POST['serrefferelfetch3']))
 <span class="tb-lead">' . $fetch['pt_name'] . '</span>
 </td>
 <td class="nk-tb-col">
-<a href="adreqreply.php?nhsno='.$fetch['pt_nhsno'].'&pid='.$fetch["c_rfid"].'&request_type=Appointment Request" class="btn btn-info btn-sm">Chat</a>
+<a href="adreqreply.php?nhsno='.$fetch['pt_nhsno'].'&pid='.$fetch["c_rfid"].'&request_type=Appointment Request" class="btn btn-info btn-sm">View Refferer</a>
 </td>';
 if($fetch["c_status"]==0){
 echo '
@@ -640,7 +640,7 @@ if(isset($_POST['serrefferelfetch4']))
 </td>
 
 <td class="nk-tb-col">
-<span class="tb-lead">' . $fetch['ur_sname'] . '</span>
+<span class="tb-lead">'.$fetch['ur_fname'].''. $fetch['ur_sname'] . '</span>
 </td>
 <td class="nk-tb-col">
 <span class="tb-lead">' . $fetch['s_name'] . '</span>
@@ -657,7 +657,7 @@ if(isset($_POST['serrefferelfetch4']))
 <span class="tb-lead">' . $fetch['pt_name'] . '</span>
 </td>
 <td class="nk-tb-col">
-<a href="adreqreply.php?nhsno='.$fetch['pt_nhsno'].'&pid='.$fetch["c_rfid"].'&request_type=Appointment Request" class="btn btn-info btn-sm">Chat</a>
+<a href="adreqreply.php?nhsno='.$fetch['pt_nhsno'].'&pid='.$fetch["c_rfid"].'&request_type=Appointment Request" class="btn btn-info btn-sm">View Refferer</a>
 </td>';
 if($fetch["c_status"]==0){
 echo '
@@ -832,6 +832,55 @@ if(isset($_POST["fekk"])){
     
 }
 
+// if(isset($_POST["accept"])){
+//     $id=$_POST["cid"];
+    
+//       $q=mysqli_query($con,"UPDATE tbl_consultantrefferels SET c_status='1' where c_id='$id'");
+//       if($q){
+//           echo "success";
+//       }else{
+//           echo "error";
+//       }
+    
+// }
+// if(isset($_POST["reject"])){
+//     $id=$_POST["cid"];
+    
+//       $q=mysqli_query($con,"UPDATE tbl_consultantrefferels SET c_status='0' where c_id='$id'");
+//       if($q){
+//           echo "success";
+//       }else{
+//           echo "error";
+//       }
+    
+// }
+
+if(isset($_POST["insertreason"])){
+    $id= $_POST['cid'];
+    $reason = $_POST['reason'];
+       $q=mysqli_query($con,"INSERT INTO `tbl_refferel_reasons`(`refferel_id`, `reason`,`status`) VALUES ('$id','$reason','accepted')");
+       if($q){
+            $q=mysqli_query($con,"UPDATE tbl_consultantrefferels SET c_status='1' where c_id='$id'");
+           echo "success";
+       }else{
+           echo "error";
+       }
+    
+}
+
+if(isset($_POST["rejectreason"])){
+    $id= $_POST['rcid'];
+    $reason = $_POST['rejreason'];
+       $q=mysqli_query($con,"INSERT INTO `tbl_refferel_reasons`(`refferel_id`, `reason`,`status`) VALUES ('$id','$reason','rejected')");
+       if($q){
+            $q=mysqli_query($con,"UPDATE tbl_consultantrefferels SET c_status='0' where c_id='$id'");
+           echo "success";
+       }else{
+           echo "error";
+       }
+    
+}
+
 //fetch Consultant data
 if(isset($_POST['consfetchupdate']))
 {
@@ -916,7 +965,7 @@ echo'<div class="card-aside-wrap">
 			<div class="card-inner">
 				<div class="user-card">
 					<div class="user-avatar bg-primary">
-					<img src="images/avatar/'.$fetch['image'].'">
+						<img src="images/avatar/'.$fetch['image'].'">
 					</div>
 					<div class="user-info">
 						<span class="lead-text">'.$fetch['ur_fname'].'</span>

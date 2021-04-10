@@ -1,3 +1,7 @@
+<?php
+include_once('../database/db.php');
+?>
+
 <div class="nk-sidebar nk-sidebar-fixed is-light " data-content="sidebarMenu"> 
                 <div class="nk-sidebar-element nk-sidebar-head">
                     <div class="nk-sidebar-brand" style="margin-left: -10px;">
@@ -17,7 +21,16 @@
                     <div class="nk-sidebar-content">
                         <div class="nk-sidebar-menu" data-simplebar>
                             <ul class="nk-menu">
-                           
+                           <?php
+                           $id = $_SESSION['a_id'];
+								$sql = mysqli_query($con,"SELECT * FROM admin WHERE id = '$id'");
+								$fetch = mysqli_fetch_array($sql);
+								$orgid = $fetch['organization'];
+								$sql1 = mysqli_query($con,"SELECT * FROM orginzation WHERE orid = '$orgid'");
+								$fetch1 = mysqli_fetch_array($sql1);
+								$ortype = $fetch1['or_type'];
+                           ?>
+                          
 								<!-- .nk-menu-item -->
                                 <li class="nk-menu-heading">
                                     <h6 class="overline-title text-primary-alt">Dashboards</h6>
@@ -32,39 +45,23 @@
                                 <li class="nk-menu-heading">
                                     <h6 class="overline-title text-primary-alt">Applications</h6>
                                 </li>
+                             <?php
+                           if($ortype == "NHS Hospital")
+                           {
+                           ?>
 								<li class="nk-menu-item">
 								  <a href="createserdef.php" class="nk-menu-link">
                                         <span class="nk-menu-icon"><em class="icon ni ni-users"></em></span>
                                         <span class="nk-menu-text">Create Service Definer</span>
                                   </a>
 								</li>
-								<!-- <li class="nk-menu-item">
-								  <a href="creategprefferer.php" class="nk-menu-link">
-                                        <span class="nk-menu-icon"><em class="icon ni ni-users"></em></span>
-                                        <span class="nk-menu-text">Create GP Refferer</span>
-                                  </a>
-								</li> -->
-								<!--<li class="nk-menu-item">-->
-								<!--  <a href="createstaff.php" class="nk-menu-link">-->
-        <!--                                <span class="nk-menu-icon"><em class="icon ni ni-users-fill"></em></span>-->
-        <!--                                <span class="nk-menu-text">Create Staff</span>-->
-        <!--                          </a>-->
-								<!--</li>-->
 								<li class="nk-menu-item">
 									<a href="createrole.php" class="nk-menu-link">
                                         <span class="nk-menu-icon"><em class="icon ni ni-users-fill"></em></span>
                                         <span class="nk-menu-text">Create Role</span>
                                   </a>
 								</li>
-                               
-								<li class="nk-menu-item">
-								  <a href="patientshow.php" class="nk-menu-link">
-                                        <span class="nk-menu-icon"><em class="icon ni ni-users-fill"></em></span>
-                                        <span class="nk-menu-text">Patients</span>
-                                  </a>
-								</li>
-								<!-- .nk-menu-item -->
-                                <li class="nk-menu-item has-sub">
+								 <li class="nk-menu-item has-sub">
 									
                                     <a href="consultant.php" class="nk-menu-link">
                                         <span class="nk-menu-icon"><em class="icon ni ni-users-fill"></em></span>
@@ -72,6 +69,86 @@
                                     </a>
                                    
                                 </li>
+                                <li class="nk-menu-item">
+                                    <a href="service.php" class="nk-menu-link">
+                                        <span class="nk-menu-icon"><em class="icon ni ni-users-fill"></em></span>
+                                        <span class="nk-menu-text">Services</span>
+                                    </a>
+                                </li>
+                                <li class="nk-menu-item">
+									<a href="locations.php" class="nk-menu-link">
+                                        <span class="nk-menu-icon"><em class="icon ni ni-users-fill"></em></span>
+                                        <span class="nk-menu-text">Locations</span>
+                                  </a>
+								</li>
+								<li class="nk-menu-item">
+									<a href="servicerefferels.php" class="nk-menu-link">
+										<span class="nk-menu-icon"><em class="icon ni ni-swap"></em></span>
+										<span class="nk-menu-text">Service Refferels</span>
+									</a>
+								</li>
+                                <?php
+                           }
+                           elseif($ortype == "GP Practice" || $ortype == "Opticians" || $ortype == "Dental Practice" || $ortype == "Community Hospital")
+                           {
+                                ?>
+								<li class="nk-menu-item has-sub">
+								  <a href="#" class="nk-menu-link nk-menu-toggle">
+                                        <span class="nk-menu-icon"><em class="icon ni ni-users-fill"></em></span>
+                                        <span class="nk-menu-text">Patients</span>
+                                  </a>
+                                  <ul class="nk-menu-sub">
+                                        <li class="nk-menu-item">
+                                            <a href="patientshow.php" class="nk-menu-link"><span class="nk-menu-text">Patients List</span></a>
+                                        </li>
+                                    
+                                        <li class="nk-menu-item">
+                                            <a href="serviceappointment.php" class="nk-menu-link"><span class="nk-menu-text">Service Appointments</span></a>
+                                        </li>
+										<li class="nk-menu-item">
+                                            <a href="patientappointment.php" class="nk-menu-link"><span class="nk-menu-text">Patient Appointments</span></a>
+                                        </li>
+                                       
+                                    </ul><!-- .nk-menu-sub -->
+								</li>
+								<li class="nk-menu-item">
+									<a href="createrole.php" class="nk-menu-link">
+                                        <span class="nk-menu-icon"><em class="icon ni ni-users-fill"></em></span>
+                                        <span class="nk-menu-text">Create Role</span>
+                                  </a>
+								</li>
+								<li class="nk-menu-item has-sub">
+									
+                                    <a href="consultant.php" class="nk-menu-link">
+                                        <span class="nk-menu-icon"><em class="icon ni ni-users-fill"></em></span>
+                                        <span class="nk-menu-text">Organisation Management</span>
+                                    </a>
+                                   
+                                </li>
+                                <!--<li class="nk-menu-item">-->
+                                <!--<a href="Appointment.php" class="nk-menu-link">-->
+                                <!--<span class="nk-menu-icon"><em class="icon ni ni-users-fill"></em></span>-->
+                                <!--        <span class="nk-menu-text">Appointment</span>-->
+                                <!--</a>-->
+                                <!--</li>-->
+								<li class="nk-menu-item">
+									<a href="e-refferelservice.php" class="nk-menu-link">
+										<span class="nk-menu-icon"><em class="icon ni ni-users-fill"></em></span>
+                                        <span class="nk-menu-text">E-Refferel Service</span>
+									</a>
+								</li>
+								<li class="nk-menu-item">
+									<a href="refferels.php" class="nk-menu-link">
+									<span class="nk-menu-icon"><em class="icon ni ni-swap"></em></span>
+										<span class="nk-menu-text">Refferels</span>
+									</a>
+									</li>
+                                <?php
+                           }
+                                ?>
+							
+								<!-- .nk-menu-item -->
+                               
 								<li class="nk-menu-item has-sub">
                                     <a href="#" class="nk-menu-link nk-menu-toggle">
                                         <span class="nk-menu-icon"><em class="icon ni ni-users-fill"></em></span>
@@ -100,12 +177,6 @@
 										<li class="nk-menu-item">
                                             <a href="#" class="nk-menu-link"><span class="nk-menu-text">General practitionals</span></a>
                                         </li>
-<!--
-                                        <li class="nk-menu-item">
-                                            <a href="user-profile.php" class="nk-menu-link"><span class="nk-menu-text">User Profile - Regular</span></a>
-                                        </li>
--->
-                                       
                                     </ul><!-- .nk-menu-sub -->
                                 </li>
 								<li class="nk-menu-item has-sub">
@@ -135,27 +206,23 @@
 										<li class="nk-menu-item">
                                             <a href="#" class="nk-menu-link"><span class="nk-menu-text">General practitionals</span></a>
                                         </li>
-<!--
-                                        <li class="nk-menu-item">
-                                            <a href="user-profile.php" class="nk-menu-link"><span class="nk-menu-text">User Profile - Regular</span></a>
-                                        </li>
--->
-                                       
                                     </ul><!-- .nk-menu-sub -->
-                                </li>
-								<!-- <li class="nk-menu-item">
-                                    <a href="privacypolicy.php" class="nk-menu-link">
-                                        <span class="nk-menu-icon"><em class="icon ni ni-article"></em></span>
-                                        <span class="nk-menu-text">Privacy Policy</span>
-                                    </a>
-                                </li> -->
-								
-                                <li class="nk-menu-item">
-                                    <a href="service.php" class="nk-menu-link">
-                                        <span class="nk-menu-icon"><em class="icon ni ni-users-fill"></em></span>
-                                        <span class="nk-menu-text">Services</span>
-                                    </a>
-                                </li>
+                              
+                                
+                                <!--  <li class="nk-menu-item">-->
+                                <!--    <a href="patientappointment.php" class="nk-menu-link">-->
+                                <!--        <span class="nk-menu-icon"><em class="icon ni ni-users-fill"></em></span>-->
+                                <!--        <span class="nk-menu-text">Patient Appointment</span>-->
+                                <!--    </a>-->
+                                <!--</li>-->
+                               
+                                <!-- <li class="nk-menu-item">-->
+                                <!--    <a href="serviceappointment.php" class="nk-menu-link">-->
+                                <!--        <span class="nk-menu-icon"><em class="icon ni ni-users-fill"></em></span>-->
+                                <!--        <span class="nk-menu-text">Service Appointment</span>-->
+                                <!--    </a>-->
+                                <!--</li>-->
+                                
 								<!-- .nk-menu-item -->
 <!--
                                 <li class="nk-menu-item has-sub">

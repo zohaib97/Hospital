@@ -58,6 +58,13 @@ include_once('connect.php');
 												</div>
 												<div class="col-md-6">
 													<div class="form-group">
+														<label class="col-form-label" for="saname">Sur Name</label>
+														
+														<input type="text" class="form-control form-control-lg" id="ssname" value="" placeholder="Enter Name" name="ssname">
+													</div>
+												</div>
+												<div class="col-md-6">
+													<div class="form-group">
 														<label class="col-form-label" for="saemail">Email</label>
 														<input type="email" class="form-control form-control-lg" id="saemail" value="" placeholder="Enter Email" name="saemail" required>
 													</div>

@@ -70,37 +70,54 @@ include_once('header.php');
                                         </div><!-- .nk-block-head-content -->
                                     </div><!-- .nk-block-between -->
                                 </div><!-- .nk-block-head -->
-                                <?php           
-                 $qe = mysqli_query($con, "SELECT COUNT(ur_id) AS number FROM tbl_ruser WHERE ur_role_id = '5' ");
+                                 <div class="nk-block">
+                                    <div class="row g-gs">
+                                <?php   
+                                
+                           $id = $_SESSION['a_id'];
+								$sql = mysqli_query($con,"SELECT * FROM admin WHERE id = '$id'");
+								$fetch = mysqli_fetch_array($sql);
+								$orgid = $fetch['organization'];
+								$sql1 = mysqli_query($con,"SELECT * FROM orginzation WHERE orid = '$orgid'");
+								$fetch1 = mysqli_fetch_array($sql1);
+								$ortype = $fetch1['or_type'];
+                           if($ortype == "NHS Hospital")
+                           {
+                               $qe = mysqli_query($con, "SELECT COUNT(c_id) AS number FROM tbl_consultantrefferels WHERE c_orgid = '$orgid' ");
+                        
+               
 
 
               $hos = mysqli_fetch_assoc($qe);
                 
             ?>
-                                <div class="nk-block">
-                                    <div class="row g-gs">
-                                        <div class="col-xxl-3 col-sm-6">
-                                            <div class="card">
-                                                <div class="nk-ecwg nk-ecwg6">
-                                                    <div class="card-inner">
-                                                        <div class="card-title-group">
-                                                            <div class="card-title">
-                                                                <h6 class="title">TOTAL GP REFFERS</h6>
-                                                            </div>
-                                                        </div>
-                                                        <div class="data">
-                                                            <div class="data-group">
-                                                                <div class="amount"><?php echo $hos['number']?></div>
-                                                                <div class="nk-ecwg6-ck">
-                                                                    <canvas class="ecommerce-line-chart-s3" id="todayOrders"></canvas>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div><!-- .card-inner -->
-                                                </div><!-- .nk-ecwg -->
-                                            </div><!-- .card -->
-                                        </div><!-- .col -->
-                                        <?php           
+                               
+                                        <!--<div class="col-xxl-3 col-sm-6">-->
+                                        <!--    <div class="card">-->
+                                        <!--        <div class="nk-ecwg nk-ecwg6">-->
+                                        <!--            <div class="card-inner">-->
+                                        <!--                <div class="card-title-group">-->
+                                        <!--                    <div class="card-title">-->
+                                        <!--                        <h6 class="title">TOTAL REFFERS</h6>-->
+                                        <!--                    </div>-->
+                                        <!--                </div>-->
+                                        <!--                <div class="data">-->
+                                        <!--                    <div class="data-group">-->
+                                        <!--                        <div class="amount"><?php echo $hos['number']?></div>-->
+                                        <!--                        <div class="nk-ecwg6-ck">-->
+                                        <!--                            <canvas class="ecommerce-line-chart-s3" id="todayOrders"></canvas>-->
+                                        <!--                        </div>-->
+                                        <!--                    </div>-->
+                                        <!--                </div>-->
+                                        <!--            </div><!-- .card-inner -->
+                                        <!--        </div><!-- .nk-ecwg -->
+                                        <!--    </div><!-- .card -->
+                                        <!--</div>-->
+                                        <!-- .col -->
+                                        <?php  
+                           }
+                           if($ortype != "NHS Hospital")
+                           {
                  $qe = mysqli_query($con, "SELECT COUNT(pt_id) AS num FROM tbl_patients");
 
 
@@ -130,7 +147,17 @@ include_once('header.php');
                                             </div><!-- .card -->
                                         </div><!-- .col -->
                                         <?php
-                                        $qe = mysqli_query($con, "SELECT COUNT(u_serid) AS number FROM tbl_service_definer ");
+                           }
+                                        $id = $_SESSION['a_id'];
+								$sql = mysqli_query($con,"SELECT * FROM admin WHERE id = '$id'");
+								$fetch = mysqli_fetch_array($sql);
+								$orgid = $fetch['organization'];
+								$sql1 = mysqli_query($con,"SELECT * FROM orginzation WHERE orid = '$orgid'");
+								$fetch1 = mysqli_fetch_array($sql1);
+								$ortype = $fetch1['or_type'];
+                           if($ortype == "NHS Hospital")
+                           {
+                                        $qe = mysqli_query($con, "SELECT COUNT(u_serid) AS number FROM tbl_service_definer WHERE u_orgid = '$orgid'");
                                         $usr = mysqli_fetch_assoc($qe);
                                          ?>
                                        <div class="col-xxl-3 col-sm-6">
@@ -155,7 +182,19 @@ include_once('header.php');
                                             </div><!-- .card -->
                                         </div><!-- .col -->
                                         <?php
-                                        $qe = mysqli_query($con, "SELECT COUNT(ur_id) AS number FROM tbl_ruser WHERE ur_role_id ='3'");
+                           }
+                                        $id = $_SESSION['a_id'];
+								$sql = mysqli_query($con,"SELECT * FROM admin WHERE id = '$id'");
+								$fetch = mysqli_fetch_array($sql);
+								$orgid = $fetch['organization'];
+								
+								$sql1 = mysqli_query($con,"SELECT * FROM orginzation WHERE orid = '$orgid'");
+								$fetch1 = mysqli_fetch_array($sql1);
+								$ortype = $fetch1['or_type'];
+								$orname = $fetch1['or_name'];
+                           if($ortype == "NHS Hospital")
+                           {
+                                        $qe = mysqli_query($con, "SELECT COUNT(ur_id) AS number FROM tbl_ruser WHERE ur_role_id ='3' and ur_orgtype = '$orgid'");
                                         $usr = mysqli_fetch_assoc($qe);
                                          ?>
                                         <div class="col-xxl-3 col-sm-6">
@@ -179,7 +218,47 @@ include_once('header.php');
                                                 </div><!-- .nk-ecwg -->
                                             </div><!-- .card -->
                                         </div><!-- .col -->
-                                       
+                                       <?php
+                           }
+                            $id = $_SESSION['a_id'];
+								$sql = mysqli_query($con,"SELECT * FROM admin WHERE id = '$id'");
+								$fetch = mysqli_fetch_array($sql);
+								$orgid = $fetch['organization'];
+								
+								$sql1 = mysqli_query($con,"SELECT * FROM orginzation WHERE orid = '$orgid'");
+								$fetch1 = mysqli_fetch_array($sql1);
+								$ortype = $fetch1['or_type'];
+								$orname = $fetch1['or_name'];
+                           if($ortype != "NHS Hospital")
+                           {
+                                $qe = mysqli_query($con, "SELECT COUNT(ur_id) AS number FROM tbl_ruser WHERE ur_role_id ='5' and ur_orgtype = '$orgid'");
+                                        $usr = mysqli_fetch_assoc($qe);
+                           
+                                       ?>
+                                       <div class="col-xxl-3 col-sm-6">
+                                            <div class="card">
+                                                <div class="nk-ecwg nk-ecwg6">
+                                                    <div class="card-inner">
+                                                        <div class="card-title-group">
+                                                            <div class="card-title">
+                                                                <h6 class="title">TOTAL GP REFFERS</h6>
+                                                            </div>
+                                                        </div>
+                                                        <div class="data">
+                                                            <div class="data-group">
+                                                                <div class="amount"><?php echo $usr['number']?></div>
+                                                                <div class="nk-ecwg6-ck">
+                                                                    <canvas class="ecommerce-line-chart-s3" id="todayOrders"></canvas>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div><!-- .card-inner -->
+                                                </div><!-- .nk-ecwg -->
+                                            </div><!-- .card -->
+                                        </div>
+                                        <?php
+                           }
+                                        ?><!-- .col -->
                                         <!-- <div class="col-xxl-8">
                                             <div class="card card-full">
                                                 <div class="card-inner">

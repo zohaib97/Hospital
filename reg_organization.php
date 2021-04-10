@@ -94,15 +94,17 @@ include_once('database/db.php');
                                        		<select  class="form-control form-control-sm select1" id="otype" name="otype" style=" height: 44px !important;"  required>
                                        		    <option value="">-Select Type-</option>
                                                         <?php
-                                                        $sql = mysqli_query($con,"SELECT * FROM orginzation");
+                                                        $sql = mysqli_query($con,"SELECT * FROM organisation_type");
                                                     if(mysqli_num_rows($sql)>0)
                                                     {
 
                                                     
-                                                        $fetc = mysqli_fetch_array($sql);
+                                                       while($fetc = mysqli_fetch_array($sql))
+                                                       {
                                                         ?>
-                                                        <option value="<?=$fetc['or_type']?>"><?=$fetc['or_type']?></option>
+                                                        <option value="<?=$fetc['ort_name']?>"><?=$fetc['ort_name']?></option>
                                                         <?php
+                                                       }
                                                     }
                                                         ?>
                                                         </select>
@@ -119,7 +121,7 @@ include_once('database/db.php');
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <label class="col-form-label" for="oaddress">Organisation Address</label>
+                                        <label class="col-form-label" for="oaddress">Organisation First Line Address</label>
                                         <input type="text" class="form-control form-control-sm " id="oaddress"
                                             placeholder="Enter Address" name="oaddress" autocomplete="off" required >
                                     </div>
@@ -133,7 +135,7 @@ include_once('database/db.php');
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <label class="col-form-label" for="ofaddress">Organisation First Line Address</label>
+                                        <label class="col-form-label" for="ofaddress">Organisation Second Line Address</label>
                                         <input type="text" class="form-control form-control-sm " id="ofaddress"
                                             placeholder="Enter First Address" name="ofaddress" autocomplete="off" required
                                             >
@@ -263,18 +265,18 @@ include_once('database/db.php');
             {
                
                 if(data == 'Error'){
-                   toastr.clear(); 
-               NioApp.Toast("<h5>Organisation Didn't Add Successfully</h5>", 'error',{position:'top-right'});
-                }else if (data == "alreadynhs"){
-					toastr.clear();
-               NioApp.Toast("<h5>Already Organisation Created</h5>", 'error',{position:'top-right'});
+                 
+         toastr.error("Organisation Didn't Add Successfully");
+                }else if (data == "already"){
+				
+               toastr.warning("Organisation Postcode Already Created");
 				}
 				else if(data == "sss")
 					{
 					$('#oradd')[0].reset();
-					toastr.clear();
-               NioApp.Toast("<h5>Organisation Added Successfully</h5>", 'success',{position:'top-right'});
-					
+				
+                toastr.success("Organisation Added Successfully");
+					    swal("Success!", "Organisation has been registered please wait for admin approvel.", "success"); 
                 }
 			
                 $('#oradd').css("opacity","");
@@ -285,7 +287,7 @@ include_once('database/db.php');
 
     });
     function clic(){
-    swal("Success!", "Organisation has been registered please wait for admin approvel.", "success"); 
+
 }
 	</script>
 

@@ -99,21 +99,22 @@ include_once('header.php');
 													<label class="col-form-label" for="pno">Organisation Contact</label>
 														<input type="text" class="form-control form-control-lg" id="orgphno" readonly placeholder="Organisation Phone No" name="orgphno" autocomplete="off" value="<?=$fetchsa["or_phone"]?>">
 													</div>
-													<div class="form-group col-lg-6">
-														<label class="col-form-label" for="pno">Organisation Address</label>
-														<input type="text" class="form-control form-control-lg" id="orgaddress" readonly placeholder="Organisation Address" name="orgaddress" autocomplete="off" value="<?=$fetchsa["or_address"]?>">
-													</div>
+													
 
 													<div class="form-group col-lg-6">
 														<label class="col-form-label" for="pno">Registration No</label>
-														<input type="text" class="form-control form-control-lg" id="proregno" placeholder="Professional Registration No" name="proregno" autocomplete="off">
+														<input type="text" class="form-control form-control-lg" id="proregno" placeholder="Professional Registration No" name="proregno" autocomplete="off" onchange="proregnocheck()">
 													</div>
 													<div class="form-group col-lg-6">
 														<label class="col-form-label" for="pno">Code</label>
 														<input type="text" class="form-control form-control-lg" id="orgcode" readonly placeholder="Organisation Code" name="orgcode" autocomplete="off" value="<?=$fetchsa["or_code"]?>">
 													</div>
 													<div class="form-group col-lg-6">
-														<label class="col-form-label" for="pno">First line Address</label>
+														<label class="col-form-label" for="pno">Organisation First Line Address</label>
+														<input type="text" class="form-control form-control-lg" id="orgaddress" readonly placeholder="Organisation Address" name="orgaddress" autocomplete="off" value="<?=$fetchsa["or_address"]?>">
+													</div>
+													<div class="form-group col-lg-6">
+														<label class="col-form-label" for="pno">Second line Address</label>
 														<input type="text" class="form-control form-control-lg" id="1staddress" readonly placeholder="1st Line Address" name="address" autocomplete="off" 
 														value="<?=$fetchsa["or_firstaddress"]?>">
 													</div>
@@ -139,12 +140,62 @@ include_once('header.php');
 															<select name="staff_role" id="role" class="form-control form-control-lg">
 																<option value="">-Select-</option>
 																<?php
-																$role = mysqli_query($con, "SELECT * FROM `tbl_role`");
+                           $id = $_SESSION['a_id'];
+								$sql = mysqli_query($con,"SELECT * FROM admin WHERE id = '$id'");
+								$fetch = mysqli_fetch_array($sql);
+								$orgid = $fetch['organization'];
+								$sql1 = mysqli_query($con,"SELECT * FROM orginzation WHERE orid = '$orgid'");
+								$fetch1 = mysqli_fetch_array($sql1);
+								$ortype = $fetch1['or_type'];
+								if($ortype == "NHS Hospital")
+								{
+								                                $role = mysqli_query($con, "SELECT * FROM `tbl_role` WHERE ro_role ='Consultant'");
 																while ($datarole = mysqli_fetch_assoc($role)) {
 																?>
 																	<option value="<?= $datarole['ro_id'] ?>"><?= $datarole['ro_role'] ?></option>
 																<?php
 																}
+								}
+								elseif($ortype == "GP Practice")
+								{
+								    $role = mysqli_query($con, "SELECT * FROM `tbl_role` WHERE ro_role ='General practitioner'");
+																while ($datarole = mysqli_fetch_assoc($role)) {
+								
+																?>
+																<option value="<?= $datarole['ro_id'] ?>"><?= $datarole['ro_role'] ?></option>
+																<?php
+																}
+								}
+								elseif($ortype == "Dental Practice")
+								{
+								    $role = mysqli_query($con, "SELECT * FROM `tbl_role` WHERE ro_role ='General practitioner'");
+																while ($datarole = mysqli_fetch_assoc($role)) {
+								
+																?>
+																<option value="<?= $datarole['ro_id'] ?>"><?= $datarole['ro_role'] ?></option>
+																<?php
+																}
+								}
+								elseif($ortype == "Community Hospital")
+								{
+								    $role = mysqli_query($con, "SELECT * FROM `tbl_role` WHERE ro_role ='General practitioner'");
+																while ($datarole = mysqli_fetch_assoc($role)) {
+								
+																?>
+																<option value="<?= $datarole['ro_id'] ?>"><?= $datarole['ro_role'] ?></option>
+																<?php
+																}
+								}
+								elseif($ortype == "Opticians")
+								{
+								    $role = mysqli_query($con, "SELECT * FROM `tbl_role` WHERE ro_role ='Optometrist'");
+																while ($datarole = mysqli_fetch_assoc($role)) {
+								
+																?>
+																<option value="<?= $datarole['ro_id'] ?>"><?= $datarole['ro_role'] ?></option>
+																<?php
+																}
+								}
 																?>
 															</select>
 														</div>
@@ -180,6 +231,28 @@ include_once('header.php');
 	<script src="assets/js/example-toastr.js?ver=2.2.0"></script>
 </body>
 <script>
+function proregnocheck()
+{
+   var no = $('#proregno').val();
+
+    $.ajax({
+		url:"phpcode.php",
+		type:"POST",
+		data:{proregno:no,proregcheck:"btn"},
+	
+		success:function(res){
+		 
+		    if(res == "already")
+		    {
+		       toastr.clear();
+                NioApp.Toast("<h5>Professional Registration No Already Exist</h5>", 'warning', {
+                    position: 'top-right'
+                });
+		        $('#proregno').val('');
+		    }
+		}
+	});
+}
 	function alsk(id) {
 		$.ajax({
 			url: "../php/phpcode.php",

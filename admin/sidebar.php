@@ -38,12 +38,12 @@
                                         <span class="nk-menu-text">Create Hospital</span>
                                   </a>
 								</li> -->
-								<li class="nk-menu-item">
-								<a href="createsubadmin.php" class="nk-menu-link">
-									<span class="nk-menu-icon"><em class="icon ni ni-article"></em></span>
-                                        <span class="nk-menu-text">Create Organisation Admin</span>
-									</a>
-								</li>
+								<!--<li class="nk-menu-item">-->
+								<!--<a href="createsubadmin.php" class="nk-menu-link">-->
+								<!--	<span class="nk-menu-icon"><em class="icon ni ni-article"></em></span>-->
+        <!--                                <span class="nk-menu-text">Create Organisation Admin</span>-->
+								<!--	</a>-->
+								<!--</li>-->
                                 <li class="nk-menu-item has-sub">
                                     <a href="#" class="nk-menu-link nk-menu-toggle">
                                         <span class="nk-menu-icon"><em class="icon ni ni-users-fill"></em></span>
@@ -51,16 +51,25 @@
                                     </a>
                                     <ul class="nk-menu-sub">
                                         <li class="nk-menu-item">
+                                            <a href="createsubadmin.php" class="nk-menu-link"><span class="nk-menu-text">Create Organisation Admin</span></a>
+                                        </li>
+                                        <li class="nk-menu-item">
                                             <a href="adminlist.php" class="nk-menu-link"><span class="nk-menu-text">Admin List</span></a>
                                         </li>
                                     
-                                        <!-- <li class="nk-menu-item">
-                                            <a href="hospitalslist.php" class="nk-menu-link"><span class="nk-menu-text">Hospitals List</span></a>
-                                        </li> -->
+                                         <li class="nk-menu-item">
+                                            <a href="orgtype.php" class="nk-menu-link"><span class="nk-menu-text">Create Organisation Type</span></a>
+                                        </li>
 										
-										<!-- <li class="nk-menu-item">
-                                            <a href="userlist.php" class="nk-menu-link"><span class="nk-menu-text">Users List</span></a>
-                                        </li> -->
+										<li class="nk-menu-item">
+                                            <a href="apptype.php" class="nk-menu-link"><span class="nk-menu-text">Create Appointment Type</span></a>
+                                        </li>
+                                        <li class="nk-menu-item">
+                                            <a href="apptypelist.php" class="nk-menu-link"><span class="nk-menu-text">Appointment Type list</span></a>
+                                        </li>
+										 <li class="nk-menu-item">
+                                            <a href="organisation_typelist.php" class="nk-menu-link"><span class="nk-menu-text">Organisation Type List</span></a>
+                                        </li>
 
                                         <li class="nk-menu-item">
                                             <a href="organizationlist.php" class="nk-menu-link"><span class="nk-menu-text">Organisation</span></a>

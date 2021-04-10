@@ -147,7 +147,7 @@ include_once('../database/db.php');
     });
 	}
 	$(document).ready(function(){
-		fetchrefferels();
+	fetchrefferels();
 	var workl=	$('#worklist').val();
 		if(workl == "Advice Sent")
 		{

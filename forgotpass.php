@@ -73,7 +73,7 @@
                         <form method="post" id="reset_pass">
                             <div class="row">
 							  <input type="hidden" name="rcode" value="<?=$_GET['code']?>">
-							  
+							  <input type="hidden" name="email" value="<?=$_GET['email']?>"> 
 							 
 							
 							
@@ -205,53 +205,53 @@
 </body>
 <script src="ajax-load/register_ajax.js"></script>
 <script>
-(function($) {
-                  $("#reset_pass").validate({
-                    submitHandler: function(form) {
-                      var form_btn = $(form).find('button[type="submit"]');
-                      var form_result_div = '#form-result';
-                      $(form_result_div).remove();
-                      form_btn.before('<div id="form-result" class="alert alert-success" role="alert" style="display: none;"></div>');
-                      var form_btn_old_msg = form_btn.html();
-//                      form_btn.html(form_btn.prop('disabled', true).data("loading-text"));
-                      $(form).ajaxSubmit({
-                        dataType:  'json',
-                        success: function(data) {
-                          if( data.status === 'true' ) {
-                            $(form).find('.form-control').val('');
-                          }
-                          form_btn.prop('disabled', false).html(form_btn_old_msg);
-                          $(form_result_div).html(data.message).fadeIn('slow');
-                          setTimeout(function(){ $(form_result_div).fadeOut('slow') }, 6000);
-                        }
-                      });
-                    }
-                  });
-                })(jQuery);
+// (function($) {
+//                   $("#reset_pass").validate({
+//                     submitHandler: function(form) {
+//                       var form_btn = $(form).find('button[type="submit"]');
+//                       var form_result_div = '#form-result';
+//                       $(form_result_div).remove();
+//                       form_btn.before('<div id="form-result" class="alert alert-success" role="alert" style="display: none;"></div>');
+//                       var form_btn_old_msg = form_btn.html();
+// //                      form_btn.html(form_btn.prop('disabled', true).data("loading-text"));
+//                       $(form).ajaxSubmit({
+//                         dataType:  'json',
+//                         success: function(data) {
+//                           if( data.status === 'true' ) {
+//                             $(form).find('.form-control').val('');
+//                           }
+//                           form_btn.prop('disabled', false).html(form_btn_old_msg);
+//                           $(form_result_div).html(data.message).fadeIn('slow');
+//                           setTimeout(function(){ $(form_result_div).fadeOut('slow') }, 6000);
+//                         }
+//                       });
+//                     }
+//                   });
+//                 })(jQuery);
 
-    (function($) {
-              $("#forgot_popup").validate({
-                submitHandler: function(form) {
-                  var form_btn = $(form).find('button[type="submit"]');
-                  var form_result_div = '#form-result';
-                  $(form_result_div).remove();
-                  form_btn.before('<div id="form-result" class="alert alert-success" role="alert" style="display: none;"></div>');
-                  var form_btn_old_msg = form_btn.html();
-//                  form_btn.html(form_btn.prop('disabled', true).data("loading-text"));
-                  $(form).ajaxSubmit({
-                    dataType:  'json',
-                    success: function(data) {
-                      if( data.status == 'true' ) {
-                        $(form).find('.form-control').val('');
-                      }
-                      form_btn.prop('disabled', false).html(form_btn_old_msg);
-                      $(form_result_div).html(data.message).fadeIn('slow');
-                      setTimeout(function(){ $(form_result_div).fadeOut('slow') }, 6000);
-                    }
-                  });
-                }
-              });
-            })(jQuery);
+//     (function($) {
+//               $("#forgot_popup").validate({
+//                 submitHandler: function(form) {
+//                   var form_btn = $(form).find('button[type="submit"]');
+//                   var form_result_div = '#form-result';
+//                   $(form_result_div).remove();
+//                   form_btn.before('<div id="form-result" class="alert alert-success" role="alert" style="display: none;"></div>');
+//                   var form_btn_old_msg = form_btn.html();
+// //                  form_btn.html(form_btn.prop('disabled', true).data("loading-text"));
+//                   $(form).ajaxSubmit({
+//                     dataType:  'json',
+//                     success: function(data) {
+//                       if( data.status == 'true' ) {
+//                         $(form).find('.form-control').val('');
+//                       }
+//                       form_btn.prop('disabled', false).html(form_btn_old_msg);
+//                       $(form_result_div).html(data.message).fadeIn('slow');
+//                       setTimeout(function(){ $(form_result_div).fadeOut('slow') }, 6000);
+//                     }
+//                   });
+//                 }
+//               });
+//             })(jQuery);
 </script>
 <script>
 		toastr.options = {
@@ -271,84 +271,84 @@
   "showMethod": "fadeIn",
   "hideMethod": "fadeOut"
 };
-	$("#login_popup").on("submit", function(e)
-					 {
-	e.preventDefault();
+// 	$("#login_popup").on("submit", function(e)
+// 					 {
+// 	e.preventDefault();
 	
-	var logemail = $('#u_em').val();
-	var logpass = $('#u_pass').val();
+// 	var logemail = $('#u_em').val();
+// 	var logpass = $('#u_pass').val();
 	
-	if(logemail != '' && logpass != ''){
+// 	if(logemail != '' && logpass != ''){
 		
-		var loginform = new FormData(this);
+// 		var loginform = new FormData(this);
 		
-		loginform.append("loginpage","btn");
+// 		loginform.append("loginpage","btn");
 		
-		$.ajax({ 
+// 		$.ajax({ 
 			
-			url: 'php/phpcode.php',
-			type: 'post',
-			data: loginform,
-			contentType: false,
-			processData: false,
-			success: function(data){
+// 			url: 'php/phpcode.php',
+// 			type: 'post',
+// 			data: loginform,
+// 			contentType: false,
+// 			processData: false,
+// 			success: function(data){
 				
-				if(data == "empasserr"){
-//					alert("Email Password Wrong!");
-					toastr.error("Email Password Wrong!");
-				}
-				else if(data == "apperror"){
-//					alert('You are not approved');
-					toastr.error("Please fill all fields!");
-				}
-				else if (data == "subadmin"){
-//					alert("Welcome");
-					window.location.href = "sub_admin/index.php";
-				}else if(data == "servicead"){
-					window.location.href = "service_definer/index.php";
-				}
-				else if(data == "gprefferer"){
-					window.location.href = "Gprefferer/index.php";
-				}
-				else if(data == "Optometrist"){
-				    	window.location.href = "Optometrist/index.php";
-				}
-				else if(data == "consultant"){
-					window.location.href = "Consultant/index.php";
-				}else if(data == "dentist"){
+// 				if(data == "empasserr"){
+// //					alert("Email Password Wrong!");
+// 					toastr.error("Email Password Wrong!");
+// 				}
+// 				else if(data == "apperror"){
+// //					alert('You are not approved');
+// 					toastr.error("Please fill all fields!");
+// 				}
+// 				else if (data == "subadmin"){
+// //					alert("Welcome");
+// 					window.location.href = "sub_admin/index.php";
+// 				}else if(data == "servicead"){
+// 					window.location.href = "service_definer/index.php";
+// 				}
+// 				else if(data == "gprefferer"){
+// 					window.location.href = "Gprefferer/index.php";
+// 				}
+// 				else if(data == "Optometrist"){
+// 				    	window.location.href = "Optometrist/index.php";
+// 				}
+// 				else if(data == "consultant"){
+// 					window.location.href = "Consultant/index.php";
+// 				}else if(data == "dentist"){
 				
-					window.location.href = "Dentist/index.php";
-				}
-				else if(data == "gpractional"){
+// 					window.location.href = "Dentist/index.php";
+// 				}
+// 				else if(data == "gpractional"){
 				
-					window.location.href = "General_Practitional/index.php";
-				}
-				else if(data == "cnurse"){
+// 					window.location.href = "General_Practitional/index.php";
+// 				}
+// 				else if(data == "cnurse"){
 				
-					window.location.href = "Community_nurse/index.php";
-				}else if(data == "gptuser"){
-					window.location.href = "Gprefferer/index.php";
-				}
-			    else if(data == "notsubmit"){
-						// alert("Please fill all fields!");
-		swal("Wrong", "Please insert correct information.", "warning");
+// 					window.location.href = "Community_nurse/index.php";
+// 				}else if(data == "gptuser"){
+// 					window.location.href = "Gprefferer/index.php";
+// 				}
+// 			    else if(data == "notsubmit"){
+// 						// alert("Please fill all fields!");
+// 		swal("Wrong", "Please insert correct information.", "warning");
 	
-				}
+// 				}
 
 				
-			}
+// 			}
 
-		});
+// 		});
 
-	}else{
-		// alert("Please fill all fields!");
-		toastr.error("Please fill all fields!");
-		document.getElementById("u_em").style.borderColor = "red";
-		document.getElementById("u_pass").style.borderColor = "red";
+// 	}else{
+// 		// alert("Please fill all fields!");
+// 		toastr.error("Please fill all fields!");
+// 		document.getElementById("u_em").style.borderColor = "red";
+// 		document.getElementById("u_pass").style.borderColor = "red";
 
-	} 
+// 	} 
 	
-}); 
+// }); 
 
 
 //  password hide show
@@ -376,13 +376,13 @@ if (input.attr("type") == "text") {
 </script>
 
 <!--for hide and show login modal-->
-<script>
-function clodelogmodal(){
-	$("#hidemodal").hide();
-}
-function showmodal(){
-	$("#hidemodal").show();
-}
-</script>
+<!--<script>-->
+<!--function clodelogmodal(){-->
+<!--	$("#hidemodal").hide();-->
+<!--}-->
+<!--function showmodal(){-->
+<!--	$("#hidemodal").show();-->
+<!--}-->
+<!--</script>-->
 
 </html>

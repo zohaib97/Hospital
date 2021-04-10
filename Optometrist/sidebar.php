@@ -1,4 +1,4 @@
-   <div class="nk-sidebar nk-sidebar-fixed is-light " data-content="sidebarMenu">
+   <div class="nk-sidebar nk-sidebar-fixed is-light " data-content="sidebarMenu"> 
                 <div class="nk-sidebar-element nk-sidebar-head">
                     <div class="nk-sidebar-brand" style="margin-left: -10px;">
                         <a href="index.html" class="logo-link nk-sidebar-logo">
@@ -32,77 +32,42 @@
                                 <li class="nk-menu-heading">
                                     <h6 class="overline-title text-primary-alt">Applications</h6>
                                 </li>
-								
-								<!--<li class="nk-menu-item">-->
-								<!--	<a href="refferels.php" class="nk-menu-link">-->
-								<!--		<span class="nk-menu-icon"><em class="icon ni ni-swap"></em></span>-->
-								<!--		<span class="nk-menu-text">Refferels</span>-->
-								<!--	</a>-->
-								<!--</li>-->
+<!--
+<!--								<li class="nk-menu-item">-->
+<!--								  <a href="createrefferel.php" class="nk-menu-link">-->
+<!--                                        <span class="nk-menu-icon"><em class="icon ni ni-users-fill"></em></span>-->
+<!--                                        <span class="nk-menu-text">Create Refferel</span>-->
+<!--                                  </a>-->
+<!--								</li>-->
+								<!-- <li class="nk-menu-item">
+								  <a href="createpatient.php" class="nk-menu-link">
+                                        <span class="nk-menu-icon"><em class="icon ni ni-users-fill"></em></span>
+                                        <span class="nk-menu-text">Create Patient</span>
+                                  </a>
+								</li> -->
 								<li class="nk-menu-item">
-									<a href="servicerefferels.php" class="nk-menu-link">
-										<span class="nk-menu-icon"><em class="icon ni ni-swap"></em></span>
-										<span class="nk-menu-text">Service Refferels</span>
+								  <a href="patientshow.php" class="nk-menu-link">
+                                        <span class="nk-menu-icon"><em class="icon ni ni-users-fill"></em></span>
+                                        <span class="nk-menu-text">Patients</span>
+                                  </a>
+								</li>
+                                <li class="nk-menu-item">
+                                <a href="Appointment.php" class="nk-menu-link">
+                                <span class="nk-menu-icon"><em class="icon ni ni-users-fill"></em></span>
+                                        <span class="nk-menu-text">Appointment</span>
+                                </a>
+                                </li>
+								<li class="nk-menu-item">
+									<a href="e-refferelservice.php" class="nk-menu-link">
+										<span class="nk-menu-icon"><em class="icon ni ni-users-fill"></em></span>
+                                        <span class="nk-menu-text">E-Refferel Service</span>
 									</a>
 								</li>
-														
-								<!-- .nk-menu-item -->
-<!--
-                                <li class="nk-menu-item has-sub">
-                                    <a href="#" class="nk-menu-link nk-menu-toggle">
-                                        <span class="nk-menu-icon"><em class="icon ni ni-table-view-fill"></em></span>
-                                        <span class="nk-menu-text">Tables</span>
-                                    </a>
-                                    <ul class="nk-menu-sub">
-                                     
-                                        <li class="nk-menu-item">
-                                            <a href="table-datatable.php" class="nk-menu-link"><span class="nk-menu-text">DataTables</span></a>
-                                        </li>
--->
-<!--                                    </ul> .nk-menu-sub -->
-<!--                                </li> .nk-menu-item -->
-<!--
-                                <li class="nk-menu-item has-sub">
-                                    <a href="#" class="nk-menu-link nk-menu-toggle">
-                                        <span class="nk-menu-icon"><em class="icon ni ni-view-group-fill"></em></span>
-                                        <span class="nk-menu-text">Forms</span>
-                                    </a>
-                                    <ul class="nk-menu-sub">
-                                        <li class="nk-menu-item">
-                                            <a href="form-validation.php" class="nk-menu-link"><span class="nk-menu-text">Form Validation</span></a>
-                                        </li>
-                                        <li class="nk-menu-item">
-                                            <a href="form-wizard.php" class="nk-menu-link"><span class="nk-menu-text">Wizard Basic</span></a>
-                                        </li>
-                                       
-                                    </ul> .nk-menu-sub 
-                                </li>
--->
-								<!-- .nk-menu-item -->
-<!--
-                                <li class="nk-menu-item">
-                                    <a href="toastr.html" class="nk-menu-link">
-                                        <span class="nk-menu-icon"><em class="icon ni ni-alert-circle-fill"></em></span>
-                                        <span class="nk-menu-text">Toastr</span>
-                                    </a>
-                                </li> .nk-menu-item 
--->
-<!--
-                                <li class="nk-menu-item">
-                                    <a href="sweet-alert.html" class="nk-menu-link">
-                                        <span class="nk-menu-icon"><em class="icon ni ni-caution-fill"></em></span>
-                                        <span class="nk-menu-text">Sweet Alert</span>
-                                    </a>
-                                </li> .nk-menu-item 
--->
-<!--
-                                <li class="nk-menu-item">
-                                    <a href="email-templates.html" class="nk-menu-link">
-                                        <span class="nk-menu-icon"><em class="icon ni ni-tag-alt-fill"></em></span>
-                                        <span class="nk-menu-text">Email Template</span>
-                                    </a>
-                                </li>
--->
+								<li class="nk-menu-item">
+									<a href="refferels.php" class="nk-menu-link">
+									<span class="nk-menu-icon"><em class="icon ni ni-swap"></em></span>
+										<span class="nk-menu-text">Refferels</span>
+									</a>
                             </ul><!-- .nk-menu -->
                         </div><!-- .nk-sidebar-menu -->
                     </div><!-- .nk-sidebar-content -->

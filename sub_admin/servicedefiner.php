@@ -99,8 +99,21 @@ include_once('headernav.php');
 						<label class="form-label" for="full-name-1"><sup class="text-danger">* </sup>Service Location</label>
 						<!-- <span class="nk-menu-icon ml-2"><a href="javascript:void(0)" onClick="openloc()"><em class="icon ni ni-plus"></em></a></span> -->
 						<div class="form-control-wrap">
-							<input name="ser_location" id="ser_location" class="form-control" value="<?=$fetchsa["or_address"]?>" readonly>
-								
+						
+								<select name="ser_location" id="ser_location" class="form-control" onchange="locationfetch()">
+								    <option>- Select -</option>
+								    <?php
+								    $sernameq1 = mysqli_query($con, "SELECT * FROM `org_locations`");
+	
+ while($datarole1 = mysqli_fetch_assoc($sernameq1)){
+ 	
+ 
+								    ?>
+								    <option value="<?=$datarole1['id']?>"><?=$datarole1['org_location']?></option>
+								    <?php
+ }
+								    ?>
+								    </select>
 						</div>
 					</div>
 				</div>
@@ -118,7 +131,7 @@ include_once('headernav.php');
 				<div class="col-lg-12">
 					<div class="form-group">
 						<label class="form-label" for="full-name-1">Appointment Type</label>
-						<span class="nk-menu-icon ml-2"><a href="javascript:void(0)" onClick="openmodal1()"><em class="icon ni ni-plus"></em></a></span>
+						<!--<span class="nk-menu-icon ml-2"><a href="javascript:void(0)" onClick="openmodal1()"><em class="icon ni ni-plus"></em></a></span>-->
 						<div class="form-control-wrap">
 							<select name="ser_apptype" id="ser_apptype" class="form-control">
 								<!-- phpcode.php -->
@@ -409,7 +422,7 @@ include_once('headernav.php');
 								<div class="form-group">
 									<label class="col-form-label" for="full-name-1">Post Code</label>
 									<div class="form-control-wrap">
-										<input type="text" class="form-control" id="ser_conpost" name="ser_conpost" readonly value="<?=$fetchsa["or_code"]?>" autocomplete="off">
+										<input type="text" class="form-control" id="ser_conpost" name="ser_conpost" readonly value="" autocomplete="off">
 									</div>
 								</div>
 							 </div>
@@ -571,9 +584,9 @@ include_once('headernav.php');
 							  <div class="col-lg-12">
 								 <strong><label for="" >Slot Reservation</label></strong>
 								  <div class="form-group">
-									<label class="col-form-label" for="full-name-1">Reservation Period</label>
+									<label class="col-form-label" for="full-name-1">Reservation Period (Days)</label>
 									<div class="form-control-wrap">
-									    <input type="time" class="form-control" name="po_resp" id="po_resp">
+									    <input type="text" class="form-control" name="po_resp" id="po_resp">
 									
 									</div>
 								</div> 		
@@ -812,6 +825,7 @@ include_once('footer.php');
 
 </html>
 <script>
+locationfetch
 // for fetch data from clinical type
 function fetchdataclin(){
 $.ajax({
@@ -823,6 +837,33 @@ $('#ser_cltype').html(response);
 }
 });
 };
+
+            function locationfetch(){
+              var loc =  $('#ser_location').val();
+$.ajax({
+url: 'phpcode.php',
+type: 'post',
+data: {locid:loc,locationfetch:"btn"},
+success: function(response){
+  
+$('#ser_conadd').html(response);
+}
+});
+};
+
+$('#ser_location').on('change',function(){
+    var loc =  $('#ser_location').val();
+$.ajax({
+url: 'phpcode.php',
+type: 'post',
+data: {locid:loc,locationfetch2:"btn"},
+success: function(response){
+   
+$('#ser_conpost').val(response);
+}
+});
+})
+
 $(document).ready(function(){
 fetchdataclin();
 });
@@ -1145,7 +1186,7 @@ var ser_instr = $('#ser_ins').val();
 //		});
 //			reqtype = reqtype.toString();		
 //		
-if(ser_name != '' && ser_cmnt != '' && ser_loc != '' && ser_spec != '' && ser_app != '' && ser_gen != '' && ser_dir != '' && ser_eff != '' && ser_eff2 != ''  && ser_ager != '' && ser_ager2 != '' && ser_care != '' && ser_clt != '' && ser_res != '' && ser_conna != '' && ser_conad != '' && ser_concoun != '' && ser_conpos != ''  && ser_hpcon != '' && ser_hpfax != '' && ser_hptext != '' && ser_hpem != '' && ser_patel != '' && ser_patel != '' && ser_poend != '' && ser_porec != '' && ser_podya != '' && ser_poapt != '' && ser_pores != '' && ser_instr != ''){
+if(ser_name != '' && ser_loc != '' && ser_spec != '' && ser_app != '' && ser_gen != '' && ser_dir != '' && ser_eff != '' && ser_ager != '' && ser_care != '' && ser_clt != '' && ser_conna != '' && ser_conad != '' && ser_concoun != '' && ser_conpos != '' && ser_hpem != '' && ser_patel != ''){
 
 var formdata = new FormData(this);
 formdata.append("servicadd","btn");

@@ -167,7 +167,7 @@ include_once('../database/db.php');
 											<div class="col-md-2">
 											<input style="border-color: #000000" class="form-control" type="number" id="nhs2"
 											 oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
-												   maxlength="3" required onkeyup="moveOnMax(this,'nhs3')">
+												   maxlength="3" required onkeyup="moveOnMax(this,'nhs3')" >
 											</div>
 									<div class="col-md-2">
 											<input style="border-color: #000000" class="form-control" type="number" max="3" id="nhs3"
@@ -187,8 +187,8 @@ include_once('../database/db.php');
 
 
 								</div>
-							
-								<div class="mb-4" id="tabItem6">
+							<br>
+								<div class="mb-4 text-center" id="tabItem6" style="color:red;">
 							
 							
 								</div>
@@ -199,11 +199,19 @@ include_once('../database/db.php');
 								<div class="mt-5" id="tabItem8">
 									<form method="post" id="attach" style="display: none;">
 								 <div class="row">
-								 <div class="col-md-4">
-									 <input type="text" name="rid" id="refferelid" hidden="true" value="">
-									 <label for="consultant">Organisation</label>
-									  <select class="form-control" name="organisation" id="organisation" onchange="fetchconsultant()">
-									  <option>Select</option>
+								     <?php
+								      $em = $_SESSION['gprefferer'];
+										  $q1 = mysqli_query($con,"SELECT * FROM `tbl_ruser` WHERE ur_email = '$em'");
+										  $fetchorg = mysqli_fetch_array($q1);
+										  $orgid = $fetchorg['ur_orgtype'];
+								     
+								     ?>
+								     <input type="text" name="organisation" id="organisation1" value="<?=$orgid?>" hidden="true">
+								 <!--<div class="col-md-4">-->
+									<!-- <input type="text" name="rid" id="refferelid" hidden="true" value="">-->
+									<!-- <label for="consultant">Organisation</label>-->
+									<!--  <select class="form-control" name="organisation" id="organisation" onchange="fetchconsultant()">-->
+									<!--  <option>Select</option>-->
 										  <?php
 									 $q = mysqli_query($con,"SELECT * FROM `orginzation`");
 									 if(mysqli_num_rows($q)>0)
@@ -211,19 +219,34 @@ include_once('../database/db.php');
 										 while($fe = mysqli_fetch_array($q))
 										 {
 									 ?>
-								 <option value="<?=$fe['orid']?>"><?=$fe['or_name']?></option>
+								 <!--<option value="<?=$fe['orid']?>"><?=$fe['or_name']?></option>-->
 										  <?php
 										 }
 									 }
 										  ?>
-								 </select>
-									 </div>
+								 <!--</select>-->
+									<!-- </div>-->
 								 <div class="col-md-4">
 									 <!--<input type="text" name="rid" id="refferelid" hidden="true" value="">-->
 									 <label for="consultant">Consultant</label>
-									  <select class="form-control" name="consultant" id="consultant" disabled onchange="showproceed()">
+									  <select class="form-control" name="consultant" id="consultant" onchange="showproceed()">
 									  <option>Select</option>
-										  
+										  <?php
+										  $em = $_SESSION['gprefferer'];
+										  $q1 = mysqli_query($con,"SELECT * FROM `tbl_ruser` WHERE ur_email = '$em'");
+										  $fetchorg = mysqli_fetch_array($q1);
+										  $orgid = $fetchorg['ur_orgtype'];
+									 $q = mysqli_query($con,"SELECT * FROM `tbl_ruser` WHERE ur_role_id = '3'");
+									 if(mysqli_num_rows($q)>0)
+									 {
+										 while($fe = mysqli_fetch_array($q))
+										 {
+									 ?>
+								 <option value="<?=$fe['ur_id']?>"><?=$fe['ur_fname']?></option>
+										  <?php
+										 }
+									 }
+										  ?>
 								 </select>
 									 </div>
 									 
@@ -505,6 +528,9 @@ function getclint(vals){
         }
     })
 }
+
+
+
 	$(document).ready(function() {
     $('#ref_namecl').select2();
     $('#ref_spec').select2();
@@ -532,6 +558,17 @@ function getclint(vals){
 		else{
 			$('#attach').hide();
 		}
+	var orgid =	$('#serorgid').val();
+		$.ajax({
+        url:"phpcode.php",
+        type:"POST",
+        data:{val:orgid,fetorg:"btn"},
+        success:function(res){
+            
+            $("#consultant").html(res);
+             $('#consultant').select2();
+        }
+    })
 	}
 	function showsearch() {	
 		var nhs1 = $('#nhs1').val();
@@ -543,9 +580,7 @@ function getclint(vals){
 				 $('#nhs3').val('');
 			}
 		else{
-			$('#nhs1').prop('readonly', true);
-			$('#nhs2').prop('readonly', true);
-			$('#nhs3').prop('readonly', true);
+			
 		var nhs3 = $('#nhs3').val();
 		var total = nhs1+nhs2+nhs3;
 	
@@ -557,24 +592,17 @@ function getclint(vals){
 	function showmyref() {		
         $('#modalname').modal('show');
     };
-	function reset() {		
-       $('#nhs1').val('');
-	$('#nhs2').val('');
-	$('#nhs3').val('');
-		$('#nhs1').prop('readonly', false);
-			$('#nhs2').prop('readonly', false);
-			$('#nhs3').prop('readonly', false);
-    };
+
 	function showpatient(nhs) {		
       $.ajax({    
         type: "POST",
         url: "phpcode.php", 
 		data:{nhs:nhs,patientfetch:"btn"},	            
         success: function(response){ 
-			if(response == 'No Data Found')
+			if(response == 'There is no patient matching criteria')
 				{
 					 toastr.clear();
-               NioApp.Toast("<h5>No Data found</h5>", 'error',{position:'top-right'});
+               NioApp.Toast("<h5>There is no patient matching criteria</h5>", 'error',{position:'top-right'});
 				}
 	document.getElementById('tabItem6').innerHTML=response;
 			
@@ -641,6 +669,7 @@ function getclint(vals){
 		
 		$("#attach").on('submit', function(e){
 		e.preventDefault();
+	
 		if(  $("#patientgender").val()== "Mr" && $("#servicegender").val() == "Female"){
 		    NioApp.Toast("<h5>This Service Only Available For Female</h5>", 'warning',{position:'top-right'});
 		}
@@ -651,14 +680,15 @@ function getclint(vals){
 		var ptage =$('#ptage').val();
 	var servage2 = $('#servage2').val();
 	var servage =$('#servage').val();
-	
-		if(ptage > servage2 || ptage < servage)
+
+		if(ptage < servage || ptage > servage2)
 					{
+					  
 						NioApp.Toast("<h5>Your Age doesn't match to service age range</h5>", 'warning',{position:'top-right'});
 					}
 		else{
 		    	if(  $("#patientgender").val()== "Mr" && $("#servicegender").val() == "Male"){
-					
+		    	    
 		var reqtype = $('#ref_reqt').val();
 		var coid = $('#consultant').val();
 		var pid = $("input:radio[name='check']:checked").val();
@@ -699,7 +729,6 @@ function getclint(vals){
 //			
 					}
 				});
-			
 		    	}
 		    	if(($("#patientgender").val()== "Ms" && $("#servicegender").val()== "Female") || ($("#patientgender").val()== "Mrs" && $("#servicegender").val()== "Female")){
 		    		var reqtype = $('#ref_reqt').val();
@@ -743,6 +772,48 @@ function getclint(vals){
 					}
 				});
 		    	    
+		    	}
+	if(  $("#servicegender").val() == "Male & Female"){
+		var reqtype = $('#ref_reqt').val();
+		var coid = $('#consultant').val();
+		var pid = $("input:radio[name='check']:checked").val();
+			var refform = new FormData(this);
+			refform.append("check",$("input:radio[name='check']:checked").val());
+			refform.append("checkw",$("input:radio[name='checkw']:checked").val());
+			refform.append("addservicerefferel","btn");
+			refform.append("reqtype",reqtype);
+			
+			$.ajax({
+				url: 'phpcode.php',
+				type: 'post',
+				data: refform,
+				contentType: false,
+				processData: false,
+				dataType:"JSON",
+				success: function(data){
+					console.log(data);
+//	document.getElementById('tabItem7').innerHTML=data;
+//						
+
+				if(data["res"] == "success")
+					{
+						toastr.clear();
+               NioApp.Toast("<h5>Data Added Successfully</h5>", 'success',{position:'top-right'});
+						window.location.href = "adcmnt.php?c_id="+data["c_id"]+"&coid="+coid+"&pid="+pid+"";
+					}
+					else if(data["res"] == "Error")
+						{
+							toastr.clear();
+               NioApp.Toast("<h5>Data Didn't Add Successfully</h5>", 'error',{position:'top-right'});
+						}
+						else if(data["res"] == "Already")
+						{
+							toastr.clear();
+               NioApp.Toast("<h5>Refferel Already Created</h5>", 'warning',{position:'top-right'});
+						}
+//			
+					}
+				});
 		    	}
 		}
 			});
@@ -851,9 +922,7 @@ $('#dob').change(function(){
 				 $('#dob').val('');
 			}
 		else{
-			$('#nm').prop('readonly', true);
-			$('#em').prop('readonly', true);
-			$('#dob').prop('readonly', true);
+		
 
           
 
@@ -881,6 +950,8 @@ $('#dob').change(function(){
 			$('#nhs1').prop('readonly', false);
 			$('#nhs2').prop('readonly', false);
 			$('#nhs3').prop('readonly', false);
+			document.getElementById('tabItem7').innerHTML='';
+			document.getElementById('tabItem6').innerHTML='';
     };
 
     
@@ -896,10 +967,10 @@ $('#dob').change(function(){
 		data:{dob:dob,em:em,nm:nm,searchpatienta:"btn"},	            
         success: function(response){ 
             
-			if(response == 'No Data Found')
+			if(response == 'There is no patient matching criteria')
 				{
 					 toastr.clear();
-               NioApp.Toast("<h5>No Data found</h5>", 'error',{position:'top-right'});
+               NioApp.Toast("<h5>There is no patient matching criteria</h5>", 'error',{position:'top-right'});
 				}
 			document.getElementById('tabItem6').innerHTML=response;
 			
@@ -937,11 +1008,11 @@ function fetchconsultant()
 
 $(function () {
 
-// INITIALIZE DATEPICKER PLUGIN
-$('.datepicker').datepicker({
-	clearBtn: true,
-	format: "mm/dd/yyyy"
-});
+ // INITIALIZE DATEPICKER PLUGIN
+    $('.datepicker').datepicker({
+        clearBtn: true,
+        format: 'dd-mm-yyyy'
+    });
 
 
 // FOR DEMO PURPOSE

@@ -92,6 +92,12 @@ include_once('connect.php');
                                         <input type="text" class="form-control form-control-lg" id="phone-no" value="" placeholder="Phone Number" name="contact">
                                     </div>
                                 </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label class="form-label" for="image">Profile Image</label>
+                                        <input type="file" class="form-control form-control-lg" id="image" name="image">
+                                    </div>
+                                </div>
                                 
 <!--
                                 <div class="col-12">

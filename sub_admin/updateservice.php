@@ -67,8 +67,10 @@ $fetch = mysqli_fetch_array($query);
 						<label class="form-label" for="full-name-1">Request Type Support</label>
 						<div class="form-control-wrap">
 							<div class="row mt-2">
+							    
                             <?php
-                            if($fetch['service_r_t_support']=="Appointment Request,")
+                            $a= explode(",",$fetch['service_r_t_support']);
+                            if(in_array("Appointment Request",$a))
                             {
                             ?>
 								<div class="col-lg-4 col-4">
@@ -83,7 +85,7 @@ $fetch = mysqli_fetch_array($query);
 								</div>
                                 <?php
                             }
-                            if($fetch['service_r_t_support']=="Advice Request,")
+                            if(in_array("Advice Request",$a))
                             {
                                 ?>
 								<div class="col-lg-4 col-4">
@@ -97,7 +99,7 @@ $fetch = mysqli_fetch_array($query);
 								</div>
                                 <?php
                             }
-                            if($fetch['service_r_t_support']=="Triage Request,")
+                            if(in_array("Triage Request",$a))
                             {
                                 ?>
 								<div class="col-lg-4 col-4">	
@@ -793,9 +795,9 @@ $fetch = mysqli_fetch_array($query);
 							  <div class="col-lg-12">
 								 <strong><label for="" >Slot Reservation</label></strong>
 								  <div class="form-group">
-									<label class="col-form-label" for="full-name-1">Reservation Period</label>
+									<label class="col-form-label" for="full-name-1">Reservation Period (Days)</label>
 									<div class="form-control-wrap">
-									    <input type="time" class="form-control" name="po_resp" id="po_resp" value="<?=$fetch['sm_reserperiod']?>">
+									    <input type="text" class="form-control" name="po_resp" id="po_resp" value="<?=$fetch['sm_reserperiod']?>">
 									
 									</div>
 								</div> 		
@@ -1547,7 +1549,7 @@ var ser_instr = $('#ser_ins').val();
 //		});
 //			reqtype = reqtype.toString();		
 //		
-if(ser_name != '' && ser_cmnt != '' && ser_loc != '' && ser_spec != '' && ser_app != '' && ser_gen != '' && ser_dir != '' && ser_eff != '' && ser_eff2 != ''  && ser_ager != '' && ser_ager2 != '' && ser_care != '' && ser_clt != '' && ser_res != '' && ser_conna != '' && ser_conad != '' && ser_concoun != '' && ser_conpos != ''  && ser_hpcon != '' && ser_hpfax != '' && ser_hptext != '' && ser_hpem != '' && ser_patel != '' && ser_patel != '' && ser_poend != '' && ser_porec != '' && ser_podya != '' && ser_poapt != '' && ser_pores != '' && ser_instr != ''){
+if(ser_name != '' && ser_loc != '' && ser_spec != '' && ser_app != '' && ser_gen != '' && ser_dir != '' && ser_eff != ''  && ser_ager != '' && ser_care != '' && ser_clt != '' && ser_conna != '' && ser_conad != '' && ser_concoun != '' && ser_conpos != '' && ser_hpem != '' && ser_patel != ''){
 
 var formdata = new FormData(this);
 formdata.append("servicupdate","btn");

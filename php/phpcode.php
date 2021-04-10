@@ -30,8 +30,12 @@ if(isset($_POST['registeruser']))
 	$orgcode = test_input(mysqli_real_escape_string($con, $_POST['orgcode']));	
 	$address = test_input(mysqli_real_escape_string($con, $_POST['address']));	
 	$city = test_input(mysqli_real_escape_string($con, $_POST['city']));	
-	$postcode = test_input(mysqli_real_escape_string($con, $_POST['postcode']));	
+	$postcode = test_input(mysqli_real_escape_string($con, $_POST['postcode']));
 	
+	$orgsql = mysqli_query($con,"SELECT * FROM orginzation WHERE orid = '$orgname' and or_type = '$orgtype'");
+	$fetchorg = mysqli_fetch_array($orgsql);
+	$orgname1 = $fetchorg['or_name'];
+	$orgtype1 = $fetchorg['orid'];
 	// email check
 	$check = "SELECT * FROM `tbl_ruser` WHERE `ur_email` = '$email'";
 	$emq = mysqli_query($con,$check);
@@ -59,7 +63,7 @@ if(isset($_POST['registeruser']))
 //			INSERT INTO `tbl_user`(`staff_fname`, `staff_sname`, `staff_email`, `staff_pass`, `staff_contact`, `staff_org`, `tbl_role`, `staff_hospitalid`, `u_NHS_no`) VALUES ('$nfame','$nsame','$email','$pass','$phn','$org','$urole','$hid','$nhs_num')
 			
 	$ins = "INSERT INTO `tbl_ruser`(`ur_fname`, `ur_sname`, `ur_email`, `ur_pass`, `title`, `ur_orgname`,`ur_orgcode`,`ur_orgtype`, `ur_role_id`, `ur_role_name`, `ur_orgphno`,`ur_orgaddress`, `ur_status`,`ur_proregno`,`ur_address`,`ur_city`,`ur_postcode`) 
-	VALUES ('$nfame','$nsame','$email','$pass','$title','$orgname','$orgcode','$orgtype','$urole','$rname','$orgphno','$orgaddress','not_approve','$proregno','$address','$city','$postcode')";
+	VALUES ('$nfame','$nsame','$email','$pass','$title','$orgname1','$orgcode','$orgtype1','$urole','$rname','$orgphno','$orgaddress','not_approve','$proregno','$address','$city','$postcode')";
 						
 	$q = mysqli_query($con,$ins);
 			
@@ -82,6 +86,7 @@ if(isset($_POST['registeruser']))
 		}
 	
   }
+	
 }
 
 // for login
@@ -94,22 +99,44 @@ if(isset($_POST['loginpage']))
 	$check = "SELECT * FROM `admin` WHERE `email` = '$lemail' and `password` = '$lpass' and `super_admin` = '0'";
 	$q = mysqli_query($con, $check);
 	$datacheck = mysqli_fetch_assoc($q);
+	$orgid = $datacheck['organization'];
+	$sql0 = mysqli_query($con,"SELECT * FROM `orginzation` WHERE orid = '$orgid'");
+	$orgfetch = mysqli_fetch_array($sql0);
+	
 	$nl = mysqli_num_rows($q);
 		
 	if($nl>0){
 		
 		if($datacheck['status'] == "approve"){
 			
+			if($orgfetch['or_type'] == "NHS Hospital")
+			{
+			    
+			
 				$_SESSION['superadmin'] = $lemail;
 				$_SESSION['a_name'] = $datacheck['name'];
 				$_SESSION['a_id'] = $datacheck['id'];
 				$onid = $_SESSION['a_id'];
-
+$_SESSION['consultant'] = $lemail;
 				$onq = mysqli_query($con, "UPDATE `admin` SET `on/off`= 'on' WHERE `id` = '$onid'");
 
 				echo"subadmin";
 //				header('location: ../index.php');
+			}
+			if($orgfetch['or_type'] != "NHS Hospital")
+			{
+			    
 			
+				$_SESSION['superadmin'] = $lemail;
+				$_SESSION['a_name'] = $datacheck['name'];
+				$_SESSION['a_id'] = $datacheck['id'];
+				$onid = $_SESSION['a_id'];
+$_SESSION['gprefferer'] = $lemail;
+				$onq = mysqli_query($con, "UPDATE `admin` SET `on/off`= 'on' WHERE `id` = '$onid'");
+
+				echo"subadmin";
+//				header('location: ../index.php');
+			}
 		}else{
 			
 			echo"apperror";
@@ -149,7 +176,7 @@ if(isset($_POST['loginpage']))
 				if($nu1>0)
 				{
 				    if($fenu1["ur_status"]=="approve"){
-					$_SESSION['consultant'] = $lemail;
+					$_SESSION['gprefferer'] = $lemail;
 					echo "Optometrist";
 				    }else{
 			        echo "not approve";
@@ -286,7 +313,7 @@ if(isset($_POST['passmailsend']))
 	$message .= "<h2>Forgot Password Link</h2> <br>
 				Hi, <strong class='font-weight-bold text-dark'>$name,</strong> 
 				Please click the given link to reset your password! <br>
-				http://hospital.extremeearn.com/forgotpass.php?code=$code";
+				http://hospital.extremeearn.com/forgotpass.php?code=$code&email=$passemail";
 	$message .= '</body></html>';
 	$headers = 'From: info@deevloopers.com' . "\r\n" .
 		'Reply-To: info@deevloopers.com' . "\r\n" .
@@ -315,10 +342,10 @@ if(isset($_POST['resetpass']))
 {
 	
 	if(isset($_POST['rcode'])){
-		
+		$email=$_POST["email"];
 		$rcode = $_POST['rcode'];
 		
-		$checkcode = mysqli_query($con, "SELECT * FROM `tbl_ruser` WHERE `code` = '$rcode'");
+		$checkcode = mysqli_query($con, "SELECT * FROM `tbl_ruser` WHERE `code` = '$rcode' and ur_email ='$email'");
 		$roc = mysqli_num_rows($checkcode);
 		if($roc>0){
 			$rpass = test_input(mysqli_real_escape_string($con, $_POST['r_pass']));
@@ -402,16 +429,97 @@ if(isset($_POST["fetchorgdata"]))
 	echo json_encode($row);
 
 }
+
+if(isset($_POST["fetchorgname"]))
+{
+	$name=$_POST["name"];
+	$js=mysqli_query($con,"SELECT * FROM `orginzation` where or_type='$name'");
+	echo'<option value="">select</option>';
+	while($row=mysqli_fetch_array($js))
+	{
+	    echo'
+	    <option value="'.$row['orid'].'">'.$row["or_name"].'</option>';
+	}
+
+
+
+}
+
+if(isset($_POST["fetchrole"]))
+{
+	$name= $_POST["org"];
+	if($name == "NHS Hospital")
+	{
+	$js=mysqli_query($con,"SELECT * FROM `tbl_role` where ro_role='Consultant'");
+	echo'<option value="">select</option>';
+	while($row=mysqli_fetch_array($js))
+	{
+	    echo'
+	    <option value="'.$row['ro_id'].'">'.$row["ro_role"].'</option>';
+	}
+	}
+	elseif($name == "GP Practice")
+	{
+	    $js=mysqli_query($con,"SELECT * FROM `tbl_role` where ro_role='General practitioner'");
+	echo'<option value="">select</option>';
+	while($row=mysqli_fetch_array($js))
+	{
+	    echo'
+	    <option value="'.$row['ro_id'].'">'.$row["ro_role"].'</option>';
+	}
+	}
+	elseif($name == "Opticians")
+	{
+	     $js=mysqli_query($con,"SELECT * FROM `tbl_role` where ro_role='General practitioner'");
+	echo'<option value="">select</option>';
+	while($row=mysqli_fetch_array($js))
+	{
+	    echo'
+	    <option value="'.$row['ro_id'].'">'.$row["ro_role"].'</option>';
+	}
+	}
+	elseif($name == "Dental Practice")
+	{
+	    $js=mysqli_query($con,"SELECT * FROM `tbl_role` where ro_role='General practitioner'");
+	echo'<option value="">select</option>';
+	while($row=mysqli_fetch_array($js))
+	{
+	    echo'
+	    <option value="'.$row['ro_id'].'">'.$row["ro_role"].'</option>';
+	}
+	}
+	elseif($name == "Community Hospital")
+	{
+	    $js=mysqli_query($con,"SELECT * FROM `tbl_role` where ro_role='General practitioner'");
+	echo'<option value="">select</option>';
+	while($row=mysqli_fetch_array($js))
+	{
+	    echo'
+	    <option value="'.$row['ro_id'].'">'.$row["ro_role"].'</option>';
+	}
+	}
+
+
+
+}
+
 if(isset($_POST["addorginaztion"]))
 {
 	extract($_POST);
-	
+	$select = mysqli_query($con,"SELECT * FROM orginzation WHERE or_postcode = '$opost'");
+	if(mysqli_num_rows($select) > 0)
+	{
+	    echo"already";
+	}
+	else
+	{
 	$jjjs=mysqli_query($con,"INSERT INTO `orginzation`(`or_type`, `or_name`, `or_phone`, `or_address`, `or_code`, `or_firstaddress`, `or_city`, `or_postcode` , `status`) VALUES ('$otype','$oname','$ocontact','$oaddress','$ocode','$ofaddress','$ocity','$opost','Not approved')");
 
 	if($jjjs >0){
 		echo "sss";
 	}else{
 		echo "Error";
+	}
 	}
 }
 
@@ -450,5 +558,22 @@ $e=	mail($to, $subject, $message, $headers);
 		}
 
 }
+
+//for profession registration no check
+if(isset($_POST['proregcheck']))
+{
+    $proregno = $_POST['proregno'];
+    $sql = mysqli_query($con,"SELECT * FROM `tbl_ruser` WHERE ur_proregno = '$proregno'");
+    if(mysqli_num_rows($sql) > 0)
+    {
+        echo"already";
+        
+    }
+    else
+    {
+        echo"available";
+    }
+}
+
 
 ?>

@@ -41,15 +41,22 @@ include_once('../database/db.php');
 											<div class="row gy-4">
 												<div class="col-md-6">
 													<?php
+													
 													$em = $_SESSION['gprefferer'];
-													$q = mysqli_query($con,"SELECT * FROM tbl_gprefferer WHERE gp_email = '$em'");
+													$q = mysqli_query($con,"SELECT * FROM tbl_ruser WHERE ur_email = '$em'");
 													$fe = mysqli_fetch_array($q);
 													
 													?>
 													<div class="form-group">
 														<label class="col-form-label" for="fname">Patient Title</label>
-														<input type="text" value="<?=$fe['gp_id']?>" id="rid" hidden="true" name="rid">												
-														<input type="text" class="form-control form-control-lg" id="" value="" placeholder="Enter Title" name="ptitle" required>
+														<input type="text" value="<?=$fe['ur_id']?>" id="rid" hidden="true" name="rid">	<input type="text" value="<?=$fe['ur_orgtype']?>" id="hid" hidden="true" name="hid">		
+<!--														<input type="text" class="form-control form-control-lg" id="" value="" placeholder="Enter Title" name="ptitle" required>-->
+														<select name="ptitle" id="" class="form-control form-control-lg">
+															<option>- Select -</option>
+															<option value="Mr">Mr</option>
+															<option value="Ms">Ms</option>
+															<option value="Mrs">Mrs</option>
+														</select>
 													</div>
 												</div>
 												<div class="col-md-6">
@@ -78,14 +85,8 @@ include_once('../database/db.php');
 												</div>
 												<div class="col-md-6">
 													<div class="form-group">
-														<label class="col-form-label" for="dob">House No</label>
-														<input type="text" class="form-control form-control-lg" id="" value="" placeholder="House no" name="houseno" required>
-													</div>
-												</div>
-												<div class="col-md-6">
-													<div class="form-group">
-														<label class="col-form-label" for="mpass">Street Name</label>
-														<input type="text" class="form-control form-control-lg" id="" value="" placeholder="Password" name="streetname" required>
+														<label class="col-form-label" for="rno">Country</label>
+														<input type="text" class="form-control form-control-lg" id="" value="" placeholder="Country" name="country" required>
 													</div>
 												</div>
 												<div class="col-md-6">
@@ -94,16 +95,22 @@ include_once('../database/db.php');
 														<input type="text" class="form-control form-control-lg" id="" value="" placeholder="City" name="city" required>
 													</div>
 												</div>
-												<div class="col-md-6">
-													<div class="form-group">
-														<label class="col-form-label" for="rno">Country</label>
-														<input type="text" class="form-control form-control-lg" id="" value="" placeholder="Country" name="country" required>
-													</div>
-												</div>
 												<div class="col-md-6" id="">
 													<div class="form-group">
 														<label class="col-form-label" for="rno">POST Code</label>
 														<input type="text" class="form-control form-control-lg" id="" value="" placeholder="Postal Code" name="postalcode" required>
+													</div>
+												</div>
+												<div class="col-md-6">
+													<div class="form-group">
+														<label class="col-form-label" for="mpass">Street Name</label>
+														<input type="text" class="form-control form-control-lg" id="" value="" placeholder="Street Name" name="streetname" required>
+													</div>
+												</div>
+												<div class="col-md-6">
+													<div class="form-group">
+														<label class="col-form-label" for="dob">House No</label>
+														<input type="text" class="form-control form-control-lg" id="" value="" placeholder="House no" name="houseno" required>
 													</div>
 												</div>
 												<div class="col-md-6" id="">

@@ -11,4 +11,5 @@
     <!-- StyleSheets  -->
     <link rel="stylesheet" href="assets/css/dashlite.css?ver=2.2.0">
     <link id="skin-default" rel="stylesheet" href="assets/css/theme.css?ver=2.2.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.css" />
 </head>

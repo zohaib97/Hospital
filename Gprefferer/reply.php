@@ -41,10 +41,34 @@ include_once('header.php');
 													$dref = mysqli_fetch_assoc($qref);
 												}
 											?>
+											 
                                             <input type="text" hidden value="<?=$rfno?>" id="refno">
+                                            <?php
+				    $q = $_GET["c_id"];
+
+						$qref = mysqli_query($con, "SELECT * FROM `tbl_consultantrefferels` WHERE c_id = '$q'");
+						$dref = mysqli_fetch_assoc($qref);
+						if($dref['request_type'] == "Advice request")
+						{
+						    
+						
+				    ?>
                                             <nav class="p-2 bg-light mb-3 col-form-label font-weight-bold">Advice
                                                 Request Details - <span class="text-info"><?=$dref['ra_refferelid']?></span>
                                             </nav>
+                                             <?php
+						}
+						elseif($dref['request_type'] == "Appointment Request")
+						{
+						    
+						
+				     ?>
+				     <nav class="p-2 bg-light mb-3 col-form-label font-weight-bold">Appointment
+                                                Request Details - <span class="text-info"><?=$dref['ra_refferelid']?></span>
+                                            </nav>
+                                            <?php
+						}
+				     ?>
                                         </li>
                                     </ul>
 
@@ -144,9 +168,7 @@ include_once('header.php');
                                                     <li>
                                                         <span class="font-weight-bold">Registered Practice</span>
                                                         <br>
-                                                        <span>Karachi
-                                                            Sindh
-                                                            Pakistan</span>
+                                                        <span><?=$dref["ur_address"]?></span>
                                                     </li>
                                                     <br>
                                                     <li>
@@ -172,17 +194,45 @@ include_once('header.php');
 												Name: <?=$fetch2['pt_name']?>(<?=$fetch2['pt_title']?>)</span>
 												
 												<br>
-												
+												<span class="text-dark">
+												NHS no: <?=$fetch2['pt_nhsno']?></span>
+												<br>
+												<span class="text-dark">
+												Date of Birth: <?=$fetch2['pt_dob']?></span>
+												<br>
 												<span class="text-dark">
 												Email: <?=$fetch2['pt_email']?>
 												</span>
 												<br>
 												<hr>
                                                 <div class="nk-block-head nk-block-head-lg wide-sm">
+                                                    <?php
+				    $q = $_GET["c_id"];
+
+						$qref = mysqli_query($con, "SELECT * FROM `tbl_consultantrefferels` WHERE c_id = '$q'");
+						$dref = mysqli_fetch_assoc($qref);
+						if($dref['request_type'] == "Advice request")
+						{
+						    
+						
+				    ?>
                                                     <h5 class="nk-block-title fw-normal col-form-label font-weight-bold"
                                                         style="font-size: 20px">Advice Conversation</h5>
+                                                        <?php
+						}
+						elseif($dref['request_type'] == "Appointment Request")
+						{
+						    
+						
+				     ?>
+				     <h5 class="nk-block-title fw-normal col-form-label font-weight-bold"
+                                                        style="font-size: 20px">Appointment Conversation</h5>
+				     
+				     <?php
+						}
+				     ?>
                                                   
-                                                    <div id="fetchreply" style="height: 359px;overflow: hidden auto;">
+                                                    <div id="fetchreply" style="height: 320px;overflow: hidden auto;">
                                                         <!-- phpcode.php -->
                                                     </div>
                                                     <br>
@@ -195,8 +245,8 @@ include_once('header.php');
                                   
                            
                                 </div>
-                                 <br>
-                                                    <br>
+                          
+                                
                                 <div>
                                     
                                       <div class="float-left p-4 bg-light col-form-label font-weight-bold ml-0 mb-3 col-md-12 rounded">
@@ -379,7 +429,7 @@ $("#reply").on('submit', function(e) {
                 } else if (data == 'Success') {
 
                     toastr.clear();
-                    NioApp.Toast("<h5>Advice request has been sent to the provider</h5>", 'success', {
+                    NioApp.Toast("<h5>Request has been sent to the provider</h5>", 'success', {
                         position: 'top-right'
                     });
                     $('#reply').trigger('reset');

@@ -45,11 +45,12 @@ include_once('../database/db.php');
 													$em = $_SESSION['gprefferer'];
 													$qww = mysqli_query($con,"SELECT * FROM tbl_ruser WHERE ur_email = '$em'");
 													$few = mysqli_fetch_array($qww);
-													
+											
 													?>
 													<div class="form-group">
 														<label class="col-form-label" for="fname">Patient Title</label>
-														<input type="text" value="<?=$few['ur_id']?>" id="rid" hidden="true" name="rid">										<input type="text" value="<?=$fe['ur_hid']?>" id="hid" hidden="true" name="hid">			
+														<input type="text" value="<?php echo $few['ur_fname']?>" id="rid" hidden="true" name="rid">
+														<input type="text" value="<?php echo $fe['ur_hid']?>" id="hid" hidden="true" name="hid">			
 <!--														<input type="text" class="form-control form-control-lg"  placeholder="Enter Title" name="ptitle" required>-->
 														<select name="ptitle" id="" class="form-control form-control-lg">
 															<option>- Select -</option>
@@ -59,28 +60,53 @@ include_once('../database/db.php');
 														</select>
 													</div>
 												</div>
-												<div class="col-md-6">
+											<?php
+												if(isset($_GET['fname']))
+												{
+												    $fname = $_GET['fname'];
+												    $sname = $_GET['sname'];
+												    ?>
+												    <div class="col-md-6">
 													<div class="form-group">
 														<label class="col-form-label" for="sname">Patient Firstname</label>
-														<input type="text" class="form-control form-control-lg"  placeholder="Enter First name" name="pfirstname" required autocomplete="off">
+														<input type="text" class="form-control form-control-lg" id="" value="<?php echo $fname?>" placeholder="Enter First name" name="pfirstname" autocomplete="off" required>
 													</div>
 												</div>
 												<div class="col-md-6">
 													<div class="form-group">
 														<label class="col-form-label" for="email">Patient Surname</label>
-														<input type="text" class="form-control form-control-lg"  placeholder="Enter Surname" name="psurname" required autocomplete="off"> 
+														<input type="text" class="form-control form-control-lg" id="" value="<?php echo $sname?>" placeholder="Enter Surname" name="psurname" autocomplete="off" required>
+													</div>
+												</div>
+												   <?php 
+												}
+												else{
+												?>
+												<div class="col-md-6">
+													<div class="form-group">
+														<label class="col-form-label" for="sname">Patient Firstname</label>
+														<input type="text" class="form-control form-control-lg" id="" value="" placeholder="Enter First name" name="pfirstname" autocomplete="off" required>
 													</div>
 												</div>
 												<div class="col-md-6">
 													<div class="form-group">
+														<label class="col-form-label" for="email">Patient Surname</label>
+														<input type="text" class="form-control form-control-lg" id="" value="" placeholder="Enter Surname" name="psurname" autocomplete="off" required>
+													</div>
+												</div>
+												<?php
+												}
+												?>
+												<div class="col-md-6">
+													<div class="form-group">
 														<label class="col-form-label" for="pno">Patient Date of Birth</label>
-														<input type="text" class="form-control form-control-lg datepicker"  placeholder="Date of Birth" name="pdob" required autocomplete="off">
+														<input type="date" class="form-control form-control-lg"  placeholder="Date of Birth" name="pdob" id="pdob" required autocomplete="off" onchange="fnCalculateAge()">
 													</div>
 												</div>
 												<div class="col-md-6">
 													<div class="form-group">
 														<label class="col-form-label" for="age">Age</label>
-														<input type="text" class="form-control form-control-lg"  placeholder="Age" name="age" required autocomplete="off" id="age">
+														<input type="text" class="form-control form-control-lg"  placeholder="Age" name="age" required autocomplete="off" id="age" readonly>
 													</div>
 												</div>
 												<div class="col-md-6">
@@ -188,6 +214,23 @@ include_once('../database/db.php');
   <script src="assets/js/example-toastr.js?ver=2.2.0"></script>
 </body>
 <script>
+ function fnCalculateAge(){
+
+     var userDateinput = document.getElementById("pdob").value;  
+	 console.log(userDateinput);
+	 
+     // convert user input value into date object
+	 var birthDate = new Date(userDateinput);
+	  console.log(" birthDate"+ birthDate);
+	 
+	 // get difference from current date;
+	 var difference=Date.now() - birthDate.getTime(); 
+	 	 
+	 var  ageDate = new Date(difference); 
+	 var calculatedAge=   Math.abs(ageDate.getUTCFullYear() - 1970);
+	 $('#age').val(calculatedAge);
+}
+
 	$(function () {
 
     // INITIALIZE DATEPICKER PLUGIN
@@ -336,7 +379,7 @@ include_once('../database/db.php');
                 $('#patientadd').css("opacity",".5");
             },
             success: function(data){
-                console.log(data);
+              
                 if(data == 'Error'){
                    toastr.clear(); 
                NioApp.Toast("<h5>patient didn't add Successfully</h5>", 'error',{position:'top-right'});

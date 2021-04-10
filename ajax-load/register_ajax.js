@@ -348,7 +348,7 @@ $("#forgot_popup").on("submit", function(e){
 					$("#mailsendbtn").attr("disabled",false);
 					$("#forgot_popup")[0].reset();
 //					alert("Mail has been send!");
-					toastr.success("Mail has been send! to" + p_email);
+					toastr.success("Mail has been send! to " + p_email);
 //					$('#app').hide();
 				}
 			}

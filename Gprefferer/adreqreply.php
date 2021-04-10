@@ -53,10 +53,10 @@ include_once('header.php');
                                                 style="font-size: 15px; color: black">Summary Information</span>
                                             <hr>
                                             <div class="card p-3">
-                                                <ul>
+                                                <div class="row">
 
 
-                                                    <li>
+                                                    <div class="col-md-6 mb-2">
                                                         <?php 
 															if(isset($_GET['nhsno'])){
 													$nhsno = $_GET['nhsno'];
@@ -67,9 +67,9 @@ include_once('header.php');
                                                         <span class="font-weight-bold">Named Clinician</span>
                                                         <br>
                                                         <span><?=$dref['ur_sname']?></span>
-                                                    </li>
-                                                    <br>
-                                                    <li>
+                                                    </div>
+                                                    
+                                                    <div class="col-md-6 mb-2">
                                                         <span class="font-weight-bold">Service Name</span>
                                                         <br>
                                                         <?php
@@ -78,9 +78,9 @@ include_once('header.php');
 															$serndata = mysqli_fetch_assoc($snq);
 														?>
                                                         <span><?=$serndata['s_name'];?></span>
-                                                    </li>
-                                                    <br>
-                                                    <li>
+                                                    </div>
+                                                    
+                                                    <div class="col-md-6 mb-2">
                                                         <span class="font-weight-bold">Speciality</span>
                                                         <br>
                                                         <?php
@@ -89,8 +89,14 @@ include_once('header.php');
 															$serspecdata = mysqli_fetch_assoc($sspecq);
 														?>
                                                         <span><?=$serspecdata['spec_name']?></span>
-                                                    </li>
-                                                    <br>
+                                                    </div>
+                                                    <div class="col-md-6 mb-2">
+                                                        <span class="font-weight-bold">Registered Practice</span>
+                                                        <br>
+                                                        <span>Karachi
+                                                            Sindh
+                                                            Pakistan</span>
+                                                    </div>
                                                     <?php
 													if(isset($_GET['nhsno'])){
 													$nhsno = $_GET['nhsno'];
@@ -101,27 +107,22 @@ include_once('header.php');
 													}
 													?>
 													<input type="text" name="rfno" id="rfno" value="<?=$refid?>" hidden>
-                                                    <li>
+                                                    <div class="col-md-6 mb-2">
                                                         <span class="font-weight-bold">Referred By</span>
                                                         <br>
-                                                        <span><?=$dref['ur_sname']?></span>
-                                                    </li>
-                                                    <br>
-                                                    <li>
-                                                        <span class="font-weight-bold">Registered Practice</span>
-                                                        <br>
-                                                        <span>Karachi
-                                                            Sindh
-                                                            Pakistan</span>
-                                                    </li>
-                                                    <br>
-                                                    <li>
+                                                        <span><?=$dref['ur_fname']." ".$dref['ur_sname']?></span>
+                                                    </div>
+                                                    
+                                                    
+                                                   
+                                                    <div class="col-md-6 mb-2">
                                                         <span class="font-weight-bold">Telephone: </span>
                                                         <span><?=$dref['pt_telno']?></span>
-                                                    </li>
+                                                    </div>
 
                                                 </ul>
                                             </div>
+                                        </div>
                                         </div>
                                         <div class="col-lg-8 col-md-8 col-12">
                                             <div>

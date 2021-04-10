@@ -81,8 +81,12 @@ echo'   <tr class="nk-tb-item">
 
 if(isset($_POST['patientfetch']))
 {
+    $id = $_POST['createid'];
+    $sql = mysqli_query($con,"SELECT * FROM admin WHERE id = '$id'");
+    $fet = mysqli_fetch_array($sql);
+    $name = $fet['name'];
 	$nhs = $_POST['nhs'];
-$query = mysqli_query($con,"SELECT * FROM `tbl_patients` WHERE pt_nhsno = '$nhs'");
+$query = mysqli_query($con,"SELECT * FROM `tbl_patients` WHERE pt_nhsno = '$nhs' and pt_create = '$name'");
 	echo mysqli_error($con);
 	if(mysqli_num_rows($query)>0)
 	{
@@ -163,20 +167,14 @@ echo'   <tr class="nk-tb-item">
 ';
 	}
 	else{
-		echo"No Data Found";
+		echo"There is no patient matching criteria";
 	}
 }
-
-
-
-
-
-
 
 if(isset($_POST['addpatient']))
 {
 	
-	$gphid = $_POST['hid'];
+	$gphid = $_POST['rid'];
 	$ptitle = $_POST['ptitle'];
 	$pfirstname = $_POST['pfirstname'];
 	$psurname = $_POST['psurname'];
@@ -190,6 +188,7 @@ if(isset($_POST['addpatient']))
 	$telephoneno = $_POST['telephoneno'];
 	$mobileno = $_POST['mobileno'];
 	$email = $_POST['email'];
+		$age = $_POST['age'];
 	
 	$sql = mysqli_query($con,"SELECT * FROM tbl_patients WHERE pt_nhsno = '$nhsno'");
 	$fe = mysqli_num_rows($sql);
@@ -198,7 +197,7 @@ if(isset($_POST['addpatient']))
 	    echo "nhs";
 	}
 	else{
-	$query = mysqli_query($con,"INSERT INTO `tbl_patients`(`pt_title`, `pt_name`, `pt_surname`, `pt_dob`, `pt_nhsno`, `pt_houseno`, `pt_streetname`, `pt_city`, `pt_country`, `pt_postcode`, `pt_telno`, `pt_mobno`, `pt_email`,`pt_hid`)VALUES('$ptitle','$pfirstname','$psurname','$pdob','$nhsno','$houseno','$streetname','$city','$country','$postalcode','$telephoneno','$mobileno','$email','$gphid')");
+	$query = mysqli_query($con,"INSERT INTO `tbl_patients`(`pt_title`, `pt_name`, `pt_surname`, `pt_dob`, `pt_nhsno`, `pt_houseno`, `pt_streetname`, `pt_city`, `pt_country`, `pt_postcode`, `pt_telno`, `pt_mobno`, `pt_email`,`pt_create`,`pt_age`)VALUES('$ptitle','$pfirstname','$psurname','$pdob','$nhsno','$houseno','$streetname','$city','$country','$postalcode','$telephoneno','$mobileno','$email','$gphid','$age')");
 	
 	if($query)
 	{
@@ -209,6 +208,67 @@ if(isset($_POST['addpatient']))
 	}
 }
 }
+
+if(isset($_POST["checkemail"])){
+    extract($_POST);
+    $q=mysqli_query($con,"select * from tbl_patients where pt_email ='$email'");
+    if(mysqli_num_rows($q) >0){
+        echo "exists";
+    }else{
+        $q1=mysqli_query($con,"select * from tbl_ruser where ur_email ='$email'");
+        if(mysqli_num_rows($q1) > 0)
+        {
+            echo "exists";
+        }
+        else
+        {
+            $q2=mysqli_query($con,"select * from tbl_user where staff_email ='$email'");
+            if(mysqli_num_rows($q2) > 0)
+            {
+                echo "exists";
+            }
+            else
+            {
+                $q3=mysqli_query($con,"select * from admin where email ='$email'");
+                if(mysqli_num_rows($q3) > 0)
+                {
+                    echo "exists";
+                }
+                else
+                {
+                    echo"not exists";
+                }
+            }
+        }
+    }
+}
+
+if(isset($_POST['addlocation']))
+{
+	
+	$locname = $_POST['locname'];
+	$locaddress = $_POST['locaddress'];
+	$locpost = $_POST['locpost'];
+	
+	$sql = mysqli_query($con,"SELECT * FROM `org_locations` WHERE org_location = '$locname' and org_address = '$locaddress' and org_postcode = '$locpost'");
+	$fe = mysqli_num_rows($sql);
+	if($fe > 0)
+	{
+	    echo "already";
+	}
+	else{
+	$query = mysqli_query($con,"INSERT INTO `org_locations`(`org_location`, `org_address`, `org_postcode`)VALUES('$locname','$locaddress','$locpost')");
+	
+	if($query)
+	{
+		echo "Success";
+	}
+	else{
+		echo "Error";
+	}
+}
+}
+
 
 if(isset($_POST["checknhs"])){
     extract($_POST);
@@ -244,6 +304,21 @@ if(isset($_POST['deladmin']))
 			}
 		} 
 }
+
+//for location delete
+if(isset($_POST['dellocation']))
+{
+		
+		$vid = $_POST['vid'];
+		$vdel = "DELETE FROM `org_locations` WHERE `id` = '$vid'";
+		$vq = mysqli_query($con,$vdel);
+		if($vq >0){
+			echo "Success";
+		}else {
+		    echo"Error";
+		} 
+}
+
 if(isset($_POST['delservice']))
 {
 		
@@ -679,7 +754,7 @@ echo'<div class="card-aside-wrap">
 			<div class="card-inner">
 				<div class="user-card">
 					<div class="user-avatar bg-primary">
-					<img src="images/avatar/'.$fetch['image'].'">
+						<img src="images/avatar/'.$fetch['image'].'">
 					</div>
 					<div class="user-info">
 						<span class="lead-text">'.$fetch['name'].'</span>
@@ -690,8 +765,8 @@ echo'<div class="card-aside-wrap">
 							<a class="btn btn-icon btn-trigger mr-n2" data-toggle="dropdown" href="#"><em class="icon ni ni-more-v"></em></a>
 							<div class="dropdown-menu dropdown-menu-right">
 								<ul class="link-list-opt no-bdr">
-									<li><a href="#"><em class="icon ni ni-camera-fill"></em><span>Change Photo</span></a></li>
-									<li><a href="#"><em class="icon ni ni-edit-fill"></em><span>Update Profile</span></a></li>
+									<li><a href="#" onClick="cupdmodal('."'$id'".','."'$name'".','."'$contact'".','."'$address'".')"><em class="icon ni ni-camera-fill"></em><span>Change Photo</span></a></li>
+									<li><a href="#" onClick="cupdmodal('."'$id'".','."'$name'".','."'$contact'".','."'$address'".')"><em class="icon ni ni-edit-fill"></em><span>Update Profile</span></a></li>
 								</ul>
 							</div>
 						</div>
@@ -701,7 +776,7 @@ echo'<div class="card-aside-wrap">
 			<div class="card-inner">
 				<div class="user-account-info py-0">
 					<h6 class="overline-title-alt">Super Admin</h6>
-			
+
 				</div>
 			</div>
 
@@ -823,6 +898,27 @@ if(isset($_POST['fetchdataspecbtn']))
  }
 }
 
+
+
+if(isset($_POST['locationfetch']))
+{
+    $locid = $_POST['locid'];
+	$sernameq = mysqli_query($con, "SELECT * FROM `org_locations` WHERE id = '$locid'");
+
+ $datarole = mysqli_fetch_assoc($sernameq);
+ 	echo $datarole['org_address'];
+ 
+}
+if(isset($_POST['locationfetch2']))
+{
+    $locid = $_POST['locid'];
+	$sernameq = mysqli_query($con, "SELECT * FROM `org_locations` WHERE id = '$locid'");
+
+ $datarole = mysqli_fetch_assoc($sernameq);
+ 	echo $datarole['org_postcode'];
+ 
+}
+
 //for profile update
 if(isset($_POST['updateadmin']))
 	{
@@ -866,6 +962,29 @@ if(isset($_POST['updateadmin']))
 			echo("Error");
 		}
 	}
+	
+//for location update
+if(isset($_POST['updatelocation']))
+	{
+		$id = $_POST['mid'];
+		$name = $_POST['locname'];
+		$address = $_POST['locaddress'];
+		$popstcode = $_POST['locpostcode'];
+
+		$query = mysqli_query($con,"UPDATE `org_locations` SET `org_location`='$name',`org_address`='$address',`org_postcode` = '$popstcode' WHERE `id` = '$id'");
+		
+		if($query)
+		{
+		
+			echo "Success";
+			
+		}
+		else
+		{
+			echo("Error");
+		}
+	}	
+	
 
 if(isset($_POST['updateadminaddress']))
 	{
@@ -973,11 +1092,13 @@ if(isset($_POST['satffbtn']))
 //fetch staff consultant data
 if(isset($_POST['consultantbtn']))
 {
+     $orgname = $_POST['orgname'];
 	$em = $_SESSION['superadmin'];
     $sql = mysqli_query($con,"SELECT * FROM admin WHERE email = '$em'");
     $fet = mysqli_fetch_array($sql);
     $org = $fet['organization'];
-	$query = mysqli_query($con,"SELECT * FROM `tbl_ruser`,tbl_role,orginzation where tbl_role.ro_id=tbl_ruser.ur_role_id and tbl_ruser.ur_orgtype = orginzation.orid and tbl_ruser.ur_role_id='3' and ur_orgtype = '$org'");
+   
+	$query = mysqli_query($con,"SELECT * FROM `tbl_ruser`,tbl_role,orginzation where tbl_role.ro_id=tbl_ruser.ur_role_id and tbl_ruser.ur_orgtype = orginzation.orid and tbl_ruser.ur_role_id='3' and ur_orgname = '$orgname'");
 				
 	if($query)
 	{
@@ -1028,7 +1149,10 @@ if(isset($_POST['consultantbtn']))
 	// $mdob = $fetch['staff_dob'];
 	// $mrole = $fetch['tbl_role'];
 	// $mrname = $fetch['role_name'];
-
+$fname = $fetch['ur_fname'];
+$sname = $fetch["ur_sname"];
+$email = $fetch['ur_email'];
+$pass = $fetch['ur_pass'];
 	echo'   <tr class="nk-tb-item">
 	
 	<td class="nk-tb-col ">
@@ -1069,6 +1193,7 @@ if(isset($_POST['consultantbtn']))
 							// <li><a href="#"><em class="icon ni ni-eye"></em><span>View</span></a></li>
 							
 							echo '<li><a href="javascript:void(0)" onClick="confirm('."'$mid'".')"><em class="icon ni ni-trash"></em><span>Remove</span></a></li>
+							<li><a href="javascript:void(0)" onClick="openmodal2('."'$mid'".','."'$fname'".','."'$sname'".','."'$email'".','."'$pass'".')"><em class="icon ni ni-edit"></em><span>Edit</span></a></li>
 
 						</ul>
 					</div>
@@ -1093,6 +1218,7 @@ if(isset($_POST['consultantbtn']))
 //fetch staff Service Definer data
 if(isset($_POST['ServiceDefiner']))
 {
+   
 	$em = $_SESSION['superadmin'];
     $sql = mysqli_query($con,"SELECT * FROM admin WHERE email = '$em'");
     $fet = mysqli_fetch_array($sql);
@@ -1115,6 +1241,8 @@ if(isset($_POST['ServiceDefiner']))
 							<th class="nk-tb-col"><span>Role</span></th>
 							<th class="nk-tb-col"><span>Organisation Type</span></th>
 							<th class="nk-tb-col "><span>Organisation Name</span></th>
+							
+							<th class="nk-tb-col "><span>Status</span></th>
 						
 							<th class="nk-tb-col nk-tb-col-tools">
 								<ul class="nk-tb-actions gx-1 my-n1">
@@ -1148,7 +1276,12 @@ if(isset($_POST['ServiceDefiner']))
 	// $mdob = $fetch['staff_dob'];
 	// $mrole = $fetch['tbl_role'];
 	// $mrname = $fetch['role_name'];
-
+$fname = $fetch['u_sername'];
+$sname = $fetch["u_sercontact"];
+$email = $fetch['u_seremail'];
+$pass = $fetch['u_serpass'];
+$statys=$fetch["u_status"];
+// echo $statys;
 	echo'   <tr class="nk-tb-item">
 	
 	<td class="nk-tb-col ">
@@ -1171,8 +1304,13 @@ if(isset($_POST['ServiceDefiner']))
 	<td class="nk-tb-col">
 		<span class="tb-sub">'.$fetch['or_name'].'</span>
 	</td>
-	';
-	echo '
+	<td class="nk-tb-col">';
+	if($fetch["u_status"] =="not_approve"){
+		echo '<span class="btn btn-danger" onclick="aprovenotaprovesd(\''.$mid.'\',\'sdr'.$fetch["u_status"].'\')">Not Active</span>';
+	}elseif($fetch["u_status"] =="approve"){
+		echo '<span class="btn btn-success" onclick="aprovenotaprovesd(\''.$mid.'\',\'sdr'.$fetch["u_status"].'\')">Active</span>';
+	}
+	echo '</td>
 	<td class="nk-tb-col nk-tb-col-tools">
 		<ul class="nk-tb-actions gx-1 my-n1">
 			<li class="mr-n1">
@@ -1184,7 +1322,7 @@ if(isset($_POST['ServiceDefiner']))
 							// <li><a href="#"><em class="icon ni ni-eye"></em><span>View</span></a></li>
 							
 							echo '<li><a href="javascript:void(0)" onClick="confirm1('."'$mid'".')"><em class="icon ni ni-trash"></em><span>Remove</span></a></li>
-
+<li><a href="javascript:void(0)" onClick="openmodal3(\''.$mid.'\',\''.$fname.'\',\''.$sname.'\',\''.$email.'\',\''.$pass.'\')"><em class="icon ni ni-edit"></em><span>Edit</span></a></li>
 						</ul>
 					</div>
 				</div>
@@ -1395,7 +1533,10 @@ if(isset($_POST['nursebtn']))
 			// $mdob = $fetch['staff_dob'];
 			// $mrole = $fetch['tbl_role'];
 			// $mrname = $fetch['role_name'];
-
+$fname = $fetch['ur_fname'];
+$sname = $fetch["ur_sname"];
+$email = $fetch['ur_email'];
+$pass = $fetch['ur_pass'];
 		echo'   <tr class="nk-tb-item">
 			
 			<td class="nk-tb-col">
@@ -1433,7 +1574,7 @@ if(isset($_POST['nursebtn']))
 							<div class="dropdown-menu dropdown-menu-right">
 								<ul class="link-list-opt no-bdr">';
 					// <li><a href="javascript:void(0)" onClick="openmodal1('."'$mid'".','."'$mname'".','."'$msname'".','."'$memail'".','."'$mpass'".','."'$mphn'".','."'$mdepart'".','."'$mdob'".','."'$mrole'".')"><em class="icon ni ni-edit"></em><span>Edit</span></a></li>
-									echo '<li><a href="#"><em class="icon ni ni-eye"></em><span>View</span></a></li>
+									echo '<li><a href="javascript:void(0)" onClick="openmodal2('."'$mid'".','."'$fname'".','."'$sname'".','."'$email'".','."'$pass'".')"><em class="icon ni ni-edit"></em><span>Edit</span></a></li>
 									
 									<li><a href="javascript:void(0)" onClick="confirm('."'$mid'".')"><em class="icon ni ni-trash"></em><span>Remove</span></a></li>
 
@@ -1515,7 +1656,10 @@ if(isset($_POST['dentistbtn']))
 		// $mdob = $fetch['staff_dob'];
 		// $mrole = $fetch['tbl_role'];
 		// $mrname = $fetch['role_name'];
-
+$fname = $fetch['ur_fname'];
+$sname = $fetch["ur_sname"];
+$email = $fetch['ur_email'];
+$pass = $fetch['ur_pass'];
 	echo'   <tr class="nk-tb-item">
 		
 		<td class="nk-tb-col">
@@ -1552,7 +1696,7 @@ if(isset($_POST['dentistbtn']))
 						<a href="#" class="dropdown-toggle btn btn-icon btn-trigger" data-toggle="dropdown"><em class="icon ni ni-more-h"></em></a>
 						<div class="dropdown-menu dropdown-menu-right">
 							<ul class="link-list-opt no-bdr">';
-						echo '<li><a href="#"><em class="icon ni ni-eye"></em><span>View</span></a></li>
+						echo '<li><a href="javascript:void(0)" onClick="openmodal2('."'$mid'".','."'$fname'".','."'$sname'".','."'$email'".','."'$pass'".')"><em class="icon ni ni-edit"></em><span>Edit</span></a></li>
 								
 								<li><a href="javascript:void(0)" onClick="confirm('."'$mid'".')"><em class="icon ni ni-trash"></em><span>Remove</span></a></li>
 
@@ -1579,7 +1723,9 @@ if(isset($_POST['dentistbtn']))
 //fetch staff genral pratictional data
 if(isset($_POST['genralpbtn']))
 {
-	$query = mysqli_query($con,"SELECT * FROM `tbl_ruser`,tbl_role,orginzation where tbl_role.ro_id=tbl_ruser.ur_role_id and tbl_ruser.ur_orgtype = orginzation.orid and tbl_ruser.ur_role_id='5'");
+    $orgname = $_POST['orgname'];
+    // echo $orgname;
+	$query = mysqli_query($con,"SELECT * FROM `tbl_ruser`,tbl_role,orginzation where tbl_role.ro_id=tbl_ruser.ur_role_id and tbl_ruser.ur_orgtype = orginzation.orid and tbl_ruser.ur_role_id='5' and tbl_ruser.ur_orgname='$orgname'");
 				
 	if($query)
 	{
@@ -1621,10 +1767,10 @@ if(isset($_POST['genralpbtn']))
 		while($fetch = mysqli_fetch_array($query))
 		{
 	$mid = $fetch['ur_id'];
-	$mname = $fetch['ur_fname'];
-	$msname = $fetch['ur_sname'];
-	$memail = $fetch['ur_email'];
-	$mpass = $fetch['ur_pass'];
+	$fname = $fetch['ur_fname'];
+	$sname = $fetch['ur_sname'];
+	$email = $fetch['ur_email'];
+	$pass = $fetch['ur_pass'];
 	// $mphn = $fetch['ur_contact'];
 	// $mdepart = $fetch['staff_department'];
 	// $mdob = $fetch['staff_dob'];
@@ -1672,6 +1818,7 @@ if(isset($_POST['genralpbtn']))
 							//  <li><a href="javascript:void(0)"><em class="icon ni ni-eye" data-toggle="modal" data-target="#modalForm2" onClick="openmodal2('."'$mname'".','."'$msname'".','."'$memail'".','."'$mpass'".')"></em><span>View</span></a></li>
 							
 							 echo '<li><a href="javascript:void(0)" onClick="confirm('."'$mid'".')"><em class="icon ni ni-trash"></em><span>Remove</span></a></li>
+							 <li><a href="javascript:void(0)" onClick="openmodal2('."'$mid'".','."'$fname'".','."'$sname'".','."'$email'".','."'$pass'".')"><em class="icon ni ni-edit"></em><span>Edit</span></a></li>
 
 						</ul>
 					</div>
@@ -1696,7 +1843,8 @@ if(isset($_POST['genralpbtn']))
 }
 if(isset($_POST['Optometristbtn']))
 {
-	$query = mysqli_query($con,"SELECT * FROM `tbl_ruser`,tbl_role,orginzation where tbl_role.ro_id=tbl_ruser.ur_role_id and tbl_ruser.ur_orgtype = orginzation.orid and tbl_ruser.ur_role_id='6'");
+     $orgname = $_POST['orgname'];
+	$query = mysqli_query($con,"SELECT * FROM `tbl_ruser`,tbl_role,orginzation where tbl_role.ro_id=tbl_ruser.ur_role_id and tbl_ruser.ur_orgtype = orginzation.orid and tbl_ruser.ur_role_id='6' and tbl_ruser.ur_orgname = '$orgname'");
 				
 	if($query)
 	{
@@ -1747,7 +1895,10 @@ if(isset($_POST['Optometristbtn']))
 	// $mdob = $fetch['staff_dob'];
 	// $mrole = $fetch['tbl_role'];
 	// $mrname = $fetch['role_name'];
-
+$fname = $fetch['ur_fname'];
+$sname = $fetch["ur_sname"];
+$email = $fetch['ur_email'];
+$pass = $fetch['ur_pass'];
 	echo'   <tr class="nk-tb-item">
 	
 	<td class="nk-tb-col">
@@ -1785,7 +1936,7 @@ if(isset($_POST['Optometristbtn']))
 					<div class="dropdown-menu dropdown-menu-right">
 						<ul class="link-list-opt no-bdr">';
 			// <li><a href="javascript:void(0)" onClick="openmodal1('."'$mid'".','."'$mname'".','."'$msname'".','."'$memail'".','."'$mpass'".','."'$mphn'".','."'$mdepart'".','."'$mdob'".','."'$mrole'".')"><em class="icon ni ni-edit"></em><span>Edit</span></a></li>
-							echo '<li><a href="#"><em class="icon ni ni-eye"></em><span>View</span></a></li>
+							echo '<li><a href="javascript:void(0)" onClick="openmodal2('."'$mid'".','."'$fname'".','."'$sname'".','."'$email'".','."'$pass'".')"><em class="icon ni ni-edit"></em><span>Edit</span></a></li>
 							
 							<li><a href="javascript:void(0)" onClick="confirm('."'$mid'".')"><em class="icon ni ni-trash"></em><span>Remove</span></a></li>
 
@@ -1865,19 +2016,19 @@ if(isset($_POST['servicadd']))
 			$codeapp = rand(0000,9999);
 			$ser_ids =  mysqli_real_escape_string($con, $codeapp);
 	
-		// login user || admin ID
-		$uaid = $_SESSION['a_id'];
-		// fetch data hospital and admin for hospitals name
-		$e = $_SESSION['superadmin'];
-		
-		$q = mysqli_query($con,"SELECT * FROM `admin` WHERE `email` = '$e'");
-		$af = mysqli_fetch_array($q);
-		$id = $af['organization'];
-		$name = $af['name'];
-		$sql = mysqli_query($con,"SELECT * FROM orginzation WHERE orid = '$id'");
-		$fet = mysqli_fetch_array($sql);
-		$orgid = $fet['orid'];
-		$orgname = $fet['or_name'];
+	// login user || admin ID
+	$uaid = $_SESSION['a_id'];
+	// fetch data hospital and admin for hospitals name
+	$e = $_SESSION['superadmin'];
+	
+	$q = mysqli_query($con,"SELECT * FROM `admin` WHERE `email` = '$e'");
+	$af = mysqli_fetch_array($q);
+	$id = $af['organization'];
+	$name = $af['name'];
+	$sql = mysqli_query($con,"SELECT * FROM orginzation WHERE orid = '$id'");
+	$fet = mysqli_fetch_array($sql);
+	$orgid = $fet['orid'];
+	$orgname = $fet['or_name'];
 	
 		 // for service create
 		$query = mysqli_query($con, "INSERT INTO `services`(`service_id`, `service_name`, `service_r_t_support`, `service_cmnts`, `service_refer`, `service_location`, `service_speciality`, `service_a_type`, `service_gender`, `sender_bookable`, `service_e_date`, `service_e_date2`, `service_age`, `service_age2`,`service_publish`,`service_caremenu`, `ser_cl_type`,`ser_res_reas`, `ser_res_cmnt`, `ser_instruct`, `ser_priority_rout`, `ser_priority_urg`, `ser_priority_wekex`, `ser_priority_2week`, `s_orgname`, `s_orgid`, `ser_create_id`, `ser_create_name`,`status`) VALUES ('$ser_ids','$ser_name','$chk','$res_cmnt','$ser_refer','$ser_loc','$ser_spe','$ser_app','$ser_gen','$ser_dire','$ser_eff','$ser_eff2','$ser_ager','$ser_ager2','$ser_publish','$ser_care','$cltype','$res_reas','$res_cmnt','$ser_inst','$ser_rout','$ser_urg','$ser_weekend','$ser_toweek','$orgname','$orgid','$uaid','$name','approve')");	
@@ -2227,7 +2378,7 @@ if(isset($_POST['serdefbtn']))
 	$fet = mysqli_fetch_array($sql);
 	$orgid = $fet['orid'];
 		
-		$dataq = mysqli_query($con, "INSERT INTO `tbl_service_definer`(`u_sername`, `u_seremail`, `u_serpass`, `u_sercontact`,`u_orgid`, `u_createid`) VALUES ('$sername','$seremail','$serpass','$sercont','$orgid','$adid')");
+		$dataq = mysqli_query($con, "INSERT INTO `tbl_service_definer`(`u_sername`, `u_seremail`, `u_serpass`, `u_sercontact`,`u_orgid`, `u_createid`,`u_status`) VALUES ('$sername','$seremail','$serpass','$sercont','$orgid','$adid','approve')");
 		
 		if($dataq){
 			echo"serdone";
@@ -2243,6 +2394,49 @@ if(isset($_POST['serdefbtn']))
 // for approve and not approve
 if(isset($_POST['method']))
 {	
+    //for Service Definer not active
+		if($_POST['method'] == "sdrapprove")
+			{
+				
+				$id = $_POST['id'];
+				$query = "UPDATE `tbl_service_definer` SET `u_status` = 'not_approve' WHERE `u_serid` = '$id'";
+				$vq = mysqli_query($con,$query);
+			
+				if($vq >0)
+				{
+					echo("Success");
+				}
+			
+		}
+	//for Service Definer active
+	if($_POST['method'] == "sdrnot_approve")
+		{
+			
+			$id = $_POST['id'];
+			$query = "UPDATE `tbl_service_definer` SET `u_status` = 'approve' WHERE `u_serid` = '$id'";
+			$vq = mysqli_query($con,$query);
+				echo mysqli_error($con);
+			$fs=mysqli_query($con,"select * from tbl_service_definer where u_serid='$id'");
+			$feh = mysqli_fetch_array($fs);
+			$email=$feh["u_seremail"];
+			$to      = $email;
+	$subject = 'For Approval ';
+	$message = '<html><body>';
+	$message .= '<h1>You Has Been Approved By Admin!</h1>';
+	$message .= '</body></html>';
+	$headers = 'From: info@deevloopers.com' . "\r\n" .
+		'Reply-To: info@deevloopers.com' . "\r\n" .
+		"MIME-Version: 1.0\r\n".
+		"Content-Type: text/html; charset=ISO-8859-1\r\n";
+		'X-Mailer: PHP/' . phpversion();
+	
+	mail($to, $subject, $message, $headers);
+			if($vq > 0)
+			{
+				echo("Success");
+			}
+			
+		}
 		//for consultant not active
 		if($_POST['method'] == "capprove")
 			{
@@ -2526,7 +2720,7 @@ $date=date_create($_POST['dob']);
 	';
 	}
 	else{
-		echo"No Data Found";
+		echo"There is no patient matching criteria";
 	}
 }
 
@@ -2709,6 +2903,158 @@ if(isset($_POST['readRecord']))
 	';
 	}
 }
+if(isset($_POST['readRecordbtnd']))
+{
+	$e = $_SESSION['superadmin'];
+	
+	$q = mysqli_query($con,"SELECT * FROM `admin`,orginzation WHERE admin.organization=orginzation.orid and admin.email = '$e'");
+	$f = mysqli_fetch_array($q);
+	$id = $f['orid'];
+	$query = mysqli_query($con,"SELECT * FROM `tbl_serviceappointment` JOIN services ON services.service_id = tbl_serviceappointment.sp_serviceid JOIN service_name on service_name.s_id = services.service_name JOIN tbl_ruser ON tbl_ruser.ur_id = tbl_serviceappointment.sp_refferalid JOIN tbl_patients on tbl_patients.pt_id= tbl_serviceappointment.sp_patientid WHERE tbl_ruser.ur_orgtype='$id'");
+
+	// $query = mysqli_query($con,"SELECT * FROM `tbl_consultantrefferels`,orginzation,tbl_patients where orginzation.orid=tbl_consultantrefferels.c_orgid and tbl_patients.pt_nhsno=tbl_consultantrefferels.c_nhsno and c_gpid = '$id'");
+	if($query)
+	{
+		echo'<link rel="stylesheet" href="https://cdn.datatables.net/1.10.23/css/dataTables.bootstrap4.min.css">
+		
+		<table class="nowrap nk-tb-list is-separate" data-auto-responsive="false" id="myTable">
+			<thead>
+				<tr class="nk-tb-item nk-tb-head">
+					
+				<th class="nk-tb-col"><span>Service Id</span></th>
+					<th class="nk-tb-col tb-col-sm"><span>Refferer Name</span></th>
+					<th class="nk-tb-col"><span>Service Name</span></th>
+					<th class="nk-tb-col"><span>NHS Number</span></th>
+					<th class="nk-tb-col tb-col-sm"><span>Patient Name</span></th>
+				
+					
+				</tr><!-- .nk-tb-item -->
+			</thead>
+			 <tbody id="">';
+		while($fetch = mysqli_fetch_array($query))
+		{
+	$rfid = $fetch['c_id'];
+
+	echo'   <tr class="nk-tb-item">
+	
+	<td class="nk-tb-col">
+		<span class="tb-lead">'.$fetch['sp_serviceid'].'</span>
+	</td>
+	<td class="nk-tb-col tb-col-sm">
+		<span class="tb-product">
+			
+			<span class="title">'.$fetch["ur_sname"]." ".$fetch['ur_fname'].'</span>
+		</span>
+	</td>
+	<td class="nk-tb-col">
+		<span class="tb-lead">'.$fetch['s_name'].'</span>
+	</td>
+	
+	
+	<td class="nk-tb-col">
+		<span class="tb-lead">'.$fetch['pt_nhsno'].'</span>
+	</td>	
+	<td class="nk-tb-col">
+		<span class="tb-lead">'.$fetch['pt_name']." ".$fetch["pt_surname"].'</span>
+	</td>';
+	
+
+											
+			}
+			echo'</tbody> </table>
+			
+			
+			<script src="https://cdn.datatables.net/1.10.23/js/jquery.dataTables.min.js"></script>
+	<script src="https://cdn.datatables.net/1.10.23/js/dataTables.bootstrap4.min.js"></script>
+	<script>$(document).ready(function () {
+		$("#myTable").DataTable();
+	} )
+	</script>
+	';
+		}
+}
+if(isset($_POST['readRecordbtnd1']))
+{
+	$e = $_SESSION['superadmin'];
+	
+	$q = mysqli_query($con,"SELECT * FROM `admin`,orginzation WHERE admin.organization=orginzation.orid and admin.email = '$e'");
+	$f = mysqli_fetch_array($q);
+	$id = $f['orid'];
+	$query = mysqli_query($con,"SELECT * FROM `tbl_patientappointment` JOIN services ON services.service_id = tbl_patientappointment.o_serviceid JOIN service_name on service_name.s_id = services.service_name JOIN tbl_ruser ON tbl_ruser.ur_id = tbl_patientappointment.o_refferelid JOIN tbl_patients on tbl_patients.pt_id= tbl_patientappointment.o_patientid WHERE tbl_patientappointment.o_orgid='$id'");
+
+	// $query = mysqli_query($con,"SELECT * FROM `tbl_consultantrefferels`,orginzation,tbl_patients where orginzation.orid=tbl_consultantrefferels.c_orgid and tbl_patients.pt_nhsno=tbl_consultantrefferels.c_nhsno and c_gpid = '$id'");
+	if($query)
+	{
+		echo'<link rel="stylesheet" href="https://cdn.datatables.net/1.10.23/css/dataTables.bootstrap4.min.css">
+		
+		<table class="nowrap nk-tb-list is-separate" data-auto-responsive="false" id="myTable">
+			<thead>
+				<tr class="nk-tb-item nk-tb-head">
+					
+				<th class="nk-tb-col"><span>Service Id</span></th>
+					<th class="nk-tb-col tb-col-sm"><span>Refferer Name</span></th>
+					<th class="nk-tb-col"><span>Service Name</span></th>
+					<th class="nk-tb-col"><span>UBRN Number</span></th>
+					<th class="nk-tb-col"><span>NHS Number</span></th>
+					<th class="nk-tb-col tb-col-sm"><span>Patient Name</span></th>
+				<th class="nk-tb-col tb-col-sm"><span>Date</span></th>
+				<th class="nk-tb-col tb-col-sm"><span>Time</span></th>
+					
+				</tr><!-- .nk-tb-item -->
+			</thead>
+			 <tbody id="">';
+		while($fetch = mysqli_fetch_array($query))
+		{
+// 	$rfid = $fetch['c_id'];
+        $date=date_create($fetch['o_date']);
+        $time=date_create($fetch['o_time']);
+        
+	echo'   <tr class="nk-tb-item">
+	
+	<td class="nk-tb-col">
+		<span class="tb-lead">'.$fetch['o_serviceid'].'</span>
+	</td>
+	<td class="nk-tb-col tb-col-sm">
+		<span class="tb-product">
+			
+			<span class="title">'.$fetch["ur_sname"]." ".$fetch['ur_fname'].'</span>
+		</span>
+	</td>
+	<td class="nk-tb-col">
+		<span class="tb-lead">'.$fetch['s_name'].'</span>
+	</td>
+		<td class="nk-tb-col">
+		<span class="tb-lead">'.$fetch['o_ubrn'].'</span>
+	</td>
+	
+	<td class="nk-tb-col">
+		<span class="tb-lead">'.$fetch['pt_nhsno'].'</span>
+	</td>	
+	<td class="nk-tb-col">
+		<span class="tb-lead">'.$fetch['pt_name']." ".$fetch["pt_surname"].'</span>
+	</td>
+	<td class="nk-tb-col">
+		<span class="tb-lead">'.date_format($date,"d-m-Y").'</span>
+	</td>
+	<td class="nk-tb-col">
+		<span class="tb-lead">'.date_format($time,"h:i a").'</span>
+	</td>';
+	
+
+											
+			}
+			echo'</tbody> </table>
+			
+			
+			<script src="https://cdn.datatables.net/1.10.23/js/jquery.dataTables.min.js"></script>
+	<script src="https://cdn.datatables.net/1.10.23/js/dataTables.bootstrap4.min.js"></script>
+	<script>$(document).ready(function () {
+		$("#myTable").DataTable();
+	} )
+	</script>
+	';
+		}
+}
 if(isset($_POST["obtn"])){
 		if($_POST['status'] == "gapprove")
 			{
@@ -2740,6 +3086,7 @@ if(isset($_POST["obtn"])){
 		    echo "sss";
 		}
 }
+
 
 // for Service Update from sub_admin
 if(isset($_POST['servicupdate']))
@@ -2844,6 +3191,67 @@ if(isset($_POST['servicupdate']))
 		
 	}
 
+//for profession registration no check
+if(isset($_POST['proregcheck']))
+{
+    $proregno = $_POST['proregno'];
+    $sql = mysqli_query($con,"SELECT * FROM `tbl_ruser` WHERE ur_proregno = '$proregno'");
+    if(mysqli_num_rows($sql) > 0)
+    {
+        echo"already";
+        
+    }
+    else
+    {
+        echo"available";
+    }
+}
 
+
+//for gp update
+if(isset($_POST['updategp']))
+	{
+		$id = $_POST['gpid'];
+		$fname = $_POST['fname'];
+		$sname = $_POST['sname'];
+		$email = $_POST['gpemail'];
+		$pass = $_POST['gppassword'];
+
+		$query = mysqli_query($con,"UPDATE `tbl_ruser` SET `ur_fname`='$fname',`ur_sname`='$sname',`ur_email` = '$email', `ur_pass` = '$pass' WHERE `ur_id` = '$id'");
+		
+		if($query)
+		{
+		
+			echo "Success";
+			
+		}
+		else
+		{
+			echo("Error");
+		}
+	}
+	
+	//for sdr update
+if(isset($_POST['updatesdr']))
+	{
+		$id = $_POST['sdrid'];
+		$fname = $_POST['sdrname'];
+		$sname = $_POST['sdrcontact'];
+		$email = $_POST['sdremail'];
+		$pass = $_POST['sdrpassword'];
+
+		$query = mysqli_query($con,"UPDATE `tbl_service_definer` SET `u_sername`='$fname',`u_sercontact`='$sname',`u_seremail` = '$email', `u_serpass` = '$pass' WHERE `u_serid` = '$id'");
+		
+		if($query)
+		{
+		
+			echo "Success";
+			
+		}
+		else
+		{
+			echo("Error");
+		}
+	}
 
 ?>

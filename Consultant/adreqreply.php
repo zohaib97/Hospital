@@ -41,9 +41,28 @@ include_once('header.php');
 													$dref = mysqli_fetch_assoc($qref);
 												}
 											?>
+											<?php
+				    $q = $_GET["request_type"];
+
+						$qref = mysqli_query($con, "SELECT * FROM `tbl_consultantrefferels` WHERE request_type = '$q'");
+						$dref = mysqli_fetch_assoc($qref);
+						if($dref['request_type'] == "Advice request")
+						{
+						    
+						
+				    ?>
                                             <nav class="p-2 bg-light mb-3 col-form-label font-weight-bold">Advice
                                                 Request Details - <span class="text-info"><?=$dref['c_nhsno']?></span>
                                             </nav>
+                                            <?php
+						}elseif($dref['request_type'] == "Appointment Request"){
+                                            ?>
+                                            <nav class="p-2 bg-light mb-3 col-form-label font-weight-bold">Appointment
+                                                Request Details - <span class="text-info"><?=$dref['c_nhsno']?></span>
+                                            </nav>
+                                            <?php
+						}
+                                            ?>
                                         </li>
                                     </ul>
 
@@ -111,9 +130,7 @@ include_once('header.php');
                                                     <li>
                                                         <span class="font-weight-bold">Registered Practice</span>
                                                         <br>
-                                                        <span>Karachi
-                                                            Sindh
-                                                            Pakistan</span>
+                                                        <span><?=$dref["ur_address"]?></span>
                                                     </li>
                                                     <br>
                                                     <li>
@@ -139,20 +156,42 @@ include_once('header.php');
 												Name: <?=$fetch2['pt_name']." ".$fetch2["pt_surname"]?></span>
 												
 												<br>
-												
+												<span class="text-dark">
+												NHS no: <?=$fetch2['pt_nhsno']?></span>
+												<br>
+												<span class="text-dark">
+												Date of Birth: <?=$fetch2['pt_dob']?></span>
+												<br>
 												<span class="text-dark">
 												Email: <?=$fetch2['pt_email']?>
 												</span>
 												<br>
 												<hr>
                                                 <div class="nk-block-head nk-block-head-lg wide-sm">
+                                                    <?php
+				    $q = $_GET["request_type"];
+
+						$qref = mysqli_query($con, "SELECT * FROM `tbl_consultantrefferels` WHERE request_type = '$q'");
+						$dref = mysqli_fetch_assoc($qref);
+						if($dref['request_type'] == "Advice request")
+						{
+						    
+						
+				    ?>
                                                     <h5 class="nk-block-title fw-normal col-form-label font-weight-bold"
                                                         style="font-size: 20px">Advice Conversation</h5>
+                                                        <?php
+						}
+						elseif($dref['request_type'] == "Appointment Request"){
+                                                        ?>
                                                   
-                                                   
+                                                   <h5 class="nk-block-title fw-normal col-form-label font-weight-bold"
+                                                        style="font-size: 20px">Appointment Conversation</h5>
+                                                 <?php
+						}
+                                                 ?>
                                                  
-                                                 
-                                                    <div id="fetchreply" style="height: 400px;overflow-y: scroll;">
+                                                    <div id="fetchreply" style="height: 320px;overflow-y: scroll;">
                                                         <!-- phpcode.php -->
                                                     </div>
                                                     <br>
@@ -161,12 +200,8 @@ include_once('header.php');
                                             </div>
                                         </div>
                                     </div>
-                                   
-            
-			
                                     <!-- nk-block -->
                                 </div><!-- .components-preview -->
-                                <br><br>
                                 <div>
                                  <div class="float-right p-4 bg-light w-100 col-form-label font-weight-bold mb-3 ml-0"><p>Advice
                                                         Status - <span class="text-info">Provider Response
@@ -194,8 +229,20 @@ include_once('header.php');
                                                                     class="form-control" name="cmntad" id="" cols="30"
                                                                     rows="3" required></textarea>
                                                             </div>
+                                                            <?php 
+															if(isset($_GET['nhsno'])){
+													$nhsno = $_GET['nhsno'];
+													$request_type=$_GET['request_type'];
+													$qref = mysqli_query($con, "SELECT * FROM `tbl_consultantrefferels` JOIN `tbl_patients` ON c_rfid = tbl_patients.pt_id JOIN `services` ON c_serid = services.service_id JOIN `tbl_ruser` ON tbl_ruser.ur_id = tbl_consultantrefferels.c_userid WHERE request_type='$request_type' and c_nhsno = '$nhsno'");
+													$dref1 = mysqli_fetch_assoc($qref);
+												}
+														?>
                                                             <button type="submit"
                                                                 class="btn btn-sm btn-info my-3 ml-3">Send</button>
+                                                                <a href="javascript:void(0)" onclick="accept('<?=$dref1["c_id"]?>')" class="btn btn-sm btn-primary my-3 ml-3">Accept</a>
+                                                                <a href="javascript:void(0)" onclick="reject('<?=$dref1["c_id"]?>')" class="btn btn-sm btn-danger my-3 ml-3">Reject</a>
+</td>
+</td>
                                                         </div>
                                                     </form> </center>
                                                     </div>
@@ -271,6 +318,74 @@ include_once('header.php');
             </div>
         </div>
     </div>
+    <div class="modal fade" tabindex="-1" id="acceptmodal">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Acception Reason</h5>
+                    <a href="#" class="close" data-dismiss="modal" aria-label="Close">
+                        <em class="icon ni ni-cross"></em>
+                    </a>
+                </div>
+                <div class="modal-body">
+   <form method="post" id="acceptreason">
+			<div class="row">
+			 
+				<div class="col-md-12">
+				    <input type="text" name="cid" id="cid" hidden>
+                    <label for="reason">Reason</label>
+					<textarea class="form-control" cols="4" rows="4" id="reason" name="reason"></textarea>
+					</div>
+					
+				
+					
+					</div>
+					<div class="row">
+					<div class="col-md-6">
+					    <button type="submit" class="btn btn-sm btn-info my-3 ml-3">Send</button>
+					    </div>
+					    </div>
+						</form>
+                </div>
+                <div class="modal-footer bg-light">
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" tabindex="-1" id="rejectmodal">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Rejection Reason</h5>
+                    <a href="#" class="close" data-dismiss="modal" aria-label="Close">
+                        <em class="icon ni ni-cross"></em>
+                    </a>
+                </div>
+                <div class="modal-body">
+   <form method="post" id="rejectreason">
+			<div class="row">
+			 
+				<div class="col-md-12">
+				    <input type="text" name="rcid" id="rcid" hidden>
+                    <label for="rejreason">Reason</label>
+					<textarea class="form-control" cols="4" rows="4" id="rejreason" name="rejreason"></textarea>
+					</div>
+					
+				
+					
+					</div>
+					<div class="row">
+					<div class="col-md-6">
+					    <button type="submit" class="btn btn-sm btn-info my-3 ml-3">Send</button>
+					    </div>
+					    </div>
+						</form>
+                </div>
+                <div class="modal-footer bg-light">
+                </div>
+            </div>
+        </div>
+    </div>
                 <!-- content @e -->
                 <!-- footer @s -->
                 <?php
@@ -289,6 +404,99 @@ include_once('header.php');
     <script src="assets/js/example-toastr.js?ver=2.2.0"></script>
 </body>
 <script>
+function accept(cid){
+     $('#cid').val(cid);
+   $('#acceptmodal').modal('show');
+  
+	   // $.ajax({
+	   //     url:"phpcode.php",
+	   //     type:"POST",
+	   //     data:{accept:"btn",cid:cid},
+	   //     success:function(res){
+	          
+	   //     if(res == "success"){
+	            
+	   //     toastr.clear();
+    //             NioApp.Toast("<h5>Request Accepted</h5>", 'success', {
+    //                 position: 'top-right'
+    //             });
+	   //     }
+	   //     if(res == "error"){
+	   //       toastr.clear();
+    //             NioApp.Toast("<h5>Something Went Wrong</h5>", 'warning', {
+    //                 position: 'top-right'
+    //             });
+	   //     }
+	   //     }
+	   // })
+	}
+$('#acceptreason').on('submit',function(e){
+      e.preventDefault();
+   
+      var formdata = new FormData(this);
+      formdata.append("insertreason","btn");
+      $.ajax({
+            type:"POST",
+	        url:"phpcode.php",
+	        data: formdata,
+	        contentType: false,
+            processData: false,
+	        success:function(res){
+
+	        if(res == "success"){
+	            
+	        toastr.clear();
+                NioApp.Toast("<h5>Request Accepted</h5>", 'success', {
+                    position: 'top-right'
+                });
+                $('#acceptmodal').modal('hide');
+	        }
+	        if(res == "error"){
+	          toastr.clear();
+                NioApp.Toast("<h5>Something Went Wrong</h5>", 'warning', {
+                    position: 'top-right'
+                });
+	        }
+	        }
+	    })
+});
+	function reject(cid){
+$('#rcid').val(cid);
+   $('#rejectmodal').modal('show');
+	}
+	
+	
+	$('#rejectreason').on('submit',function(e){
+      e.preventDefault();
+   
+      var formdata = new FormData(this);
+      formdata.append("rejectreason","btn");
+      $.ajax({
+            type:"POST",
+	        url:"phpcode.php",
+	        data: formdata,
+	        contentType: false,
+            processData: false,
+	        success:function(res){
+
+	        if(res == "success"){
+	            
+	        toastr.clear();
+                NioApp.Toast("<h5>Request Rejected</h5>", 'error', {
+                    position: 'top-right'
+                });
+                $('#rejectmodal').modal('hide');
+	        }
+	        if(res == "error"){
+	          toastr.clear();
+                NioApp.Toast("<h5>Something Went Wrong</h5>", 'warning', {
+                    position: 'top-right'
+                });
+	        }
+	        }
+	    })
+});
+	
 function showpat()
 {
 	$('#modalname').modal('show');
@@ -380,13 +588,13 @@ $("#attach").on('submit', function(e) {
         success: function(data) {
             if (data == 'Error') {
                 toastr.clear();
-                NioApp.Toast("<h5>Refferel didn't Send Successfully</h5>", 'error', {
+                NioApp.Toast("<h5>Request didn't Send Successfully</h5>", 'error', {
                     position: 'top-right'
                 });
             } else if (data == 'Success') {
                 $('#attach')[0].reset();
                 toastr.clear();
-                NioApp.Toast("<h5>Refferel Sent Successfully</h5>", 'success', {
+                NioApp.Toast("<h5>Request Sent Successfully</h5>", 'success', {
                     position: 'top-right'
                 });
 

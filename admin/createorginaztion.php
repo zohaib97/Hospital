@@ -59,17 +59,19 @@ include_once('connect.php');
 												<div class="col-md-6">
 													<div class="form-group">
 														<label class="col-form-label" for="otype">Organisation Type</label>
-														<select  class="form-control form-control-lg js-example-tags" id="otype" name="otype" id="organisation" required>
+														<select  class="form-control form-control-lg js-example-tags" id="otype" name="otype" required>
                                                         <?php
-                                                        $sql = mysqli_query($con,"SELECT * FROM orginzation");
+                                                        $sql = mysqli_query($con,"SELECT * FROM organisation_type");
                                                     if(mysqli_num_rows($sql)>0)
                                                     {
 
                                                     
-                                                        $fetc = mysqli_fetch_array($sql);
+                                                        while($fetc = mysqli_fetch_array($sql))
+                                                        {
                                                         ?>
-                                                        <option value="<?=$fetc['or_type']?>"><?=$fetc['or_type']?></option>
+                                                        <option value="<?=$fetc['ort_name']?>"><?=$fetc['ort_name']?></option>
                                                         <?php
+                                                        }
                                                     }
                                                         ?>
                                                         </select>
@@ -81,12 +83,7 @@ include_once('connect.php');
 														<input type="number" class="form-control form-control-lg " id="ocontact" placeholder="Enter Contact" name="ocontact" required autocomplete="off">
 													</div>
 												</div>
-												<div class="col-md-6">
-													<div class="form-group">
-														<label class="col-form-label" for="oaddress">Organisation Address</label>
-														<input type="text" class="form-control form-control-lg " id="oaddress" placeholder="Enter Address" name="oaddress" required autocomplete="off">
-													</div>
-												</div>
+												
                                                 <div class="col-md-6">
 													<div class="form-group">
 														<label class="col-form-label" for="ocode">Organisation Code</label>
@@ -97,6 +94,12 @@ include_once('connect.php');
 													<div class="form-group">
 														<label class="col-form-label" for="ofaddress">Organisation First Line Address</label>
 														<input type="text" class="form-control form-control-lg " id="ofaddress" placeholder="Enter First Line Address" name="ofaddress" required autocomplete="off">
+													</div>
+												</div>
+												<div class="col-md-6">
+													<div class="form-group">
+														<label class="col-form-label" for="oaddress">Organisation Second Line Address</label>
+														<input type="text" class="form-control form-control-lg " id="oaddress" placeholder="Enter Address" name="oaddress" required autocomplete="off">
 													</div>
 												</div>
                                                 <div class="col-md-6">
@@ -197,6 +200,10 @@ include_once('connect.php');
 					
                NioApp.Toast("<h5>Organisation Added Successfully</h5>", 'success',{position:'top-right'});
 					setTimeout(function(){window.location.href="organizationlist.php";}, 2000);
+                }
+                else if(data == "postcodealready")
+                {
+                     NioApp.Toast("<h5>Postcode Already Registered</h5>", 'warning',{position:'top-right'});
                 }
 			
                 $('#oradd').css("opacity","");

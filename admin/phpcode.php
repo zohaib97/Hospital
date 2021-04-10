@@ -128,6 +128,7 @@ if(isset($_POST['addhospital']))
 if(isset($_POST['addsubadmin']))
 {
 	$name = $_POST['saname'];
+	$sname = $_POST['ssname'];
 	$email = $_POST['saemail'];
 	$password = $_POST['sapass'];
 	$contact = $_POST['sacontact'];
@@ -149,6 +150,58 @@ if(isset($_POST['addsubadmin']))
 	
 		if($query)
 		{
+		    $query2 = mysqli_query($con,"SELECT * FROM `orginzation` WHERE orid ='$organization'");
+		    $orgfetch = mysqli_fetch_array($query2);
+		    $orgname = $orgfetch['or_name'];
+		    $orgcode = $orgfetch['or_code'];
+		    $orgtype = $orgfetch['or_type'];
+		    
+		    $orgphone = $orgfetch['or_phone'];
+		    $orgaddress = $orgfetch['or_address'];
+		    $orgcity = $orgfetch['or_city'];
+		    $orgpostcode = $orgfetch['or_postcode'];
+		    if($orgtype == "NHS Hospital")
+		    {
+		        $roleid = 3;
+		        $rolename = 'Consultant';
+		    }
+		    elseif($orgtype == "Opticians")
+		    {
+		        $roleid = 6;
+		        $rolename = 'Optometrist';
+		    }
+		    else{
+		        $roleid = 5;
+		        $rolename = 'General practitioner';
+		    }
+		    $query3 = mysqli_query($con,"SELECT * FROM organisation_type WHERE ort_name = '$orgtype'");
+		    $typefetch = mysqli_fetch_array($query3);
+		    $typeid = $typefetch['id'];
+		    $query1 = mysqli_query($con,"INSERT INTO `tbl_ruser`(`ur_fname`, `ur_sname`, `ur_email`, `ur_pass`, `title`, `ur_orgname`, `ur_orgcode`, `ur_orgtype`, `ur_role_id`, `ur_role_name`, `ur_orgphno`, `ur_orgaddress`, `ur_status`, `ur_proregno`, `ur_address`, `ur_city`, `ur_postcode`) VALUES ('$name','$sname','$email','$password','Mr','$orgname','$orgcode','$typeid','$roleid','$rolename','$orgphone','$orgaddress','approve','862131645','$orgaddress','$orgcity','$orgpostcode')");
+			echo "Success";
+		}
+		else
+		{
+			echo "Error";
+		}
+	}
+}
+
+//for orgtype add
+if(isset($_POST['addorgtype']))
+{
+	$name = $_POST['orgname'];
+	
+	$nhsq = mysqli_query($con, "SELECT * FROM `organisation_type` WHERE `ort_name` = '$name'");
+	$nhsc = mysqli_num_rows($nhsq);
+	
+	if($nhsc>0){
+		echo"alreadadd";
+	}else {
+		$query = mysqli_query($con,"INSERT INTO `organisation_type`(`ort_name`) VALUES ('$name')");
+	
+		if($query)
+		{
 			echo "Success";
 		}
 		else
@@ -164,6 +217,40 @@ if(isset($_POST['deladmin']))
 		
 		$vid = $_POST['vid'];
 		$vdel = "DELETE FROM `admin` WHERE `id` = '$vid'";
+		$vq = mysqli_query($con,$vdel);
+		if($vq){
+			echo "Success";
+		}else {
+			echo "Error";
+		}
+		
+//		header('location:data-table.php');
+		
+	}
+
+//for organisation type delete
+if(isset($_POST['delortname']))
+{
+		
+		$vid = $_POST['vid'];
+		$vdel = "DELETE FROM `organisation_type` WHERE `id` = '$vid'";
+		$vq = mysqli_query($con,$vdel);
+		if($vq){
+			echo "Success";
+		}else {
+			echo "Error";
+		}
+		
+//		header('location:data-table.php');
+		
+	}
+
+//for appointment type delete
+if(isset($_POST['delappname']))
+{
+		
+		$vid = $_POST['vid'];
+		$vdel = "DELETE FROM `app_type` WHERE `app_id` = '$vid'";
 		$vq = mysqli_query($con,$vdel);
 		if($vq){
 			echo "Success";
@@ -305,6 +392,100 @@ echo
 ';
 	}
 }
+
+//fetch organisation_type data
+if(isset($_POST['orgtypefetch']))
+{
+$query = mysqli_query($con,"SELECT * FROM `organisation_type`");
+	if($query)
+	{
+		
+//							<th class="nk-tb-col nk-tb-col-check">
+//						<div class="custom-control custom-control-sm custom-checkbox notext">
+//							<input type="checkbox" class="custom-control-input" id="puid">
+//							<label class="custom-control-label" for="puid"></label>
+//						</div>
+//					</th>
+
+		
+		echo'<link rel="stylesheet" href="https://cdn.datatables.net/1.10.23/css/dataTables.bootstrap4.min.css">
+		
+		<table class="nowrap nk-tb-list is-separate" data-auto-responsive="true" id="myTable">
+			<thead>
+				<tr class="nk-tb-item nk-tb-head">
+					<th class="nk-tb-col "><span>Name</span></th>
+					
+					<th class="nk-tb-col"><span class="float-right">Action</span></th>
+				</tr><!-- .nk-tb-item -->
+			</thead>
+			 <tbody id="">';
+		while($fetch = mysqli_fetch_array($query))
+		{
+	$id = $fetch['id'];
+	$name = $fetch['ort_name'];
+
+
+echo
+//	<td class="nk-tb-col nk-tb-col-check">
+//		<div class="custom-control custom-control-sm custom-checkbox notext">
+//			<input type="checkbox" class="custom-control-input" id="puid1">
+//			<label class="custom-control-label" for="puid1"></label>
+//		</div>
+//	</td>
+	
+	'   <tr class="nk-tb-item">
+	
+	<td class="nk-tb-col ">
+		<span class="tb-product">
+			
+			<span class="tb-sub">'.$fetch['ort_name'].'</span>
+		</span>
+	</td>
+
+	';
+// 			if($fetch['status'] == "approve")
+// 			{
+// 	echo'<td class="nk-tb-col ">
+// 		<span class="btn btn-success" onClick="aprovenotaprove('."'$id'".','."'a$status'".','."'$email'".')">'.$fetch['status'].'</span>
+// 	</td>';
+// 			}
+// 			else if($fetch['status'] == "not_approve")
+// 			{
+// 				echo'<td class="nk-tb-col ">
+// 		<span class="btn btn-danger" onClick="aprovenotaprove('."'$id'".','."'a$status'".','."'$email'".')">'.$fetch['status'].'</span>
+// 	</td>';
+// 			}
+	echo'<td class="nk-tb-col nk-tb-col-tools">
+		<ul class="nk-tb-actions gx-1 my-n1">
+			<li class="mr-n1">
+				<div class="dropdown">
+					<a href="#" class="dropdown-toggle btn btn-icon btn-trigger" data-toggle="dropdown"><em class="icon ni ni-more-h"></em></a>
+					<div class="dropdown-menu dropdown-menu-right">
+						<ul class="link-list-opt no-bdr">
+							<li><a href="javascript:void(0)" onClick="openmodal1('."'$id'".','."'$name'".')"><em class="icon ni ni-edit"></em><span>Edit</span></a></li>
+							
+							<li><a href="javascript:void(0)" onClick="confirm('."'$id'".')"><em class="icon ni ni-trash"></em><span>Remove</span></a></li>
+
+						</ul>
+					</div>
+				</div>
+			</li>
+		</ul>
+	</td>
+</tr>';
+										
+		}
+		echo'</tbody> </table>
+		<script src="https://cdn.datatables.net/1.10.23/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.10.23/js/dataTables.bootstrap4.min.js"></script>
+<script>$(document).ready(function () {
+    $("#myTable").DataTable();
+} )
+</script>
+';
+	}
+}
+
 
 //fetch users data
 if(isset($_POST['fetchusersbtn']))
@@ -565,7 +746,7 @@ echo'   <tr class="nk-tb-item">
 				<div class="card-inner">
 					<div class="user-card">
 						<div class="user-avatar bg-primary">
-							<span>AB</span>
+						<img src="images/avatar/'.$fetch['image'].'">
 						</div>
 						<div class="user-info">
 							<span class="lead-text">'.$fetch['name'].'</span>
@@ -576,8 +757,8 @@ echo'   <tr class="nk-tb-item">
 								<a class="btn btn-icon btn-trigger mr-n2" data-toggle="dropdown" href="#"><em class="icon ni ni-more-v"></em></a>
 								<div class="dropdown-menu dropdown-menu-right">
 									<ul class="link-list-opt no-bdr">
-										<li><a href="#"><em class="icon ni ni-camera-fill"></em><span>Change Photo</span></a></li>
-										<li><a href="#"><em class="icon ni ni-edit-fill"></em><span>Update Profile</span></a></li>
+										<li><a href="#" onClick="cupdmodal('."'$id'".','."'$name'".','."'$contact'".','."'$address'".')"><em class="icon ni ni-camera-fill"></em><span>Change Photo</span></a></li>
+										<li><a href="#" onClick="cupdmodal('."'$id'".','."'$name'".','."'$contact'".','."'$address'".')"><em class="icon ni ni-edit-fill"></em><span>Update Profile</span></a></li>
 									</ul>
 								</div>
 							</div>
@@ -608,7 +789,17 @@ if(isset($_POST['updateadmin']))
 		$id = $_POST['id'];
 		$name = $_POST['name'];
 		$contact = $_POST['contact'];
-		
+		$select = mysqli_query($con,"SELECT * FROM `admin` WHERE `id`='$id'");
+		$fetch = mysqli_fetch_array($select);
+		if($_FILES['image']['name']!=''&& $_FILES['image']['name']!= null)
+		{
+		$file = $_FILES['image']['name'];
+			move_uploaded_file($_FILES['image']['tmp_name'],'images/avatar/'.$file);
+		}
+		else
+		{
+			$file = $fetch['image'];
+		}
 		
 //		$select = mysqli_query($con,"SELECT * FROM `admin` WHERE `id` = '$id'");
 //		$fetc = mysqli_fetch_array($select);
@@ -622,7 +813,7 @@ if(isset($_POST['updateadmin']))
 //			$file = $fetc['profile_pic'];	
 //		}
 //	
-		$query = mysqli_query($con,"UPDATE `admin` SET `name`='$name',`contact`='$contact' WHERE `id` = '$id'");
+		$query = mysqli_query($con,"UPDATE `admin` SET `name`='$name',`contact`='$contact',`image` = '$file' WHERE `id` = '$id'");
 		
 		if($query)
 		{
@@ -717,7 +908,62 @@ if(isset($_POST['updatehadmin']))
 		}
 	}
 
-
+//for Organisation Type
+if(isset($_POST['updateorgtype']))
+	{
+		$id = $_POST['id'];
+		$name = $_POST['name'];
+	
+	
+		$emcheck = mysqli_query($con, "SELECT * FROM `organisation_type` WHERE `ort_name` = '$name'");
+		$count = mysqli_num_rows($emcheck);
+	
+		if($count>0){
+			echo"namealready";
+		}else {
+	
+		$query = mysqli_query($con,"UPDATE `organisation_type` SET `ort_name`='$name' WHERE id = '$id'");
+		
+		if($query)
+		{
+			echo "Success";
+		}
+		else
+		{
+			echo("Error");
+		}
+	
+		}
+	}
+	
+	//for Appointment Type
+if(isset($_POST['apptypeupdate']))
+	{
+		$id = $_POST['id'];
+		$name = $_POST['name'];
+	
+	
+		$emcheck = mysqli_query($con, "SELECT * FROM `app_type` WHERE `app_type` = '$name'");
+		$count = mysqli_num_rows($emcheck);
+	
+		if($count>0){
+			echo"namealready";
+		}else {
+	
+		$query = mysqli_query($con,"UPDATE `app_type` SET `app_type`='$name' WHERE app_id = '$id'");
+		
+		if($query)
+		{
+			echo "Success";
+		}
+		else
+		{
+			echo("Error");
+		}
+	
+		}
+	}
+	
 
 //for privacy add
 if(isset($_POST['addprivacy']))
@@ -782,8 +1028,13 @@ if(isset($_POST['servicadd']))
 
 if(isset($_POST['ser_app']))
 	{
-		$ser_name = $_POST['ser_appt'];
-	
+		$ser_name = $_POST['appname'];
+	$sql = mysqli_query($con,"SELECT * FROM `app_type` WHERE app_type = '$ser_name'");
+	if(mysqli_num_rows>0)
+	{
+	echo"already";
+	}
+	else{
 		$emcheck = mysqli_query($con, "INSERT INTO `app_type` (`app_type`) VALUES ('$ser_name')");
 		$count = mysqli_num_rows($emcheck);
 	
@@ -792,6 +1043,27 @@ if(isset($_POST['ser_app']))
 		}else {
 			echo "sererror";
 		}
+	}
+	}
+	//for admin appointment type add
+	if(isset($_POST['ser_app2']))
+	{
+		$ser_name = $_POST['appname'];
+	$sql = mysqli_query($con,"SELECT * FROM `app_type` WHERE app_type = '$ser_name'");
+	if(mysqli_num_rows>0)
+	{
+	echo"already";
+	}
+	else{
+		$emcheck = mysqli_query($con, "INSERT INTO `app_type` (`app_type`,`app_show`) VALUES ('$ser_name','allow')");
+		$count = mysqli_num_rows($emcheck);
+	
+		if($count){
+			echo"sersuc";
+		}else {
+			echo "sererror";
+		}
+	}
 	}
 
 // for service name
@@ -973,9 +1245,9 @@ $query = mysqli_query($con,"SELECT * FROM `app_type`");
 		<table class="nowrap nk-tb-list is-separate" data-auto-responsive="false" id="myTableap">
 			<thead>
 				<tr class="nk-tb-item nk-tb-head">
-					<th class="nk-tb-col nk-tb-col-check">
-					</th>
+				
 					<th class="nk-tb-col tb-col-sm"><span>Name</span></th>
+			
 				</tr><!-- .nk-tb-item -->
 			</thead>
 			 <tbody id="">';
@@ -983,24 +1255,24 @@ $query = mysqli_query($con,"SELECT * FROM `app_type`");
 		{
 	$idapp = $fetch['app_id'];
 	$name = $fetch['app_type'];
-	$appallow = $fetch['app_show'];
+// 	$appallow = $fetch['app_show'];
 
 echo'<tr class="nk-tb-item">';
-		if($appallow == "allow"){
-			echo'<td class="nk-tb-col nk-tb-col-check">
-				<div class="custom-control custom-control-sm custom-checkbox notext">
-					<input type="checkbox" name="ser_appchange" onchange="appshow('.$idapp.')" checked="" class="custom-control-input" id="app'.$idapp.'">
-					<label class="custom-control-label" for="app'.$idapp.'"></label>
-				</div>
-			</td>';
-		}else if($appallow == "not_allow"){
-			echo'<td class="nk-tb-col nk-tb-col-check">
-				<div class="custom-control custom-control-sm custom-checkbox notext">
-					<input type="checkbox" name="ser_appchange" onchange="appshow('.$idapp.')" class="custom-control-input" id="app'.$idapp.'">
-					<label class="custom-control-label" for="app'.$idapp.'"></label>
-				</div>
-			</td>';
-		}
+// 		if($appallow == "allow"){
+// 			echo'<td class="nk-tb-col nk-tb-col-check">
+// 				<div class="custom-control custom-control-sm custom-checkbox notext">
+// 					<input type="checkbox" name="ser_appchange" onchange="appshow('.$idapp.')" checked="" class="custom-control-input" id="app'.$idapp.'">
+// 					<label class="custom-control-label" for="app'.$idapp.'"></label>
+// 				</div>
+// 			</td>';
+// 		}else if($appallow == "not_allow"){
+// 			echo'<td class="nk-tb-col nk-tb-col-check">
+// 				<div class="custom-control custom-control-sm custom-checkbox notext">
+// 					<input type="checkbox" name="ser_appchange" onchange="appshow('.$idapp.')" class="custom-control-input" id="app'.$idapp.'">
+// 					<label class="custom-control-label" for="app'.$idapp.'"></label>
+// 				</div>
+// 			</td>';
+// 		}
 //	<img src="images/product/a.png" alt="" class="thumb">
 	echo'<td class="nk-tb-col tb-col-sm">
 		<span class="tb-product">
@@ -1026,6 +1298,86 @@ echo'<tr class="nk-tb-item">';
 	}
 }
 
+//fetch admin service appointment data
+if(isset($_POST['serappbtn2']))
+{
+$query = mysqli_query($con,"SELECT * FROM `app_type`");
+	if($query)
+	{
+		echo'<link rel="stylesheet" href="https://cdn.datatables.net/1.10.23/css/dataTables.bootstrap4.min.css">
+		
+		<table class="nowrap nk-tb-list is-separate" data-auto-responsive="false" id="myTableap">
+			<thead>
+				<tr class="nk-tb-item nk-tb-head">
+				
+					<th class="nk-tb-col tb-col-sm"><span>Name</span></th>
+					<th class="nk-tb-col"><span class="float-right">Action</span></th>
+				</tr><!-- .nk-tb-item -->
+			</thead>
+			 <tbody id="">';
+		while($fetch = mysqli_fetch_array($query))
+		{
+	$idapp = $fetch['app_id'];
+	$name = $fetch['app_type'];
+// 	$appallow = $fetch['app_show'];
+
+echo'<tr class="nk-tb-item">';
+// 		if($appallow == "allow"){
+// 			echo'<td class="nk-tb-col nk-tb-col-check">
+// 				<div class="custom-control custom-control-sm custom-checkbox notext">
+// 					<input type="checkbox" name="ser_appchange" onchange="appshow('.$idapp.')" checked="" class="custom-control-input" id="app'.$idapp.'">
+// 					<label class="custom-control-label" for="app'.$idapp.'"></label>
+// 				</div>
+// 			</td>';
+// 		}else if($appallow == "not_allow"){
+// 			echo'<td class="nk-tb-col nk-tb-col-check">
+// 				<div class="custom-control custom-control-sm custom-checkbox notext">
+// 					<input type="checkbox" name="ser_appchange" onchange="appshow('.$idapp.')" class="custom-control-input" id="app'.$idapp.'">
+// 					<label class="custom-control-label" for="app'.$idapp.'"></label>
+// 				</div>
+// 			</td>';
+// 		}
+//	<img src="images/product/a.png" alt="" class="thumb">
+	echo'<td class="nk-tb-col tb-col-sm">
+		<span class="tb-product">
+			
+			<span class="title">'.$fetch['app_type'].'</span>
+		</span>
+	</td>
+	<td class="nk-tb-col nk-tb-col-tools">
+		<ul class="nk-tb-actions gx-1 my-n1">
+			<li class="mr-n1">
+				<div class="dropdown">
+					<a href="#" class="dropdown-toggle btn btn-icon btn-trigger" data-toggle="dropdown"><em class="icon ni ni-more-h"></em></a>
+					<div class="dropdown-menu dropdown-menu-right">
+						<ul class="link-list-opt no-bdr">
+							<li><a href="javascript:void(0)" onClick="openmodal1('."'$idapp'".','."'$name'".')"><em class="icon ni ni-edit"></em><span>Edit</span></a></li>
+							
+							<li><a href="javascript:void(0)" onClick="confirm('."'$idapp'".')"><em class="icon ni ni-trash"></em><span>Remove</span></a></li>
+
+						</ul>
+					</div>
+				</div>
+			</li>
+		</ul>
+	</td>
+</tr>';
+										
+		}
+		echo'</tbody> </table>
+		
+		<script src="https://cdn.datatables.net/1.10.23/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.10.23/js/dataTables.bootstrap4.min.js"></script>
+<script>$(document).ready(function () {
+    $("#myTableap").DataTable({
+	"lengthMenu": [[4, 25, 50, -1], [4, 25, 50, "All"]]
+	});
+	
+} )
+</script>
+';
+	}
+}
 
 // for service appointment update allow
 if(isset($_POST['appupdbtn']))
@@ -1125,12 +1477,18 @@ if(isset($_POST['snamenotbtn']))
 if(isset($_POST["addorginaztion"]))
 {
 	extract($_POST);
-	
+	$sql = mysqli_query($con,"SELECT * FROM orginzation WHERE or_postcode = '$opost'");
+	if(mysqli_num_rows($sql) > 0)
+	{
+	    echo"postcodealready";
+	}
+	else{
 	$jjjs=mysqli_query($con,"INSERT INTO `orginzation`(`or_type`, `or_name`, `or_phone`, `or_address`, `or_code`, `or_firstaddress`, `or_city`, `or_postcode` , `status`) VALUES ('$otype','$oname','$ocontact','$oaddress','$ocode','$ofaddress','$ocity','$opost','Approved')");
 	if($jjjs >0){
 		echo "sss";
 	}else{
 		echo "Error";
+	}
 	}
 }
 //fetch orginaztion data

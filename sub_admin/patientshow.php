@@ -54,9 +54,9 @@ include_once('../database/db.php');
                                                     <div class="col-md-6">
                                                         <h5>Patients list</h5>
                                                     </div>
-                                                    <div class="col-md-6">
+                                                    <div class="col-md-6" style="display:none;" id="createpatient">
                                                         <a href="createpatient.php" type="button"
-                                                            class="btn btn-primary float-right">Create New Patient</a>
+                                                            class="btn btn-primary float-right" id="createpatienthref">Create New Patient</a>
 
                                                     </div>
                                                 </div>
@@ -84,8 +84,12 @@ include_once('../database/db.php');
                                                     <br>
                                                     <div class="row"style="display: none;" id="nhsdiv">
                                                          <div class=" col-md-3 mx-auto">
+                                                             <?php
+                                                             $id = $_SESSION["a_id"];
+                                                             ?>
                                                             <div class="form-group">
                                                                   <label for="">NHS No</label>
+                                                                  <input type="text" name="createid" value="<?=$id?>" id="createid" hidden>
                                                                 <input style="border-color: #000000 ;"
                                                                     class="form-control" placeholder="search NHS NO"
                                                                     type="number" max="3" length id="nh3" value="NH-"
@@ -101,6 +105,7 @@ include_once('../database/db.php');
                                                         </div>
                                                         <div class="col-md-2">
                                                             <label for="">Name</label>
+                                                            
                                                             <input style="border-color: #000000" class="form-control"
                                                                 type="text" max="3" placeholder="Name" length id="nm"
                                                                 value="" required autocomplete="off" onChange="showsearch()">
@@ -108,8 +113,8 @@ include_once('../database/db.php');
                                                         <div class="col-md-2 pb-4">
                                                             <label for="">Surname</label>
                                                             <input style="border-color: #000000" class="form-control"
-                                                                type="text" placeholder="Surname"  onChange="showsearch()" id="em" required
-                                                                autocomplete="off">
+                                                                type="text" placeholder="Surname"  id="em" required
+                                                                autocomplete="off" onChange="showsearch()">
                                                         </div>
                                                         <div class="col-md-2 pb-4">
                                                             <label for="">Date of birth</label>
@@ -127,7 +132,8 @@ include_once('../database/db.php');
                                                     </div>
 
                                                 </div>
-                                                <div class="mb-4" id="tabItem6">
+                                                <br>
+                                                <div class="mb-4 text-center" id="tabItem6" style="color:red;">
 
 
                                                 </div>
@@ -613,20 +619,24 @@ function ssearch(ddd) {
 };
 
 function spatient(ddd) {
+    var createid = $('#createid').val();
     $.ajax({
         type: "POST",
         url: "phpcode2.php",
         data: {
             nsh: ddd,
+            createid:createid,
             patientfetch: "btn"
         },
         success: function(response) {
 
-            if (response == 'No Data Found') {
+            if (response == 'There is no patient matching criteria') {
                 toastr.clear();
-                NioApp.Toast("<h5>No Data found</h5>", 'error', {
+                NioApp.Toast("<h5>There is no patient matching criteria</h5>", 'error', {
                     position: 'top-right'
                 });
+                $('#createpatient').show();
+                 $('#createpatienthref').attr("href","createpatient.php?nhs="+ddd);
             }
             console.log(response);
             document.getElementById('tabItem6').innerHTML = response;
@@ -639,9 +649,44 @@ function spatient(ddd) {
     });
 };
 
+function spatient2() {
+    $.ajax({
+        type: "POST",
+        url: "phpcode2.php",
+        data: {
+            patientfetch2: "btn"
+        },
+        success: function(response) {
+
+            if (response == 'already') {
+                
+                $('#createpatient').hide();
+            }
+            else
+            {
+                $('#createpatient').show();
+               
+            }
+          
+
+            //            $("#tabItem6").html(response); 
+            //alert(response);
+        }
+
+
+    });
+};
+
 function res() {
+    $('#nm').val('');
+    $('#em').val('');
+    $('#dob').val('');
+    $('#nm').prop('readonly', false);
+    $('#em').prop('readonly', false);
+    $('#dob').prop('readonly', false);
     $('#nh3').val('');
     $('#nh3').prop('readonly', false);
+    document.getElementById('tabItem6').innerHTML ='';
 };
 
 
@@ -656,16 +701,15 @@ $(document).ready(function() {
 function showsearch() {
     var nm = $('#nm').val();
     var em = $('#em').val();
-    if (nm == '' || em == '') {
+    var dob = $('#dob').val();
+    if (nm == '' || em == ''||dob == '') {
         toastr.clear();
         NioApp.Toast("<h5>All fields Required</h5>", 'error', {
             position: 'top-right'
         });
         // $('#dob').val('');
     } else {
-        $('#nm').prop('readonly', true);
-        $('#em').prop('readonly', true);
-        $('#dob').prop('readonly', true);
+      
 
 
 
@@ -687,6 +731,9 @@ function reset() {
     $('#nm').prop('readonly', false);
     $('#em').prop('readonly', false);
     $('#dob').prop('readonly', false);
+    $('#nh3').val('');
+    $('#nh3').prop('readonly', false);
+    document.getElementById('tabItem6').innerHTML ='';
 };
 
 
@@ -695,7 +742,7 @@ function showpatient() {
     var nm = $('#nm').val();
     var em = $('#em').val();
     var dob = $('#dob').val();
-
+var createid = $('#createid').val();
     $.ajax({
         type: "POST",
         url: "phpcode.php",
@@ -703,15 +750,18 @@ function showpatient() {
             dob: dob,
             em: em,
             nm: nm,
+            createid:createid,
             searchpatient: "btn"
         },
         success: function(response) {
 
-            if (response == 'No Data Found') {
+            if (response == 'There is no patient matching criteria') {
                 toastr.clear();
-                NioApp.Toast("<h5>No Data found</h5>", 'error', {
+                NioApp.Toast("<h5>There is no patient matching criteria</h5>", 'error', {
                     position: 'top-right'
                 });
+                 $('#createpatient').show();
+                 $('#createpatienthref').attr("href","createpatient.php?fname="+nm+"&sname="+em+"&dob="+dob);
             }
             console.log(response);
             document.getElementById('tabItem6').innerHTML = response;

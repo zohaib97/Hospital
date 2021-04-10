@@ -2,9 +2,14 @@
 //session_start();
 include_once('../database/db.php');
 
-if(!isset($_SESSION['consultant'])){
+if(!isset($_SESSION['gprefferer'])){
 	header('location: ../index.php');
 }
+			$aid = $_SESSION['gprefferer'];
+						$query = mysqli_query($con,"SELECT * FROM `tbl_ruser` WHERE `ur_email` = '$aid'");
+						$fetch = mysqli_fetch_array($query);
+									$id = $fetch['ur_id'];
+									$orid=$fetch["ur_orgtype"];
 ?> 
 
 <div class="nk-header nk-header-fixed is-light">
@@ -161,47 +166,55 @@ if(!isset($_SESSION['consultant'])){
 						</div>
 					</li>
 					<li class="dropdown notification-dropdown">
-							<!--data-toggle="dropdown"-->
-						<a href="#" class="dropdown-toggle nk-quick-nav-icon" data-toggle="dropdown" style="width: 37px;height: 37px;">
+<!--										 data-toggle="dropdown"-->
+	<?php
+						
+						$ks=mysqli_query($con,"SELECT * FROM `orginzation` where orid ='$orid'");
+						$klo=mysqli_fetch_array($ks);
+									$qqqq = mysqli_query($con,"SELECT count(*) as a FROM tbl_consultantrefferels,tbl_refferelattachment WHERE tbl_refferelattachment.ra_refferelid=tbl_consultantrefferels.c_id and tbl_consultantrefferels.c_gpid = '$id' and reply='1' ");
+									$fds=mysqli_fetch_array($qqqq);
+									$mss = mysqli_query($con,"SELECT * FROM tbl_consultantrefferels,tbl_refferelattachment WHERE tbl_refferelattachment.ra_refferelid=tbl_consultantrefferels.c_id and tbl_consultantrefferels.c_gpid = '$id' and reply='1' ");
+									$fff111= mysqli_fetch_array($mss);
+									$reqtype111 = $fff111['request_type'] ? $fff111['request_type'] :"";
+									$cid = $fff111['ra_sender_id'] ? $fff111['ra_sender_id'] :"";
+									$query = mysqli_query($con,"SELECT * FROM `tbl_ruser` WHERE `ur_id` = '$cid'");
+						$cfetch = mysqli_fetch_array($query);
+							
+									?>
+				        	<a href="#" class="dropdown-toggle nk-quick-nav-icon" data-toggle="dropdown" style="width: 37px;height: 37px;">
 							<i class="icon ni ni-bell"></i>
+														<sup class="badge badge-primary rounded-circle ml-n1 mt-n2"><?=$fds["a"]?></sup>
 						</a>
+						
 						<div class="dropdown-menu dropdown-menu-xl dropdown-menu-right">
-							<div class="dropdown-head">
+						<?php
+						if($fds["a"] >0){
+						?>	<div class="dropdown-head">
 								<span class="sub-title nk-dropdown-title">Notifications</span>
+							
 							</div>
 							<div class="dropdown-body">
 								<div class="nk-notification">
-									<?php
-									$e = $_SESSION['consultant'];
-									$q = mysqli_query($con,"SELECT * FROM `tbl_ruser` WHERE ur_email = '$e'");
-									$f = mysqli_fetch_array($q);
-									$id = $f['ur_id'];
 							
-									$qq= mysqli_query($con,"SELECT  count(*) as a FROM tbl_consultantrefferels WHERE c_userid = '$id' and c_status='0'");
-									$rfcksj=mysqli_fetch_array($qq);
-									if($rfcksj["a"] >0){
-									?>
-									<div class="nk-notification-item dropdown-inner">
+										<div class="nk-notification-item dropdown-inner">
 										<div class="nk-notification-icon">
 											<em class="icon icon-circle bg-warning-dim ni ni-curve-down-right"></em>
 										</div>
 										<div class="nk-notification-content">
-											<div class="nk-notification-text">You have New Service Refferels</div>
+											<div class="nk-notification-text">You have New Refferel Reply From <?=$cfetch['ur_fname']?><?=$cfetch['ur_sname']?></div>
 											
 										</div>
 									</div>
-									<?php }?>
 								</div><!-- .nk-notification -->
 							</div><!-- .nk-dropdown-body -->
 							<div class="dropdown-foot center">
-								<a href="servicerefferels.php">View All</a>
+								<a href="refferels.php?reqtype=<?=$reqtype111?>">View All</a>
 							</div>
+							<?php }?>
 						</div>
 					</li>
 					<?php
-						$aid = $_SESSION['consultant'];
-						$query = mysqli_query($con,"SELECT * FROM `tbl_ruser` WHERE `ur_email` = '$aid'");
-						$fetch = mysqli_fetch_array($query);
+						
 						if($query)
 						{
 					?>
@@ -209,11 +222,11 @@ if(!isset($_SESSION['consultant'])){
 						<a href="#" class="dropdown-toggle mr-n1" data-toggle="dropdown">
 							<div class="user-toggle">
 								<div class="user-avatar sm">
-									<em class="icon ni ni-user-alt"></em>
+									<img src="images/avatar/<?=$fetch['image']?>">
 								</div>
 								<div class="user-info d-none d-xl-block">
 									<div class="user-status user-status-verified">verified</div>
-									<div class="user-name dropdown-indicator"><?=$fetch["ur_fname"]." ".$fetch['ur_sname']?></div>
+									<div class="user-name dropdown-indicator"><?=$fetch['ur_fname']?></div>
 								</div>
 							</div>
 						</a>
@@ -221,7 +234,7 @@ if(!isset($_SESSION['consultant'])){
 							<div class="dropdown-inner user-card-wrap bg-lighter d-none d-md-block">
 								<div class="user-card">
 									<div class="user-avatar">
-
+<img src="images/avatar/<?=$fetch['image']?>">
 									</div>
 
 									<div class="user-info">
@@ -235,9 +248,7 @@ if(!isset($_SESSION['consultant'])){
 							</div>
 							<div class="dropdown-inner">
 								<ul class="link-list">
-									<li><a href="user-profile.php"><em class="icon ni ni-user-alt"></em><span>View Profile</span></a></li>
-									<li><a href="#"><em class="icon ni ni-setting-alt"></em><span>Account Setting</span></a></li>
-									<li><a href="#"><em class="icon ni ni-activity-alt"></em><span>Login Activity</span></a></li>
+									 <li><a href="user-profile.php"><em class="icon ni ni-user-alt"></em><span>View Profile</span></a></li> 
 									<li><a class="dark-switch" href="#"><em class="icon ni ni-moon"></em><span>Dark Mode</span></a></li>
 								</ul>
 							</div>

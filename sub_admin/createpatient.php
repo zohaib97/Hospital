@@ -43,13 +43,13 @@ include_once('../database/db.php');
 													<?php
 													
 													$em = $_SESSION['a_id'];
-													$q = mysqli_query($con,"SELECT * FROM tbl_ruser WHERE ur_email = '$em'");
+													$q = mysqli_query($con,"SELECT * FROM admin WHERE id = '$em'");
 													$fe = mysqli_fetch_array($q);
-													
+											
 													?>
 													<div class="form-group">
 														<label class="col-form-label" for="fname">Patient Title</label>
-														<input type="text" value="<?=$fe['ur_id']?>" id="rid" hidden="true" name="rid">									
+														<input type="text" value="<?php echo $fe['name']?>" id="rid" hidden="true" name="rid">									
 														<input type="text" value="<?=$fe['ur_hid']?>" id="hid" hidden="true" name="hid">			
 <!--														<input type="text" class="form-control form-control-lg" id="" value="" placeholder="Enter Title" name="ptitle" required>-->
 														<select name="ptitle" id="" class="form-control form-control-lg">
@@ -60,6 +60,28 @@ include_once('../database/db.php');
 														</select>
 													</div>
 												</div>
+												<?php
+												if(isset($_GET['fname']))
+												{
+												    $fname = $_GET['fname'];
+												    $sname = $_GET['sname'];
+												    ?>
+												    <div class="col-md-6">
+													<div class="form-group">
+														<label class="col-form-label" for="sname">Patient Firstname</label>
+														<input type="text" class="form-control form-control-lg" id="" value="<?php echo $fname?>" placeholder="Enter First name" name="pfirstname" autocomplete="off" required>
+													</div>
+												</div>
+												<div class="col-md-6">
+													<div class="form-group">
+														<label class="col-form-label" for="email">Patient Surname</label>
+														<input type="text" class="form-control form-control-lg" id="" value="<?php echo $sname?>" placeholder="Enter Surname" name="psurname" autocomplete="off" required>
+													</div>
+												</div>
+												   <?php 
+												}
+												else{
+												?>
 												<div class="col-md-6">
 													<div class="form-group">
 														<label class="col-form-label" for="sname">Patient Firstname</label>
@@ -72,10 +94,23 @@ include_once('../database/db.php');
 														<input type="text" class="form-control form-control-lg" id="" value="" placeholder="Enter Surname" name="psurname" autocomplete="off" required>
 													</div>
 												</div>
+												<?php
+												}
+												?>
 												<div class="col-md-6">
 													<div class="form-group">
 														<label class="col-form-label" for="pno">Patient Date of Birth</label>
-														<input type="date" class="form-control form-control-lg" id="" value="" placeholder="Date of Birth" name="pdob" autocomplete="off" required>
+														<input type="date" class="form-control form-control-lg" id="pdob" value="<?php 
+														
+														if(isset($_GET["dob"])){ $d=date_create($_GET["dob"]); echo date_format($d,"Y-m-d"); }else{ echo "";}
+												// 		echo date('Y-m-d',strtotime($_GET["dob"]));
+														?>" placeholder="Date of Birth" name="pdob"  onchange="fnCalculateAge()" required>
+													</div>
+												</div>
+												<div class="col-md-6">
+													<div class="form-group">
+														<label class="col-form-label" for="age">Age</label>
+														<input type="text" class="form-control form-control-lg"  placeholder="Age" name="age" required autocomplete="off" id="age" readonly>
 													</div>
 												</div>
 												<div class="col-md-6">
@@ -87,7 +122,7 @@ include_once('../database/db.php');
 														?>
 														<label class="col-form-label" for="depart">NHS No</label>
 														<input type="number" class="form-control form-control-lg"  id="nhsno" 
-														value="" name="nhsno" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
+														value="<?=isset($_GET["nhs"])?$_GET["nhs"] :""?>" name="nhsno" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
 												   maxlength="10" minlength="10" onchange="stringlength(this.value)">
 												   <small id="valid-nhs"></small>
 													</div>
@@ -141,7 +176,8 @@ include_once('../database/db.php');
 												<div class="col-md-6" id="">
 													<div class="form-group">
 														<label class="col-form-label" for="rno">Email</label>
-														<input type="email" class="form-control form-control-lg" id="" value="" placeholder="Enter Email" name="email" autocomplete="off" required>
+														<input type="email" class="form-control form-control-lg" id="" value="" onchange="checkemail(this.value)" placeholder="Enter Email" name="email" autocomplete="off" required>
+													<small id="valid-email"></small>
 													</div>
 												</div>
 <!--
@@ -182,7 +218,57 @@ include_once('../database/db.php');
   <script src="assets/js/example-toastr.js?ver=2.2.0"></script>
 </body>
 <script>
+	function checkemail(email){
 	
+
+
+		$.ajax({
+            type: 'POST',
+            url: 'phpcode.php',
+            data: {email:email,checkemail:"btn"  },
+            success: function(data){
+                 console.log(data);
+     if(data == 'exists'){
+				$("#valid-email").html("Email is already exists").removeClass("text-success").addClass("text-danger");
+						 toastr.clear();
+    NioApp.Toast("<h5>Email is already exists</h5>", 'warning',{position:'top-right'});
+				// fetchadmindata();
+					}
+			if(data == 'not exists'){
+			    
+			    	$("#valid-email").html("Email is available for use").removeClass("text-danger").addClass("text-success");
+			
+			    
+             toastr.clear();
+    NioApp.Toast("<h5>Email is available for use</h5>", 'success',{position:'top-right'});
+				// fetchadmindata();
+					
+					}
+                }
+			
+          
+            });
+        };
+        $(document).ready(function(){
+            setInterval(fnCalculateAge, 3000);
+        })
+	 function fnCalculateAge(){
+
+     var userDateinput = document.getElementById("pdob").value;  
+	 console.log(userDateinput);
+	 
+     // convert user input value into date object
+	 var birthDate = new Date(userDateinput);
+	  console.log(" birthDate"+ birthDate);
+	 
+	 // get difference from current date;
+	 var difference=Date.now() - birthDate.getTime(); 
+	 	 
+	 var  ageDate = new Date(difference); 
+	 var calculatedAge=   Math.abs(ageDate.getUTCFullYear() - 1970);
+	 $('#age').val(calculatedAge);
+
+}
 //	function confirm(id)
 //	{
 //		 Swal.fire({
@@ -295,7 +381,7 @@ include_once('../database/db.php');
                 $('#patientadd').css("opacity",".5");
             },
             success: function(data){
-      
+
                 if(data == 'Error'){
                    toastr.clear(); 
                NioApp.Toast("<h5>patient didn't add Successfully</h5>", 'error',{position:'top-right'});
@@ -313,10 +399,11 @@ include_once('../database/db.php');
 				
 					toastr.clear();
                NioApp.Toast("<h5>NHS No Already Exist</h5>", 'error',{position:'top-right'});
-             
-
-					
-					
+                }
+                else if(data == 'emailexist'){
+				
+					toastr.clear();
+               NioApp.Toast("<h5>Email Already Exist</h5>", 'error',{position:'top-right'});
                 }
 			
                 $('#patientadd').css("opacity","");

@@ -170,7 +170,42 @@ $fetchsa=mysqli_fetch_array($qiu);
 <!--										 data-toggle="dropdown"-->
 						<a href="#" class="dropdown-toggle nk-quick-nav-icon" data-toggle="dropdown" style="width: 37px;height: 37px;">
 							<i class="icon ni ni-bell"></i>
+							
 							<?php 
+												if(isset($_SESSION['gprefferer'])){
+												$loginem = $_SESSION['gprefferer'];
+			$idq = mysqli_query($con, "SELECT * FROM `tbl_ruser` WHERE `ur_email` = '$loginem'");
+			$dataid = mysqli_fetch_assoc($idq);
+			$senderid = $dataid['ur_id'];
+// 		echo $senderid;
+						$ks=mysqli_query($con,"SELECT * FROM `orginzation` where orid ='$orid'");
+						$klo=mysqli_fetch_array($ks);
+									$qqqq = mysqli_query($con,"SELECT count(*) as a FROM tbl_consultantrefferels,tbl_refferelattachment WHERE tbl_refferelattachment.ra_refferelid=tbl_consultantrefferels.c_id and tbl_consultantrefferels.c_gpid = '$senderid' and reply='1' ");
+									$fds=mysqli_fetch_array($qqqq);
+									$mss = mysqli_query($con,"SELECT * FROM tbl_consultantrefferels,tbl_refferelattachment WHERE tbl_refferelattachment.ra_refferelid=tbl_consultantrefferels.c_id and tbl_consultantrefferels.c_gpid = '$senderid' and reply='1' ");
+									$fff111= mysqli_fetch_array($mss);
+									$reqtype111 = $fff111['request_type'] ? $fff111['request_type'] :"";
+									$cid = $fff111['ra_sender_id'] ? $fff111['ra_sender_id'] :"";
+									$query = mysqli_query($con,"SELECT * FROM `tbl_ruser` WHERE `ur_id` = '$cid'");
+						$cfetch = mysqli_fetch_array($query);
+												}
+												if(isset($_SESSION['consultant'])){
+												    	$loginem = $_SESSION['consultant'];
+			$idq = mysqli_query($con, "SELECT * FROM `tbl_ruser` WHERE `ur_email` = '$loginem'");
+			$dataid = mysqli_fetch_assoc($idq);
+			$senderid = $dataid['ur_id'];
+// 		echo $senderid;
+						$ks=mysqli_query($con,"SELECT * FROM `orginzation` where orid ='$orid'");
+						$klo=mysqli_fetch_array($ks);
+									$qqqq = mysqli_query($con,"SELECT count(*) as a FROM tbl_consultantrefferels,tbl_refferelattachment WHERE tbl_refferelattachment.ra_refferelid=tbl_consultantrefferels.c_id and tbl_consultantrefferels.c_userid = '$senderid' and reply='0' ");
+									$fds=mysqli_fetch_array($qqqq);
+									$mss = mysqli_query($con,"SELECT * FROM tbl_consultantrefferels,tbl_refferelattachment WHERE tbl_refferelattachment.ra_refferelid=tbl_consultantrefferels.c_id and tbl_consultantrefferels.c_userid = '$senderid' and reply='0' ");
+									$fff111= mysqli_fetch_array($mss);
+									$reqtype111 = $fff111['request_type'] ? $fff111['request_type'] :"";
+									$cid = $fff111['ra_sender_id'] ? $fff111['ra_sender_id'] :"";
+									$query = mysqli_query($con,"SELECT * FROM `tbl_ruser` WHERE `ur_id` = '$cid'");
+						$cfetch = mysqli_fetch_array($query);
+												}
 								$q1 = mysqli_query($con,"SELECT count(*) as a FROM `tbl_ruser` WHERE ur_orgtype = '$org' and ur_role_id = '1' and ur_status='not_approve'");
 								$f1=mysqli_fetch_array($q1);
 									$q2 = mysqli_query($con,"SELECT count(*) as a FROM `tbl_ruser` WHERE ur_orgtype = '$org' and ur_role_id = '3' and ur_status='not_approve'");
@@ -182,10 +217,13 @@ $fetchsa=mysqli_fetch_array($qiu);
 								$jk=mysqli_query($con,"SELECT  count(*) as a FROM `services`,tbl_serviceappointment WHERE services.m_id and tbl_serviceappointment.sp_serviceid and services.s_orgid ='$org'");
  $klsa=mysqli_fetch_array($jk);
  $fj=$klsa["a"];
+ 	$jk1=mysqli_query($con,"SELECT  count(*) as a FROM tbl_patientappointment WHERE o_orgid ='$org'");
+ $klsa1=mysqli_fetch_array($jk1);
+ $fj1=$klsa1["a"];
 								$q5 = mysqli_query($con,"SELECT count(*) as a,nhsno FROM `tbl_app` WHERE orid = '$org'");
 								$f5=mysqli_fetch_array($q5);
 								
-								$total =$f1["a"]+$f2["a"]+$f3["a"]+$f4["a"]+$f5["a"]+$fj;
+								$total =$f1["a"]+$f2["a"]+$f3["a"]+$f4["a"]+$f5["a"]+$fj+$fj1+$fds["a"];
 							?>
 							<sup class="badge badge-primary rounded-circle ml-n1 mt-n2"><?=$total?></sup>
 						</a>
@@ -229,7 +267,19 @@ $fetchsa=mysqli_fetch_array($qiu);
 											<em class="icon icon-circle bg-warning-dim ni ni-curve-down-right"></em>
 										</div>
 									    <div class="nk-notification-content">
-											<div class="nk-notification-text">You have new <span> Service Appointment </span></div>
+											<div class="nk-notification-text"><a href="serviceappointment.php">You have new <span> Service Appointment </span></a></div>
+											
+										</div>
+											</div>
+										<hr>';
+									}
+									if($fj1 > 0){
+									    echo '<div class="nk-notification-item dropdown-inner">
+										<div class="nk-notification-icon">
+											<em class="icon icon-circle bg-warning-dim ni ni-curve-down-right"></em>
+										</div>
+									    <div class="nk-notification-content">
+											<div class="nk-notification-text"><a href="patientappointment.php">You have new <span> Patient Appointment </span></a></div>
 											
 										</div>
 											</div>
@@ -271,6 +321,38 @@ $fetchsa=mysqli_fetch_array($qiu);
 											</div>
 										';
 									}
+								if(isset($_SESSION['gprefferer'])){
+									if($fds["a"] >0){
+									  echo '<div class="nk-notification-item dropdown-inner">
+										<div class="nk-notification-icon">
+											<em class="icon icon-circle bg-warning-dim ni ni-curve-down-right"></em>
+										</div>
+									    <div class="nk-notification-content">
+											<div class="nk-notification-text">You have new <span>You have New Refferel Reply From '.$cfetch['ur_fname']." ".$cfetch['ur_sname'].'</span></div>
+								';		
+								// <div class="nk-notification-time"><a href="consultant.php?role=GP_Refferer">View All</a></div>
+									echo'	</div>
+											</div>
+										';
+									    
+									}
+								}
+									if(isset($_SESSION['consultant'])){
+									if($fds["a"] >0){
+									  echo '<div class="nk-notification-item dropdown-inner">
+										<div class="nk-notification-icon">
+											<em class="icon icon-circle bg-warning-dim ni ni-curve-down-right"></em>
+										</div>
+									    <div class="nk-notification-content">
+											<div class="nk-notification-text">You have new <span>You have New Refferel Reply From '.$cfetch['ur_fname']." ".$cfetch['ur_sname'].'</span></div>
+								';		
+								// <div class="nk-notification-time"><a href="consultant.php?role=GP_Refferer">View All</a></div>
+									echo'	</div>
+											</div>
+										';
+									    
+									}
+								}
 									?>
 								
 								
@@ -284,14 +366,14 @@ $fetchsa=mysqli_fetch_array($qiu);
 						$aid = $_SESSION['a_id'];
 						$query = mysqli_query($con,"SELECT * FROM `admin` WHERE `id` = '$aid' and super_admin = '0'");
 						$fetch = mysqli_fetch_array($query);
-						if(mysqli_num_rows($query)>0)
+						if($query)
 						{
 					?>
 					<li class="dropdown user-dropdown">
 						<a href="#" class="dropdown-toggle mr-n1" data-toggle="dropdown">
 							<div class="user-toggle">
 								<div class="user-avatar sm">
-								<img src="images/avatar/<?=$fetch['image']?>">
+									<img src="images/avatar/<?=$fetch['image']?>">
 								</div>
 								<div class="user-info d-none d-xl-block">
 									<div class="user-status user-status-verified">verified</div>
@@ -303,7 +385,7 @@ $fetchsa=mysqli_fetch_array($qiu);
 							<div class="dropdown-inner user-card-wrap bg-lighter d-none d-md-block">
 								<div class="user-card">
 									<div class="user-avatar">
-									<img src="images/avatar/<?=$fetch['image']?>">
+<img src="images/avatar/<?=$fetch['image']?>">
 									</div>
 
 									<div class="user-info">

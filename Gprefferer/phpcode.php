@@ -115,7 +115,7 @@ if(isset($_POST['addrefferel']))
 if(isset($_POST['addpatient']))
 {
 	
-	$gphid = $_POST['hid'];
+	$gphid = $_POST['rid'];
 	$ptitle = $_POST['ptitle'];
 	$pfirstname = $_POST['pfirstname'];
 	$psurname = $_POST['psurname'];
@@ -139,7 +139,7 @@ if(isset($_POST['addpatient']))
 	    echo "nhs";
 	}
 	else{
-	$query = mysqli_query($con,"INSERT INTO `tbl_patients`(`pt_title`, `pt_name`, `pt_surname`, `pt_dob`, `pt_nhsno`, `pt_houseno`, `pt_streetname`, `pt_city`, `pt_country`, `pt_postcode`, `pt_telno`, `pt_mobno`, `pt_email`,`pt_hid`,`pt_age`)VALUES('$ptitle','$pfirstname','$psurname','$pdob','$nhsno','$houseno','$streetname','$city','$country','$postalcode','$telephoneno','$mobileno','$email','$gphid','$age')");
+	$query = mysqli_query($con,"INSERT INTO `tbl_patients`(`pt_title`, `pt_name`, `pt_surname`, `pt_dob`, `pt_nhsno`, `pt_houseno`, `pt_streetname`, `pt_city`, `pt_country`, `pt_postcode`, `pt_telno`, `pt_mobno`, `pt_email`,`pt_createid`,`pt_age`)VALUES('$ptitle','$pfirstname','$psurname','$pdob','$nhsno','$houseno','$streetname','$city','$country','$postalcode','$telephoneno','$mobileno','$email','$gphid','$age')");
 	
 	if($query)
 	{
@@ -156,7 +156,31 @@ if(isset($_POST["checkemail"])){
     if(mysqli_num_rows($q) >0){
         echo "exists";
     }else{
-        echo "not exists";
+        $q1=mysqli_query($con,"select * from tbl_ruser where ur_email ='$email'");
+        if(mysqli_num_rows($q1) > 0)
+        {
+            echo "exists";
+        }
+        else
+        {
+            $q2=mysqli_query($con,"select * from tbl_user where staff_email ='$email'");
+            if(mysqli_num_rows($q2) > 0)
+            {
+                echo "exists";
+            }
+            else
+            {
+                $q3=mysqli_query($con,"select * from admin where email ='$email'");
+                if(mysqli_num_rows($q3) > 0)
+                {
+                    echo "exists";
+                }
+                else
+                {
+                    echo"not exists";
+                }
+            }
+        }
     }
 }
 if(isset($_POST["checknhs"])){
@@ -1127,7 +1151,7 @@ if(isset($_POST['patientfetch']))
 {
 	$nhs = $_POST['nhs'];
 	$query = mysqli_query($con,"SELECT * FROM `tbl_patients` WHERE pt_nhsno = '$nhs'");
-	if(mysqli_num_rows($query )>0)
+	if(mysqli_num_rows($query ) > 0)
 	{
 		echo'<link rel="stylesheet" href="https://cdn.datatables.net/1.10.23/css/dataTables.bootstrap4.min.css">
 		<hr>
@@ -1209,7 +1233,7 @@ if(isset($_POST['patientfetch']))
 	';
 	}
 	else{
-		echo"No Data Found";
+		echo"There is no patient matching criteria";
 	}
 }
 
@@ -1322,6 +1346,7 @@ if(isset($_POST['searchservice']))
 		{
 			echo'<link rel="stylesheet" href="https://cdn.datatables.net/1.10.23/css/dataTables.bootstrap4.min.css">
 			<hr>
+			<input type="text" name="serorgid" id="serorgid" hidden>
 			<table class="nowrap nk-tb-list is-separate" data-auto-responsive="false" id="myTable1" >
 				<thead>
 					<tr class="nk-tb-item nk-tb-head">
@@ -1710,7 +1735,7 @@ if(isset($_POST['searchpatient']))
     // echo $dob;
 $assa = mysqli_query($con,"SELECT * FROM `tbl_patients` where pt_name ='$nm' and pt_dob='$dobw' and pt_surname='$em'");
 	// echo mysqli_error($con);
-	if($assa)
+	if(mysqli_num_rows($assa) > 0)
 	{
 		echo'<link rel="stylesheet" href="https://cdn.datatables.net/1.10.23/css/dataTables.bootstrap4.min.css">
 		<hr>
@@ -1786,7 +1811,7 @@ echo'   <tr class="nk-tb-item">
 ';
 	}
 	else{
-		echo"No Data Found";
+		echo'There is no patient matching criteria';
 	}
 }
 //for servicerefferels fetch
@@ -2021,7 +2046,7 @@ echo'   <tr class="nk-tb-item">
 ';
 	}
 	else{
-		echo"No Data Found";
+		echo"There is no patient matching criteria";
 	}
 }
 
@@ -2076,6 +2101,31 @@ if(isset($_POST["fetchclims"])){
 											}
 								}
 }
+
+if(isset($_POST["fetorg"])){
+    $val=$_POST["val"];
+     $query = mysqli_query($con,"SELECT * FROM `orginzation` where orid ='$val'");
+     $fetch = mysqli_fetch_array($query);
+     $orgname = $fetch['or_name'];
+     
+     $query1 = mysqli_query($con,"SELECT * FROM `tbl_ruser` where ur_orgname ='$orgname'");
+     $fetch1 = mysqli_fetch_array($query);
+
+								$num = mysqli_num_rows($query1);
+								if($num>0)
+								{
+								    ?>
+									<option value="">-Select-</option>
+								    <?php
+									while($fe = mysqli_fetch_array($query))
+									{
+								?>
+										<option value="<?=$fe['ur_id']?>"><?=$fe['ur_fname']?></option>
+										<?php
+											}
+								}
+}
+
 
 //for refferels fetch
 if(isset($_POST['apprefferelfetch']))
@@ -2957,7 +3007,7 @@ echo'<div class="card-aside-wrap">
 			<div class="card-inner">
 				<div class="user-card">
 					<div class="user-avatar bg-primary">
-					<img src="images/avatar/'.$fetch['image'].'">
+						<img src="images/avatar/'.$fetch['image'].'">
 					</div>
 					<div class="user-info">
 						<span class="lead-text">'.$fetch['ur_fname'].'</span>

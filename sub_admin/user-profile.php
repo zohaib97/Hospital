@@ -99,7 +99,6 @@ include_once('../database/db.php');
                                         <input type="file" class="form-control form-control-lg" id="image" name="image">
                                     </div>
                                 </div>
-                                
                                 <div class="col-12">
                                     <div class="custom-control custom-switch">
                                         <input type="checkbox" class="custom-control-input" id="latest-sale">
@@ -120,7 +119,7 @@ include_once('../database/db.php');
 								</form>
                         </div>
 							<!-- .tab-pane -->
-                            
+						
                         <div class="tab-pane" id="address">
 							<form method="post" id="updateaddress">
                             <div class="row gy-4">
@@ -157,10 +156,6 @@ include_once('../database/db.php');
 
 </html>
 <script>
-function showimg()
-{
-    $('#img').toggle();
-}
 	function fetchadmindata()
 	{
 		 $.ajax({    

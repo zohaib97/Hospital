@@ -99,7 +99,12 @@ include_once('../database/db.php');
                                         <input type="text" class="form-control form-control-lg" id="postcode" value="" placeholder="Postcode" name="postcode">
                                     </div>
                                 </div>
-                                
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label class="form-label" for="phone-no">Profile Image</label>
+                                        <input type="file" class="form-control form-control-lg" id="image" name="image">
+                                    </div>
+                                </div>
                                 <div class="col-12">
                                     <div class="custom-control custom-switch">
                                         <input type="checkbox" class="custom-control-input" id="latest-sale">
@@ -162,7 +167,7 @@ include_once('../database/db.php');
 		 $.ajax({    
         type: "POST",
         url: "phpcode.php",
-		data:{consfetchupdate:"btn"},
+		data:{gpfetchupdate:"btn"},
         success: function(response){
             $("#profile").html(response);
             //alert(response);
@@ -177,7 +182,7 @@ $("#updateform").on("submit", function(e){
         	e.preventDefault();
 	
 		var formdata = new FormData(this);
-		formdata.append("updateconsul","btn");
+		formdata.append("updategp","btn");
         $.ajax({
             type: 'POST',
             url: 'phpcode.php',
@@ -216,7 +221,7 @@ $("#updateform").on("submit", function(e){
 		
         	e.preventDefault();
 		var formdata = new FormData(this);
-		formdata.append("updateconsultantaddress","btn");
+		formdata.append("updategpaddress","btn");
         $.ajax({
             type: 'POST',
             url: 'phpcode.php',
