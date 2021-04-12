@@ -94,3 +94,5 @@ Stack trace:
 [01-Apr-2021 07:54:22 UTC] PHP Warning:  mysqli_query() expects parameter 1 to be mysqli, null given in /home/extremeearn/hospital.extremeearn.com/Gprefferer/pdf.php on line 10
 [01-Apr-2021 07:54:22 UTC] PHP Warning:  mysqli_num_rows() expects parameter 1 to be mysqli_result, null given in /home/extremeearn/hospital.extremeearn.com/Gprefferer/pdf.php on line 11
 [06-Apr-2021 10:44:53 UTC] PHP Parse error:  syntax error, unexpected '--' (T_DEC) in /home/extremeearn/hospital.extremeearn.com/Gprefferer/e-refferelservice.php on line 207
+[10-Apr-2021 20:06:01 UTC] PHP Parse error:  syntax error, unexpected ')', expecting ';' or ',' in /home/extremeearn/hospital.extremeearn.com/Gprefferer/createpatient.php on line 126
+[11-Apr-2021 18:38:07 UTC] PHP Warning:  date_format() expects parameter 1 to be DateTimeInterface, null given in /home/extremeearn/hospital.extremeearn.com/Gprefferer/phpcode.php on line 1404

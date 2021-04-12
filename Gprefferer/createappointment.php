@@ -63,9 +63,17 @@ include_once('../database/db.php');
                                                         <div class=" col-md-3 pb-2">
                                                             <div class="form-group">
                                                             <label for="ubrn">Enter UBRN Number</label>
+                                                             <?php
+                                                            if(isset($_GET['ubrn']))
+                                                            {
+                                                                $ubrn =$_GET['ubrn'];
+                                                              ?>  
                                                                 <input type="number" class="form-control" name="ubrn" id="ubrn"
                                                                 oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
-												   maxlength="12" required>
+												   maxlength="12" value="<?=$ubrn?>" readonly>
+												   <?php
+                                                                 }
+                                                            ?>
 
                                                             </div>
                                                         </div>
@@ -494,7 +502,7 @@ function spatient() {
         type: "POST",
         url: "phpcode.php",
         data: {
-        
+            ubrn:<?=$ubrn?>,
             apppatientfetch: "btn"
         },
         success: function(response) {
@@ -521,7 +529,7 @@ function sservice() {
         type: "POST",
         url: "phpcode.php",
         data: {
-        
+            ubrn:<?=$ubrn?>,
             appservicefetch: "btn"
         },
         success: function(response) {

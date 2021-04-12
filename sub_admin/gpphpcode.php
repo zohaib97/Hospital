@@ -362,7 +362,7 @@ $hks=mysqli_fetch_array($qki);
 		<a class="tb-lead btn btn-info btn-sm text-white" href="reply.php?c_id='.$fetch["c_id"].'&coid='.$fetch["c_userid"].'&pid='.$fetch["c_rfid"].'&rfno='.$fetch["c_id"].'&nhsno='.$fetch["c_nhsno"].'">Open </a>
 	</td>
 	<td class="nk-tb-col">
-	<span class=""><a href="createappointment.php" class="btn btn-info btn-sm">Refer to Appointment</a></span>
+	<span class=""><a href="createappointment.php?ubrn='.$fetch['c_UBRN'].'" class="btn btn-info btn-sm">Refer to Appointment</a></span>
 	</td>
 	';   
 	
@@ -639,7 +639,7 @@ $hks=mysqli_fetch_array($qki);
 		<a class="tb-lead btn btn-info btn-sm text-white" href="reply.php?c_id='.$fetch["c_id"].'&coid='.$fetch["c_userid"].'&pid='.$fetch["c_rfid"].'&rfno='.$fetch["c_id"].'&nhsno='.$fetch["c_nhsno"].'">Open </a>
 	</td>
 		<td class="nk-tb-col">
-	<span class=""><a href="createappointment.php" class="btn btn-info btn-sm">Refer to Appointment</a></span>
+	<span class=""><a href="createappointment.php?ubrn='.$fetch['c_UBRN'].'" class="btn btn-info btn-sm">Refer to Appointment</a></span>
 	</td>';
 										
 		}
@@ -739,7 +739,7 @@ if(isset($_POST['refferelfetch2']))
 	';   
 	}
 	echo'	<td class="nk-tb-col">
-	<span class=""><a href="createappointment.php" class="btn btn-info btn-sm">Refer to Appointment</a></span>
+	<span class=""><a href="createappointment.php?ubrn='.$fetch['c_UBRN'].'" class="btn btn-info btn-sm">Refer to Appointment</a></span>
 	</td>';
 	
 										
@@ -891,7 +891,7 @@ $hks=mysqli_fetch_array($qki);
 		<a class="tb-lead btn btn-info btn-sm text-white" href="reply.php?c_id='.$fetch["c_id"].'&coid='.$fetch["c_userid"].'&pid='.$fetch["c_rfid"].'&rfno='.$fetch["c_id"].'&nhsno='.$fetch["c_nhsno"].'">Open </a>
 	</td>
 		<td class="nk-tb-col">
-	<span class=""><a href="createappointment.php" class="btn btn-info btn-sm">Refer to Appointment</a></span>
+	<span class=""><a href="createappointment.php?ubrn='.$fetch['c_UBRN'].'" class="btn btn-info btn-sm">Refer to Appointment</a></span>
 	</td>
 	';   
 	
@@ -1003,7 +1003,7 @@ if(isset($_POST['refferelfetch4']))
 	}
 	echo '
 		<td class="nk-tb-col">
-	<span class=""><a href="createappointment.php" class="btn btn-info btn-sm">Refer to Appointment</a></span>
+	<span class=""><a href="createappointment.php?ubrn='.$fetch['c_UBRN'].'" class="btn btn-info btn-sm">Refer to Appointment</a></span>
 	</td>';
     										
 		}
@@ -1115,7 +1115,7 @@ if(isset($_POST['refferelfetch5']))
 	}
 		echo '
 		<td class="nk-tb-col">
-	<span class=""><a href="createappointment.php" class="btn btn-info btn-sm">Refer to Appointment</a></span>
+	<span class=""><a href="createappointment.php?ubrn='.$fetch['c_UBRN'].'" class="btn btn-info btn-sm">Refer to Appointment</a></span>
 	</td>';
 											
 			}
@@ -1460,8 +1460,8 @@ if(isset($_POST['patientfetch']))
 //for Appointment patient fetch
 if(isset($_POST['apppatientfetch']))
 {
-
-	$query = mysqli_query($con,"SELECT * FROM `tbl_consultantrefferels` Join `tbl_patients` ON tbl_consultantrefferels.c_rfid = tbl_patients.pt_id GROUP BY pt_name");
+$ubrn = $_POST['ubrn'];
+	$query = mysqli_query($con,"SELECT * FROM `tbl_consultantrefferels` Join `tbl_patients` ON tbl_consultantrefferels.c_rfid = tbl_patients.pt_id WHERE c_UBRN = '$ubrn' GROUP BY pt_name");
 	if(mysqli_num_rows($query )>0)
 	{
 		echo'<link rel="stylesheet" href="https://cdn.datatables.net/1.10.23/css/dataTables.bootstrap4.min.css">
@@ -1659,8 +1659,8 @@ if(isset($_POST['searchservice']))
 //for Appointment service fetch
 if(isset($_POST['appservicefetch']))
 {
-	
-$query = mysqli_query($con,"SELECT * FROM `tbl_consultantrefferels` join `services` ON tbl_consultantrefferels.c_serid = services.service_id GROUP BY service_id");
+	$ubrn = $_POST['ubrn'];
+$query = mysqli_query($con,"SELECT * FROM `tbl_consultantrefferels` join `services` ON tbl_consultantrefferels.c_serid = services.service_id WHERE c_UBRN = '$ubrn' GROUP BY service_id");
 	echo mysqli_error($con);
 	if(mysqli_num_rows($query) >0)
 	{

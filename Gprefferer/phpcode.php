@@ -363,7 +363,7 @@ $hks=mysqli_fetch_array($qki);
 		<a class="tb-lead btn btn-info btn-sm text-white" href="reply.php?c_id='.$fetch["c_id"].'&coid='.$fetch["c_userid"].'&pid='.$fetch["c_rfid"].'&rfno='.$fetch["c_id"].'&nhsno='.$fetch["c_nhsno"].'">Open </a>
 	</td>
 	<td class="nk-tb-col">
-	<span class=""><a href="createappointment.php" class="btn btn-info btn-sm">Refer to Appointment</a></span>
+	<span class=""><a href="createappointment.php?ubrn ='.$fetch["c_UBRN"].'" class="btn btn-info btn-sm">Refer to Appointment</a></span>
 	</td>
 	';   
 	
@@ -640,7 +640,7 @@ $hks=mysqli_fetch_array($qki);
 		<a class="tb-lead btn btn-info btn-sm text-white" href="reply.php?c_id='.$fetch["c_id"].'&coid='.$fetch["c_userid"].'&pid='.$fetch["c_rfid"].'&rfno='.$fetch["c_id"].'&nhsno='.$fetch["c_nhsno"].'">Open </a>
 	</td>
 		<td class="nk-tb-col">
-	<span class=""><a href="createappointment.php" class="btn btn-info btn-sm">Refer to Appointment</a></span>
+	<span class=""><a href="createappointment.php?ubrn ='.$fetch["c_UBRN"].'" class="btn btn-info btn-sm">Refer to Appointment</a></span>
 	</td>';
 										
 		}
@@ -740,7 +740,7 @@ if(isset($_POST['refferelfetch2']))
 	';   
 	}
 	echo'	<td class="nk-tb-col">
-	<span class=""><a href="createappointment.php" class="btn btn-info btn-sm">Refer to Appointment</a></span>
+	<span class=""><a href="createappointment.php?ubrn ='.$fetch["c_UBRN"].'" class="btn btn-info btn-sm">Refer to Appointment</a></span>
 	</td>';
 	
 										
@@ -892,7 +892,7 @@ $hks=mysqli_fetch_array($qki);
 		<a class="tb-lead btn btn-info btn-sm text-white" href="reply.php?c_id='.$fetch["c_id"].'&coid='.$fetch["c_userid"].'&pid='.$fetch["c_rfid"].'&rfno='.$fetch["c_id"].'&nhsno='.$fetch["c_nhsno"].'">Open </a>
 	</td>
 		<td class="nk-tb-col">
-	<span class=""><a href="createappointment.php" class="btn btn-info btn-sm">Refer to Appointment</a></span>
+	<span class=""><a href="createappointment.php?ubrn ='.$fetch["c_UBRN"].'" class="btn btn-info btn-sm">Refer to Appointment</a></span>
 	</td>
 	';   
 	
@@ -1004,7 +1004,7 @@ if(isset($_POST['refferelfetch4']))
 	}
 	echo '
 		<td class="nk-tb-col">
-	<span class=""><a href="createappointment.php" class="btn btn-info btn-sm">Refer to Appointment</a></span>
+	<span class=""><a href="createappointment.php?ubrn ='.$fetch["c_UBRN"].'" class="btn btn-info btn-sm">Refer to Appointment</a></span>
 	</td>';
     										
 		}
@@ -1116,7 +1116,7 @@ if(isset($_POST['refferelfetch5']))
 	}
 		echo '
 		<td class="nk-tb-col">
-	<span class=""><a href="createappointment.php" class="btn btn-info btn-sm">Refer to Appointment</a></span>
+	<span class=""><a href="createappointment.php?ubrn ='.$fetch["c_UBRN"].'" class="btn btn-info btn-sm">Refer to Appointment</a></span>
 	</td>';
 											
 			}
@@ -1460,8 +1460,8 @@ if(isset($_POST['patientfetch']))
 //for Appointment patient fetch
 if(isset($_POST['apppatientfetch']))
 {
-
-	$query = mysqli_query($con,"SELECT * FROM `tbl_consultantrefferels` Join `tbl_patients` ON tbl_consultantrefferels.c_rfid = tbl_patients.pt_id GROUP BY pt_name");
+    $ubrn = $_POST['ubrn'];
+	$query = mysqli_query($con,"SELECT * FROM `tbl_consultantrefferels` Join `tbl_patients` ON tbl_consultantrefferels.c_rfid = tbl_patients.pt_id WHERE c_UBRN = '$ubrn' GROUP BY pt_name");
 	if(mysqli_num_rows($query )>0)
 	{
 		echo'<link rel="stylesheet" href="https://cdn.datatables.net/1.10.23/css/dataTables.bootstrap4.min.css">
@@ -1659,8 +1659,8 @@ if(isset($_POST['searchservice']))
 //for Appointment service fetch
 if(isset($_POST['appservicefetch']))
 {
-	
-$query = mysqli_query($con,"SELECT * FROM `tbl_consultantrefferels` join `services` ON tbl_consultantrefferels.c_serid = services.service_id GROUP BY service_id");
+	$ubrn = $_POST['ubrn'];
+$query = mysqli_query($con,"SELECT * FROM `tbl_consultantrefferels` join `services` ON tbl_consultantrefferels.c_serid = services.service_id WHERE c_UBRN = '$ubrn' GROUP BY service_id");
 	echo mysqli_error($con);
 	if(mysqli_num_rows($query) >0)
 	{
@@ -1788,14 +1788,26 @@ if(isset($_POST['addservicerefferel']))
 	$id = $f['ur_id'];
 	$q3 = mysqli_query($con,"SELECT * FROM `tbl_consultantrefferels` WHERE c_serid = '$checkw' and c_rfid = '$check'");
 	$f3 = mysqli_num_rows($q3);
+	$fe3 = mysqli_fetch_array($q3);
+	$ubrn;
+	$q4 = mysqli_query($con,"SELECT * FROM tbl_consultantrefferels ORDER BY c_id DESC LIMIT 1");
+	$fe4 = mysqli_fetch_array($q4);
+	$f4 = mysqli_num_rows($q4);
 	if($f3 >0)
 	{
+	  
 	    echo json_encode(array("res"=>"Already"));
 	}
 	else{
-	    
-	
-	$q = mysqli_query($con,"INSERT INTO `tbl_consultantrefferels`(`c_userid`, `c_rfid`, `c_serid`,`c_gpid`,`c_nhsno`,`c_orgid`,`c_status`,`request_type`) VALUES('$consultantid','$check','$checkw','$id','$nhs','$orgid','2','$reqtype')");
+	    if($f4 > 0)
+	    {
+	        $ubrn = $fe4['c_UBRN']+1;
+	    }
+	    else
+	    {
+	        $ubrn = rand(9999999999,100000000);
+	    }
+	$q = mysqli_query($con,"INSERT INTO `tbl_consultantrefferels`(`c_UBRN`,`c_userid`, `c_rfid`, `c_serid`,`c_gpid`,`c_nhsno`,`c_orgid`,`c_status`,`request_type`) VALUES('$ubrn','$consultantid','$check','$checkw','$id','$nhs','$orgid','2','$reqtype')");
 	if($q)
 {
 		echo json_encode(array("res"=>"success","c_id"=>mysqli_insert_id($con)));
