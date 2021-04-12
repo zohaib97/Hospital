@@ -243,82 +243,179 @@ include_once('../database/db.php');
         <!-- main @e -->
     </div>
     <!-- Modal Form -->
-    <div class="modal fade" tabindex="-1" id="modalForm2">
-        <div class="modal-dialog" role="document">
+     <div class="modal fade" tabindex="-1" id="modalForm2">
+        <div class="modal-dialog modal-lg" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title">Manager Info</h5>
+                    <h5 class="modal-title">Patient Update</h5>
                     <a href="#" class="close" data-dismiss="modal" aria-label="Close">
                         <em class="icon ni ni-cross"></em>
                     </a>
                 </div>
                 <div class="modal-body">
-                    <form class="form-validate is-alter" id="aupdate" method="post">
-                        <div class="row">
-                            <div class="form-group col-md-6">
-                                <label class="form-label" for="first_name">First Name</label>
-                                <div class="form-control-wrap">
-                                    <input type="text" value="" id="mid" hidden="true" name="mid">
-                                    <input type="text" value="" id="roleid" hidden="true" name="roleid">
-                                    <input type="text" class="form-control" id="first_name" name="fname" required>
-                                </div>
-                            </div>
-                            <div class="form-group col-md-6">
-                                <label class="form-label" for="sure_name">Sure Name</label>
-                                <div class="form-control-wrap">
-                                    <input type="text" class="form-control" id="sure_name" name="sname" required>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="form-group col-md-6">
-                                <label class="form-label" for="memail">Email</label>
-                                <div class="form-control-wrap">
-                                    <input type="email" class="form-control" id="memail" required name="memail">
-                                </div>
-                            </div>
-
-                            <div class="form-group col-md-6">
-                                <label class="form-label" for="mpass">Password</label>
-                                <div class="form-control-wrap">
-                                    <input type="text" class="form-control" id="mpass" required name="mpassword">
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="form-group col-md-6">
-                                <label class="form-label" for="contact">Contact</label>
-                                <div class="form-control-wrap">
-                                    <input type="text" class="form-control" id="mcontact" required name="mcontact">
-                                </div>
-                            </div>
-                            <div class="form-group col-md-6">
-                                <label class="form-label" for="password">Department</label>
-                                <div class="form-control-wrap">
-                                    <input type="text" class="form-control" id="mdepart" required name="mdepart">
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="form-group col-md-6">
-                                <label class="form-label" for="password">Date of Birth</label>
-                                <div class="form-control-wrap">
-                                    <input type="text" class="form-control" id="mdob" required name="mdob">
-                                </div>
-                            </div>
-                        </div>
-                        <br>
-                        <div class="row">
-                            <div class="form-group col-md-6">
-                                <button type="submit" class="btn btn-lg btn-primary" id="adminupdate">Save
-                                    Informations</button>
-                            </div>
-                        </div>
-
-                    </form>
+              	   <form method="post" id="patientupdate" enctype="multipart/form-data">
+											<div class="row gy-4">
+												<div class="col-md-6">
+													<?php
+													
+													$em = $_SESSION['gprefferer'];
+													$qww = mysqli_query($con,"SELECT * FROM tbl_ruser WHERE ur_email = '$em'");
+													$few = mysqli_fetch_array($qww);
+											
+													?>
+													<div class="form-group">
+														<label class="col-form-label" for="fname">Patient Title</label>
+														<input type="text" value="<?php echo $few['ur_fname']?>" id="rid" hidden="true" name="rid">
+														<input type="text" value="<?php echo $fe['ur_hid']?>" id="hid" hidden="true" name="hid">	
+															<input type="hidden"  id="pid"  name="pid">	
+<!--														<input type="text" class="form-control form-control-lg"  placeholder="Enter Title" name="ptitle" required>-->
+														<select name="ptitle" id="ptitle" class="form-control form-control-lg">
+															<option>- Select -</option>
+														<option value="Mr">Mr</option>
+												<option value="Mrs">Mrs</option>
+												<option value="Ms">Ms</option>
+														</select>
+													</div>
+												</div>
+											<?php
+												if(isset($_GET['fname']))
+												{
+												    $fname = $_GET['fname'];
+												    $sname = $_GET['sname'];
+												    ?>
+												    <div class="col-md-6">
+													<div class="form-group">
+														<label class="col-form-label" for="sname">Patient Firstname</label>
+														<input type="text" class="form-control form-control-lg" id="" value="<?php echo $fname?>" placeholder="Enter First name" name="pfirstname" autocomplete="off" required>
+													</div>
+												</div>
+												<div class="col-md-6">
+													<div class="form-group">
+														<label class="col-form-label" for="email">Patient Surname</label>
+														<input type="text" class="form-control form-control-lg" id="" value="<?php echo $sname?>" placeholder="Enter Surname" name="psurname" autocomplete="off" required>
+													</div>
+												</div>
+												   <?php 
+												}
+												else{
+												?>
+												<div class="col-md-6">
+													<div class="form-group">
+														<label class="col-form-label" for="sname">Patient Firstname</label>
+														<input type="text" class="form-control form-control-lg" id="pfirstname" value="" placeholder="Enter First name" name="pfirstname" autocomplete="off" required>
+													</div>
+												</div>
+												<div class="col-md-6">
+													<div class="form-group">
+														<label class="col-form-label" for="email">Patient Surname</label>
+														<input type="text" class="form-control form-control-lg" id="psurname" value="" placeholder="Enter Surname" name="psurname" autocomplete="off" required>
+													</div>
+												</div>
+												<?php
+												}
+												?>
+												<div class="col-md-6">
+													<div class="form-group">
+														<label class="col-form-label" for="pno">Patient Date of Birth</label>
+														<input type="date" class="form-control form-control-lg" value="<?php if(isset($_GET["dob"])){
+														$da=date_create($_GET["dob"]);
+														echo date_format($da,"Y-m-d");
+														}else{
+														echo "";
+														}?>" placeholder="Date of Birth" name="pdob" id="pdob" required autocomplete="off" onchange="fnCalculateAge()">
+													</div>
+												</div>
+												<div class="col-md-6">
+													<div class="form-group">
+														<label class="col-form-label" for="age">Age</label>
+														<input type="text" class="form-control form-control-lg"  placeholder="Age" name="age" required autocomplete="off" id="age" readonly>
+													</div>
+												</div>
+												<div class="col-md-6">
+													<div class="form-group">
+														<?php 
+														$em = $_SESSION['gprefferer'];
+														$q = mysqli_query($con,"SELECT * FROM `tbl_ruser` WHERE `ur_email` = '$em'");
+														$fe = mysqli_fetch_array($q);
+														?>
+														<label class="col-form-label" for="depart">NHS No</label>
+														<input type="number" class="form-control form-control-lg" id="nhsnon" 
+														value="<?=isset($_GET["nhs"])? $_GET["nhs"]:""?>" name="nhsno" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
+												   maxlength="10" autocomplete="off" onchange="checknhs(this.value)">
+												       <small id="valid-nhs"></small>
+													</div>
+												</div>
+												<div class="col-md-6">
+													<div class="form-group">
+														<label class="col-form-label" for="dob">House No/Name</label>
+														<input type="text" class="form-control form-control-lg"  placeholder="House no" name="houseno" id="houseno" required autocomplete="off">
+													</div>
+												</div>
+												<div class="col-md-6">
+													<div class="form-group">
+														<label class="col-form-label" for="mpass">Street Name</label>
+														<input type="text" class="form-control form-control-lg"  placeholder="Street Name" name="streetname" id="streetname" required autocomplete="off">
+													</div>
+												</div>
+												<div class="col-md-6">
+													<div class="form-group">
+														<label class="col-form-label" for="cpass">City</label>
+														<input type="text" class="form-control form-control-lg"  placeholder="City" name="city" id="city" required autocomplete="off">
+													</div>
+												</div>
+												<div class="col-md-6" id="">
+													<div class="form-group">
+														<label class="col-form-label" for="rno">POST Code</label>
+														<input type="text" class="form-control form-control-lg"  placeholder="Postal Code" name="postalcode" id="postalcode" required autocomplete="off">
+													</div>
+												</div>
+												<div class="col-md-6">
+													<div class="form-group">
+														<label class="col-form-label" for="rno">Country</label>
+														<input type="text" class="form-control form-control-lg" id="" value="England" readonly placeholder="Country" name="country" id="country" required autocomplete="off">
+													</div>
+												</div>
+												
+												
+												
+												
+												<div class="col-md-6" id="">
+													<div class="form-group">
+														<label class="col-form-label" for="rno">Home Telephone Number</label>
+														<input type="number" class="form-control form-control-lg"  placeholder="Enter Telephone no" name="telephoneno" id="telephoneno" required autocomplete="off">
+													</div>
+												</div>
+												<div class="col-md-6" id="">
+													<div class="form-group">
+														<label class="col-form-label" for="rno">Mobile Number</label>
+														<input type="number" class="form-control form-control-lg"  placeholder="Enter Mobile no" name="mobileno" id="mobileno" required autocomplete="off">
+													</div>
+												</div>
+												<div class="col-md-6" id="">
+													<div class="form-group">
+														<label class="col-form-label" for="rno">Email</label>
+														<input type="email" class="form-control form-control-lg"  onchange="checkemail(this.value)" placeholder="Enter Email" name="email" id="pemail" required autocomplete="off"> 
+												        <small id="valid-email"></small>
+													</div>
+												</div>
+<!--
+												<div class="col-12">
+													<div class="custom-control custom-switch">
+														<input type="checkbox" class="custom-control-input" id="latest-sale">
+														<label class="custom-control-label" for="latest-sale">Use full name to display </label>
+													</div>
+												</div>
+-->
+												<div class="col-md-12" id="regishide">
+													<div class="form-group">
+														<input class="btn btn-lg btn-primary" type="submit" value="Save" id="addpatient">
+													</div>
+												</div>
+											</div>
+										  </form>
                 </div>
                 <div class="modal-footer bg-light">
-                    <span class="sub-text">Manager Update</span>
+                    <span class="sub-text">Patient Update</span>
                 </div>
             </div>
         </div>
@@ -414,6 +511,83 @@ include_once('../database/db.php');
         $("#mob").html(mob);
         $("#exampleModalCenter").modal("show");
     }
+    function fnCalculateAge(){
+
+     var userDateinput = document.getElementById("pdob").value;  
+	 console.log(userDateinput);
+	 
+     // convert user input value into date object
+	 var birthDate = new Date(userDateinput);
+	  console.log(" birthDate"+ birthDate);
+	 
+	 // get difference from current date;
+	 var difference=Date.now() - birthDate.getTime(); 
+	 	 
+	 var  ageDate = new Date(difference); 
+	 var calculatedAge=   Math.abs(ageDate.getUTCFullYear() - 1970);
+	 $('#age').val(calculatedAge);
+}
+    function fetchpatientedit(id,title,fname,sname,email,nhsno,dob,hno,street,country,city,post,tele,mob){
+        $("#pid").val(id);
+    $("#ptitle").val(title); 
+    $("#pfirstname").val(fname);
+      $("#psurname").val(sname);
+    $("#pemail").val(email);
+    $("#nhsnon").val(nhsno);
+    $("#pdob").val(dob);
+    $("#houseno").val(hno);
+    $("#streetname").val(street);
+    $("#country").val(country);
+    $("#city").val(city);
+    $("#postalcode").val(post);
+    $("#telephoneno").val(tele);
+    $("#mobileno").val(mob);
+     fnCalculateAge();
+$("#modalForm2").modal("show");
+    }
+    	$("#patientupdate").on('submit', function(e){
+		
+        	e.preventDefault();
+		var formdata = new FormData(this);
+		formdata.append("updatepatient","btn");
+		var nhs = $('#nhs').val();
+	
+        $.ajax({
+            type: 'POST',
+            url: 'gpphpcode.php',
+            data: formdata,
+            contentType: false,
+            processData:false,
+            beforeSend: function(){
+                $('#addpatient').attr("disabled","disabled");
+                $('#patientupdate').css("opacity",".5");
+            },
+            success: function(data){
+            //   alert(data);
+                if(data == 'Error'){
+                   toastr.clear(); 
+               NioApp.Toast("<h5>patient didn't Update Successfully</h5>", 'error',{position:'top-right'});
+                }
+				else if(data == 'Success'){
+					$('#patientupdate')[0].reset();
+					toastr.clear();
+               NioApp.Toast("<h5>Patient Update Successfully</h5>", 'success',{position:'top-right'});
+				
+					  setTimeout(function(){
+                    
+                    window.location.href="patientshow.php";
+                },3000);
+					
+                }
+			
+                $('#patientadd').css("opacity","");
+                $("#addpatient").removeAttr("disabled");
+              
+            }
+			
+        });
+
+    });
 // 	function fetchadmindata()
 // {
 // 	 $.ajax({    

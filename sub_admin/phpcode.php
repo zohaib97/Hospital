@@ -836,11 +836,12 @@ if(isset($_POST['fetchspecbtn']))
 // for fetch service appointment
 if(isset($_POST['fetchappbtn']))
 {
-	$apptypeid = $_POST['apptypeid'];
+	$apptypeid = explode(",",$_POST['apptypeid']);
 	$serappq = mysqli_query($con, "SELECT * FROM `app_type`");
 	echo'<option>- Select -</option>';
+	
 	while($fetchapp = mysqli_fetch_assoc($serappq)){
-		if($fetchapp['app_type']==$apptypeid)
+		if(in_array($fetchapp['app_id'],$apptypeid))
 		{
 			echo'<option value='.$fetchapp['app_id'].' selected>'.$fetchapp['app_type'].'</option>';
 		}
@@ -855,7 +856,7 @@ if(isset($_POST['fetchappbtn']))
 
 if(isset($_POST['clinical']))
 {
-	$cltypeid = $_POST['cltypeid'];
+	$cltypeid =explode(",",$_POST['cltypeid']);
 $clinicaltype = $_POST['clinical'];
 
 
@@ -865,7 +866,7 @@ $clinicaltype = $_POST['clinical'];
 
 	if ($result->num_rows > 0) {
  	   while ($row = $result->fetch_assoc()) {
-			if($row['cl_type']==$cltypeid)
+			if(in_array($row['cl_id'],$cltypeid))
 			{
 		echo '<option value="'.$row['cl_id'].'" selected>'.$row['cl_type'].'</option>';
 			}
@@ -1092,13 +1093,14 @@ if(isset($_POST['satffbtn']))
 //fetch staff consultant data
 if(isset($_POST['consultantbtn']))
 {
+    $adminname = $_POST['adminname'];
      $orgname = $_POST['orgname'];
 	$em = $_SESSION['superadmin'];
     $sql = mysqli_query($con,"SELECT * FROM admin WHERE email = '$em'");
     $fet = mysqli_fetch_array($sql);
     $org = $fet['organization'];
    
-	$query = mysqli_query($con,"SELECT * FROM `tbl_ruser`,tbl_role,orginzation where tbl_role.ro_id=tbl_ruser.ur_role_id and tbl_ruser.ur_orgtype = orginzation.orid and tbl_ruser.ur_role_id='3' and ur_orgname = '$orgname'");
+	$query = mysqli_query($con,"SELECT * FROM `tbl_ruser`,tbl_role,orginzation where tbl_role.ro_id=tbl_ruser.ur_role_id and tbl_ruser.ur_orgtype = orginzation.orid and tbl_ruser.ur_role_id='3' and ur_orgname = '$orgname' and ur_fname != '$adminname'");
 				
 	if($query)
 	{
@@ -1723,9 +1725,10 @@ $pass = $fetch['ur_pass'];
 //fetch staff genral pratictional data
 if(isset($_POST['genralpbtn']))
 {
+    $adminname = $_POST['adminname'];
     $orgname = $_POST['orgname'];
     // echo $orgname;
-	$query = mysqli_query($con,"SELECT * FROM `tbl_ruser`,tbl_role,orginzation where tbl_role.ro_id=tbl_ruser.ur_role_id and tbl_ruser.ur_orgtype = orginzation.orid and tbl_ruser.ur_role_id='5' and tbl_ruser.ur_orgname='$orgname'");
+	$query = mysqli_query($con,"SELECT * FROM `tbl_ruser`,tbl_role,orginzation where tbl_role.ro_id=tbl_ruser.ur_role_id and tbl_ruser.ur_orgtype = orginzation.orid and tbl_ruser.ur_role_id='5' and tbl_ruser.ur_orgname='$orgname' and ur_fname != '$adminname'");
 				
 	if($query)
 	{
@@ -1843,8 +1846,9 @@ if(isset($_POST['genralpbtn']))
 }
 if(isset($_POST['Optometristbtn']))
 {
+    $adminname = $_POST['adminname'];
      $orgname = $_POST['orgname'];
-	$query = mysqli_query($con,"SELECT * FROM `tbl_ruser`,tbl_role,orginzation where tbl_role.ro_id=tbl_ruser.ur_role_id and tbl_ruser.ur_orgtype = orginzation.orid and tbl_ruser.ur_role_id='6' and tbl_ruser.ur_orgname = '$orgname'");
+	$query = mysqli_query($con,"SELECT * FROM `tbl_ruser`,tbl_role,orginzation where tbl_role.ro_id=tbl_ruser.ur_role_id and tbl_ruser.ur_orgtype = orginzation.orid and tbl_ruser.ur_role_id='6' and tbl_ruser.ur_orgname = '$orgname' and ur_fname = '$adminname'");
 				
 	if($query)
 	{
@@ -1969,7 +1973,7 @@ if(isset($_POST['servicadd']))
 		$ser_refer = mysqli_real_escape_string($con, $_POST['ser_show']);
 		$ser_loc = mysqli_real_escape_string($con, $_POST['ser_location']);
 		$ser_spe = mysqli_real_escape_string($con, $_POST['ser_speciality']);
-		$ser_app = mysqli_real_escape_string($con, $_POST['ser_apptype']);
+		$ser_app = implode(",",$_POST['ser_apptype']);
 		$ser_gen = mysqli_real_escape_string($con, $_POST['ser_gen']);
 		$ser_dire = mysqli_real_escape_string($con, $_POST['ser_direct']);
 		$ser_eff = mysqli_real_escape_string($con, $_POST['ser_effect']);
@@ -1979,7 +1983,7 @@ if(isset($_POST['servicadd']))
 		$ser_ager2 = mysqli_real_escape_string($con, $_POST['ser_ager2']);
 		$ser_care = mysqli_real_escape_string($con, $_POST['ser_carem']);
 		//		$ser_pass = mysqli_real_escape_string($con, $_POST['ser_pass']);
-		$cltype = mysqli_real_escape_string($con, $_POST['ser_cltype']);
+		$cltype = implode(",",$_POST['ser_cltype']);
 		$res_reas = mysqli_real_escape_string($con, $_POST['re_reason']);
 		$res_cmnt = mysqli_real_escape_string($con, $_POST['re_cmnt']);
 		$ser_conn = mysqli_real_escape_string($con, $_POST['ser_conname']);
@@ -2011,9 +2015,15 @@ if(isset($_POST['servicadd']))
 		foreach($ser_reqt as $chek){
 		$chk .= $chek.",";
 		}
-	
-		
+	$codeapp;
+		$jsk=mysqli_query($con,"SELECT * FROM `services` ORDER BY m_id LIMIT 1");
+		if(mysqli_num_rows($jsk) > 0){
+		    $he=mysqli_fetch_array($jsk);
+		    $codeapp=$he["service_id"]+1;
+		}else{
+		    
 			$codeapp = rand(0000,9999);
+		}
 			$ser_ids =  mysqli_real_escape_string($con, $codeapp);
 	
 	// login user || admin ID
@@ -2032,7 +2042,7 @@ if(isset($_POST['servicadd']))
 	
 		 // for service create
 		$query = mysqli_query($con, "INSERT INTO `services`(`service_id`, `service_name`, `service_r_t_support`, `service_cmnts`, `service_refer`, `service_location`, `service_speciality`, `service_a_type`, `service_gender`, `sender_bookable`, `service_e_date`, `service_e_date2`, `service_age`, `service_age2`,`service_publish`,`service_caremenu`, `ser_cl_type`,`ser_res_reas`, `ser_res_cmnt`, `ser_instruct`, `ser_priority_rout`, `ser_priority_urg`, `ser_priority_wekex`, `ser_priority_2week`, `s_orgname`, `s_orgid`, `ser_create_id`, `ser_create_name`,`status`) VALUES ('$ser_ids','$ser_name','$chk','$res_cmnt','$ser_refer','$ser_loc','$ser_spe','$ser_app','$ser_gen','$ser_dire','$ser_eff','$ser_eff2','$ser_ager','$ser_ager2','$ser_publish','$ser_care','$cltype','$res_reas','$res_cmnt','$ser_inst','$ser_rout','$ser_urg','$ser_weekend','$ser_toweek','$orgname','$orgid','$uaid','$name','approve')");	
-	
+	    echo mysqli_error($con);
 		if($query)
 		{
 			// for service contact
@@ -2731,7 +2741,7 @@ if(isset($_POST['readRecord']))
 	$q = mysqli_query($con,"SELECT * FROM `admin` WHERE email = '$e'");
 	$f = mysqli_fetch_array($q);
 	$id = $f['id'];
-	$query = mysqli_query($con,"SELECT * FROM services  JOIN ser_specialty_add ON services.service_speciality=ser_specialty_add.spec_id JOIN app_type ON services.service_a_type=app_type.app_id JOIN service_cliniciant ON services.ser_cl_type=service_cliniciant.cl_id JOIN service_name ON services.service_name=service_name.s_id WHERE ser_create_id = '$id'");
+	$query = mysqli_query($con,"SELECT * FROM services  JOIN ser_specialty_add ON services.service_speciality=ser_specialty_add.spec_id JOIN app_type ON services.service_a_type=app_type.app_id JOIN service_cliniciant ON services.ser_cl_type=service_cliniciant.cl_id JOIN service_name ON services.service_name=service_name.s_id JOIN org_locations ON services.service_location=org_locations.id WHERE ser_create_id = '$id'");
 	if($query)
 	{
 		echo'<link rel="stylesheet" href="https://cdn.datatables.net/1.10.23/css/dataTables.bootstrap4.min.css">
@@ -2798,7 +2808,7 @@ if(isset($_POST['readRecord']))
 		<span class="tb-lead">'.$fetch['service_refer'].'</span>
 	</td>
 	<td class="nk-tb-col">
-		<span class="tb-lead">'.$fetch['service_location'].'</span>
+		<span class="tb-lead">'.$fetch['org_location'].'</span>
 	</td>
 	<td class="nk-tb-col">
 	<span class="tb-lead">'.$fetch['spec_name'].'</span>
@@ -2909,8 +2919,9 @@ if(isset($_POST['readRecordbtnd']))
 	
 	$q = mysqli_query($con,"SELECT * FROM `admin`,orginzation WHERE admin.organization=orginzation.orid and admin.email = '$e'");
 	$f = mysqli_fetch_array($q);
-	$id = $f['orid'];
-	$query = mysqli_query($con,"SELECT * FROM `tbl_serviceappointment` JOIN services ON services.service_id = tbl_serviceappointment.sp_serviceid JOIN service_name on service_name.s_id = services.service_name JOIN tbl_ruser ON tbl_ruser.ur_id = tbl_serviceappointment.sp_refferalid JOIN tbl_patients on tbl_patients.pt_id= tbl_serviceappointment.sp_patientid WHERE tbl_ruser.ur_orgtype='$id'");
+	$id = $f['id'];
+
+	$query = mysqli_query($con,"SELECT * FROM `tbl_serviceappointment` JOIN services ON services.service_id = tbl_serviceappointment.sp_serviceid JOIN service_name on service_name.s_id = services.service_name JOIN tbl_ruser ON tbl_ruser.ur_id = tbl_serviceappointment.sp_refferalid JOIN tbl_patients on tbl_patients.pt_id= tbl_serviceappointment.sp_patientid WHERE services.ser_create_id = '$id'");
 
 	// $query = mysqli_query($con,"SELECT * FROM `tbl_consultantrefferels`,orginzation,tbl_patients where orginzation.orid=tbl_consultantrefferels.c_orgid and tbl_patients.pt_nhsno=tbl_consultantrefferels.c_nhsno and c_gpid = '$id'");
 	if($query)
@@ -3099,7 +3110,7 @@ if(isset($_POST['servicupdate']))
 		$ser_refer = mysqli_real_escape_string($con, $_POST['ser_show']);
 		$ser_loc = mysqli_real_escape_string($con, $_POST['ser_location']);
 		$ser_spe = mysqli_real_escape_string($con, $_POST['ser_speciality']);
-		$ser_app = mysqli_real_escape_string($con, $_POST['ser_apptype']);
+		$ser_app = implode(",",$_POST['ser_apptype']);
 		$ser_gen = mysqli_real_escape_string($con, $_POST['ser_gen']);
 		$ser_dire = mysqli_real_escape_string($con, $_POST['ser_direct']);
 		$ser_eff = mysqli_real_escape_string($con, $_POST['ser_effect']);
@@ -3109,7 +3120,7 @@ if(isset($_POST['servicupdate']))
 		$ser_ager2 = mysqli_real_escape_string($con, $_POST['ser_ager2']);
 		$ser_care = mysqli_real_escape_string($con, $_POST['ser_carem']);
 		//		$ser_pass = mysqli_real_escape_string($con, $_POST['ser_pass']);
-		$cltype = mysqli_real_escape_string($con, $_POST['ser_cltype']);
+		$cltype = implode(",",$_POST['ser_cltype']);
 		$res_reas = mysqli_real_escape_string($con, $_POST['re_reason']);
 		$res_cmnt = mysqli_real_escape_string($con, $_POST['re_cmnt']);
 		$ser_conn = mysqli_real_escape_string($con, $_POST['ser_conname']);

@@ -67,90 +67,15 @@ include_once('header.php');
                                     </ul>
 
                                     <div class="row">
-                                        <div class="col-lg-4 col-md-4 col-12">
-                                            <span class="col-form-label font-weight-bold"
-                                                style="font-size: 15px; color: black">Summary Information</span>
-                                            <hr>
-                                            <div class="card p-3">
-                                                <ul>
-
-
-                                                    <li>
-                                                        <?php 
-															if(isset($_GET['nhsno'])){
-													$nhsno = $_GET['nhsno'];
-													$request_type=$_GET['request_type'];
-													$qref = mysqli_query($con, "SELECT * FROM `tbl_consultantrefferels` JOIN `tbl_patients` ON c_rfid = tbl_patients.pt_id JOIN `services` ON c_serid = services.service_id JOIN `tbl_ruser` ON tbl_ruser.ur_id = tbl_consultantrefferels.c_userid WHERE request_type='$request_type' and c_nhsno = '$nhsno'");
-													$dref = mysqli_fetch_assoc($qref);
-												}
-														?>
-                                                        <span class="font-weight-bold">Named Clinician</span>
-                                                        <br>
-                                                        <span><?=$dref["ur_fname"]." ".$dref['ur_sname']?></span>
-                                                    </li>
-                                                    <br>
-                                                    <li>
-                                                        <span class="font-weight-bold">Service Name</span>
-                                                        <br>
-                                                        <?php
-														$sername = $dref['service_name'];
-														$snq = mysqli_query($con, "SELECT * FROM `service_name` WHERE `s_id` = '$sername'");
-															$serndata = mysqli_fetch_assoc($snq);
-														?>
-                                                        <span><?=$serndata['s_name'];?></span>
-                                                    </li>
-                                                    <br>
-                                                    <li>
-                                                        <span class="font-weight-bold">Speciality</span>
-                                                        <br>
-                                                        <?php
-														$serspec = $dref['service_speciality'];
-														$sspecq = mysqli_query($con, "SELECT * FROM `ser_specialty_add` WHERE `spec_id` = '$serspec'");
-															$serspecdata = mysqli_fetch_assoc($sspecq);
-														?>
-                                                        <span><?=$serspecdata['spec_name']?></span>
-                                                    </li>
-                                                    <br>
-                                                    <?php
-													if(isset($_GET['nhsno'])){
-													$nhsno = $_GET['nhsno'];
-													$qref = mysqli_query($con, "SELECT * FROM `tbl_consultantrefferels` JOIN `tbl_patients` ON c_rfid = tbl_patients.pt_id JOIN `services` ON c_serid = services.service_id JOIN `tbl_ruser` ON tbl_ruser.ur_id = tbl_consultantrefferels.c_gpid WHERE request_type='$request_type' and c_nhsno = '$nhsno'");
-													$dref = mysqli_fetch_assoc($qref);
-														$refid = $dref['c_id'];
-														echo"Refer ID : ".$refid;
-													}
-													?>
-													<input type="text" name="rfno" id="rfno" value="<?=$refid?>" hidden>
-                                                    <li>
-                                                        <span class="font-weight-bold">Referred By</span>
-                                                        <br>
-                                                        <span><?=$dref["ur_fname"]." ".$dref['ur_sname']?></span>
-                                                    </li>
-                                                    <br>
-                                                    <li>
-                                                        <span class="font-weight-bold">Registered Practice</span>
-                                                        <br>
-                                                        <span><?=$dref["ur_address"]?></span>
-                                                    </li>
-                                                    <br>
-                                                    <li>
-                                                        <span class="font-weight-bold">Telephone: </span>
-                                                        <span><?=$dref['pt_telno']?></span>
-                                                    </li>
-
-                                                </ul>
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-8 col-md-8 col-12">
-                                            <div>
-                                                	<?php
+                                        <div class="col-md-9 bg-white py-2 px-1 mx-auto mb-3" style="border-radius:8px">
+                                                  	<?php
 											$pid = $_GET['pid'];
 											$sql2 = mysqli_query($con,"SELECT * FROM tbl_patients WHERE pt_id = '$pid'");
 											$fetch2 = mysqli_fetch_array($sql2);
 
 											?>
 												<div class="nk-block-head nk-block-head-lg wide-sm">
-												<span class="float-right p-2 bg-light w-100 col-form-label font-weight-bold">Patient Info - </span>
+												<span class="float-right p-2  w-100 col-form-label font-weight-bold">Patient Info - </span>
 												<button type="button" class="btn btn-info btn-sm float-right mt-1" onclick="showpat()">More Info</button>
 												<span class="text-dark">
 												Name: <?=$fetch2['pt_name']." ".$fetch2["pt_surname"]?></span>
@@ -160,14 +85,103 @@ include_once('header.php');
 												NHS no: <?=$fetch2['pt_nhsno']?></span>
 												<br>
 												<span class="text-dark">
-												Date of Birth: <?=$fetch2['pt_dob']?></span>
+												Date of Birth: <?php
+												
+												$daa=date_create($fetch2['pt_dob']);
+												echo date_format($daa,"m-d-Y");
+												?></span>
 												<br>
 												<span class="text-dark">
 												Email: <?=$fetch2['pt_email']?>
 												</span>
 												<br>
-												<hr>
-                                                <div class="nk-block-head nk-block-head-lg wide-sm">
+											</div>
+                                        </div>
+                                        <div class="col-lg-4 col-md-4 col-12">
+                                            <span class="col-form-label font-weight-bold"
+                                                style="font-size: 15px; color: black">Summary Information</span>
+                                            <hr>
+                                            <div class="card p-3">
+                                                  <div class="row">
+
+
+                                                    <div class="col-md-6 mb-2">
+                                                        <?php 
+															if(isset($_GET['nhsno'])){
+													$nhsno = $_GET['nhsno'];
+													$qref = mysqli_query($con, "SELECT * FROM `tbl_consultantrefferels` JOIN `tbl_patients` ON c_rfid = tbl_patients.pt_id JOIN `services` ON c_serid = services.service_id JOIN `tbl_ruser` ON tbl_ruser.ur_id = tbl_consultantrefferels.c_userid WHERE c_nhsno = '$nhsno'");
+													$dref = mysqli_fetch_assoc($qref);
+												}
+														?>
+                                                        <span class="font-weight-bold">Named Clinician</span>
+                                                        <br>
+                                                        <span><?=$dref['ur_sname']?></span>
+                                                    </div>
+                                                    
+                                                    <div class="col-md-6 mb-2">
+                                                        <span class="font-weight-bold">Service Name</span>
+                                                        <br>
+                                                        <?php
+														$sername = $dref['service_name'];
+														$snq = mysqli_query($con, "SELECT * FROM `service_name` WHERE `s_id` = '$sername'");
+															$serndata = mysqli_fetch_assoc($snq);
+														?>
+                                                        <span><?=$serndata['s_name'];?></span>
+                                                    </div>
+                                                    
+                                                    <div class="col-md-6 mb-2">
+                                                        <span class="font-weight-bold">Speciality</span>
+                                                        <br>
+                                                        <?php
+														$serspec = $dref['service_speciality'];
+														$sspecq = mysqli_query($con, "SELECT * FROM `ser_specialty_add` WHERE `spec_id` = '$serspec'");
+															$serspecdata = mysqli_fetch_assoc($sspecq);
+														?>
+                                                        <span><?=$serspecdata['spec_name']?></span>
+                                                    </div>
+                                                    
+                                                    <?php
+													if(isset($_GET['nhsno'])){
+													$nhsno = $_GET['nhsno'];
+													$qref = mysqli_query($con, "SELECT * FROM `tbl_consultantrefferels` JOIN `tbl_patients` ON c_rfid = tbl_patients.pt_id JOIN `services` ON c_serid = services.service_id JOIN `tbl_ruser` ON tbl_ruser.ur_id = tbl_consultantrefferels.c_gpid WHERE c_nhsno = '$nhsno'");
+													$dref = mysqli_fetch_assoc($qref);
+														$refid = $dref['c_id'];
+													
+													}
+													?>
+													  <div class="col-md-6 mb-2">
+                                                        <span class="font-weight-bold">Refer ID</span>
+                                                        <br>
+                                                        <span><?=$refid?></span>
+                                                    </div>
+													<input type="text" name="rfno" id="rfno" value="<?=$refid?>" hidden>
+                                                    <div class="col-md-6 mb-2">
+                                                        <span class="font-weight-bold">Referred By</span>
+                                                        <br>
+                                                        <span><?=$dref['ur_fname']." ".$dref['ur_sname']?></span>
+                                                    </div>
+                                                    <div class="col-md-12 mb-2">
+                                                        <span class="font-weight-bold">Registered Practice</span>
+                                                        <br>
+                                                        <span>Karachi
+                                                            Sindh
+                                                            Pakistan</span>
+                                                    </div>
+                                                    
+                                                   
+                                                    <div class="col-md-6 mb-2">
+                                                        <span class="font-weight-bold">Telephone: </span>
+                                                        <span><?=$dref['pt_telno']?></span>
+                                                    </div>
+
+                                                </ul>
+                                            </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-8 col-md-8 col-12">
+                                            <div>
+                                          
+                                                <div class="nk-block-head nk-block-head-lg wide-sm pb-0">
                                                     <?php
 				    $q = $_GET["request_type"];
 
@@ -178,21 +192,23 @@ include_once('header.php');
 						    
 						
 				    ?>
-                                                    <h5 class="nk-block-title fw-normal col-form-label font-weight-bold"
+                                                    <h5 class="nk-block-title fw-normal col-form-label font-weight-bold p-0"
                                                         style="font-size: 20px">Advice Conversation</h5>
                                                         <?php
 						}
 						elseif($dref['request_type'] == "Appointment Request"){
                                                         ?>
                                                   
-                                                   <h5 class="nk-block-title fw-normal col-form-label font-weight-bold"
+                                                   <h5 class="nk-block-title fw-normal col-form-label font-weight-bold p-0"
                                                         style="font-size: 20px">Appointment Conversation</h5>
                                                  <?php
 						}
-                                                 ?>
-                                                 
-                                                    <div id="fetchreply" style="height: 320px;overflow-y: scroll;">
+                                                 ?></div>
+                                                 	<hr>
+                                                 	<div class="px-2 py-2 bg-white" style="border-radius:8px">
+                                                    <div id="fetchreply" class="px-2" style="height: 277px;overflow:hidden scroll;">
                                                         <!-- phpcode.php -->
+                                                    </div>
                                                     </div>
                                                     <br>
                                                    

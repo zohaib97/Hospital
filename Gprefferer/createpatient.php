@@ -100,7 +100,12 @@ include_once('../database/db.php');
 												<div class="col-md-6">
 													<div class="form-group">
 														<label class="col-form-label" for="pno">Patient Date of Birth</label>
-														<input type="date" class="form-control form-control-lg"  placeholder="Date of Birth" name="pdob" id="pdob" required autocomplete="off" onchange="fnCalculateAge()">
+														<input type="date" class="form-control form-control-lg" value="<?php if(isset($_GET["dob"])){
+														$da=date_create($_GET["dob"]);
+														echo date_format($da,"Y-m-d");
+														}else{
+														echo "";
+														}?>" placeholder="Date of Birth" name="pdob" id="pdob" required autocomplete="off" onchange="fnCalculateAge()">
 													</div>
 												</div>
 												<div class="col-md-6">
@@ -118,7 +123,7 @@ include_once('../database/db.php');
 														?>
 														<label class="col-form-label" for="depart">NHS No</label>
 														<input type="number" class="form-control form-control-lg" id="nhs" 
-														value="" name="nhsno" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
+														value="<?=isset($_GET["nhs"])? $_GET["nhs"]:""?>" name="nhsno" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
 												   maxlength="10" autocomplete="off" onchange="checknhs(this.value)">
 												       <small id="valid-nhs"></small>
 													</div>
@@ -214,6 +219,10 @@ include_once('../database/db.php');
   <script src="assets/js/example-toastr.js?ver=2.2.0"></script>
 </body>
 <script>
+$(document).ready(function(){
+    
+    setTimeout(fnCalculateAge,3000); 
+})
  function fnCalculateAge(){
 
      var userDateinput = document.getElementById("pdob").value;  
@@ -379,7 +388,7 @@ include_once('../database/db.php');
                 $('#patientadd').css("opacity",".5");
             },
             success: function(data){
-              
+            //   alert(data);
                 if(data == 'Error'){
                    toastr.clear(); 
                NioApp.Toast("<h5>patient didn't add Successfully</h5>", 'error',{position:'top-right'});
@@ -395,6 +404,10 @@ include_once('../database/db.php');
 			
                 $('#patientadd').css("opacity","");
                 $("#addpatient").removeAttr("disabled");
+                setTimeout(function(){
+                    
+                    window.location.href="patientshow.php";
+                },3000);
             }
 			
         });

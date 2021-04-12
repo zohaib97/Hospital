@@ -164,7 +164,26 @@ $fetch = mysqli_fetch_array($query);
 						<label class="form-label" for="full-name-1"><sup class="text-danger">* </sup>Service Location</label>
 						<!-- <span class="nk-menu-icon ml-2"><a href="javascript:void(0)" onClick="openloc()"><em class="icon ni ni-plus"></em></a></span> -->
 						<div class="form-control-wrap">
-							<input name="ser_location" id="ser_location" class="form-control" value="<?=$fetch['service_location']?>" readonly>
+						    	<select name="ser_location" id="ser_location" class="form-control" onchange="locationfetch()">
+								    <option>- Select -</option>
+								    <?php
+								    $sernameq1 = mysqli_query($con, "SELECT * FROM `org_locations`");
+	
+                        while($datarole1 = mysqli_fetch_assoc($sernameq1)){
+ 	
+                                    if($fetch['service_location'] == $datarole1['id']){
+								    ?>
+								    <option value="<?=$datarole1['id']?>" selected><?=$datarole1['org_location']?></option>
+								    <?php
+                                    }else{
+                                        ?>
+                                            <option value="<?=$datarole1['id']?>"><?=$datarole1['org_location']?></option>
+                                        <?php
+                                    }
+ }
+								    ?>
+								    </select>
+							<!--<input name="ser_location" id="ser_location" class="form-control" value="" readonly>-->
 								
 						</div>
 					</div>
@@ -183,11 +202,11 @@ $fetch = mysqli_fetch_array($query);
 				</div>
 				<div class="col-lg-12">
 					<div class="form-group">
-                        <input type="text" value="<?=$fetch['app_type']?>" hidden id="apptypeid">
+                        <input type="text" value="<?=$fetch['service_a_type']?>" hidden id="apptypeid">
 						<label class="form-label" for="full-name-1">Appointment Type</label>
 						<span class="nk-menu-icon ml-2"><a href="javascript:void(0)" onClick="openmodal1()"><em class="icon ni ni-plus"></em></a></span>
 						<div class="form-control-wrap">
-							<select name="ser_apptype" id="ser_apptype" class="form-control">
+							<select name="ser_apptype[]" id="ser_apptype" class="form-control" multiple>
 								<!-- phpcode.php -->
 							</select>
 						</div>
@@ -396,10 +415,10 @@ $fetch = mysqli_fetch_array($query);
 						  <div class="card-body">
 							<div class="col-lg-12">
 								<div class="form-group">
-                                <input type="text" value="<?=$fetch['cl_type']?>" hidden id="cltypeid">
+                                <input type="text" value="<?=$fetch['ser_cl_type']?>" hidden id="cltypeid">
 									<label class="form-label" for="full-name-1">Clinician Type</label>
 									<div class="form-control-wrap">
-										<select name="ser_cltype" class="form-control" id="ser_cltype">
+										<select name="ser_cltype[]" class="form-control" id="ser_cltype" multiple>
 											<!-- phpcode.php -->
 										</select>
 									</div>
@@ -1568,6 +1587,7 @@ processData:false,
 //                $('#privacyadd').css("opacity",".5");
 //            },
 success: function(data){
+    console.log(data);
 if(data == 'errorinslotm'){
 toastr.clear();
 NioApp.Toast("<h5>Something Went Wrong</h5>", 'error',{position:'top-right'});
@@ -1590,9 +1610,35 @@ toastr.clear();
 NioApp.Toast("<h5>All Fields are required</h5>", 'error',{position:'top-right'});
 }
 });
-
+$(document).ready(function(){
+    setTimeout(locationfetch,3000);
+})
+  function locationfetch(){
+              var loc =  $('#ser_location').val();
+$.ajax({
+url: 'phpcode.php',
+type: 'post',
+data: {locid:loc,locationfetch:"btn"},
+success: function(response){
+  
+$('#ser_conadd').html(response);
+}
+});
+$.ajax({
+url: 'phpcode.php',
+type: 'post',
+data: {locid:loc,locationfetch2:"btn"},
+success: function(response){
+   
+$('#ser_conpost').val(response);
+}
+});
+};
 
 
 </script>
 
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+<script>
+    $('select').select2();
+</script>

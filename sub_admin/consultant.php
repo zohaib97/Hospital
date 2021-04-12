@@ -28,6 +28,7 @@ include_once('header.php');
 								$sql = mysqli_query($con,"SELECT * FROM admin WHERE id = '$id'");
 								$fetch = mysqli_fetch_array($sql);
 								$orgid = $fetch['organization'];
+								$admin = $fetch['name'];
 								$sql1 = mysqli_query($con,"SELECT * FROM orginzation WHERE orid = '$orgid'");
 								$fetch1 = mysqli_fetch_array($sql1);
 								$ortype = $fetch1['or_type'];
@@ -42,6 +43,7 @@ include_once('header.php');
                                     <div class="nk-block-head nk-block-head-lg wide-sm">
                                         <h2 class="nk-block-title fw-normal">Users List</h2>
 <input type="text" name="orname" id="orname" value="<?=$fetch1['or_name']?>" hidden>
+<input type="text" name="adminname" id="adminname" value="<?=$admin?>" hidden>
                                     </div>
                                     <div class="col-md-6">
                                         <label for="Role">Select Role</label>
@@ -312,11 +314,13 @@ $(document).ready(function(){
 var Role = $('#Role').val();
 if(Role == "consultant")
 {
+    var adminname = $('#adminname').val();
     var orgname= $('#orname').val();
         $.ajax({
             type: "POST",
             url: "phpcode.php",
             data: {
+                adminname:adminname,
                 orgname:orgname,
                 consultantbtn: "btn"
             },
@@ -342,11 +346,12 @@ if(Role == "consultant")
 }
 else if(Role == "ServiceDefiner")
     {
+        var adminname = $('#adminname').val();
         var orgname= $('#orname').val();
     $.ajax({    
         type: "POST",
         url: "phpcode.php", 
-		data:{orgname:orgname,ServiceDefiner:"btn"},	            
+		data:{adminname:adminname,orgname:orgname,ServiceDefiner:"btn"},	            
         success: function(response){                    
             $("#adata").html(response); 
             //alert(response);
@@ -369,11 +374,13 @@ else if(Role == "Dentist")
 }
 else if(Role == "GP_Refferer")
 {
+    var adminname = $('#adminname').val();
    var orgname= $('#orname').val();
     $.ajax({
             type: "POST",
             url: "phpcode.php",
             data: {
+                adminname:adminname,
                 orgname:orgname,
                 genralpbtn: "btn"
             },
@@ -386,11 +393,13 @@ else if(Role == "GP_Refferer")
 }
 else if(Role == "Optometrist")
 {
+    var adminname = $('#adminname').val();
     var orgname= $('#orname').val();
     $.ajax({
             type: "POST",
             url: "phpcode.php",
             data: {
+                adminname:adminname,
                 orgname:orgname,
                 Optometristbtn: "btn"
             },

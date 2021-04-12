@@ -42,6 +42,8 @@ include_once('connect.php');
 										 <h2 class="nk-block-title fw-normal">Organisation Type list</h2>
                                        
                                     </div>
+                                    <a href="orgtype.php" class="btn btn-primary float-right mb-2">Create Organisation Type</a><br>
+                                     <br><br>
                                     <div class="nk-block nk-block-lg" id="adata" >
                              
                                     </div> <!-- nk-block -->

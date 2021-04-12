@@ -105,7 +105,7 @@
 		
 		var staffregi = $('#proregno').val();
 		var staffrole = $('#role').val();
-
+        var jsls=$('#role').html();
 		if (stafffname != '' && staffsname != '' && staffemail != '' && staffpass != '' && staffphn != '' && staffdepart != ''  && staffrole != '' && staffregi != '') {
 
 			
@@ -134,6 +134,9 @@
 							NioApp.Toast("<h5>Role Created Successfully</h5>", 'success', {
 								position: 'top-right'
 							});
+							
+							    window.location.href="consultant.php?role="+jsls;
+							
 							// document.getElementById("fname").style.borderColor = "#28a745";
 							// document.getElementById("sname").style.borderColor = "#28a745";
 							// document.getElementById("email").style.borderColor = "#28a745";

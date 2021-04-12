@@ -150,6 +150,39 @@ if(isset($_POST['addpatient']))
 	}
 	}
 }
+if(isset($_POST['updatepatient']))
+{
+	$pid=$_POST["pid"];
+	$gphid = $_POST['rid'];
+	$ptitle = $_POST['ptitle'];
+	$pfirstname = $_POST['pfirstname'];
+	$psurname = $_POST['psurname'];
+	$date=date_create($_POST['pdob']);
+	// 	echo $_POST['pdob']; 
+	$pdob = date_format($date,"Y-m-d");
+	$nhsno = $_POST['nhsno'];
+	$houseno = $_POST['houseno'];
+	$streetname = $_POST['streetname'];
+	$city = $_POST['city'];
+	$country = $_POST['country'];
+	$postalcode = $_POST['postalcode'];
+	$telephoneno = $_POST['telephoneno'];
+	$mobileno = $_POST['mobileno'];
+	$email = $_POST['email'];
+	$age = $_POST['age'];
+
+	
+$query = mysqli_query($con,"UPDATE `tbl_patients` SET  `pt_title`='$ptitle', `pt_name`='$pfirstname', `pt_surname`='$psurname', `pt_dob`='$pdob', `pt_nhsno`='$nhsno', `pt_houseno`='$houseno', `pt_streetname`='$streetname', `pt_city`='$city', `pt_country`='$country', `pt_postcode`='$postalcode', `pt_telno`='$telephoneno', `pt_mobno`='$mobileno', `pt_email`='$email',`pt_age`='$age' where `pt_id`='$pid'");
+echo mysqli_error($con);
+	if($query)
+	{
+		echo "Success";
+	}
+	else{
+		echo "Error";
+	
+	}
+}
 if(isset($_POST["checkemail"])){
     extract($_POST);
     $q=mysqli_query($con,"select * from tbl_patients where pt_email ='$email'");
@@ -205,9 +238,9 @@ if(isset($_POST['refferelfetch']))
 		$q1 = mysqli_query($con, "SELECT * FROM `tbl_consultantrefferels` WHERE c_gpid = '$id' and request_type = 'Appointment Request' ");
 		$f1 = mysqli_fetch_array($q1);
 		$refferid = $f1['c_id'];
-	$kk=mysqli_query($con,"SELECT * FROM `tbl_refferelattachment` where ra_refferelid='$refferid'");
-	if(mysqli_num_rows($kk) < 0){
-	$query = mysqli_query($con,"SELECT * FROM `tbl_consultantrefferels`JOIN tbl_ruser ON tbl_ruser.ur_id = tbl_consultantrefferels.c_userid JOIN services ON services.service_id = tbl_consultantrefferels.c_serid JOIN service_name ON service_name.s_id = services.service_name JOIN service_cliniciant ON services.ser_cl_type= service_cliniciant.cl_id JOIN ser_specialty_add ON services.service_speciality = ser_specialty_add.spec_id JOIN orginzation ON orginzation.orid = tbl_consultantrefferels.c_orgid  where c_gpid = '$id' and request_type = 'Appointment Request'  ");
+// 	$kk=mysqli_query($con,"SELECT * FROM `tbl_refferelattachment` where ra_refferelid='$refferid'");
+// 	if(mysqli_num_rows($kk) < 0){
+	$query = mysqli_query($con,"SELECT * FROM `tbl_consultantrefferels`JOIN tbl_ruser ON tbl_ruser.ur_id = tbl_consultantrefferels.c_userid JOIN services ON services.service_id = tbl_consultantrefferels.c_serid JOIN service_name ON service_name.s_id = services.service_name JOIN service_cliniciant ON services.ser_cl_type= service_cliniciant.cl_id JOIN ser_specialty_add ON services.service_speciality = ser_specialty_add.spec_id JOIN orginzation ON orginzation.orid = tbl_consultantrefferels.c_orgid  where c_gpid = '$id' and request_type = 'Appointment Request' and c_status= '2'");
 
 	// $query = mysqli_query($con,"SELECT * FROM `tbl_consultantrefferels`,orginzation,tbl_patients where orginzation.orid=tbl_consultantrefferels.c_orgid and tbl_patients.pt_nhsno=tbl_consultantrefferels.c_nhsno and c_gpid = '$id'");
 	if($query)
@@ -348,147 +381,147 @@ $hks=mysqli_fetch_array($qki);
 	</script>
 	';
 		}
-	}else{
-	    $query = mysqli_query($con,"SELECT * FROM `tbl_consultantrefferels`JOIN tbl_ruser ON tbl_ruser.ur_id = tbl_consultantrefferels.c_userid JOIN services ON services.service_id = tbl_consultantrefferels.c_serid JOIN service_name ON service_name.s_id = services.service_name JOIN service_cliniciant ON services.ser_cl_type= service_cliniciant.cl_id JOIN ser_specialty_add ON services.service_speciality = ser_specialty_add.spec_id JOIN orginzation ON orginzation.orid = tbl_consultantrefferels.c_orgid  where c_gpid = '$id' and request_type = 'Appointment Request' and c_status='242'");
+// 	}else{
+// 	    $query = mysqli_query($con,"SELECT * FROM `tbl_consultantrefferels`JOIN tbl_ruser ON tbl_ruser.ur_id = tbl_consultantrefferels.c_userid JOIN services ON services.service_id = tbl_consultantrefferels.c_serid JOIN service_name ON service_name.s_id = services.service_name JOIN service_cliniciant ON services.ser_cl_type= service_cliniciant.cl_id JOIN ser_specialty_add ON services.service_speciality = ser_specialty_add.spec_id JOIN orginzation ON orginzation.orid = tbl_consultantrefferels.c_orgid  where c_gpid = '$id' and request_type = 'Appointment Request' and c_status='242'");
 
-	// $query = mysqli_query($con,"SELECT * FROM `tbl_consultantrefferels`,orginzation,tbl_patients where orginzation.orid=tbl_consultantrefferels.c_orgid and tbl_patients.pt_nhsno=tbl_consultantrefferels.c_nhsno and c_gpid = '$id'");
-	if($query)
-	{
-		echo'<link rel="stylesheet" href="https://cdn.datatables.net/1.10.23/css/dataTables.bootstrap4.min.css">
-		<button onclick="window.print()" class="btn btn-danger">Print</button>
-		<br>
-		<br>
-		<table class="nowrap nk-tb-list is-separate" data-auto-responsive="false" id="myTable">
-			<thead>
-				<tr class="nk-tb-item nk-tb-head">
+// 	// $query = mysqli_query($con,"SELECT * FROM `tbl_consultantrefferels`,orginzation,tbl_patients where orginzation.orid=tbl_consultantrefferels.c_orgid and tbl_patients.pt_nhsno=tbl_consultantrefferels.c_nhsno and c_gpid = '$id'");
+// 	if($query)
+// 	{
+// 		echo'<link rel="stylesheet" href="https://cdn.datatables.net/1.10.23/css/dataTables.bootstrap4.min.css">
+// 		<button onclick="window.print()" class="btn btn-danger">Print</button>
+// 		<br>
+// 		<br>
+// 		<table class="nowrap nk-tb-list is-separate" data-auto-responsive="false" id="myTable">
+// 			<thead>
+// 				<tr class="nk-tb-item nk-tb-head">
 				
-					<th class="nk-tb-col"><span>Service Id</span></th>
-					<th class="nk-tb-col"><span>Priority</span></th>
-					<th class="nk-tb-col"><span>Status</span></th>
-					<th class="nk-tb-col"><span>Service Name</span></th>
-					<th class="nk-tb-col"><span>Speciality</span></th>
-					<th class="nk-tb-col"><span>Clininic Type</span></th>
-					<th class="nk-tb-col tb-col-sm"><span>Consultant Name</span></th>
-					<th class="nk-tb-col"><span>NHS Number</span></th>
-					<th class="nk-tb-col"><span>Organisation Name</span></th>
-						<th class="nk-tb-col"><span>View referrer</span></th>
-				</tr><!-- .nk-tb-item -->
-			</thead>
-			 <tbody id="">';
-		while($fetch = mysqli_fetch_array($query))
-		{
+// 					<th class="nk-tb-col"><span>Service Id</span></th>
+// 					<th class="nk-tb-col"><span>Priority</span></th>
+// 					<th class="nk-tb-col"><span>Status</span></th>
+// 					<th class="nk-tb-col"><span>Service Name</span></th>
+// 					<th class="nk-tb-col"><span>Speciality</span></th>
+// 					<th class="nk-tb-col"><span>Clininic Type</span></th>
+// 					<th class="nk-tb-col tb-col-sm"><span>Consultant Name</span></th>
+// 					<th class="nk-tb-col"><span>NHS Number</span></th>
+// 					<th class="nk-tb-col"><span>Organisation Name</span></th>
+// 						<th class="nk-tb-col"><span>View referrer</span></th>
+// 				</tr><!-- .nk-tb-item -->
+// 			</thead>
+// 			 <tbody id="">';
+// 		while($fetch = mysqli_fetch_array($query))
+// 		{
 		    
-	$rfid = $fetch['c_id'];
-$qki=mysqli_query($con,"select * from tbl_refferelattachment  where ra_refferelid='$rfid' ORDER BY ra_id DESC LIMIT 1");
-$hks=mysqli_fetch_array($qki);
-// $qki1=mysqli_query($con,"select * from tbl_refferelattachment  where ra_refferelid='$rfid' and ra_sender_id ='".$fetch["ur_id"]."'
-// sender='".$fetch["ur_id"]."' and reply ='1' and reciever='$id'");
+// 	$rfid = $fetch['c_id'];
+// $qki=mysqli_query($con,"select * from tbl_refferelattachment  where ra_refferelid='$rfid' ORDER BY ra_id DESC LIMIT 1");
+// $hks=mysqli_fetch_array($qki);
+// // $qki1=mysqli_query($con,"select * from tbl_refferelattachment  where ra_refferelid='$rfid' and ra_sender_id ='".$fetch["ur_id"]."'
+// // sender='".$fetch["ur_id"]."' and reply ='1' and reciever='$id'");
 
-	echo'   <tr class="nk-tb-item">
+// 	echo'   <tr class="nk-tb-item">
 
-	<td class="nk-tb-col">
-		<span class="tb-lead">'.$fetch['c_serid'].'</span>
-	</td>
-	<td class="nk-tb-col">';
-      if($fetch['ser_priority_rout'] != 0)
-                                                         {
-    echo'  <span>Routine</span>';
+// 	<td class="nk-tb-col">
+// 		<span class="tb-lead">'.$fetch['c_serid'].'</span>
+// 	</td>
+// 	<td class="nk-tb-col">';
+//       if($fetch['ser_priority_rout'] != 0)
+//                                                          {
+//     echo'  <span>Routine</span>';
   
-                                                         }
-                                                         elseif($fetch['ser_priority_urg'] != 0)
-                                                         {
-    echo '<span>Urgent</span>';
-                                                         }
+//                                                          }
+//                                                          elseif($fetch['ser_priority_urg'] != 0)
+//                                                          {
+//     echo '<span>Urgent</span>';
+//                                                          }
                                                          
                                                        
-                                                         elseif($fetch['ser_priority_2week'] != 0)
-                                                         {
+//                                                          elseif($fetch['ser_priority_2week'] != 0)
+//                                                          {
               
-              echo'                                           <span>2 Weeks</span>';
+//               echo'                                           <span>2 Weeks</span>';
                                                          
-                 }
-	echo '</td>
-	';
-		if($hks["sender"] == $id && $hks["reciever"]==$fetch["ur_id"] && $hks["reply"] == 0 ){
- echo '
- 	<td class="nk-tb-col">
+//                  }
+// 	echo '</td>
+// 	';
+// 		if($hks["sender"] == $id && $hks["reciever"]==$fetch["ur_id"] && $hks["reply"] == 0 ){
+//  echo '
+//  	<td class="nk-tb-col">
 
-	<span class="badge badge-danger">Clinician Provider Response Required</span>
-	</td>
+// 	<span class="badge badge-danger">Clinician Provider Response Required</span>
+// 	</td>
 	
 
-	';   
-	}elseif($hks["sender"] == $fetch["ur_id"] && $hks["reciever"]== $id && $hks["reply"] == 1){
-	echo '
-<td class="nk-tb-col">
+// 	';   
+// 	}elseif($hks["sender"] == $fetch["ur_id"] && $hks["reciever"]== $id && $hks["reply"] == 1){
+// 	echo '
+// <td class="nk-tb-col">
 
-	<span class="badge badge-primary ">waiting for your response</span>
-	</td>
-	';
-	}	else{
- echo '
- 	<td class="nk-tb-col">
+// 	<span class="badge badge-primary ">waiting for your response</span>
+// 	</td>
+// 	';
+// 	}	else{
+//  echo '
+//  	<td class="nk-tb-col">
 
-	<span class="badge badge-danger">Clinician Provider Response Required</span>
-	</td>
+// 	<span class="badge badge-danger">Clinician Provider Response Required</span>
+// 	</td>
 	
 
-	';   
-	}
-	echo'
-		<td class="nk-tb-col">
-		<span class="tb-lead">'.$fetch['s_name'].'</span>
-	</td>
+// 	';   
+// 	}
+// 	echo'
+// 		<td class="nk-tb-col">
+// 		<span class="tb-lead">'.$fetch['s_name'].'</span>
+// 	</td>
 	
 	
-	<td class="nk-tb-col tb-col-sm">
-		<span class="tb-product">
+// 	<td class="nk-tb-col tb-col-sm">
+// 		<span class="tb-product">
 			
-			<span class="title">'.$fetch['spec_name'].'</span>
-		</span>
-	</td>
-		<td class="nk-tb-col tb-col-sm">
-		<span class="tb-product">
+// 			<span class="title">'.$fetch['spec_name'].'</span>
+// 		</span>
+// 	</td>
+// 		<td class="nk-tb-col tb-col-sm">
+// 		<span class="tb-product">
 			
-			<span class="title">'.$fetch['cl_type'].'</span>
-		</span>
-	</td>
-	<td class="nk-tb-col tb-col-sm">
-		<span class="tb-product">
+// 			<span class="title">'.$fetch['cl_type'].'</span>
+// 		</span>
+// 	</td>
+// 	<td class="nk-tb-col tb-col-sm">
+// 		<span class="tb-product">
 			
-			<span class="title">'.$fetch['ur_fname'].'</span>
-		</span>
-	</td>
+// 			<span class="title">'.$fetch['ur_fname'].'</span>
+// 		</span>
+// 	</td>
 
-	<td class="nk-tb-col">
-		<span class="tb-lead">'.$fetch['c_nhsno'].'</span>
-	</td>	
-	<td class="nk-tb-col">
-		<span class="tb-lead">'.$fetch['or_name'].'</span>
-	</td>
-	<td class="nk-tb-col">
-		<a class="tb-lead btn btn-info btn-sm text-white" href="reply.php?c_id='.$fetch["c_id"].'&coid='.$fetch["c_userid"].'&pid='.$fetch["c_rfid"].'&rfno='.$fetch["c_id"].'&nhsno='.$fetch["c_nhsno"].'">Open </a>
-	</td>
-		<td class="nk-tb-col">
-	<span class=""><a href="createappointment.php" class="btn btn-info btn-sm">Refer to Appointment</a></span>
-	</td>
-	';   
+// 	<td class="nk-tb-col">
+// 		<span class="tb-lead">'.$fetch['c_nhsno'].'</span>
+// 	</td>	
+// 	<td class="nk-tb-col">
+// 		<span class="tb-lead">'.$fetch['or_name'].'</span>
+// 	</td>
+// 	<td class="nk-tb-col">
+// 		<a class="tb-lead btn btn-info btn-sm text-white" href="reply.php?c_id='.$fetch["c_id"].'&coid='.$fetch["c_userid"].'&pid='.$fetch["c_rfid"].'&rfno='.$fetch["c_id"].'&nhsno='.$fetch["c_nhsno"].'">Open </a>
+// 	</td>
+// 		<td class="nk-tb-col">
+// 	<span class=""><a href="createappointment.php" class="btn btn-info btn-sm">Refer to Appointment</a></span>
+// 	</td>
+// 	';   
 	
 	
 										
-		}
-		echo'</tbody> </table>
+// 		}
+// 		echo'</tbody> </table>
 		
 		
-		<script src="https://cdn.datatables.net/1.10.23/js/jquery.dataTables.min.js"></script>
-	<script src="https://cdn.datatables.net/1.10.23/js/dataTables.bootstrap4.min.js"></script>
-	<script>$(document).ready(function () {
-		$("#myTable").DataTable();
-	} )
-	</script>
-	';
-		}
-	}
+// 		<script src="https://cdn.datatables.net/1.10.23/js/jquery.dataTables.min.js"></script>
+// 	<script src="https://cdn.datatables.net/1.10.23/js/dataTables.bootstrap4.min.js"></script>
+// 	<script>$(document).ready(function () {
+// 		$("#myTable").DataTable();
+// 	} )
+// 	</script>
+// 	';
+// 		}
+// 	}
 }
 //for refferels fetch1
 if(isset($_POST['refferelfetch1']))
@@ -740,7 +773,7 @@ if(mysqli_num_rows($q1) > 0)
 		$refferid = $f1['c_id'];
 	}
 
-	$query = mysqli_query($con,"SELECT * FROM `tbl_consultantrefferels`JOIN tbl_ruser ON tbl_ruser.ur_id = tbl_consultantrefferels.c_userid JOIN services ON services.service_id = tbl_consultantrefferels.c_serid JOIN service_name ON service_name.s_id = services.service_name JOIN service_cliniciant ON services.ser_cl_type= service_cliniciant.cl_id JOIN ser_specialty_add ON services.service_speciality = ser_specialty_add.spec_id JOIN orginzation ON orginzation.orid = tbl_consultantrefferels.c_orgid join tbl_refferelattachment on tbl_consultantrefferels.c_id = tbl_refferelattachment.ra_refferelid where c_gpid = '$id' and tbl_refferelattachment.ra_refferelid = '$refferid' and request_type = 'Advice request' GROUP BY c_serid and c_userid");
+	$query = mysqli_query($con,"SELECT * FROM `tbl_consultantrefferels`JOIN tbl_ruser ON tbl_ruser.ur_id = tbl_consultantrefferels.c_userid JOIN services ON services.service_id = tbl_consultantrefferels.c_serid JOIN service_name ON service_name.s_id = services.service_name JOIN service_cliniciant ON services.ser_cl_type= service_cliniciant.cl_id JOIN ser_specialty_add ON services.service_speciality = ser_specialty_add.spec_id JOIN orginzation ON orginzation.orid = tbl_consultantrefferels.c_orgid join tbl_refferelattachment on tbl_consultantrefferels.c_id = tbl_refferelattachment.ra_refferelid where c_gpid = '$id' and tbl_refferelattachment.ra_refferelid = '$refferid' and request_type = 'Advice request' and c_status = '2' GROUP BY c_serid and c_userid");
 
 	// $query = mysqli_query($con,"SELECT * FROM `tbl_consultantrefferels`,orginzation,tbl_patients where orginzation.orid=tbl_consultantrefferels.c_orgid and tbl_patients.pt_nhsno=tbl_consultantrefferels.c_nhsno and c_gpid = '$id'");
 	if($query)
@@ -1355,7 +1388,7 @@ if(isset($_POST['patientfetch']))
 					<th class="nk-tb-col"><span>Street Name</span></th>
 					<th class="nk-tb-col"><span>Date of Birth</span></th>
 					<th class="nk-tb-col"><span>View Details</span></th>
-					
+						<th class="nk-tb-col"><span>Edit</span></th>
 				</tr><!-- .nk-tb-item -->
 			</thead>
 			 <tbody id="">';
@@ -1368,6 +1401,7 @@ if(isset($_POST['patientfetch']))
 	$sname = $fetch['pt_streetname'];
 	$date =date_create($fetch['pt_dob']);
 	$dob = date_format($date,"d-m-Y");
+	$dob2=date_format($date,"Y-m-d");
 
 	echo'   <tr class="nk-tb-item">
 	<td class="nk-tb-col nk-tb-col-check">
@@ -1396,7 +1430,11 @@ if(isset($_POST['patientfetch']))
 		<span class="tb-lead">'.$dob.'</span>
 	</td>
 		<td class="nk-tb-col">
-		<a class="tb-lead" style="cursor: pointer;" onclick="fetchpatientdetails(\''.$fetch["pt_title"].'\',\''.$name." ".$fetch["pt_surname"].'\',\''.$fetch["pt_email"].'\',\''.$nh.'\',\''.$dob.'\',\''.$fetch["pt_houseno"].'\',\''.$sname.'\',\''.$fetch["pt_country"].'\',\''.$fetch["pt_city"].'\',\''.$fetch["pt_postcode"].'\',\''.$fetch["pt_telno"].'\',\''.$fetch["pt_mobno"].'\')">View Details</a>
+		<a class="tb-lead" style="cursor: pointer;" class="btn btn-info btn-sm" onclick="fetchpatientdetails(\''.$fetch["pt_title"].'\',\''.$name." ".$fetch["pt_surname"].'\',\''.$fetch["pt_email"].'\',\''.$nh.'\',\''.$dob.'\',\''.$fetch["pt_houseno"].'\',\''.$sname.'\',\''.$fetch["pt_country"].'\',\''.$fetch["pt_city"].'\',\''.$fetch["pt_postcode"].'\',\''.$fetch["pt_telno"].'\',\''.$fetch["pt_mobno"].'\')">View Details</a>
+	</td>
+		</td>
+		<td class="nk-tb-col">
+		<a class="tb-lead" style="cursor: pointer;" class="btn btn-success btn-sm" onclick="fetchpatientedit('.$id.',\''.$fetch["pt_title"].'\',\''.$name.'\',\''.$fetch["pt_surname"].'\',\''.$fetch["pt_email"].'\',\''.$nh.'\',\''.$dob2.'\',\''.$fetch["pt_houseno"].'\',\''.$sname.'\',\''.$fetch["pt_country"].'\',\''.$fetch["pt_city"].'\',\''.$fetch["pt_postcode"].'\',\''.$fetch["pt_telno"].'\',\''.$fetch["pt_mobno"].'\')">Edit</a>
 	</td>
 	';
 		
@@ -1522,7 +1560,7 @@ if(isset($_POST['searchservice']))
 	{
 		$res ="ser_priority_2week !=''";
 	}
-	$query = mysqli_query($con,"SELECT * FROM `services` WHERE ".$res." and ser_cl_type = '$cliniciantype' and service_speciality = '$speciality'");
+	$query = mysqli_query($con,"SELECT * FROM `services` WHERE ".$res." and FIND_IN_SET('$cliniciantype',ser_cl_type)  and service_speciality = '$speciality'");
 		echo mysqli_error($con);
 		if(mysqli_num_rows($query) >0)
 		{
@@ -1564,6 +1602,10 @@ if(isset($_POST['searchservice']))
 				$sql2 = mysqli_query($con,"SELECT * FROM `service_cliniciant` WHERE cl_id = '$sname'");
 				$fe2 = mysqli_fetch_array($sql2);
 				$sname =$fe2['cl_type'];
+					$loname = $fetch['service_location'];
+				$sql3 = mysqli_query($con,"SELECT * FROM `org_locations` WHERE id = '$loname'");
+				$fe3 = mysqli_fetch_array($sql3);
+				$locname =$fe3['org_location'];
 		// $dob = $fetch['service_location'];
 		// 		$sql3 = mysqli_query($con,"SELECT * FROM `service_location` WHERE lo_id = '$dob'");
 		// 		$fe3 = mysqli_fetch_array($sql3);
@@ -1573,7 +1615,7 @@ if(isset($_POST['searchservice']))
 	echo'   <tr class="nk-tb-item">
 		<td class="nk-tb-col nk-tb-col-check">
 			<div class="custom-control custom-control-sm custom-radio notext">
-				<input type="radio" class="custom-control-input dd" value="'.$id.'" name="checkw" id="'.$id.'" onclick="showss(this,\''.$mobno.'\')" >
+				<input type="radio" class="custom-control-input dd" value="'.$id.'" name="checkw" id="'.$id.'" data-org="'.$fetch["s_orgid"].'" data-servage="'.$fetch["service_age"].'" data-servage2="'.$fetch["service_age2"].'" onclick="showss(this,\''.$mobno.'\')" >
 				<label class="custom-control-label" for="'.$id.'"></label>
 			</div>
 		</td>
@@ -1593,12 +1635,10 @@ if(isset($_POST['searchservice']))
 			<span class="tb-lead">'.$sname.'</span>
 		</td>
 		<td class="nk-tb-col">
-			<span class="tb-lead">'.$fetch['service_location'].'</span>
+			<span class="tb-lead">'.$locname.'</span>
 		</td>
 		';
 			
-		echo'<input type="text" value="'.$fetch['service_age2'].'" hidden id="servage2">
-		<input type="text" value="'.$fetch['service_age'].'" hidden id="servage">';
 											
 			}
 			echo'</tbody> </table>
@@ -1755,7 +1795,7 @@ if(isset($_POST['addservicerefferel']))
 	else{
 	    
 	
-	$q = mysqli_query($con,"INSERT INTO `tbl_consultantrefferels`(`c_userid`, `c_rfid`, `c_serid`,`c_gpid`,`c_nhsno`,`c_orgid`,`request_type`) VALUES('$consultantid','$check','$checkw','$id','$nhs','$orgid','$reqtype')");
+	$q = mysqli_query($con,"INSERT INTO `tbl_consultantrefferels`(`c_userid`, `c_rfid`, `c_serid`,`c_gpid`,`c_nhsno`,`c_orgid`,`c_status`,`request_type`) VALUES('$consultantid','$check','$checkw','$id','$nhs','$orgid','2','$reqtype')");
 	if($q)
 {
 		echo json_encode(array("res"=>"success","c_id"=>mysqli_insert_id($con)));
@@ -1906,6 +1946,7 @@ if(isset($_POST['cmntdatabtn']))
 	}
 }
 
+
 if(isset($_POST['searchpatient']))
 {
 	$em = $_POST['em'];
@@ -1933,6 +1974,7 @@ $assa = mysqli_query($con,"SELECT * FROM `tbl_patients` where pt_name ='$nm' and
 					<th class="nk-tb-col"><span>Date of Birth</span></th>
 					<th class="nk-tb-col"><span>Email</span></th>
 					<th class="nk-tb-col"><span>View Details</span></th>
+						<th class="nk-tb-col"><span>Edit</span></th>
 					
 				</tr><!-- .nk-tb-item -->
 			</thead>
@@ -1946,6 +1988,7 @@ $assa = mysqli_query($con,"SELECT * FROM `tbl_patients` where pt_name ='$nm' and
 	$sname = $fetch['pt_streetname'];
 	$date1 = date_create($fetch['pt_dob']);
 	$dob1=date_format($date1,"d-m-Y");
+	$dob2=date_format($date1,"Y-m-d");
 	$em = $fetch['pt_email'];
 
 
@@ -1974,7 +2017,11 @@ echo'   <tr class="nk-tb-item">
 	</td>
 		</td>
 		<td class="nk-tb-col">
-		<a class="tb-lead" style="cursor: pointer;" onclick="fetchpatientdetails(\''.$fetch["pt_title"].'\',\''.$name." ".$fetch["pt_surname"].'\',\''.$fetch["pt_email"].'\',\''.$nh.'\',\''.$dob1.'\',\''.$fetch["pt_houseno"].'\',\''.$sname.'\',\''.$fetch["pt_country"].'\',\''.$fetch["pt_city"].'\',\''.$fetch["pt_postcode"].'\',\''.$fetch["pt_telno"].'\',\''.$fetch["pt_mobno"].'\')">View Details</a>
+		<a class="tb-lead" style="cursor: pointer;" class="btn btn-info btn-sm" onclick="fetchpatientdetails(\''.$fetch["pt_title"].'\',\''.$name." ".$fetch["pt_surname"].'\',\''.$fetch["pt_email"].'\',\''.$nh.'\',\''.$dob.'\',\''.$fetch["pt_houseno"].'\',\''.$sname.'\',\''.$fetch["pt_country"].'\',\''.$fetch["pt_city"].'\',\''.$fetch["pt_postcode"].'\',\''.$fetch["pt_telno"].'\',\''.$fetch["pt_mobno"].'\')">View Details</a>
+	</td>
+		</td>
+		<td class="nk-tb-col">
+		<a class="tb-lead" style="cursor: pointer;" class="btn btn-success btn-sm" onclick="fetchpatientedit('.$id.',\''.$fetch["pt_title"].'\',\''.$name.'\',\''.$fetch["pt_surname"].'\',\''.$fetch["pt_email"].'\',\''.$nh.'\',\''.$dob2.'\',\''.$fetch["pt_houseno"].'\',\''.$sname.'\',\''.$fetch["pt_country"].'\',\''.$fetch["pt_city"].'\',\''.$fetch["pt_postcode"].'\',\''.$fetch["pt_telno"].'\',\''.$fetch["pt_mobno"].'\')">Edit</a>
 	</td>
 	</tr>
 	';
@@ -2169,6 +2216,7 @@ $assa = mysqli_query($con,"SELECT * FROM `tbl_patients` where pt_name ='$nm' and
 					<th class="nk-tb-col"><span>Email</span></th>
 					<th class="nk-tb-col"><span>Date of Birth</span></th>
 						<th class="nk-tb-col"><span>View Details</span></th>
+						<th class="nk-tb-col"><span>Edit</span></th>
 					
 					
 				</tr><!-- .nk-tb-item -->
@@ -2184,6 +2232,7 @@ $assa = mysqli_query($con,"SELECT * FROM `tbl_patients` where pt_name ='$nm' and
 	$sname = $fetch['pt_streetname'];
 	$date=date_create($fetch['pt_dob']);
 	$dob = date_format($date,"d-m-Y");
+		$dob2 = date_format($date,"Y-m-d");
     
 echo'   <tr class="nk-tb-item">
 	<td class="nk-tb-col nk-tb-col-check">
@@ -2214,7 +2263,11 @@ echo'   <tr class="nk-tb-item">
 		<span class="tb-lead">'.$dob.'</span>
 	</td>
 		<td class="nk-tb-col">
-		<a class="tb-lead" style="cursor: pointer;" onclick="fetchpatientdetails(\''.$fetch["pt_title"].'\',\''.$name." ".$fetch["pt_surname"].'\',\''.$fetch["pt_email"].'\',\''.$nh.'\',\''.$dob.'\',\''.$fetch["pt_houseno"].'\',\''.$sname.'\',\''.$fetch["pt_country"].'\',\''.$fetch["pt_city"].'\',\''.$fetch["pt_postcode"].'\',\''.$fetch["pt_telno"].'\',\''.$fetch["pt_mobno"].'\')">View Details</a>
+		<a class="tb-lead" style="cursor: pointer;" class="btn btn-info btn-sm" onclick="fetchpatientdetails(\''.$fetch["pt_title"].'\',\''.$name." ".$fetch["pt_surname"].'\',\''.$fetch["pt_email"].'\',\''.$nh.'\',\''.$dob.'\',\''.$fetch["pt_houseno"].'\',\''.$sname.'\',\''.$fetch["pt_country"].'\',\''.$fetch["pt_city"].'\',\''.$fetch["pt_postcode"].'\',\''.$fetch["pt_telno"].'\',\''.$fetch["pt_mobno"].'\')">View Details</a>
+	</td>
+		</td>
+		<td class="nk-tb-col">
+		<a class="tb-lead" style="cursor: pointer;" class="btn btn-success btn-sm" onclick="fetchpatientedit('.$id.',\''.$fetch["pt_title"].'\',\''.$name.'\',\''.$fetch["pt_surname"].'\',\''.$fetch["pt_email"].'\',\''.$nh.'\',\''.$dob2.'\',\''.$fetch["pt_houseno"].'\',\''.$sname.'\',\''.$fetch["pt_country"].'\',\''.$fetch["pt_city"].'\',\''.$fetch["pt_postcode"].'\',\''.$fetch["pt_telno"].'\',\''.$fetch["pt_mobno"].'\')">Edit</a>
 	</td>
 	';
 		
@@ -2239,7 +2292,7 @@ echo'   <tr class="nk-tb-item">
 if(isset($_POST['fetchconsultant']))
 {
 			$orgid = $_POST['org'];
-									 $q = mysqli_query($con,"SELECT * FROM `tbl_ruser` WHERE ur_role_id = '3' or ur_role_id = '6' and ur_orgtype = '$orgid'");
+									 $q = mysqli_query($con,"SELECT * FROM `tbl_ruser` WHERE ur_role_id = '3'  and ur_orgtype = '$orgid'");
 									 if(mysqli_num_rows($q)>0)
 									 {
 									     echo '<option value="">-- Select --</option>';
@@ -2255,7 +2308,7 @@ if(isset($_POST['fetchconsultant']))
 									
 if(isset($_POST["fetchspelly"])){
     $val=$_POST["val"];
-    $query = mysqli_query($con,"SELECT * FROM `ser_specialty_add`,services where services.service_speciality =ser_specialty_add.spec_id and FIND_IN_SET('$val',services.service_r_t_support)");
+    $query = mysqli_query($con,"SELECT * FROM `ser_specialty_add`,services where services.service_speciality =ser_specialty_add.spec_id and FIND_IN_SET('$val',services.service_r_t_support) GROUP BY ser_specialty_add.spec_name");
 								$num = mysqli_num_rows($query);
 								if($num>0)
 								{

@@ -170,7 +170,8 @@ include_once('../database/db.php');
         type: "POST",
         url: "gpphpcode.php", 
 		data:{refferelfetch :"btn"},	            
-        success: function(response){                    
+        success: function(response){  
+          
             $("#rdata").html(response); 
             //alert(response);
         }

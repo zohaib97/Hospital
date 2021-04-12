@@ -52,7 +52,8 @@ include_once('connect.php');
                                      
                                        </div>
                                     </div>
-                                    
+                                     <a href="createorginaztion.php" class="btn btn-primary float-right mb-2">Create Organisation</a><br>
+                                     <br><br>
                                     <div class="nk-block nk-block-lg" id="hdata" style="overflow:auto;">
                                        
                                        <!-- .nk-tb-list -->
@@ -121,7 +122,7 @@ include_once('connect.php');
     });
 	}
 	$(document).ready(function(){
-	    var status="Not approved";
+	    var status="Approved";
 		fetchhospitalsdata(status);
 	});
 	function confirm(id)

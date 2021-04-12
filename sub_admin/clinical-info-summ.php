@@ -27,6 +27,23 @@ include_once('header.php');
                 ?>
                 <!-- main header @e -->
                 <!-- content @s -->
+                <?php
+                $aid = $_SESSION['gprefferer'];
+						$query = mysqli_query($con,"SELECT * FROM `tbl_ruser` WHERE `ur_email` = '$aid'");
+						$fetch = mysqli_fetch_array($query);
+									$id = $fetch['ur_id'];
+									$orid=$fetch["ur_orgtype"];
+									$ks=mysqli_query($con,"SELECT * FROM `orginzation` where orid ='$orid'");
+						$klo=mysqli_fetch_array($ks);
+									$qqqq = mysqli_query($con,"SELECT count(*) as a FROM tbl_consultantrefferels,tbl_refferelattachment WHERE tbl_refferelattachment.ra_refferelid=tbl_consultantrefferels.c_id and tbl_consultantrefferels.c_gpid = '$id' and reply='1' ");
+									$fds=mysqli_fetch_array($qqqq);
+									$mss = mysqli_query($con,"SELECT * FROM tbl_consultantrefferels,tbl_refferelattachment WHERE tbl_refferelattachment.ra_refferelid=tbl_consultantrefferels.c_id and tbl_consultantrefferels.c_gpid = '$id' and reply='1' ");
+									$fff111= mysqli_fetch_array($mss);
+									$reqtype111 = $fff111['request_type'] ? $fff111['request_type'] :"";
+									$cid = $fff111['ra_sender_id'] ? $fff111['ra_sender_id'] :"";
+									$query1 = mysqli_query($con,"SELECT * FROM `tbl_ruser` WHERE `ur_id` = '$cid'");
+						$cfetch = mysqli_fetch_array($query1);
+                ?>
                 <div class="nk-content ">
                     <div class="container-fluid">
                         <div class="nk-content-inner">
@@ -76,9 +93,12 @@ include_once('header.php');
                                     <p><b>Priority :</b> 2 Weeks</p>
                                     <?php
                                          }
+                                         $locid = $fe["service_location"];
+                                         $loc = mysqli_query($con,"SELECT * FROM org_locations WHERE id ='$locid'");
+                                         $locfe = mysqli_fetch_array($loc);
                                     ?>
                                   
-                                 <p><b>Location :</b> <?=$fe["service_location"]?></p>
+                                 <p><b>Location :</b> <?=$locfe["org_location"]?></p>
                                  <p><b>Service Name :</b> <?=$fe["s_name"]?></p>
                                  </div>
                                  <div class="col-md-5">

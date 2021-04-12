@@ -133,7 +133,7 @@ include_once('headernav.php');
 						<label class="form-label" for="full-name-1">Appointment Type</label>
 						<!--<span class="nk-menu-icon ml-2"><a href="javascript:void(0)" onClick="openmodal1()"><em class="icon ni ni-plus"></em></a></span>-->
 						<div class="form-control-wrap">
-							<select name="ser_apptype" id="ser_apptype" class="form-control">
+							<select name="ser_apptype[]" id="ser_apptype" class="form-control" multiple>
 								<!-- phpcode.php -->
 							</select>
 						</div>
@@ -258,7 +258,7 @@ include_once('headernav.php');
 								<div class="form-group">
 									<label class="form-label" for="full-name-1">Clinician Type</label>
 									<div class="form-control-wrap">
-										<select name="ser_cltype" class="form-control" id="ser_cltype">
+										<select name="ser_cltype[]" class="form-control" id="ser_cltype" multiple>
 											<!-- phpcode.php -->
 										</select>
 									</div>
@@ -825,7 +825,6 @@ include_once('footer.php');
 
 </html>
 <script>
-locationfetch
 // for fetch data from clinical type
 function fetchdataclin(){
 $.ajax({
@@ -1204,7 +1203,7 @@ processData:false,
 //                $('#privacyadd').css("opacity",".5");
 //            },
 success: function(data){
-	
+	console.log(data);
 if(data == 'errorinslotm'){
 toastr.clear();
 NioApp.Toast("<h5>Something Went Wrong</h5>", 'error',{position:'top-right'});
@@ -1387,3 +1386,6 @@ $('#reservationDate').on('change', function () {
 </script>
 
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+<script>
+    $('select').select2();
+</script>

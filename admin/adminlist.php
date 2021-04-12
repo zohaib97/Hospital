@@ -40,8 +40,10 @@ include_once('connect.php');
                                 <div class="components-preview wide-md mx-auto">
                                     <div class="nk-block-head nk-block-head-lg wide-sm">
 										 <h2 class="nk-block-title fw-normal">Admins list</h2>
-                                       
+                                      
                                     </div>
+                                     <a href="createsubadmin.php" class="btn btn-primary float-right mb-2">Create Admin</a><br>
+                                     <br><br>
                                     <div class="nk-block nk-block-lg" id="adata" >
                              
                                     </div> <!-- nk-block -->

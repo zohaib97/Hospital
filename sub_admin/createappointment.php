@@ -38,6 +38,14 @@ include_once('../database/db.php');
 				?>
                 <!-- main header @e -->
                 <!-- content @s -->
+                <?php
+                $aid = $_SESSION['gprefferer'];
+						$query = mysqli_query($con,"SELECT * FROM `tbl_ruser` WHERE `ur_email` = '$aid'");
+						$fetch = mysqli_fetch_array($query);
+									$id = $fetch['ur_id'];
+									$orid=$fetch["ur_orgtype"];
+                
+                ?>
                 <div class="nk-content ">
                     <div class="container-fluid">
                         <div class="nk-content-inner">
@@ -650,7 +658,7 @@ function showss(checkbox){
 }
 $("#appinsert").on('submit', function(e){
 		e.preventDefault();
-	
+// 	alert('hello');
 		var pid = $("input:checkbox[name='check[]']:checked").val();
 			var refform = new FormData(this);
 			refform.append("check",$("input:checkbox[name='check[]']:checked").val());
@@ -666,7 +674,7 @@ $("#appinsert").on('submit', function(e){
 				processData: false,
 				dataType:"JSON",
 				success: function(data){
-				
+			
     //	document.getElementById('tabItem7').innerHTML=data;
     //						
 				if(data["res"] == "success")
