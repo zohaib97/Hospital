@@ -192,9 +192,10 @@ include_once('header.php');
 								$fetch1 = mysqli_fetch_array($sql1);
 								$ortype = $fetch1['or_type'];
 								$orname = $fetch1['or_name'];
+								$orcode = $fetch1['or_code'];
                            if($ortype == "NHS Hospital")
                            {
-                                        $qe = mysqli_query($con, "SELECT COUNT(ur_id) AS number FROM tbl_ruser WHERE ur_role_id ='3' and ur_orgtype = '$orgid'");
+                                        $qe = mysqli_query($con, "SELECT COUNT(ur_id) AS number FROM tbl_ruser WHERE ur_role_id ='3' and ur_orgtype = '$orgid' and ur_orgcode = '$orcode'");
                                         $usr = mysqli_fetch_assoc($qe);
                                          ?>
                                         <div class="col-xxl-3 col-sm-6">
@@ -229,9 +230,10 @@ include_once('header.php');
 								$fetch1 = mysqli_fetch_array($sql1);
 								$ortype = $fetch1['or_type'];
 								$orname = $fetch1['or_name'];
+								$orcode = $fetch1['or_code'];
                            if($ortype != "NHS Hospital")
                            {
-                                $qe = mysqli_query($con, "SELECT COUNT(ur_id) AS number FROM tbl_ruser WHERE ur_role_id ='5' and ur_orgtype = '$orgid'");
+                                $qe = mysqli_query($con, "SELECT COUNT(ur_id) AS number FROM tbl_ruser WHERE ur_role_id ='5' and ur_orgtype = '$orgid' and ur_orgcode = '$orcode'");
                                         $usr = mysqli_fetch_assoc($qe);
                            
                                        ?>

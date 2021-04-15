@@ -55,17 +55,17 @@
 	
 	
 	<!-- START APPOINTMENT SECTION -->
-    <section id="appointment" class="section-padding">
+    <section id="appointment" class="mt-5 pt-5">
         <div class="auto-container">
-            <div class="row">
-				<div class="col-lg-8 text-center mx-auto">
-                    <div class="section-title">
-                        <h3>Login <span>Here</span></h3>
-                        <span class="line"></span>
-                    </div>
-				</div>
-				<!-- end section title -->
-			</div>
+    <!--        <div class="row">-->
+				<!--<div class="col-lg-8 text-center mx-auto">-->
+    <!--                <div class="section-title">-->
+    <!--                    <h3>Login <span>Here</span></h3>-->
+    <!--                    <span class="line"></span>-->
+    <!--                </div>-->
+				<!--</div>-->
+				 <!--end section title -->
+			<!--</div>-->
 			
             <div class="row mt-5">
 				<div class="col-lg-8 mx-auto">
@@ -93,7 +93,7 @@
                         </form>
                     </div>
                 </div>
-                <!-- end col -->
+                 <!--end col -->
 			</div>
         </div>
         <!--- END CONTAINER -->

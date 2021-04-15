@@ -44,7 +44,7 @@ include_once('connect.php');
                                     </div>
                                      <a href="createsubadmin.php" class="btn btn-primary float-right mb-2">Create Admin</a><br>
                                      <br><br>
-                                    <div class="nk-block nk-block-lg" id="adata" >
+                                    <div class="nk-block nk-block-lg" id="adata" style="overflow: auto;">
                              
                                     </div> <!-- nk-block -->
                                 </div><!-- .components-preview -->

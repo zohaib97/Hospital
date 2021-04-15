@@ -111,9 +111,7 @@ include_once('header.php');
 													<li>
 														<span class="font-weight-bold">Registered Practice</span>
 														<br>
-														<span>Karachi
-															Sindh
-															Pakistan</span>
+														<span><?=$dref["ur_address"]?></span>
 													</li>
 													<br>
 													<li>
@@ -138,18 +136,50 @@ include_once('header.php');
 												<div class="nk-block-head nk-block-head-lg wide-sm">
 												<span class="float-right p-2 bg-light w-100 col-form-label font-weight-bold">Patient Info - </span>
 												<button type="button" class="btn btn-info btn-sm float-right mt-1" onclick="showpat()">More Info</button>
-												<span class="text-dark">
-												Name: <?=$fetch2['pt_name']." ".$fetch2["pt_surname"]?></span>
+													<span class="text-dark">
+												Name: <?=$fetch2['pt_name']." ".$fetch2["pt_surname"]?>(<?=$fetch2['pt_title']?>)</span>
 												
 												<br>
+												<span class="text-dark">
+												NHS no: <?=$fetch2['pt_nhsno']?></span>
+												<br>
+												<span class="text-dark">
+												Date of Birth: <?php
+												$da=date_create($fetch2['pt_dob']);
+												echo date_format($da,"m-d-Y");
 												
+												
+												?></span>
+												<br>
 												<span class="text-dark">
 												Email: <?=$fetch2['pt_email']?>
 												</span>
-												
-													<br>
-												
-													<span class="float-right p-2 bg-light w-100 col-form-label font-weight-bold">Advice Status - <span class="text-info">Not Submitted</span></span>
+												<br>
+												<hr>
+													<span class="float-right p-2 bg-light w-100 col-form-label font-weight-bold">
+													    
+													       <?php
+				    $q = $_GET["c_id"];
+
+						$qref = mysqli_query($con, "SELECT * FROM `tbl_consultantrefferels` WHERE c_id = '$q'");
+						$dref = mysqli_fetch_assoc($qref);
+						if($dref['request_type'] == "Advice Request")
+						{
+						    
+						
+				    ?>
+				 Advice Status
+				     <?php
+						}
+						elseif($dref['request_type'] == "Appointment Request")
+						{
+						    
+						
+				     ?>
+				     Referr Status
+				     <?php
+						}
+				     ?>- <span class="text-info">Not Submitted</span></span>
 													<br>
 													<br>
 													<br>
@@ -317,7 +347,7 @@ function showpat()
 					} else if (data == 'Success') {
 						$('#cmntform')[0].reset();
 						toastr.clear();
-						NioApp.Toast("<h5>Advice request has been sent to the provider</h5>", 'success', {
+						NioApp.Toast("<h5>Request has been sent to the provider</h5>", 'success', {
 							position: 'top-right'
 						});
 						window.setTimeout(function(){

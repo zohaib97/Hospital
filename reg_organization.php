@@ -271,6 +271,10 @@ include_once('database/db.php');
 				
                toastr.warning("Organisation Postcode Already Created");
 				}
+				else if (data == "alreadycode"){
+				
+               toastr.warning("Organisation Code Already Created");
+				}
 				else if(data == "sss")
 					{
 					$('#oradd')[0].reset();

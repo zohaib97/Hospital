@@ -1788,14 +1788,27 @@ if(isset($_POST['addservicerefferel']))
 	$id = $f['ur_id'];
 	$q3 = mysqli_query($con,"SELECT * FROM `tbl_consultantrefferels` WHERE c_serid = '$checkw' and c_rfid = '$check'");
 	$f3 = mysqli_num_rows($q3);
+	$fe3 = mysqli_fetch_array($q3);
+	$ubrn;
+	$q4 = mysqli_query($con,"SELECT * FROM tbl_consultantrefferels ORDER BY c_id DESC LIMIT 1");
+	$fe4 = mysqli_fetch_array($q4);
+	$f4 = mysqli_num_rows($q4);
 	if($f3 >0)
 	{
+	  
 	    echo json_encode(array("res"=>"Already"));
 	}
 	else{
-	    
+	    if($f4 > 0)
+	    {
+	        $ubrn = $fe4['c_UBRN']+1;
+	    }
+	    else
+	    {
+	        $ubrn = rand(9999999999,100000000);
+	    }
+	$q = mysqli_query($con,"INSERT INTO `tbl_consultantrefferels`(`c_UBRN`,`c_userid`, `c_rfid`, `c_serid`,`c_gpid`,`c_nhsno`,`c_orgid`,`c_status`,`request_type`) VALUES('$ubrn','$consultantid','$check','$checkw','$id','$nhs','$orgid','2','$reqtype')");
 	
-	$q = mysqli_query($con,"INSERT INTO `tbl_consultantrefferels`(`c_userid`, `c_rfid`, `c_serid`,`c_gpid`,`c_nhsno`,`c_orgid`,`c_status`,`request_type`) VALUES('$consultantid','$check','$checkw','$id','$nhs','$orgid','2','$reqtype')");
 	if($q)
 {
 		echo json_encode(array("res"=>"success","c_id"=>mysqli_insert_id($con)));
@@ -1898,6 +1911,21 @@ echo'   <tr class="nk-tb-item">
 	}
 }
 
+//for comment status
+if(isset($_POST['updatestatus']))
+{
+    $rfno = $_POST['rfno'];
+    $query = mysqli_query($con,"UPDATE `tbl_refferelattachment` SET `status`= 'seen' WHERE ra_refferelid = '$rfno' and reply = '1'");
+    if($query)
+    {
+        echo "Success";
+    }
+    else
+    {
+        echo"error";
+    }
+}
+
 // for add cmnt from gp
 
 if(isset($_POST['cmntdatabtn']))
@@ -1915,20 +1943,20 @@ if(isset($_POST['cmntdatabtn']))
 	
 	if($weblink == ""  && $weblink == null)
 	{
-		$r = "(`ra_message`, `ra_attach`,`ra_refferelid`, `ra_sender_id`,`reciever`,`sender`) VALUES ('$cmnt','$file','$id','$senderid','$coid','$senderid')";
+		$r = "(`ra_message`, `ra_attach`,`ra_refferelid`, `ra_sender_id`,`reciever`,`sender`,`status`) VALUES ('$cmnt','$file','$id','$senderid','$coid','$senderid','unseen')";
 		move_uploaded_file($_FILES['attachment']['tmp_name'],'assets/uploads/'.$file);
 	}
 	else if($file == "" && $file == null)
 	{
-		$r = "(`ra_message`, `ra_weblink`,`ra_refferelid`, `ra_sender_id`,`reciever`,`sender`) VALUES ('$cmnt','$weblink','$id','$senderid','$coid','$senderid')";
+		$r = "(`ra_message`, `ra_weblink`,`ra_refferelid`, `ra_sender_id`,`reciever`,`sender`,`status`) VALUES ('$cmnt','$weblink','$id','$senderid','$coid','$senderid','unseen')";
 	}
 	else if($weblink == "" && $file == "" && $weblink == null && $file == null)
 	{
-		$r = "(`ra_message`,`ra_refferelid`, `ra_sender_id`,`reciever`,`sender`) VALUES ('$cmnt','$id','$senderid','$coid','$senderid')";
+		$r = "(`ra_message`,`ra_refferelid`, `ra_sender_id`,`reciever`,`sender`,`status`) VALUES ('$cmnt','$id','$senderid','$coid','$senderid','unseen')";
 	}
 	elseif($weblink !="" && $file !="")
 	{
-		$r = "(`ra_message`,`ra_attach`,`ra_weblink`,`ra_refferelid`, `ra_sender_id`,`reciever`,`sender`) VALUES ('$cmnt','$file','$weblink','$id','$senderid','$coid','$senderid')";
+		$r = "(`ra_message`,`ra_attach`,`ra_weblink`,`ra_refferelid`, `ra_sender_id`,`reciever`,`sender`,`status`) VALUES ('$cmnt','$file','$weblink','$id','$senderid','$coid','$senderid','unseen')";
 		move_uploaded_file($_FILES['attachment']['tmp_name'],'assets/uploads/'.$file);
 	}
 	

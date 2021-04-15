@@ -511,6 +511,11 @@ if(isset($_POST["addorginaztion"]))
 	{
 	    echo"already";
 	}
+		$select1 = mysqli_query($con,"SELECT * FROM orginzation WHERE or_code = '$ocode'");
+	if(mysqli_num_rows($select1) > 0)
+	{
+	    echo"alreadycode";
+	}
 	else
 	{
 	$jjjs=mysqli_query($con,"INSERT INTO `orginzation`(`or_type`, `or_name`, `or_phone`, `or_address`, `or_code`, `or_firstaddress`, `or_city`, `or_postcode` , `status`) VALUES ('$otype','$oname','$ocontact','$oaddress','$ocode','$ofaddress','$ocity','$opost','Not approved')");

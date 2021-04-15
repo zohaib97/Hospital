@@ -134,9 +134,22 @@
 							NioApp.Toast("<h5>Role Created Successfully</h5>", 'success', {
 								position: 'top-right'
 							});
+							if(staffrole == 1){
+							    window.location.href="consultant.php?role=Dentist";
+							}
 							
-							    window.location.href="consultant.php?role="+jsls;
-							
+							if(staffrole == 3){
+							    window.location.href="consultant.php?role=consultant";
+							}
+							if(staffrole == 4){
+							    window.location.href="consultant.php?role=Nurse";
+							}
+							if(staffrole == 5){
+							    window.location.href="consultant.php?role=GP_Refferer";
+							}
+							if(staffrole == 6){
+							    window.location.href="consultant.php?role=Optometrist";
+							}
 							// document.getElementById("fname").style.borderColor = "#28a745";
 							// document.getElementById("sname").style.borderColor = "#28a745";
 							// document.getElementById("email").style.borderColor = "#28a745";

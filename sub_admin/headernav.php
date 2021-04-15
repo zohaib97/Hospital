@@ -43,9 +43,9 @@ $fetchsa=mysqli_fetch_array($qiu);
 // 		echo $senderid;
 						$ks=mysqli_query($con,"SELECT * FROM `orginzation` where orid ='$orid'");
 						$klo=mysqli_fetch_array($ks);
-									$qqqq = mysqli_query($con,"SELECT count(*) as a FROM tbl_consultantrefferels,tbl_refferelattachment WHERE tbl_refferelattachment.ra_refferelid=tbl_consultantrefferels.c_id and tbl_consultantrefferels.c_gpid = '$senderid' and reply='1' ");
+									$qqqq = mysqli_query($con,"SELECT count(*) as a FROM tbl_consultantrefferels,tbl_refferelattachment WHERE tbl_refferelattachment.ra_refferelid=tbl_consultantrefferels.c_id and tbl_consultantrefferels.c_gpid = '$senderid' and reply='1' and status = 'unseen' ");
 									$fds=mysqli_fetch_array($qqqq);
-									$mss = mysqli_query($con,"SELECT * FROM tbl_consultantrefferels,tbl_refferelattachment WHERE tbl_refferelattachment.ra_refferelid=tbl_consultantrefferels.c_id and tbl_consultantrefferels.c_gpid = '$senderid' and reply='1' ");
+									$mss = mysqli_query($con,"SELECT * FROM tbl_consultantrefferels,tbl_refferelattachment WHERE tbl_refferelattachment.ra_refferelid=tbl_consultantrefferels.c_id and tbl_consultantrefferels.c_gpid = '$senderid' and reply='1' and status = 'unseen'");
 									$fff111= mysqli_fetch_array($mss);
 									$reqtype111 = $fff111['request_type'] ? $fff111['request_type'] :"";
 									$cid = $fff111['ra_sender_id'] ? $fff111['ra_sender_id'] :"";
@@ -60,9 +60,9 @@ $fetchsa=mysqli_fetch_array($qiu);
 // 		echo $senderid;
 						$ks=mysqli_query($con,"SELECT * FROM `orginzation` where orid ='$orid'");
 						$klo=mysqli_fetch_array($ks);
-									$qqqq = mysqli_query($con,"SELECT count(*) as a FROM tbl_consultantrefferels,tbl_refferelattachment WHERE tbl_refferelattachment.ra_refferelid=tbl_consultantrefferels.c_id and tbl_consultantrefferels.c_userid = '$senderid' and reply='0' ");
+									$qqqq = mysqli_query($con,"SELECT count(*) as a FROM tbl_consultantrefferels,tbl_refferelattachment WHERE tbl_refferelattachment.ra_refferelid=tbl_consultantrefferels.c_id and tbl_consultantrefferels.c_userid = '$senderid' and reply='0' and status = 'unseen'");
 									$fds=mysqli_fetch_array($qqqq);
-									$mss = mysqli_query($con,"SELECT * FROM tbl_consultantrefferels,tbl_refferelattachment WHERE tbl_refferelattachment.ra_refferelid=tbl_consultantrefferels.c_id and tbl_consultantrefferels.c_userid = '$senderid' and reply='0' ");
+									$mss = mysqli_query($con,"SELECT * FROM tbl_consultantrefferels,tbl_refferelattachment WHERE tbl_refferelattachment.ra_refferelid=tbl_consultantrefferels.c_id and tbl_consultantrefferels.c_userid = '$senderid' and reply='0' and status = 'unseen'");
 									$fff111= mysqli_fetch_array($mss);
 									$reqtype111 = $fff111['request_type'] ? $fff111['request_type'] :"";
 									$cid = $fff111['ra_sender_id'] ? $fff111['ra_sender_id'] :"";
@@ -84,7 +84,7 @@ $fetchsa=mysqli_fetch_array($qiu);
 								    if(isset($_SESSION['gprefferer'])){
 									if($fds["a"] >0){
 									  echo '	<li class="chat-item">
-										<a class="chat-link" href="apps-chats.html">
+										<a class="chat-link" href="refferels.php?status='.$fff111['c_status'].'&reqtype='.$fff111['request_type'].'">
 											<div class="chat-media user-avatar">
 												<span>IH</span>
 												<span class="status dot dot-lg dot-gray"></span>
@@ -95,7 +95,7 @@ $fetchsa=mysqli_fetch_array($qiu);
 													<span class="time">Now</span>
 												</div>
 												<div class="chat-context">
-													<div class="text">You have new <span>You have New Refferel Reply From </span></div>
+													<div class="text"><span>You have New Refferel Reply From '.$cfetch['ur_fname']." ".$cfetch['ur_sname'].'</span></div>
 													<div class="status delivered">
 														<em class="icon ni ni-check-circle-fill"></em>
 													</div>
@@ -110,7 +110,7 @@ $fetchsa=mysqli_fetch_array($qiu);
 									if(isset($_SESSION['consultant'])){
 									if($fds["a"] >0){
 									  echo '	<li class="chat-item">
-										<a class="chat-link" href="apps-chats.html">
+										<a class="chat-link" href="servicerefferels.php?status='.$fff111['c_status'].'&reqtype='.$fff111['request_type'].'">
 											<div class="chat-media user-avatar">
 												<span>IH</span>
 												<span class="status dot dot-lg dot-gray"></span>
@@ -139,9 +139,7 @@ $fetchsa=mysqli_fetch_array($qiu);
 
 								</ul>
 							</div>
-							<div class="dropdown-foot center">
-								<a href="apps-chats.html">View All</a>
-							</div>
+						
 						</div>
 					</li>
 					<li class="dropdown notification-dropdown" >

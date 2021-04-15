@@ -205,6 +205,10 @@ include_once('connect.php');
                 {
                      NioApp.Toast("<h5>Postcode Already Registered</h5>", 'warning',{position:'top-right'});
                 }
+                else if(data == "orcodealready")
+                {
+                     NioApp.Toast("<h5>Organisation Code Already Registered</h5>", 'warning',{position:'top-right'});
+                }
 			
                 $('#oradd').css("opacity","");
                 $("#btnhospital").removeAttr("disabled");

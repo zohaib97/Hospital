@@ -77,6 +77,11 @@ include_once('../database/db.php');
 							</ul>
 							<div class="tab-content">
 								<div class="tab-pane active" id="tabItem5">
+								    <div class="col-md-12" style="display:none;" id="createpatient">
+                                                        <a href="createpatient.php" type="button"
+                                                            class="btn btn-primary float-right" id="createpatienthref">Create New Patient</a>
+
+                                                    </div>
 								    <input type="hidden" id="servicegender">
 								    <input type="hidden" id="patientgender">
 								     <input type="hidden"   id="servage2">
@@ -233,22 +238,7 @@ include_once('../database/db.php');
 									 <label for="consultant">Consultant</label>
 									  <select class="form-control" name="consultant" id="consultant" onchange="showproceed()">
 									  <option>Select</option>
-										  <?php
-										  $em = $_SESSION['gprefferer'];
-										  $q1 = mysqli_query($con,"SELECT * FROM `tbl_ruser` WHERE ur_email = '$em'");
-										  $fetchorg = mysqli_fetch_array($q1);
-										  $orgid = $fetchorg['ur_orgtype'];
-									 $q = mysqli_query($con,"SELECT * FROM `tbl_ruser` WHERE ur_role_id = '3'");
-									 if(mysqli_num_rows($q)>0)
-									 {
-										 while($fe = mysqli_fetch_array($q))
-										 {
-									 ?>
-								 <!--<option value="<?=$fe['ur_id']?>"><?=$fe['ur_fname']?></option>-->
-										  <?php
-										 }
-									 }
-										  ?>
+								
 								 </select>
 									 </div>
 									 
@@ -590,7 +580,7 @@ include_once('../database/db.php');
 												<div class="col-md-6">
 													<div class="form-group">
 														<label class="col-form-label" for="cpass">City</label>
-														<input type="text" class="form-control form-control-lg"  placeholder="City" name="city" id="city" required autocomplete="off">
+														<input type="text" class="form-control form-control-lg"  placeholder="City" name="city" id="pcity" required autocomplete="off">
 													</div>
 												</div>
 												<div class="col-md-6" id="">
@@ -651,7 +641,73 @@ include_once('../database/db.php');
         </div>
     </div>
 </body>
+<?php
+if(isset($_GET["nhs"])){ 
+$nhs1=substr($_GET["nhs"],0,4);
+$nhs2=substr($_GET["nhs"],4,3);
+$nhs3=substr($_GET["nhs"],7,10);
+?>	
+<script>
+   $(document).ready(function(){
+ var nhs1 = $('#nhs1').val('<?=$nhs1?>');
+		var nhs2 =	$('#nhs2').val('<?=$nhs2?>');
+		var nhs3 =	$('#nhs3').val('<?=$nhs3?>');
+			$('#nhs1').prop('readonly', false);
+			$('#nhs2').prop('readonly', false);
+			$('#nhs3').prop('readonly', false);
+			$("#nhsno").show();
+			$("#nhs").attr("checked",true);
+			showsearch();
+			var total = "<?=$_GET["nhs"]?>";
+			setTimeout(function(){
+			    showpatient(total);
+			    
+			},3000);
+			
+			
+			
+			
+   });
+</script>
+<?php }
+elseif(isset($_GET["fname"])){ ?>
+<script>
+    	 $('#nm').val('<?=$_GET["fname"]?>');
+			$('#em').val('<?=$_GET["sname"]?>');
+			$('#dob').val('<?=$_GET["dob"]?>');
+			$('#nm').prop('readonly', false);
+			$('#em').prop('readonly', false);
+			$('#dob').prop('readonly', false);
+			$("#demographics").attr("checked",true);
+// 			nhsshow();
+			$("#demo").show();
+				var nm = $('#nm').val();
+		var em = $('#em').val();
+		if(nm == '' || em == '')
+			{
+				toastr.clear();
+               NioApp.Toast("<h5>All fields Required</h5>", 'error',{position:'top-right'});
+				 $('#dob').val('');
+			}
+		else{
+		
 
+          
+
+		var dob = $('#dob').val();
+	
+	
+		var btn = document.getElementById('btn3').innerHTML='<a href="javascript:void(0)" class="btn btn-info " id="searchpatient" onClick="showpatienta(\'' + dob + '\')">Search</a>';
+			document.getElementById('btn4').innerHTML='<a href="javascript:void(0)" class="btn btn-primary" id="searchpatient" onClick="reset()">Reset</a>';
+			
+				var total = "<?=$_GET["dob"]?>";
+			setTimeout(function(){
+			    showpatienta(total);
+			    
+			},3000);
+		}
+</script>
+<?php }?>
 <script>
    function fetchpatientdetails(title, name, email, nhsno, dob, hno, street, country, city, post, tele, mob) {
         $("#title").html(title);
@@ -695,7 +751,7 @@ include_once('../database/db.php');
     $("#houseno").val(hno);
     $("#streetname").val(street);
     $("#country").val(country);
-    $("#city").val(city);
+    $("#pcity").val(city);
     $("#postalcode").val(post);
     $("#telephoneno").val(tele);
     $("#mobileno").val(mob);
@@ -791,7 +847,7 @@ function getclint(vals){
     $('#ref_priority').select2();
     $('#consultant').select2();
     $('#organisation').select2();
-
+    
 
 	
 });
@@ -849,6 +905,8 @@ $('#servage').val(serv);
         success: function(response){ 
 			if(response == 'There is no patient matching criteria')
 				{
+				     $('#createpatient').show();
+                 $('#createpatienthref').attr("href","createpatient.php?nhs="+nhs+"&redirect=e-refferelservice.php");
 					 toastr.clear();
                NioApp.Toast("<h5>There is no patient matching criteria</h5>", 'error',{position:'top-right'});
 				}
@@ -1023,6 +1081,7 @@ $('#servage').val(serv);
 		    	    
 		    	}
 	if(  $("#servicegender").val() == "Male & Female"){
+	    alert("hello");
 		var reqtype = $('#ref_reqt').val();
 		var coid = $('#consultant').val();
 		var pid = $("input:radio[name='check']:checked").val();
@@ -1347,6 +1406,7 @@ $('#dob').change(function(){
 			$('#nhs3').prop('readonly', false);
 			document.getElementById('tabItem7').innerHTML='';
 			document.getElementById('tabItem6').innerHTML='';
+			  $('#createpatient').hide();
     };
 
     
@@ -1364,6 +1424,8 @@ $('#dob').change(function(){
             
 			if(response == 'There is no patient matching criteria')
 				{
+				    $('#createpatient').show();
+                 $('#createpatienthref').attr("href","createpatient.php?fname="+nm+"&sname="+em+"&dob="+dob+"&redirect=e-refferelservice.php");
 					 toastr.clear();
                NioApp.Toast("<h5>There is no patient matching criteria</h5>", 'error',{position:'top-right'});
 				}
@@ -1420,6 +1482,5 @@ $('#reservationDate').on('change', function () {
 
 
 	</script>
-	
 
 </html>

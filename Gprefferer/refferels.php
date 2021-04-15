@@ -45,19 +45,44 @@ include_once('../database/db.php');
 														<option value="">-- Select --</option>
 													<?php
 													$rtype = $_GET['reqtype'];
-													if($rtype == "Advice request")
+													$status = $_GET['status'];
+													if($rtype == "Advice request" && $status == 1)
 													{
 													?>
-														<option value="Advice Sent" selected>Advice Sent</option>
+														<option value="Advice Accepted" selected>Advice Accepted</option>
 														<?php
 													}
-													if($rtype == "Appointment Request")
+													elseif($rtype == "Appointment Request" && $status == 1)
 													{
 														?>
-														<option value="Referrer Sent" selected>Referrer Sent</option>
+														<option value="Referrer Accepted" selected>Referrer Accepted</option>
 														<?php
 													}
+													elseif($rtype == "Advice request" && $status == 2)
+													{
 													?>
+													<option value="Advice Sent">Advice Sent</option>
+													<?php
+													}
+													elseif($rtype == "Appointment Request" && $status == 2)
+													{
+													?>
+														<option value="Referrer Sent">Referrer Sent</option>
+													<?php
+													}
+													elseif($rtype == "Advice request" && $status == 0)
+													{
+													?>
+														<option value="Advice Rejected">Advice Rejected</option>
+														<?php
+													}
+													elseif($rtype == "Appointment Request" && $status == 0)
+													{
+														?>
+														<option value="Referrer  Rejected">Referrer  Rejected</option>
+														<?php
+														}
+														?>
 														<option value="Advice Sent">Advice Sent</option>
 														<option value="Advice Accepted">Advice Accepted</option>
 														<option value="Advice Rejected">Advice Rejected</option>
@@ -146,8 +171,21 @@ include_once('../database/db.php');
 
     });
 	}
+		<?php
+	if(isset($_GET['reqtype']) && isset($_GET['status']))
+	{
+	?>
+		$(document).ready(function(){
+		    workbltdata();
+		})
+		<?php
+	}
+	else
+	{
+	?>
 	$(document).ready(function(){
 	fetchrefferels();
+
 	var workl=	$('#worklist').val();
 		if(workl == "Advice Sent")
 		{
@@ -170,7 +208,8 @@ include_once('../database/db.php');
         type: "POST",
         url: "phpcode.php", 
 		data:{refferelfetch :"btn"},	            
-        success: function(response){                    
+        success: function(response){  
+          
             $("#rdata").html(response); 
             //alert(response);
         }
@@ -180,6 +219,9 @@ include_once('../database/db.php');
 			document.getElementById('hideno').style.display = "none";
 		}
 	});
+	<?php
+	}
+	?>
 	function show(id){
 	
 		if($('#'+id).prop("checked")==true)

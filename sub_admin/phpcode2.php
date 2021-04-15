@@ -107,7 +107,11 @@ if(isset($_POST['patientfetch2']))
 
 if(isset($_POST['fetchlocationdata']))
 {
-$query = mysqli_query($con,"SELECT * FROM `org_locations`");
+    $aid =$_SESSION["a_id"];
+$qiu=mysqli_query($con,"SELECT * FROM `admin`,orginzation where admin.organization = orginzation.orid and admin.id='$aid'");
+$fetchsa=mysqli_fetch_array($qiu);
+    $org = $fetchsa['organization'];
+$query = mysqli_query($con,"SELECT * FROM `org_locations` where org_id = '$org'");
 	
 	if(mysqli_num_rows($query)>0)
 	{

@@ -219,7 +219,7 @@ $orid= isset($kls["organization"]);
                                             }else{
                                                 echo "<p style='text-align:center;margin-top:12px;'>No Organization Avaliable For Approve<p>";
                                             }
-
+                                                $org = mysqli_fetch_array($query);
                                                     ?>
 
                                 </div><!-- .nk-notification -->
@@ -227,7 +227,7 @@ $orid= isset($kls["organization"]);
 
                             </div><!-- .nk-dropdown-body -->
                             <div class="dropdown-foot center">
-                                <a href="organizationlist.php" >View All</a>
+                                <a href="organizationlist.php?status=Not approved" >View All</a>
                             </div>
                         </div>
                     <?php

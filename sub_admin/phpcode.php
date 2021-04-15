@@ -249,7 +249,10 @@ if(isset($_POST['addlocation']))
 	$locname = $_POST['locname'];
 	$locaddress = $_POST['locaddress'];
 	$locpost = $_POST['locpost'];
-	
+	    $aid =$_SESSION["a_id"];
+$qiu=mysqli_query($con,"SELECT * FROM `admin`,orginzation where admin.organization = orginzation.orid and admin.id='$aid'");
+$fetchsa=mysqli_fetch_array($qiu);
+    $org = $fetchsa['organization'];
 	$sql = mysqli_query($con,"SELECT * FROM `org_locations` WHERE org_location = '$locname' and org_address = '$locaddress' and org_postcode = '$locpost'");
 	$fe = mysqli_num_rows($sql);
 	if($fe > 0)
@@ -257,7 +260,7 @@ if(isset($_POST['addlocation']))
 	    echo "already";
 	}
 	else{
-	$query = mysqli_query($con,"INSERT INTO `org_locations`(`org_location`, `org_address`, `org_postcode`)VALUES('$locname','$locaddress','$locpost')");
+	$query = mysqli_query($con,"INSERT INTO `org_locations`(`org_location`, `org_address`, `org_postcode`,`org_id`)VALUES('$locname','$locaddress','$locpost','$org')");
 	
 	if($query)
 	{
@@ -793,7 +796,11 @@ echo'<div class="card-aside-wrap">
 if(isset($_POST['fetchserbtndata']))
 {
 	$snameid = $_POST['snameid'];
-	$sernameq = mysqli_query($con, "SELECT * FROM `service_name`");
+	$aid =$_SESSION["a_id"];
+$qiu=mysqli_query($con,"SELECT * FROM `admin`,orginzation where admin.organization = orginzation.orid and admin.id='$aid'");
+$fetchsa=mysqli_fetch_array($qiu);
+    $org = $fetchsa['organization'];
+	$sernameq = mysqli_query($con, "SELECT * FROM `service_name` where  org_id ='$org'");
 	echo'<option value="">- Select -</option>';
  while($datarole = mysqli_fetch_assoc($sernameq)){ 
 	 if($datarole['s_name']==$snameid)
@@ -2016,7 +2023,7 @@ if(isset($_POST['servicadd']))
 		$chk .= $chek.",";
 		}
 	$codeapp;
-		$jsk=mysqli_query($con,"SELECT * FROM `services` ORDER BY m_id LIMIT 1");
+		$jsk=mysqli_query($con,"SELECT * FROM `services` ORDER BY m_id DESC LIMIT 1");
 		if(mysqli_num_rows($jsk) > 0){
 		    $he=mysqli_fetch_array($jsk);
 		    $codeapp=$he["service_id"]+1;
@@ -2135,9 +2142,13 @@ if(isset($_POST['ser_app']))
 // for service name
 if(isset($_POST['ser_namebtnq']))
 	{
+	    $aid =$_SESSION["a_id"];
+$qiu=mysqli_query($con,"SELECT * FROM `admin`,orginzation where admin.organization = orginzation.orid and admin.id='$aid'");
+$fetchsa=mysqli_fetch_array($qiu);
+    $org = $fetchsa['organization'];
 		$ser_nameqw = $_POST['ser_nameq'];
 	
-		$emcheck = mysqli_query($con, "INSERT INTO `service_name` (`s_name`) VALUES ('$ser_nameqw')");
+		$emcheck = mysqli_query($con, "INSERT INTO `service_name` (`s_name`,`org_id`) VALUES ('$ser_nameqw','$org')");
 		$count = mysqli_num_rows($emcheck);
 	
 		if($count){
@@ -2736,12 +2747,13 @@ $date=date_create($_POST['dob']);
 
 if(isset($_POST['readRecord']))
 {
-	$e = $_SESSION['superadmin'];
+$e = $_SESSION['superadmin'];
 	
-	$q = mysqli_query($con,"SELECT * FROM `admin` WHERE email = '$e'");
+	$q = mysqli_query($con,"SELECT * FROM `admin`,orginzation WHERE admin.organization=orginzation.orid and admin.email = '$e'");
 	$f = mysqli_fetch_array($q);
 	$id = $f['id'];
-	$query = mysqli_query($con,"SELECT * FROM services  JOIN ser_specialty_add ON services.service_speciality=ser_specialty_add.spec_id JOIN app_type ON services.service_a_type=app_type.app_id JOIN service_cliniciant ON services.ser_cl_type=service_cliniciant.cl_id JOIN service_name ON services.service_name=service_name.s_id JOIN org_locations ON services.service_location=org_locations.id WHERE ser_create_id = '$id'");
+	$orgid= $f["orid"];
+	$query = mysqli_query($con,"SELECT * FROM services  JOIN ser_specialty_add ON services.service_speciality=ser_specialty_add.spec_id JOIN app_type ON services.service_a_type=app_type.app_id JOIN service_cliniciant ON services.ser_cl_type=service_cliniciant.cl_id JOIN service_name ON services.service_name=service_name.s_id JOIN org_locations ON services.service_location=org_locations.id WHERE ser_create_id = '$id' and s_orgid='$orgid'");
 	if($query)
 	{
 		echo'<link rel="stylesheet" href="https://cdn.datatables.net/1.10.23/css/dataTables.bootstrap4.min.css">

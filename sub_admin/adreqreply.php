@@ -163,9 +163,7 @@ include_once('header.php');
                                                     <div class="col-md-12 mb-2">
                                                         <span class="font-weight-bold">Registered Practice</span>
                                                         <br>
-                                                        <span>Karachi
-                                                            Sindh
-                                                            Pakistan</span>
+                                                        <span><?=$dref["ur_address"]?></span>
                                                     </div>
                                                     
                                                    
@@ -653,7 +651,7 @@ $("#reply").on('submit', function(e) {
                 } else if (data == 'Success') {
 
                     toastr.clear();
-                    NioApp.Toast("<h5>The advice response has been sent to the referrer</h5>", 'success', {
+                    NioApp.Toast("<h5>The response has been sent to the referrer</h5>", 'success', {
                         position: 'top-right'
                     });
                     $('#reply').trigger('reset');

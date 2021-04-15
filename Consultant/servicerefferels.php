@@ -42,6 +42,46 @@ include_once('../database/db.php');
 												<span class="nk-menu-text col-6"> 
 													<select name="worklist" id="worklist" class="form-control">
 														<option value="">- Select -</option>
+																<?php
+													$rtype = $_GET['reqtype'];
+													$status = $_GET['status'];
+													if($rtype == "Advice request" && $status == 1)
+													{
+													?>
+															<option value="Advice and Guidance Request" selected>Advice request</option>
+														<?php
+													}
+													elseif($rtype == "Appointment Request" && $status == 1)
+													{
+														?>
+													<option value="Referrals Accepted" selected>Referrals Accepted</option>
+														<?php
+													}
+													elseif($rtype == "Advice request" && $status == 2)
+													{
+													?>
+													<option value="Advice and Guidance Request" selected>Advice request</option>
+													<?php
+													}
+													elseif($rtype == "Appointment Request" && $status == 2)
+													{
+													?>
+													<option value="Referrals Recieved" selected>Referrals Recieved</option>
+													<?php
+													}
+													elseif($rtype == "Advice request" && $status == 0)
+													{
+													?>
+														<option value="Advice and Guidance Request" selected>Advice request</option>
+														<?php
+													}
+													elseif($rtype == "Appointment Request" && $status == 0)
+													{
+														?>
+														<option value="Referals Rejected" selected>Referals Rejected</option>
+														<?php
+														}
+														?>
 														<option value="Advice and Guidance Request">Advice request</option>
 														<option value="Advice Responded">Advice Responded</option>
 														<option value="Referrals Recieved">Referrals Recieved</option>
@@ -172,8 +212,16 @@ include_once('../database/db.php');
 		}
 		
 	};
-	
-	
+	<?php
+	if(isset($_GET['reqtype']) && isset($_GET['status']))
+	{
+	?>
+	$(document).ready(function(){
+	    workbltdata();
+	})
+	<?php
+	}
+	?>
 		
 	function fetchrefferels()
 	{
@@ -212,10 +260,16 @@ include_once('../database/db.php');
 
 //     });
 // 	}
+	<?php
+	if(!isset($_GET['reqtype']) && !isset($_GET['status']))
+	{
+	?>
 	$(document).ready(function(){
 		fetchrefferels();
 	});
-	
+		<?php
+	}
+	?>
 	function slsl(cid,status){
 	    $.ajax({
 	        url:"phpcode.php",

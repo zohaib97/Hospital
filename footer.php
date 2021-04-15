@@ -3,7 +3,7 @@
         <div class="footer-top">
             <div class="auto-container">
                 <div class="row">
-                    <div class="col-lg-3 col-md-6 col-sm-12 col-12  mb-lg-0 mb-md-4 mb-sm-5 mb-5 footer-widget">
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-12  mb-lg-0 mb-md-4 mb-sm-5 mb-5 footer-widget">
                         <div class="footer-section-title col-12 p-0 mb-4">
                             <h5>About Us</h5>
                         </div>
@@ -93,7 +93,7 @@
 		<div class="copyright">
             <div class="auto-container">
                 <div class="row">
-                    <div class="col-lg-6 col-md-6 col-sm-12 col-12 copyright-text">
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-12 copyright-text text-center">
                         <p>Copyright © 2021 <a href="https://deevloopers.com/" target="_blank"> Deevloopers.</a> | All Rights Reserved</p>
                     </div>
                     <div class="col-lg-6 col-md-6 col-sm-12 col-12 footer-menu">

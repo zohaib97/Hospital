@@ -395,6 +395,24 @@ include_once('header.php');
     <script src="assets/js/example-toastr.js?ver=2.2.0"></script>
 </body>
 <script>
+$(document).ready(function(){
+    updatecmntstatus();
+})
+function updatecmntstatus()
+{
+    var rfno = <?=$rfno?>;
+    $.ajax({
+        url: 'gpphpcode.php',
+        type: 'post',
+        data: {
+            rfno:rfno,
+            updatestatus: "btn"
+        },
+        success: function(response) {
+          console.log(response);
+        }
+    });
+}
 function showpat()
 {
 	$('#modalname').modal('show');

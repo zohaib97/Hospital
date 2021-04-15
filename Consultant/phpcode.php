@@ -150,7 +150,7 @@ if(isset($_POST['serrefferelfetch']))
 	$q = mysqli_query($con, "SELECT * FROM `tbl_ruser` WHERE ur_email = '$e'");
 	$f = mysqli_fetch_array($q);
 	$id = $f['ur_id'];
-	$query = mysqli_query($con, "SELECT * FROM `tbl_consultantrefferels` JOIN `tbl_patients` ON c_rfid = tbl_patients.pt_id JOIN `services` ON c_serid = services.service_id JOIN `tbl_ruser` ON tbl_ruser.ur_id = tbl_consultantrefferels.c_gpid JOIN `service_name` ON service_name = service_name.s_id JOIN `ser_specialty_add` ON service_speciality = ser_specialty_add.spec_id JOIN `service_cliniciant` ON ser_cl_type = service_cliniciant.cl_id WHERE c_userid = '$id'  and request_type='Advice Request' ");
+	$query = mysqli_query($con, "SELECT * FROM `tbl_consultantrefferels` JOIN `tbl_patients` ON c_rfid = tbl_patients.pt_id JOIN `services` ON c_serid = services.service_id JOIN `tbl_ruser` ON tbl_ruser.ur_id = tbl_consultantrefferels.c_gpid JOIN `service_name` ON service_name = service_name.s_id JOIN `ser_specialty_add` ON service_speciality = ser_specialty_add.spec_id JOIN `service_cliniciant` ON ser_cl_type = service_cliniciant.cl_id WHERE c_userid = '$id'  and request_type='Advice Request' and c_status = '2' ");
 
 	//	
 	//	SELECT * FROM `services`,`tbl_consultantrefferels`,`tbl_refferels`,`tbl_patients`,`hospitals`,`refer_advice` WHERE refer_advice.ref_hid = services.s_hos_id AND tbl_patients.pt_hid = services.s_hos_id AND services.s_hos_id = hospitals.hid AND tbl_consultantrefferels.c_rfid = tbl_refferels.rf_id AND tbl_consultantrefferels.c_serid = services.service_id AND c_userid = '$id' LIMIT 3
@@ -370,7 +370,7 @@ if(isset($_POST['serrefferelfetch2']))
 	$q = mysqli_query($con, "SELECT * FROM `tbl_ruser` WHERE ur_email = '$e'");
 	$f = mysqli_fetch_array($q);
 	$id = $f['ur_id'];
-	$query = mysqli_query($con, "SELECT * FROM `tbl_consultantrefferels` JOIN `tbl_patients` ON c_rfid = tbl_patients.pt_id JOIN `services` ON c_serid = services.service_id JOIN `tbl_ruser` ON tbl_ruser.ur_id = tbl_consultantrefferels.c_gpid JOIN `service_name` ON service_name = service_name.s_id JOIN `ser_specialty_add` ON service_speciality = ser_specialty_add.spec_id JOIN `service_cliniciant` ON ser_cl_type = service_cliniciant.cl_id WHERE c_userid = '$id' and request_type='Appointment Request' GROUP BY pt_nhsno");
+	$query = mysqli_query($con, "SELECT * FROM `tbl_consultantrefferels` JOIN `tbl_patients` ON c_rfid = tbl_patients.pt_id JOIN `services` ON c_serid = services.service_id JOIN `tbl_ruser` ON tbl_ruser.ur_id = tbl_consultantrefferels.c_gpid JOIN `service_name` ON service_name = service_name.s_id JOIN `ser_specialty_add` ON service_speciality = ser_specialty_add.spec_id JOIN `service_cliniciant` ON ser_cl_type = service_cliniciant.cl_id WHERE c_userid = '$id' and request_type='Appointment Request' and c_status = '2' GROUP BY pt_nhsno");
 
 	//	
 	//	SELECT * FROM `services`,`tbl_consultantrefferels`,`tbl_refferels`,`tbl_patients`,`hospitals`,`refer_advice` WHERE refer_advice.ref_hid = services.s_hos_id AND tbl_patients.pt_hid = services.s_hos_id AND services.s_hos_id = hospitals.hid AND tbl_consultantrefferels.c_rfid = tbl_refferels.rf_id AND tbl_consultantrefferels.c_serid = services.service_id AND c_userid = '$id' LIMIT 3
@@ -471,7 +471,16 @@ echo '
 </td>
 
 ';
-}elseif($fetch["c_status"] == 1 ){
+}if($fetch["c_status"]==2){
+echo '
+<td class="nk-tb-col">
+
+<a href="javascript:void(0)" onclick="slsl(\''.$fetch["c_id"].'\',\''.$fetch['c_status'].'\')" class="btn btn-primary btn-sm">UnAccept Request </a>
+</td>
+
+';
+}
+elseif($fetch["c_status"] == 1 ){
  echo '
 <td class="nk-tb-col">
 
@@ -708,6 +717,21 @@ if(isset($_POST['consultantdata']))
 	}
 }
 
+//for comment status
+if(isset($_POST['updatestatus']))
+{
+    $rfno = $_POST['rfno'];
+    $query = mysqli_query($con,"UPDATE `tbl_refferelattachment` SET `status`= 'seen' WHERE ra_refferelid = '$rfno' and reply = '0'");
+    if($query)
+    {
+        echo "Success";
+    }
+    else
+    {
+        echo"error";
+    }
+}
+
 // for add cmnt from consultant
 
 if(isset($_POST['cmntdatabtn']))
@@ -727,20 +751,20 @@ if(isset($_POST['cmntdatabtn']))
 	
 	if($weblink == "" || $weblink == null)
 	{
-		$r = "(`ra_message`, `ra_attach`,`ra_refferelid`, `ra_sender_id`,`reply`,`reciever`,`sender`) VALUES ('$cmnt','$file','$id','$senderid','1','$reffererid','$senderid')";
+		$r = "(`ra_message`, `ra_attach`,`ra_refferelid`, `ra_sender_id`,`reply`,`reciever`,`sender`,`status`) VALUES ('$cmnt','$file','$id','$senderid','1','$reffererid','$senderid','unseen')";
 		move_uploaded_file($_FILES['attachment']['tmp_name'],'assets/uploads/'.$file);
 	}
 	else if($file == "" || $file == null)
 	{
-		$r = "(`ra_message`, `ra_weblink`,`ra_refferelid`, `ra_sender_id`,`reply`,`reciever`,`sender`) VALUES ('$cmnt','$weblink','$id','$senderid','1','$reffererid','$senderid')";
+		$r = "(`ra_message`, `ra_weblink`,`ra_refferelid`, `ra_sender_id`,`reply`,`reciever`,`sender`,`status`) VALUES ('$cmnt','$weblink','$id','$senderid','1','$reffererid','$senderid','unseen')";
 	}
 	else if($weblink == "" && $file == "" || $weblink == null && $file == null)
 	{
-		$r = "(`ra_message`,`ra_refferelid`, `ra_sender_id`,`reply`,`reciever`,`sender`) VALUES ('$cmnt','$id','$senderid','1','$reffererid','$senderid')";
+		$r = "(`ra_message`,`ra_refferelid`, `ra_sender_id`,`reply`,`reciever`,`sender`,`status`) VALUES ('$cmnt','$id','$senderid','1','$reffererid','$senderid','unseen')";
 	}
 	else
 	{
-		$r = "(`ra_message`,`ra_attach`,`ra_weblink`,`ra_refferelid`, `ra_sender_id`,`reply`,`reciever`,`sender`) VALUES ('$cmnt','$file','$weblink','$id','$senderid','1','$reffererid','$senderid')";
+		$r = "(`ra_message`,`ra_attach`,`ra_weblink`,`ra_refferelid`, `ra_sender_id`,`reply`,`reciever`,`sender`,`status`) VALUES ('$cmnt','$file','$weblink','$id','$senderid','1','$reffererid','$senderid','unseen')";
 		move_uploaded_file($_FILES['attachment']['tmp_name'],'assets/uploads/'.$file);
 	}
 	
@@ -817,7 +841,15 @@ $da = date_format($date,"d-m-Y");
 }
 if(isset($_POST["fekk"])){
     $id=$_POST["cid"];
-    if($_POST["status"] ==0){
+    if($_POST["status"] == 0){
+       $q=mysqli_query($con,"UPDATE tbl_consultantrefferels SET c_status='1' where c_id='$id'");
+       if($q){
+           echo "success";
+       }else{
+           echo "error";
+       }
+    }
+     if($_POST["status"] == 2){
        $q=mysqli_query($con,"UPDATE tbl_consultantrefferels SET c_status='1' where c_id='$id'");
        if($q){
            echo "success";

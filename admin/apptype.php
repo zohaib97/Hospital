@@ -53,7 +53,7 @@ include_once('connect.php');
 													<div class="form-group">
 														<label class="col-form-label" for="saname">Appointment Type</label>
 														
-														<input type="text" class="form-control form-control-lg" id="appname" value="" placeholder="Enter Organisation Name" name="appname">
+														<input type="text" class="form-control form-control-lg" id="appname" value="" placeholder="Enter Appointment Type" name="appname">
 													</div>
 												</div>
 												

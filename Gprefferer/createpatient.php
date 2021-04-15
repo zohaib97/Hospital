@@ -406,7 +406,7 @@ $(document).ready(function(){
                 $("#addpatient").removeAttr("disabled");
                 setTimeout(function(){
                     
-                    window.location.href="patientshow.php";
+                    window.location.href="<?php  if(isset($_GET["nhs"])) {echo $_GET["redirect"]."?nhs=".$_GET["nhs"]; }elseif(isset($_GET["fname"])){ echo $_GET["redirect"]."?fname=".$_GET["fname"]."&sname=".$_GET["sname"]."&dob=".$_GET["dob"];}?>";
                 },3000);
             }
 			

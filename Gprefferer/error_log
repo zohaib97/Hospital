@@ -96,3 +96,41 @@ Stack trace:
 [06-Apr-2021 10:44:53 UTC] PHP Parse error:  syntax error, unexpected '--' (T_DEC) in /home/extremeearn/hospital.extremeearn.com/Gprefferer/e-refferelservice.php on line 207
 [10-Apr-2021 20:06:01 UTC] PHP Parse error:  syntax error, unexpected ')', expecting ';' or ',' in /home/extremeearn/hospital.extremeearn.com/Gprefferer/createpatient.php on line 126
 [11-Apr-2021 18:38:07 UTC] PHP Warning:  date_format() expects parameter 1 to be DateTimeInterface, null given in /home/extremeearn/hospital.extremeearn.com/Gprefferer/phpcode.php on line 1404
+[13-Apr-2021 15:24:57 UTC] PHP Warning:  A non-numeric value encountered in /home/extremeearn/hospital.extremeearn.com/Gprefferer/phpcode.php on line 1804
+[13-Apr-2021 16:07:49 UTC] PHP Deprecated:  Unparenthesized `a ? b : c ? d : e` is deprecated. Use either `(a ? b : c) ? d : e` or `a ? b : (c ? d : e)` in /home/extremeearn/hospital.extremeearn.com/Gprefferer/createpatient.php on line 409
+[13-Apr-2021 16:08:06 UTC] PHP Deprecated:  Unparenthesized `a ? b : c ? d : e` is deprecated. Use either `(a ? b : c) ? d : e` or `a ? b : (c ? d : e)` in /home/extremeearn/hospital.extremeearn.com/Gprefferer/createpatient.php on line 409
+[13-Apr-2021 16:08:53 UTC] PHP Deprecated:  Unparenthesized `a ? b : c ? d : e` is deprecated. Use either `(a ? b : c) ? d : e` or `a ? b : (c ? d : e)` in /home/extremeearn/hospital.extremeearn.com/Gprefferer/createpatient.php on line 409
+[13-Apr-2021 16:08:57 UTC] PHP Deprecated:  Unparenthesized `a ? b : c ? d : e` is deprecated. Use either `(a ? b : c) ? d : e` or `a ? b : (c ? d : e)` in /home/extremeearn/hospital.extremeearn.com/Gprefferer/createpatient.php on line 409
+[13-Apr-2021 16:18:58 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function sbustr() in /home/extremeearn/hospital.extremeearn.com/Gprefferer/e-refferelservice.php:1420
+Stack trace:
+#0 {main}
+  thrown in /home/extremeearn/hospital.extremeearn.com/Gprefferer/e-refferelservice.php on line 1420
+[13-Apr-2021 16:20:09 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function sbustr() in /home/extremeearn/hospital.extremeearn.com/Gprefferer/e-refferelservice.php:1421
+Stack trace:
+#0 {main}
+  thrown in /home/extremeearn/hospital.extremeearn.com/Gprefferer/e-refferelservice.php on line 1421
+[13-Apr-2021 16:20:11 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function sbustr() in /home/extremeearn/hospital.extremeearn.com/Gprefferer/e-refferelservice.php:1421
+Stack trace:
+#0 {main}
+  thrown in /home/extremeearn/hospital.extremeearn.com/Gprefferer/e-refferelservice.php on line 1421
+[13-Apr-2021 16:20:51 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function sbustr() in /home/extremeearn/hospital.extremeearn.com/Gprefferer/e-refferelservice.php:647
+Stack trace:
+#0 {main}
+  thrown in /home/extremeearn/hospital.extremeearn.com/Gprefferer/e-refferelservice.php on line 647
+[13-Apr-2021 16:20:53 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function sbustr() in /home/extremeearn/hospital.extremeearn.com/Gprefferer/e-refferelservice.php:647
+Stack trace:
+#0 {main}
+  thrown in /home/extremeearn/hospital.extremeearn.com/Gprefferer/e-refferelservice.php on line 647
+[13-Apr-2021 16:21:47 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function sbustr() in /home/extremeearn/hospital.extremeearn.com/Gprefferer/e-refferelservice.php:647
+Stack trace:
+#0 {main}
+  thrown in /home/extremeearn/hospital.extremeearn.com/Gprefferer/e-refferelservice.php on line 647
+[13-Apr-2021 16:21:50 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function sbustr() in /home/extremeearn/hospital.extremeearn.com/Gprefferer/e-refferelservice.php:647
+Stack trace:
+#0 {main}
+  thrown in /home/extremeearn/hospital.extremeearn.com/Gprefferer/e-refferelservice.php on line 647
+[13-Apr-2021 16:22:13 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function sbustr() in /home/extremeearn/hospital.extremeearn.com/Gprefferer/e-refferelservice.php:647
+Stack trace:
+#0 {main}
+  thrown in /home/extremeearn/hospital.extremeearn.com/Gprefferer/e-refferelservice.php on line 647
+[13-Apr-2021 17:08:08 UTC] PHP Warning:  A non-numeric value encountered in /home/extremeearn/hospital.extremeearn.com/Gprefferer/phpcode.php on line 1804

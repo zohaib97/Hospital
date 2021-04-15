@@ -592,7 +592,7 @@ $("#modalForm2").modal("show");
 // {
 // 	 $.ajax({    
 //     type: "POST",
-//     url: "phpcode.php", 
+//     url: "gpphpcode.php", 
 // 	data:{fetchpatient:"btn"},          
 //     success: function(response){                    
 //         $("#adata").html(response); 
@@ -624,7 +624,7 @@ function deleteadmin(id) {
     var vid = id;
     $.ajax({
         type: 'POST',
-        url: 'phpcode.php',
+        url: 'gpphpcode.php',
         data: {
             vid: vid,
             deladmin: "btn"
@@ -661,7 +661,7 @@ function aprovenotaprove(id, status) {
 
     $.ajax({
         type: 'POST',
-        url: 'phpcode.php',
+        url: 'gpphpcode.php',
         data: {
             method: name,
             id: ide,
@@ -719,7 +719,7 @@ $("#aupdate").on('submit', function(e) {
     formdata.append("updatehadmin", "btn");
     $.ajax({
         type: 'POST',
-        url: 'phpcode.php',
+        url: 'gpphpcode.php',
         data: formdata,
         contentType: false,
         processData: false,
@@ -796,7 +796,7 @@ function spatient(ddd) {
     var createid = $('#createid').val();
     $.ajax({
         type: "POST",
-        url: "phpcode2.php",
+        url: "gpphpcode2.php",
         data: {
             nsh: ddd,
             createid:createid,
@@ -810,7 +810,7 @@ function spatient(ddd) {
                     position: 'top-right'
                 });
                 $('#createpatient').show();
-                 $('#createpatienthref').attr("href","createpatient.php?nhs="+ddd);
+                 $('#createpatienthref').attr("href","createpatient.php?nhs="+ddd+"&redirect=patientshow.php");
             }
             console.log(response);
             document.getElementById('tabItem6').innerHTML = response;
@@ -826,7 +826,7 @@ function spatient(ddd) {
 function spatient2() {
     $.ajax({
         type: "POST",
-        url: "phpcode2.php",
+        url: "gpphpcode2.php",
         data: {
             patientfetch2: "btn"
         },
@@ -919,7 +919,7 @@ function showpatient() {
 var createid = $('#createid').val();
     $.ajax({
         type: "POST",
-        url: "phpcode.php",
+        url: "gpphpcode.php",
         data: {
             dob: dob,
             em: em,
@@ -935,7 +935,7 @@ var createid = $('#createid').val();
                     position: 'top-right'
                 });
                  $('#createpatient').show();
-                 $('#createpatienthref').attr("href","createpatient.php?fname="+nm+"&sname="+em+"&dob="+dob);
+                 $('#createpatienthref').attr("href","createpatient.php?fname="+nm+"&sname="+em+"&dob="+dob+"&redirect=patientshow.php");
             }
             console.log(response);
             document.getElementById('tabItem6').innerHTML = response;

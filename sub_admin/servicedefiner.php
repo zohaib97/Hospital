@@ -103,7 +103,7 @@ include_once('headernav.php');
 								<select name="ser_location" id="ser_location" class="form-control" onchange="locationfetch()">
 								    <option>- Select -</option>
 								    <?php
-								    $sernameq1 = mysqli_query($con, "SELECT * FROM `org_locations`");
+								    $sernameq1 = mysqli_query($con, "SELECT * FROM `org_locations` where org_id='$org'");
 	
  while($datarole1 = mysqli_fetch_assoc($sernameq1)){
  	
@@ -248,7 +248,7 @@ include_once('headernav.php');
 						  <h5 class="mb-0">
 						  <i class="fas fa-plus pull-right"></i>
 							<a class="btn p-0 m-0 ml-3 pull-left collapsed">
-							  Clinician Type
+							  Clinic Type
 							</a>
 						  </h5>
 						</div>
@@ -256,7 +256,7 @@ include_once('headernav.php');
 						  <div class="card-body">
 							<div class="col-lg-12">
 								<div class="form-group">
-									<label class="form-label" for="full-name-1">Clinician Type</label>
+									<label class="form-label" for="full-name-1">Clinic Type</label>
 									<div class="form-control-wrap">
 										<select name="ser_cltype[]" class="form-control" id="ser_cltype" multiple>
 											<!-- phpcode.php -->
@@ -1185,7 +1185,7 @@ var ser_instr = $('#ser_ins').val();
 //		});
 //			reqtype = reqtype.toString();		
 //		
-if(ser_name != '' && ser_loc != '' && ser_spec != '' && ser_app != '' && ser_gen != '' && ser_dir != '' && ser_eff != '' && ser_ager != '' && ser_care != '' && ser_clt != '' && ser_conna != '' && ser_conad != '' && ser_concoun != '' && ser_conpos != '' && ser_hpem != '' && ser_patel != ''){
+if(ser_name != '' && ser_loc != '' && ser_spec != '' && ser_app != '' && ser_gen != '' && ser_dir != '' && ser_eff != '' && ser_ager != '' && ser_care != '' && ser_clt != '' && ser_conna != '' && ser_conad != '' && ser_concoun != '' && ser_conpos != '' && ser_hpem != ''){
 
 var formdata = new FormData(this);
 formdata.append("servicadd","btn");

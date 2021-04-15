@@ -44,6 +44,13 @@ include_once('connect.php');
                                   
                                   <div class="mx-auto col-md-6">
                                       <label class="">Select Organisation Type</label>
+                                      <?php
+                                      if(isset($_GET['status']))
+                                      {
+                                          $status = $_GET['status'];
+                                      }
+                                      ?>
+                                      <input type="text" name="orgstatus" id="orgstatus" value="" hidden>
                                        <select onchange="fetchhospitalsdata(this.value)" class="form-control mx-auto">
                                                 <option value="">--Select--</option>
                                                <option value="Approved">Approved</option>
@@ -108,6 +115,24 @@ include_once('connect.php');
   <script src="assets/js/example-toastr.js?ver=2.2.0"></script>
 </body>
 <script>
+<?php
+                                      if(isset($_GET['status']))
+                                      {
+                                          $status = $_GET['status'];
+                                          if($status == "Not approved")
+                                          {
+                                              
+                                        
+                                      ?>
+                                     
+		$(document).ready(function(){
+	    var status="Not approved";
+		fetchhospitalsdata(status);
+	});
+	<?php
+                }
+            }
+	?>
 	function fetchhospitalsdata(status)
 	{
 		 $.ajax({    
@@ -179,6 +204,7 @@ include_once('connect.php');
 		$.ajax({
             type: 'POST',
             url: 'phpcode.php',
+            dataType: 'JSON',
             data: {method:name,
 				   id:ide,
 				
@@ -186,21 +212,21 @@ include_once('connect.php');
 			
             success: function(data){
  
-                if(data == 'Error'){
+                if(data['res'] == 'Error'){
                    toastr.clear();
-    NioApp.Toast("<h5>Hospital didn't Updated</h5>", 'error',{position:'top-right'});
+    NioApp.Toast("<h5>"+data['name']+" didn't Updated</h5>", 'error',{position:'top-right'});
             
                 }
-				else if(data == 'Success'){
+				else if(data['res'] == 'Success'){
 			
 						 toastr.clear();
-    NioApp.Toast("<h5>Hospital De-Activated Successfully</h5>", 'success',{position:'top-right'});
+    NioApp.Toast("<h5>"+data['name']+" De-Activated Successfully</h5>", 'success',{position:'top-right'});
     var status="Not approved";
 				fetchhospitalsdata(status);
 					}
-					else if(data == "Successs") {
+					else if(data['res'] == "Successs") {
               toastr.clear();
-    NioApp.Toast("<h5>Hospital Activated Successfully</h5>", 'success',{position:'top-right'});
+    NioApp.Toast("<h5>"+data['name']+" Activated Successfully</h5>", 'success',{position:'top-right'});
 				var status="Approved";
 				fetchhospitalsdata(status);
 					

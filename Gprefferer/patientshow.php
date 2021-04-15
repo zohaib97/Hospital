@@ -792,7 +792,7 @@ function spatient(ddd) {
                     position: 'top-right'
                 });
                 $('#createpatient').show()
-                $("#createpatienthref").attr("href","createpatient.php?nhs="+ddd);
+                $("#createpatienthref").attr("href","createpatient.php?nhs="+ddd+"&redirect=patientshow.php");
             }
             console.log(response);
             document.getElementById('tabItem6').innerHTML = response;
@@ -888,7 +888,7 @@ function showpatient() {
                     position: 'top-right'
                 });
                 $('#createpatient').show();
-                 $('#createpatienthref').attr("href","createpatient.php?fname="+nm+"&sname="+em+"&dob="+dob);
+                 $('#createpatienthref').attr("href","createpatient.php?fname="+nm+"&sname="+em+"&dob="+dob+"&redirect=patientshow.php");
             }
             console.log(response);
             document.getElementById('tabItem6').innerHTML = response;

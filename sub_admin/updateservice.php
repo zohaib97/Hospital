@@ -167,7 +167,7 @@ $fetch = mysqli_fetch_array($query);
 						    	<select name="ser_location" id="ser_location" class="form-control" onchange="locationfetch()">
 								    <option>- Select -</option>
 								    <?php
-								    $sernameq1 = mysqli_query($con, "SELECT * FROM `org_locations`");
+								    $sernameq1 = mysqli_query($con, "SELECT * FROM `org_locations` where org_id='$org'");
 	
                         while($datarole1 = mysqli_fetch_assoc($sernameq1)){
  	

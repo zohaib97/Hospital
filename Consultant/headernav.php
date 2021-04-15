@@ -26,138 +26,73 @@ if(!isset($_SESSION['consultant'])){
 			<div class="nk-header-tools">
 				<ul class="nk-quick-nav">
 					<li class="dropdown chats-dropdown hide-mb-xs">
+					    <?php
+					    	if(isset($_SESSION['consultant'])){
+												    	$loginem = $_SESSION['consultant'];
+			$idq = mysqli_query($con, "SELECT * FROM `tbl_ruser` WHERE `ur_email` = '$loginem'");
+			$dataid = mysqli_fetch_assoc($idq);
+			$senderid = $dataid['ur_id'];
+// 		echo $senderid;
+						$ks=mysqli_query($con,"SELECT * FROM `orginzation` where orid ='$orid'");
+						$klo=mysqli_fetch_array($ks);
+									$qqqq = mysqli_query($con,"SELECT count(*) as a FROM tbl_consultantrefferels,tbl_refferelattachment WHERE tbl_refferelattachment.ra_refferelid=tbl_consultantrefferels.c_id and tbl_consultantrefferels.c_userid = '$senderid' and reply='0' and status = 'unseen'");
+									$fds=mysqli_fetch_array($qqqq);
+									$mss = mysqli_query($con,"SELECT * FROM tbl_consultantrefferels,tbl_refferelattachment WHERE tbl_refferelattachment.ra_refferelid=tbl_consultantrefferels.c_id and tbl_consultantrefferels.c_userid = '$senderid' and reply='0' and status = 'unseen'");
+									$fff111= mysqli_fetch_array($mss);
+									$reqtype111 = $fff111['request_type'] ? $fff111['request_type'] :"";
+									$cid = $fff111['ra_sender_id'] ? $fff111['ra_sender_id'] :"";
+									$query = mysqli_query($con,"SELECT * FROM `tbl_ruser` WHERE `ur_id` = '$cid'");
+						$cfetch = mysqli_fetch_array($query);
+												}
+					    ?>
 <!--										data-toggle="dropdown"-->
-						<a href="#" class="dropdown-toggle nk-quick-nav-icon">
+						<a href="#" class="dropdown-toggle nk-quick-nav-icon" data-toggle="dropdown">
 							<div class="icon-status icon-status-na"><em class="icon ni ni-comments"></em></div>
+								<sup class="badge badge-primary rounded-circle ml-n1 mt-n2"><?=$fds["a"]?></sup>
 						</a>
 						<div class="dropdown-menu dropdown-menu-xl dropdown-menu-right">
 							<div class="dropdown-head">
 								<span class="sub-title nk-dropdown-title">Recent Chats</span>
-								<a href="#">Setting</a>
+							
 							</div>
 							<div class="dropdown-body">
 								<ul class="chat-list">
-									<li class="chat-item">
-										<a class="chat-link" href="apps-chats.html">
+								
+							<?php
+								if(isset($_SESSION['consultant'])){
+									if($fds["a"] >0){
+									  echo '	<li class="chat-item">
+										<a class="chat-link" href="servicerefferels.php?status='.$fff111['c_status'].'&reqtype='.$fff111['request_type'].'">
 											<div class="chat-media user-avatar">
 												<span>IH</span>
 												<span class="status dot dot-lg dot-gray"></span>
 											</div>
 											<div class="chat-info">
 												<div class="chat-from">
-													<div class="name">Iliash Hossain</div>
+													<div class="name">'.$cfetch['ur_fname']." ".$cfetch['ur_sname'].'</div>
 													<span class="time">Now</span>
 												</div>
 												<div class="chat-context">
-													<div class="text">You: Please confrim if you got my last messages.</div>
+													<div class="text"><span>You have New Refferel Reply From </span></div>
 													<div class="status delivered">
 														<em class="icon ni ni-check-circle-fill"></em>
 													</div>
 												</div>
 											</div>
 										</a>
-									</li><!-- .chat-item -->
-									<li class="chat-item is-unread">
-										<a class="chat-link" href="apps-chats.html">
-											<div class="chat-media user-avatar bg-pink">
-												<span>AB</span>
-												<span class="status dot dot-lg dot-success"></span>
-											</div>
-											<div class="chat-info">
-												<div class="chat-from">
-													<div class="name">Abu Bin Ishtiyak</div>
-													<span class="time">4:49 AM</span>
-												</div>
-												<div class="chat-context">
-													<div class="text">Hi, I am Ishtiyak, can you help me with this problem ?</div>
-													<div class="status unread">
-														<em class="icon ni ni-bullet-fill"></em>
-													</div>
-												</div>
-											</div>
-										</a>
-									</li><!-- .chat-item -->
-									<li class="chat-item">
-										<a class="chat-link" href="apps-chats.html">
-											<div class="chat-media user-avatar">
-												<img src="images/avatar/b-sm.jpg" alt="">
-											</div>
-											<div class="chat-info">
-												<div class="chat-from">
-													<div class="name">George Philips</div>
-													<span class="time">6 Apr</span>
-												</div>
-												<div class="chat-context">
-													<div class="text">Have you seens the claim from Rose?</div>
-												</div>
-											</div>
-										</a>
-									</li><!-- .chat-item -->
-									<li class="chat-item">
-										<a class="chat-link" href="apps-chats.html">
-											<div class="chat-media user-avatar user-avatar-multiple">
-												<div class="user-avatar">
-													<img src="images/avatar/c-sm.jpg" alt="">
-												</div>
-												<div class="user-avatar">
-													<span>AB</span>
-												</div>
-											</div>
-											<div class="chat-info">
-												<div class="chat-from">
-													<div class="name">Softnio Group</div>
-													<span class="time">27 Mar</span>
-												</div>
-												<div class="chat-context">
-													<div class="text">You: I just bought a new computer but i am having some problem</div>
-													<div class="status sent">
-														<em class="icon ni ni-check-circle"></em>
-													</div>
-												</div>
-											</div>
-										</a>
-									</li><!-- .chat-item -->
-									<li class="chat-item">
-										<a class="chat-link" href="apps-chats.html">
-											<div class="chat-media user-avatar">
-												<img src="images/avatar/a-sm.jpg" alt="">
-												<span class="status dot dot-lg dot-success"></span>
-											</div>
-											<div class="chat-info">
-												<div class="chat-from">
-													<div class="name">Larry Hughes</div>
-													<span class="time">3 Apr</span>
-												</div>
-												<div class="chat-context">
-													<div class="text">Hi Frank! How is you doing?</div>
-												</div>
-											</div>
-										</a>
-									</li><!-- .chat-item -->
-									<li class="chat-item">
-										<a class="chat-link" href="apps-chats.html">
-											<div class="chat-media user-avatar bg-purple">
-												<span>TW</span>
-											</div>
-											<div class="chat-info">
-												<div class="chat-from">
-													<div class="name">Tammy Wilson</div>
-													<span class="time">27 Mar</span>
-												</div>
-												<div class="chat-context">
-													<div class="text">You: I just bought a new computer but i am having some problem</div>
-													<div class="status sent">
-														<em class="icon ni ni-check-circle"></em>
-													</div>
-												</div>
-											</div>
-										</a>
-									</li><!-- .chat-item -->
+									</li>
+									
+										';
+									    
+									}
+								}
+									?>
+							
+						
+								
 								</ul><!-- .chat-list -->
 							</div><!-- .nk-dropdown-body -->
-							<div class="dropdown-foot center">
-								<a href="apps-chats.html">View All</a>
-							</div>
+						
 						</div>
 					</li>
 					<li class="dropdown notification-dropdown">
@@ -177,7 +112,7 @@ if(!isset($_SESSION['consultant'])){
 									$f = mysqli_fetch_array($q);
 									$id = $f['ur_id'];
 							
-									$qq= mysqli_query($con,"SELECT  count(*) as a FROM tbl_consultantrefferels WHERE c_userid = '$id' and c_status='0'");
+									$qq= mysqli_query($con,"SELECT  count(*) as a FROM tbl_consultantrefferels WHERE c_userid = '$id' and c_status='2'");
 									$rfcksj=mysqli_fetch_array($qq);
 									if($rfcksj["a"] >0){
 									?>

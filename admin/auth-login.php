@@ -31,7 +31,7 @@ if(isset($_POST['signin']))
     <meta charset="utf-8">
     <meta name="author" content="Softnio">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="A powerful and conceptual apps base dashboard template that especially build for developers and programmers.">
+  
     <!-- Fav Icon  -->
     <link rel="shortcut icon" href="images/favicon.png">
     <!-- Page Title  -->
@@ -64,7 +64,7 @@ if(isset($_POST['signin']))
                                     <div class="nk-block-head-content">
                                         <h4 class="nk-block-title">Sign-In</h4>
                                         <div class="nk-block-des">
-                                            <p>Access the Hospitals panel using your email and passcode.</p>
+                                            <p>Access the Admin panel using your email and passcode.</p>
                                         </div>
                                     </div>
                                 </div>
@@ -106,52 +106,52 @@ if(isset($_POST['signin']))
                     <div class="nk-footer nk-auth-footer-full">
                         <div class="container wide-lg">
                             <div class="row g-3">
-                                <div class="col-lg-6 order-lg-last">
-                                    <ul class="nav nav-sm justify-content-center justify-content-lg-end">
-                                        <li class="nav-item">
-                                            <a class="nav-link" href="#">Terms & Condition</a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a class="nav-link" href="#">Privacy Policy</a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a class="nav-link" href="#">Help</a>
-                                        </li>
-                                        <li class="nav-item dropup">
-                                            <a class="dropdown-toggle dropdown-indicator has-indicator nav-link" data-toggle="dropdown" data-offset="0,10"><span>English</span></a>
-                                            <div class="dropdown-menu dropdown-menu-sm dropdown-menu-right">
-                                                <ul class="language-list">
-                                                    <li>
-                                                        <a href="#" class="language-item">
-                                                            <img src="images/flags/english.png" alt="" class="language-flag">
-                                                            <span class="language-name">English</span>
-                                                        </a>
-                                                    </li>
-                                                    <li>
-                                                        <a href="#" class="language-item">
-                                                            <img src="images/flags/spanish.png" alt="" class="language-flag">
-                                                            <span class="language-name">Español</span>
-                                                        </a>
-                                                    </li>
-                                                    <li>
-                                                        <a href="#" class="language-item">
-                                                            <img src="images/flags/french.png" alt="" class="language-flag">
-                                                            <span class="language-name">Français</span>
-                                                        </a>
-                                                    </li>
-                                                    <li>
-                                                        <a href="#" class="language-item">
-                                                            <img src="images/flags/turkey.png" alt="" class="language-flag">
-                                                            <span class="language-name">Türkçe</span>
-                                                        </a>
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                        </li>
-                                    </ul>
-                                </div>
-                                <div class="col-lg-6">
-                                    <div class="nk-block-content text-center text-lg-left">
+                                <!--<div class="col-lg-6 order-lg-last">-->
+                                <!--    <ul class="nav nav-sm justify-content-center justify-content-lg-end">-->
+                                <!--        <li class="nav-item">-->
+                                <!--            <a class="nav-link" href="#">Terms & Condition</a>-->
+                                <!--        </li>-->
+                                <!--        <li class="nav-item">-->
+                                <!--            <a class="nav-link" href="#">Privacy Policy</a>-->
+                                <!--        </li>-->
+                                <!--        <li class="nav-item">-->
+                                <!--            <a class="nav-link" href="#">Help</a>-->
+                                <!--        </li>-->
+                                <!--        <li class="nav-item dropup">-->
+                                <!--            <a class="dropdown-toggle dropdown-indicator has-indicator nav-link" data-toggle="dropdown" data-offset="0,10"><span>English</span></a>-->
+                                <!--            <div class="dropdown-menu dropdown-menu-sm dropdown-menu-right">-->
+                                <!--                <ul class="language-list">-->
+                                <!--                    <li>-->
+                                <!--                        <a href="#" class="language-item">-->
+                                <!--                            <img src="images/flags/english.png" alt="" class="language-flag">-->
+                                <!--                            <span class="language-name">English</span>-->
+                                <!--                        </a>-->
+                                <!--                    </li>-->
+                                <!--                    <li>-->
+                                <!--                        <a href="#" class="language-item">-->
+                                <!--                            <img src="images/flags/spanish.png" alt="" class="language-flag">-->
+                                <!--                            <span class="language-name">Español</span>-->
+                                <!--                        </a>-->
+                                <!--                    </li>-->
+                                <!--                    <li>-->
+                                <!--                        <a href="#" class="language-item">-->
+                                <!--                            <img src="images/flags/french.png" alt="" class="language-flag">-->
+                                <!--                            <span class="language-name">Français</span>-->
+                                <!--                        </a>-->
+                                <!--                    </li>-->
+                                <!--                    <li>-->
+                                <!--                        <a href="#" class="language-item">-->
+                                <!--                            <img src="images/flags/turkey.png" alt="" class="language-flag">-->
+                                <!--                            <span class="language-name">Türkçe</span>-->
+                                <!--                        </a>-->
+                                <!--                    </li>-->
+                                <!--                </ul>-->
+                                <!--            </div>-->
+                                <!--        </li>-->
+                                <!--    </ul>-->
+                                <!--</div>-->
+                                <div class="col-lg-12">
+                                    <div class="nk-block-content text-center text-lg-center">
                                         <p class="text-soft">&copy; 2021 Deevloopers. All Rights Reserved.</p>
                                     </div>
                                 </div>

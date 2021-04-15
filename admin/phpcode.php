@@ -70,10 +70,12 @@ if(isset($_POST['method']))
 		
 		if($vq)
 		{
-			echo("Success");
+		    $query1 = mysqli_query($con,"SELECT * FROM `orginzation` WHERE orid = '$id'");
+		    $fetch = mysqli_fetch_array($query1);
+			echo json_encode(array("res"=>"Success","name"=>$fetch['or_name']));
 		}
 		else{
-			echo"error";
+			echo json_encode(array("res"=>"error","name"=>$fetch['or_name']));
 		}
 	}
 	//for admin approve
@@ -86,10 +88,12 @@ if(isset($_POST['method']))
 		
 		if($vq)
 		{
-			echo("Successs");
+		    $query1 = mysqli_query($con,"SELECT * FROM `orginzation` WHERE orid = '$id'");
+		    $fetch = mysqli_fetch_array($query1);
+			echo json_encode(array("res"=>"Successs","name"=>$fetch['or_name']));
 		}
 		else{
-			echo"errorn";
+			echo json_encode(array("res"=>"errorn","name"=>$fetch['or_name']));
 		}
 		
 	}
@@ -1481,6 +1485,11 @@ if(isset($_POST["addorginaztion"]))
 	if(mysqli_num_rows($sql) > 0)
 	{
 	    echo"postcodealready";
+	}
+	$sql1 = mysqli_query($con,"SELECT * FROM orginzation WHERE or_code = '$ocode'");
+	if(mysqli_num_rows($sql1) > 0)
+	{
+	    echo"orcodealready";
 	}
 	else{
 	$jjjs=mysqli_query($con,"INSERT INTO `orginzation`(`or_type`, `or_name`, `or_phone`, `or_address`, `or_code`, `or_firstaddress`, `or_city`, `or_postcode` , `status`) VALUES ('$otype','$oname','$ocontact','$oaddress','$ocode','$ofaddress','$ocity','$opost','Approved')");

@@ -370,7 +370,7 @@ if(isset($_POST['serrefferelfetch2']))
 	$q = mysqli_query($con, "SELECT * FROM `tbl_ruser` WHERE ur_email = '$e'");
 	$f = mysqli_fetch_array($q);
 	$id = $f['ur_id'];
-	$query = mysqli_query($con, "SELECT * FROM `tbl_consultantrefferels` JOIN `tbl_patients` ON c_rfid = tbl_patients.pt_id JOIN `services` ON c_serid = services.service_id JOIN `tbl_ruser` ON tbl_ruser.ur_id = tbl_consultantrefferels.c_gpid JOIN `service_name` ON service_name = service_name.s_id JOIN `ser_specialty_add` ON service_speciality = ser_specialty_add.spec_id JOIN `service_cliniciant` ON ser_cl_type = service_cliniciant.cl_id WHERE c_userid = '$id' and request_type='Appointment Request' GROUP BY pt_nhsno");
+	$query = mysqli_query($con, "SELECT * FROM `tbl_consultantrefferels` JOIN `tbl_patients` ON c_rfid = tbl_patients.pt_id JOIN `services` ON c_serid = services.service_id JOIN `tbl_ruser` ON tbl_ruser.ur_id = tbl_consultantrefferels.c_gpid JOIN `service_name` ON service_name = service_name.s_id JOIN `ser_specialty_add` ON service_speciality = ser_specialty_add.spec_id JOIN `service_cliniciant` ON ser_cl_type = service_cliniciant.cl_id WHERE c_userid = '$id' and request_type='Appointment Request' and c_status= 2 GROUP BY pt_nhsno");
 
 	//	
 	//	SELECT * FROM `services`,`tbl_consultantrefferels`,`tbl_refferels`,`tbl_patients`,`hospitals`,`refer_advice` WHERE refer_advice.ref_hid = services.s_hos_id AND tbl_patients.pt_hid = services.s_hos_id AND services.s_hos_id = hospitals.hid AND tbl_consultantrefferels.c_rfid = tbl_refferels.rf_id AND tbl_consultantrefferels.c_serid = services.service_id AND c_userid = '$id' LIMIT 3
@@ -727,20 +727,20 @@ if(isset($_POST['cmntdatabtn']))
 	
 	if($weblink == "" || $weblink == null)
 	{
-		$r = "(`ra_message`, `ra_attach`,`ra_refferelid`, `ra_sender_id`,`reply`,`reciever`,`sender`) VALUES ('$cmnt','$file','$id','$senderid','1','$reffererid','$senderid')";
+		$r = "(`ra_message`, `ra_attach`,`ra_refferelid`, `ra_sender_id`,`reply`,`reciever`,`sender`,`status`) VALUES ('$cmnt','$file','$id','$senderid','1','$reffererid','$senderid','unseen')";
 		move_uploaded_file($_FILES['attachment']['tmp_name'],'assets/uploads/'.$file);
 	}
 	else if($file == "" || $file == null)
 	{
-		$r = "(`ra_message`, `ra_weblink`,`ra_refferelid`, `ra_sender_id`,`reply`,`reciever`,`sender`) VALUES ('$cmnt','$weblink','$id','$senderid','1','$reffererid','$senderid')";
+		$r = "(`ra_message`, `ra_weblink`,`ra_refferelid`, `ra_sender_id`,`reply`,`reciever`,`sender`,`status`) VALUES ('$cmnt','$weblink','$id','$senderid','1','$reffererid','$senderid','unseen')";
 	}
 	else if($weblink == "" && $file == "" || $weblink == null && $file == null)
 	{
-		$r = "(`ra_message`,`ra_refferelid`, `ra_sender_id`,`reply`,`reciever`,`sender`) VALUES ('$cmnt','$id','$senderid','1','$reffererid','$senderid')";
+		$r = "(`ra_message`,`ra_refferelid`, `ra_sender_id`,`reply`,`reciever`,`sender`,`status`) VALUES ('$cmnt','$id','$senderid','1','$reffererid','$senderid','unseen')";
 	}
 	else
 	{
-		$r = "(`ra_message`,`ra_attach`,`ra_weblink`,`ra_refferelid`, `ra_sender_id`,`reply`,`reciever`,`sender`) VALUES ('$cmnt','$file','$weblink','$id','$senderid','1','$reffererid','$senderid')";
+		$r = "(`ra_message`,`ra_attach`,`ra_weblink`,`ra_refferelid`, `ra_sender_id`,`reply`,`reciever`,`sender`,`status`) VALUES ('$cmnt','$file','$weblink','$id','$senderid','1','$reffererid','$senderid','unseen')";
 		move_uploaded_file($_FILES['attachment']['tmp_name'],'assets/uploads/'.$file);
 	}
 	

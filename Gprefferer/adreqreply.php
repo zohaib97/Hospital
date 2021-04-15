@@ -41,19 +41,68 @@ include_once('header.php');
 													$dref = mysqli_fetch_assoc($qref);
 												}
 											?>
+											<?php
+				    $q = $_GET["request_type"];
+
+						$qref = mysqli_query($con, "SELECT * FROM `tbl_consultantrefferels` WHERE request_type = '$q'");
+						$dref = mysqli_fetch_assoc($qref);
+						if($dref['request_type'] == "Advice request")
+						{
+						    
+						
+				    ?>
                                             <nav class="p-2 bg-light mb-3 col-form-label font-weight-bold">Advice
                                                 Request Details - <span class="text-info"><?=$dref['c_nhsno']?></span>
                                             </nav>
+                                            <?php
+						}elseif($dref['request_type'] == "Appointment Request"){
+                                            ?>
+                                            <nav class="p-2 bg-light mb-3 col-form-label font-weight-bold">Appointment
+                                                Request Details - <span class="text-info"><?=$dref['c_nhsno']?></span>
+                                            </nav>
+                                            <?php
+						}
+                                            ?>
                                         </li>
                                     </ul>
 
                                     <div class="row">
+                                        <div class="col-md-9 bg-white py-2 px-1 mx-auto mb-3" style="border-radius:8px">
+                                                  	<?php
+											$pid = $_GET['pid'];
+											$sql2 = mysqli_query($con,"SELECT * FROM tbl_patients WHERE pt_id = '$pid'");
+											$fetch2 = mysqli_fetch_array($sql2);
+
+											?>
+												<div class="nk-block-head nk-block-head-lg wide-sm">
+												<span class="float-right p-2  w-100 col-form-label font-weight-bold">Patient Info - </span>
+												<button type="button" class="btn btn-info btn-sm float-right mt-1" onclick="showpat()">More Info</button>
+												<span class="text-dark">
+												Name: <?=$fetch2['pt_name']." ".$fetch2["pt_surname"]?></span>
+												
+												<br>
+												<span class="text-dark">
+												NHS no: <?=$fetch2['pt_nhsno']?></span>
+												<br>
+												<span class="text-dark">
+												Date of Birth: <?php
+												
+												$daa=date_create($fetch2['pt_dob']);
+												echo date_format($daa,"m-d-Y");
+												?></span>
+												<br>
+												<span class="text-dark">
+												Email: <?=$fetch2['pt_email']?>
+												</span>
+												<br>
+											</div>
+                                        </div>
                                         <div class="col-lg-4 col-md-4 col-12">
                                             <span class="col-form-label font-weight-bold"
                                                 style="font-size: 15px; color: black">Summary Information</span>
                                             <hr>
                                             <div class="card p-3">
-                                                <div class="row">
+                                                  <div class="row">
 
 
                                                     <div class="col-md-6 mb-2">
@@ -90,29 +139,32 @@ include_once('header.php');
 														?>
                                                         <span><?=$serspecdata['spec_name']?></span>
                                                     </div>
-                                                    <div class="col-md-6 mb-2">
-                                                        <span class="font-weight-bold">Registered Practice</span>
-                                                        <br>
-                                                        <span>Karachi
-                                                            Sindh
-                                                            Pakistan</span>
-                                                    </div>
+                                                    
                                                     <?php
 													if(isset($_GET['nhsno'])){
 													$nhsno = $_GET['nhsno'];
 													$qref = mysqli_query($con, "SELECT * FROM `tbl_consultantrefferels` JOIN `tbl_patients` ON c_rfid = tbl_patients.pt_id JOIN `services` ON c_serid = services.service_id JOIN `tbl_ruser` ON tbl_ruser.ur_id = tbl_consultantrefferels.c_gpid WHERE c_nhsno = '$nhsno'");
 													$dref = mysqli_fetch_assoc($qref);
 														$refid = $dref['c_id'];
-														echo"Refer ID : ".$refid;
+													
 													}
 													?>
+													  <div class="col-md-6 mb-2">
+                                                        <span class="font-weight-bold">Refer ID</span>
+                                                        <br>
+                                                        <span><?=$refid?></span>
+                                                    </div>
 													<input type="text" name="rfno" id="rfno" value="<?=$refid?>" hidden>
                                                     <div class="col-md-6 mb-2">
                                                         <span class="font-weight-bold">Referred By</span>
                                                         <br>
                                                         <span><?=$dref['ur_fname']." ".$dref['ur_sname']?></span>
                                                     </div>
-                                                    
+                                                    <div class="col-md-12 mb-2">
+                                                        <span class="font-weight-bold">Registered Practice</span>
+                                                        <br>
+                                                        <span><?=$dref["ur_address"]?></span>
+                                                    </div>
                                                     
                                                    
                                                     <div class="col-md-6 mb-2">
@@ -122,47 +174,55 @@ include_once('header.php');
 
                                                 </ul>
                                             </div>
-                                        </div>
+                                            </div>
                                         </div>
                                         <div class="col-lg-8 col-md-8 col-12">
                                             <div>
-                                                <div class="nk-block-head nk-block-head-lg wide-sm">
-                                                    <h5 class="nk-block-title fw-normal col-form-label font-weight-bold"
+                                          
+                                                <div class="nk-block-head nk-block-head-lg wide-sm pb-0">
+                                                    <?php
+				    $q = $_GET["request_type"];
+
+						$qref = mysqli_query($con, "SELECT * FROM `tbl_consultantrefferels` WHERE request_type = '$q'");
+						$dref = mysqli_fetch_assoc($qref);
+						if($dref['request_type'] == "Advice request")
+						{
+						    
+						
+				    ?>
+                                                    <h5 class="nk-block-title fw-normal col-form-label font-weight-bold p-0"
                                                         style="font-size: 20px">Advice Conversation</h5>
-                                                    <label for="" class="col-form-label">Comments</label>
-                                                    <div class="card p-2"
-                                                        style="background-color: rgba(219,251,248,1.00)">
                                                         <?php
-														$loginem = $_SESSION['gprefferer'];
-														$idq = mysqli_query($con, "SELECT * FROM `tbl_ruser` WHERE `ur_email` = '$loginem'");
-														$dataid = mysqli_fetch_assoc($idq);
-														$senderid = $dataid['ur_id'];
-														
-													$q = mysqli_query($con,"SELECT * FROM `tbl_refferelattachment` WHERE `ra_refferelid` = '$refid' AND `ra_sender_id` != '$senderid'");
-													while($fe = mysqli_fetch_array($q)){
-													?>
-                                                        <spane><?=$fe['ra_message']?></spane>
-                                                        <hr>
-                                                        <?php
-													}
-													?>
-                                                    </div>
-                                                    <label for="" class="col-form-label">My Reply</label>
-                                                    <div class="card p-2"
-                                                        style="background-color: rgba(219,251,248,1.00)"
-                                                        id="fetchreply">
+						}
+						elseif($dref['request_type'] == "Appointment Request"){
+                                                        ?>
+                                                  
+                                                   <h5 class="nk-block-title fw-normal col-form-label font-weight-bold p-0"
+                                                        style="font-size: 20px">Appointment Conversation</h5>
+                                                 <?php
+						}
+                                                 ?></div>
+                                                 	<hr>
+                                                 	<div class="px-2 py-2 bg-white" style="border-radius:8px">
+                                                    <div id="fetchreply" class="px-2" style="height: 277px;overflow:hidden scroll;">
                                                         <!-- phpcode.php -->
                                                     </div>
+                                                    </div>
                                                     <br>
-                                                    <span
-                                                        class="float-right p-2 bg-light w-100 col-form-label font-weight-bold">Advice
+                                                   
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- nk-block -->
+                                </div><!-- .components-preview -->
+                                <div>
+                                 <div class="float-right p-4 bg-light w-100 col-form-label font-weight-bold mb-3 ml-0"><p>Advice
                                                         Status - <span class="text-info">Provider Response
-                                                            Required</span></span>
-                                                    <br>
-                                                    <br>
-                                                    <br>
-                                                    <form id="reply" enctype="multipart/form-data">
-                                                        <div class="row bg-light p-1">
+                                                            Required</span></p></div>
+                                                    
+                                                 <center>   <form id="reply" enctype="multipart/form-data">
+                                                        <div class="row bg-light p-1 ml-0 mr-0">
                                                             <div class="col-6">
                                                                 <label class="col-form-label" for="">Add
                                                                     Attachement</label>
@@ -181,35 +241,165 @@ include_once('header.php');
                                                                 <textarea
                                                                     placeholder="Enter advice response detail here"
                                                                     class="form-control" name="cmntad" id="" cols="30"
-                                                                    rows="3"></textarea>
+                                                                    rows="3" required></textarea>
                                                             </div>
+                                                            <?php 
+															if(isset($_GET['nhsno'])){
+													$nhsno = $_GET['nhsno'];
+													$request_type=$_GET['request_type'];
+													$qref = mysqli_query($con, "SELECT * FROM `tbl_consultantrefferels` JOIN `tbl_patients` ON c_rfid = tbl_patients.pt_id JOIN `services` ON c_serid = services.service_id JOIN `tbl_ruser` ON tbl_ruser.ur_id = tbl_consultantrefferels.c_userid WHERE request_type='$request_type' and c_nhsno = '$nhsno'");
+													$dref1 = mysqli_fetch_assoc($qref);
+												}
+														?>
                                                             <button type="submit"
                                                                 class="btn btn-sm btn-info my-3 ml-3">Send</button>
+                                                                <a href="javascript:void(0)" onclick="accept('<?=$dref1["c_id"]?>')" class="btn btn-sm btn-primary my-3 ml-3">Accept</a>
+                                                                <a href="javascript:void(0)" onclick="reject('<?=$dref1["c_id"]?>')" class="btn btn-sm btn-danger my-3 ml-3">Reject</a>
+</td>
+</td>
                                                         </div>
-                                                    </form>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <!--
-									<br>
-								<hr>
-								<br>
--->
-                                    <!--									<center><span id="hideno">No Result loaded</span></center>-->
-                                    <!--
-								<div class="nk-block nk-block-lg" id="rdata">
-									
-								</div>
--->
-
-                                    <!-- nk-block -->
-                                </div><!-- .components-preview -->
+                                                    </form> </center>
+                                                    </div>
+                            </div>
                             </div>
                         </div>
                     </div>
                 </div>
+                	<div class="modal fade" tabindex="-1" id="modalname">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Pateint Info</h5>
+                    <a href="#" class="close" data-dismiss="modal" aria-label="Close">
+                        <em class="icon ni ni-cross"></em>
+                    </a>
+                </div>
+                <div class="modal-body">
+				<?php
+											$pid = $_GET['pid'];
+											$sql4 = mysqli_query($con,"SELECT * FROM tbl_patients WHERE pt_id = '$pid'");
+											$fetch4 = mysqli_fetch_array($sql4);
+
+											?>
+			<div class="row">
+				<div class="col-md-6">
+                    <h6>Name: </h6>
+					<p class="mb-1"><?=$fetch4['pt_name']." ".$fetch4["pt_surname"]?></p>
+					</div>
+					<div class="col-md-6">
+					<h6>Email:</h6>
+					<p class="mb-1"><?=$fetch4['pt_email']?></p>
+					</div>
+					<br>
+					<div class="col-md-6">
+					<h6>NHS no:</h6>
+					<p class="mb-1"><?=$fetch4['pt_nhsno']?></p>
+					</div>
+					<div class="col-md-6">
+					<h6>City:</h6>
+					<p class="mb-1"><?=$fetch4['pt_city']?></p>
+					</div>
+					<br>
+					<div class="col-md-6">
+					<h6>Country:</h6>
+					<p class="mb-1"><?=$fetch4['pt_country']?></p>
+					</div>
+						<div class="col-md-6">
+					<h6>House No/Name:</h6>
+					<p class="mb-1"><?=$fetch4['pt_houseno']?></p>
+					</div>
+						<div class="col-md-6">
+					<h6>Street Name:</h6>
+					<p class="mb-1"><?=$fetch4['pt_streetname']?></p>
+					</div>
+						<div class="col-md-6">
+					<h6>Post Code:</h6>
+					<p class="mb-1"><?=$fetch4['pt_postcode']?></p>
+					</div>
+						<div class="col-md-6">
+					<h6>TelePhone Number:</h6>
+					<p class="mb-1"><?=$fetch4['pt_telno']?></p>
+					</div>
+						<div class="col-md-6">
+					<h6>Mobile Number:</h6>
+					<p class="mb-1"><?=$fetch4['pt_mobno']?></p>
+					</div>
+					
+					</div>
+                </div>
+                <div class="modal-footer bg-light">
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" tabindex="-1" id="acceptmodal">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Acception Reason</h5>
+                    <a href="#" class="close" data-dismiss="modal" aria-label="Close">
+                        <em class="icon ni ni-cross"></em>
+                    </a>
+                </div>
+                <div class="modal-body">
+   <form method="post" id="acceptreason">
+			<div class="row">
+			 
+				<div class="col-md-12">
+				    <input type="text" name="cid" id="cid" hidden>
+                    <label for="reason">Reason</label>
+					<textarea class="form-control" cols="4" rows="4" id="reason" name="reason"></textarea>
+					</div>
+					
+				
+					
+					</div>
+					<div class="row">
+					<div class="col-md-6">
+					    <button type="submit" class="btn btn-sm btn-info my-3 ml-3">Send</button>
+					    </div>
+					    </div>
+						</form>
+                </div>
+                <div class="modal-footer bg-light">
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" tabindex="-1" id="rejectmodal">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Rejection Reason</h5>
+                    <a href="#" class="close" data-dismiss="modal" aria-label="Close">
+                        <em class="icon ni ni-cross"></em>
+                    </a>
+                </div>
+                <div class="modal-body">
+   <form method="post" id="rejectreason">
+			<div class="row">
+			 
+				<div class="col-md-12">
+				    <input type="text" name="rcid" id="rcid" hidden>
+                    <label for="rejreason">Reason</label>
+					<textarea class="form-control" cols="4" rows="4" id="rejreason" name="rejreason"></textarea>
+					</div>
+					
+				
+					
+					</div>
+					<div class="row">
+					<div class="col-md-6">
+					    <button type="submit" class="btn btn-sm btn-info my-3 ml-3">Send</button>
+					    </div>
+					    </div>
+						</form>
+                </div>
+                <div class="modal-footer bg-light">
+                </div>
+            </div>
+        </div>
+    </div>
                 <!-- content @e -->
                 <!-- footer @s -->
                 <?php
@@ -228,11 +418,108 @@ include_once('header.php');
     <script src="assets/js/example-toastr.js?ver=2.2.0"></script>
 </body>
 <script>
+function accept(cid){
+     $('#cid').val(cid);
+   $('#acceptmodal').modal('show');
+  
+	   // $.ajax({
+	   //     url:"phpcode.php",
+	   //     type:"POST",
+	   //     data:{accept:"btn",cid:cid},
+	   //     success:function(res){
+	          
+	   //     if(res == "success"){
+	            
+	   //     toastr.clear();
+    //             NioApp.Toast("<h5>Request Accepted</h5>", 'success', {
+    //                 position: 'top-right'
+    //             });
+	   //     }
+	   //     if(res == "error"){
+	   //       toastr.clear();
+    //             NioApp.Toast("<h5>Something Went Wrong</h5>", 'warning', {
+    //                 position: 'top-right'
+    //             });
+	   //     }
+	   //     }
+	   // })
+	}
+$('#acceptreason').on('submit',function(e){
+      e.preventDefault();
+   
+      var formdata = new FormData(this);
+      formdata.append("insertreason","btn");
+      $.ajax({
+            type:"POST",
+	        url:"consultantphpcode.php",
+	        data: formdata,
+	        contentType: false,
+            processData: false,
+	        success:function(res){
+
+	        if(res == "success"){
+	            
+	        toastr.clear();
+                NioApp.Toast("<h5>Request Accepted</h5>", 'success', {
+                    position: 'top-right'
+                });
+                $('#acceptmodal').modal('hide');
+	        }
+	        if(res == "error"){
+	          toastr.clear();
+                NioApp.Toast("<h5>Something Went Wrong</h5>", 'warning', {
+                    position: 'top-right'
+                });
+	        }
+	        }
+	    })
+});
+	function reject(cid){
+$('#rcid').val(cid);
+   $('#rejectmodal').modal('show');
+	}
+	
+	
+	$('#rejectreason').on('submit',function(e){
+      e.preventDefault();
+   
+      var formdata = new FormData(this);
+      formdata.append("rejectreason","btn");
+      $.ajax({
+            type:"POST",
+	        url:"consultantphpcode.php",
+	        data: formdata,
+	        contentType: false,
+            processData: false,
+	        success:function(res){
+
+	        if(res == "success"){
+	            
+	        toastr.clear();
+                NioApp.Toast("<h5>Request Rejected</h5>", 'error', {
+                    position: 'top-right'
+                });
+                $('#rejectmodal').modal('hide');
+	        }
+	        if(res == "error"){
+	          toastr.clear();
+                NioApp.Toast("<h5>Something Went Wrong</h5>", 'warning', {
+                    position: 'top-right'
+                });
+	        }
+	        }
+	    })
+});
+	
+function showpat()
+{
+	$('#modalname').modal('show');
+}
 // for fetch data reply
 function fetchreplydata() {
 	var rfno = $('#rfno').val();
     $.ajax({
-        url: 'phpcode.php',
+        url: 'consultantphpcode.php',
         type: 'post',
         data: {
 			rfno:rfno,
@@ -269,7 +556,7 @@ function workbltdata() {
 function fetchrefferels() {
     $.ajax({
         type: "POST",
-        url: "phpcode.php",
+        url: "consultantphpcode.php",
         data: {
             serrefferelfetch: "btn"
         },
@@ -304,7 +591,7 @@ $("#attach").on('submit', function(e) {
     formdata.append("consultantdata", "btn");
     $.ajax({
         type: 'POST',
-        url: 'phpcode.php',
+        url: 'consultantphpcode.php',
         data: formdata,
         contentType: false,
         processData: false,
@@ -315,13 +602,13 @@ $("#attach").on('submit', function(e) {
         success: function(data) {
             if (data == 'Error') {
                 toastr.clear();
-                NioApp.Toast("<h5>Refferel didn't Send Successfully</h5>", 'error', {
+                NioApp.Toast("<h5>Request didn't Send Successfully</h5>", 'error', {
                     position: 'top-right'
                 });
             } else if (data == 'Success') {
                 $('#attach')[0].reset();
                 toastr.clear();
-                NioApp.Toast("<h5>Refferel Sent Successfully</h5>", 'success', {
+                NioApp.Toast("<h5>Request Sent Successfully</h5>", 'success', {
                     position: 'top-right'
                 });
 
@@ -347,7 +634,7 @@ $("#reply").on('submit', function(e) {
         formdata.append("cmntdatabtn", "btn");
         $.ajax({
             type: 'POST',
-            url: 'phpcode.php',
+            url: 'consultantphpcode.php',
             data: formdata,
             contentType: false,
             processData: false,
@@ -364,7 +651,7 @@ $("#reply").on('submit', function(e) {
                 } else if (data == 'Success') {
 
                     toastr.clear();
-                    NioApp.Toast("<h5>Message Sent</h5>", 'success', {
+                    NioApp.Toast("<h5>The advice response has been sent to the referrer</h5>", 'success', {
                         position: 'top-right'
                     });
                     $('#reply').trigger('reset');

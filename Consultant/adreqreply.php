@@ -420,6 +420,33 @@ include_once('header.php');
     <script src="assets/js/example-toastr.js?ver=2.2.0"></script>
 </body>
 <script>
+   <?php
+													if(isset($_GET['nhsno'])){
+													$nhsno = $_GET['nhsno'];
+													$qref = mysqli_query($con, "SELECT * FROM `tbl_consultantrefferels` JOIN `tbl_patients` ON c_rfid = tbl_patients.pt_id JOIN `services` ON c_serid = services.service_id JOIN `tbl_ruser` ON tbl_ruser.ur_id = tbl_consultantrefferels.c_gpid WHERE c_nhsno = '$nhsno'");
+													$dref = mysqli_fetch_assoc($qref);
+														$refid = $dref['c_id'];
+													
+													}
+													?>
+$(document).ready(function(){
+    updatecmntstatus();
+})
+function updatecmntstatus()
+{
+    var rfno = <?=$refid?>;
+    $.ajax({
+        url: 'phpcode.php',
+        type: 'post',
+        data: {
+            rfno:rfno,
+            updatestatus: "btn"
+        },
+        success: function(response) {
+          console.log(response);
+        }
+    });
+}
 function accept(cid){
      $('#cid').val(cid);
    $('#acceptmodal').modal('show');
