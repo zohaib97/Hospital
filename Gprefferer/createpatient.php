@@ -370,11 +370,21 @@ $(document).ready(function(){
 //		
 //        $('#modalForm2').modal('show');
 //    };
+
+<?php
+													
+													$em = $_SESSION['gprefferer'];
+													$qww = mysqli_query($con,"SELECT * FROM tbl_ruser WHERE ur_email = '$em'");
+													$few = mysqli_fetch_array($qww);
+											
+													?>
 	$("#patientadd").on('submit', function(e){
 		
         	e.preventDefault();
 		var formdata = new FormData(this);
 		formdata.append("addpatient","btn");
+		formdata.append("orgid",<?=$few['ur_orgtype']?>);
+		
 		var nhs = $('#nhs').val();
 	
         $.ajax({

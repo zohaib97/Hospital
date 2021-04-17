@@ -173,7 +173,7 @@ echo'   <tr class="nk-tb-item">
 
 if(isset($_POST['addpatient']))
 {
-	
+	$orgid = $_POST['orgid'];
 	$gphid = $_POST['rid'];
 	$ptitle = $_POST['ptitle'];
 	$pfirstname = $_POST['pfirstname'];
@@ -197,7 +197,7 @@ if(isset($_POST['addpatient']))
 	    echo "nhs";
 	}
 	else{
-	$query = mysqli_query($con,"INSERT INTO `tbl_patients`(`pt_title`, `pt_name`, `pt_surname`, `pt_dob`, `pt_nhsno`, `pt_houseno`, `pt_streetname`, `pt_city`, `pt_country`, `pt_postcode`, `pt_telno`, `pt_mobno`, `pt_email`,`pt_create`,`pt_age`)VALUES('$ptitle','$pfirstname','$psurname','$pdob','$nhsno','$houseno','$streetname','$city','$country','$postalcode','$telephoneno','$mobileno','$email','$gphid','$age')");
+	$query = mysqli_query($con,"INSERT INTO `tbl_patients`(`pt_title`, `pt_name`, `pt_surname`, `pt_dob`, `pt_nhsno`, `pt_houseno`, `pt_streetname`, `pt_city`, `pt_country`, `pt_postcode`, `pt_telno`, `pt_mobno`, `pt_email`,`pt_create`,`pt_age`,`pt_orgid`)VALUES('$ptitle','$pfirstname','$psurname','$pdob','$nhsno','$houseno','$streetname','$city','$country','$postalcode','$telephoneno','$mobileno','$email','$gphid','$age','$orgid')");
 	
 	if($query)
 	{
@@ -806,7 +806,10 @@ if(isset($_POST['fetchserbtndata']))
 $qiu=mysqli_query($con,"SELECT * FROM `admin`,orginzation where admin.organization = orginzation.orid and admin.id='$aid'");
 $fetchsa=mysqli_fetch_array($qiu);
     $org = $fetchsa['organization'];
-	$sernameq = mysqli_query($con, "SELECT * FROM `service_name` where  org_id ='$org'");
+    $sql = mysqli_query($con,"SELECT * FROM services WHERE s_orgid = '$org'");
+    $fetch = mysqli_fetch_array($sql);
+    $sname = $fetch['service_name'];
+	$sernameq = mysqli_query($con, "SELECT * FROM `service_name` where  org_id ='$org' and s_id != '$sname'");
 	echo'<option value="">- Select -</option>';
  while($datarole = mysqli_fetch_assoc($sernameq)){ 
 	 if($datarole['s_name']==$snameid)

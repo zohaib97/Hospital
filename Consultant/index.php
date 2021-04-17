@@ -71,8 +71,12 @@ include_once('header.php');
                                     </div><!-- .nk-block-between -->
                                 </div><!-- .nk-block-head -->
 
-                                <?php           
-                 $qe = mysqli_query($con, "SELECT COUNT(m_id) AS number FROM `services`");
+                                <?php   
+                                $_SESSION['consultant'];
+                                $idq = mysqli_query($con, "SELECT * FROM `tbl_ruser` WHERE `ur_email` = '$loginem'");
+			$dataid = mysqli_fetch_assoc($idq);
+			$orgid = $dataid['ur_orgtype'];
+                 $qe = mysqli_query($con, "SELECT COUNT(m_id) AS number FROM `services` WHERE s_orgid = '$orgid'");
 
 
               $hos = mysqli_fetch_assoc($qe);

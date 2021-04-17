@@ -56,7 +56,7 @@ include_once('database/db.php');
 	
 	
 	<!-- START APPOINTMENT SECTION -->
-     <section id="appointment" class="section-padding">
+     <section id="appointment" class="">
         <div class="auto-container">
             <div class="row">
 				<div class="col-lg-8 text-center mx-auto">
@@ -68,7 +68,7 @@ include_once('database/db.php');
 				<!-- end section title -->
 			</div>
 			
-            <div class="row mt-5">
+            <div class="row mb-3">
 				<div class="col-lg-8 mx-auto">
                     <div class="appointment-form-ma">
                         <form id="reg_form">
@@ -360,22 +360,14 @@ $("#reg_form").on("submit", function(e)
 						}else if(data == "success")
 						{
 
-							toastr.success("You have been registered succesfully. Wait for admin approvel!");
+							toastr.success("You have been registered successfully.Please Wait for admin approval!");
+							  swal("Success!", "You have been registered successfully.Please Wait for admin approval!", "success");
 							$("#regis").attr("disabled","disabled");
 							$("#reg_form")[0].reset();
-							$("#register_popup")[0].reset();
-							document.getElementById("u_name").style.borderColor = "#28a745";
-							document.getElementById("conemail").style.borderColor = "#28a745";
-							document.getElementById("u_phn").style.borderColor = "#28a745";
-							document.getElementById("u_org").style.borderColor = "#28a745";
-							document.getElementById("u_work").style.borderColor = "#28a745";
-							document.getElementById("u_pass").style.borderColor = "#28a745";
-							document.getElementById("u_cpass").style.borderColor = "#28a745";
-							document.getElementById("u_faci").style.borderColor = "#28a745";
-							document.getElementById("nhs_num").style.borderColor = "#28a745";
-							document.getElementById("role").style.borderColor = "#28a745";
-
-
+				
+                      setTimeout(() => {
+                              window.location.href="index.php";
+}, 1500);
 						}else if(data == "nhserror"){
 								 toastr.error("Wrong NHS Number");
 						}
@@ -445,5 +437,5 @@ if (input.attr("type") == "text") {
 });
 	</script>
 
-
+  <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 </html>

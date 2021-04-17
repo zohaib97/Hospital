@@ -165,7 +165,7 @@ if($qe)
                                             </div><!-- .card -->
                                         </div><!-- .col -->
                                         <?php
-                                        $qe = mysqli_query($con, "SELECT COUNT(ur_id) AS number FROM tbl_ruser ");
+                                        $qe = mysqli_query($con, "SELECT COUNT(ur_id) AS number FROM tbl_ruser WHERE ur_role_id = '5' ");
                                         if($qe)
 {
                                         $usr = mysqli_fetch_assoc($qe);

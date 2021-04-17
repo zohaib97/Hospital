@@ -63,7 +63,7 @@ include_once('database/db.php');
 
 
     <!-- START APPOINTMENT SECTION -->
-    <section id="appointment" class="section-padding">
+    <section id="appointment" class="">
         <div class="auto-container">
             <div class="row">
                 <div class="col-lg-8 text-center mx-auto">
@@ -74,8 +74,7 @@ include_once('database/db.php');
                 </div>
                 <!-- end section title -->
             </div>
-
-            <div class="row mt-5">
+            <div class="row mb-3">
                 <div class="col-lg-8 mx-auto">
                     <div class="appointment-form-ma">
                         <form method="post" id="oradd" enctype="multipart/form-data">
@@ -281,6 +280,9 @@ include_once('database/db.php');
 				
                 toastr.success("Organisation Added Successfully");
 					    swal("Success!", "Organisation has been registered please wait for admin approvel.", "success"); 
+					     setTimeout(() => {
+                              window.location.href="index.php";
+}, 1500);
                 }
 			
                 $('#oradd').css("opacity","");

@@ -365,11 +365,20 @@ include_once('../database/db.php');
 //		
 //        $('#modalForm2').modal('show');
 //    };
+<?php
+$id = $_SESSION['a_id'];
+								$sql = mysqli_query($con,"SELECT * FROM admin WHERE id = '$id'");
+								$fetch = mysqli_fetch_array($sql);
+								$orgid = $fetch['organization'];
+								
+
+?>
 	$("#patientadd").on('submit', function(e){
 		
         	e.preventDefault();
 		var formdata = new FormData(this);
 		formdata.append("addpatient","btn");
+		formdata.append("orgid",<?=$orgid?>);
         $.ajax({
             type: 'POST',
             url: 'phpcode.php',

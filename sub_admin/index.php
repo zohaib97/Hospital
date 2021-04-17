@@ -78,6 +78,7 @@ include_once('header.php');
 								$sql = mysqli_query($con,"SELECT * FROM admin WHERE id = '$id'");
 								$fetch = mysqli_fetch_array($sql);
 								$orgid = $fetch['organization'];
+							
 								$sql1 = mysqli_query($con,"SELECT * FROM orginzation WHERE orid = '$orgid'");
 								$fetch1 = mysqli_fetch_array($sql1);
 								$ortype = $fetch1['or_type'];
@@ -118,7 +119,11 @@ include_once('header.php');
                            }
                            if($ortype != "NHS Hospital")
                            {
-                 $qe = mysqli_query($con, "SELECT COUNT(pt_id) AS num FROM tbl_patients");
+                               $aid =$_SESSION["a_id"];
+                               $qiu=mysqli_query($con,"SELECT * FROM `admin`,orginzation where admin.organization = orginzation.orid and admin.id='$aid'");
+$fetchsa=mysqli_fetch_array($qiu);
+    $org = $fetchsa['organization'];
+                 $qe = mysqli_query($con, "SELECT COUNT(pt_id) AS num FROM tbl_patients WHERE pt_orgid = '$org'");
 
 
               $ser = mysqli_fetch_assoc($qe);
@@ -187,7 +192,7 @@ include_once('header.php');
 								$sql = mysqli_query($con,"SELECT * FROM admin WHERE id = '$id'");
 								$fetch = mysqli_fetch_array($sql);
 								$orgid = $fetch['organization'];
-								
+								$email = $fetch['email'];
 								$sql1 = mysqli_query($con,"SELECT * FROM orginzation WHERE orid = '$orgid'");
 								$fetch1 = mysqli_fetch_array($sql1);
 								$ortype = $fetch1['or_type'];
@@ -195,7 +200,7 @@ include_once('header.php');
 								$orcode = $fetch1['or_code'];
                            if($ortype == "NHS Hospital")
                            {
-                                        $qe = mysqli_query($con, "SELECT COUNT(ur_id) AS number FROM tbl_ruser WHERE ur_role_id ='3' and ur_orgtype = '$orgid' and ur_orgcode = '$orcode'");
+                                        $qe = mysqli_query($con, "SELECT COUNT(ur_id) AS number FROM tbl_ruser WHERE ur_role_id ='3' and ur_orgtype = '$orgid' and ur_orgcode = '$orcode' and ur_email != '$email'");
                                         $usr = mysqli_fetch_assoc($qe);
                                          ?>
                                         <div class="col-xxl-3 col-sm-6">
@@ -225,7 +230,7 @@ include_once('header.php');
 								$sql = mysqli_query($con,"SELECT * FROM admin WHERE id = '$id'");
 								$fetch = mysqli_fetch_array($sql);
 								$orgid = $fetch['organization'];
-								
+								$email = $fetch['email'];
 								$sql1 = mysqli_query($con,"SELECT * FROM orginzation WHERE orid = '$orgid'");
 								$fetch1 = mysqli_fetch_array($sql1);
 								$ortype = $fetch1['or_type'];
@@ -233,7 +238,7 @@ include_once('header.php');
 								$orcode = $fetch1['or_code'];
                            if($ortype != "NHS Hospital")
                            {
-                                $qe = mysqli_query($con, "SELECT COUNT(ur_id) AS number FROM tbl_ruser WHERE ur_role_id ='5' and ur_orgtype = '$orgid' and ur_orgcode = '$orcode'");
+                                $qe = mysqli_query($con, "SELECT COUNT(ur_id) AS number FROM tbl_ruser WHERE ur_role_id ='5' and ur_orgtype = '$orgid' and ur_orgcode = '$orcode' and ur_email != '$email'");
                                         $usr = mysqli_fetch_assoc($qe);
                            
                                        ?>

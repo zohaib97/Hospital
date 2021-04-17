@@ -592,7 +592,7 @@ $fetch = mysqli_fetch_array($query);
 										<?php
 									}else{
 										?>
-										<input type="radio" value="Exclude Saturday and Sunday" name="ser_weekend" checked>&nbsp;&nbsp;
+										<input type="radio" value="Exclude Saturday and Sunday" name="ser_weekend">&nbsp;&nbsp;
 										<span>Exclude Saturday & Sunday</span>
 										<?php
 									}
@@ -1069,6 +1069,25 @@ $('#ser_cltype').html(response);
 });
 };
 $(document).ready(function(){
+    if($('#shpwpriority').prop('checked') == true)
+    {
+        $('#priodiv').show();
+        $('#showweekdiv').show();
+    }
+     if($('#urshow').prop('checked') == true)
+    {
+        $('#urgentdiv').show();
+        $('#showweekdiv').show();
+    }
+     if($('#2weekwait').prop('checked') == true)
+    {
+        $('#prioweek').show();
+        $('#showweekdiv').show();
+    }
+    
+        
+   
+ser_weekend
 fetchdataclin();
 });
 
