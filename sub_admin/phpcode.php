@@ -259,6 +259,12 @@ $fetchsa=mysqli_fetch_array($qiu);
 	{
 	    echo "already";
 	}
+	$sql1 = mysqli_query($con,"SELECT * FROM `org_locations` WHERE org_postcode = '$locpost'");
+	$fe1 = mysqli_num_rows($sql1);
+	if($fe1 > 0)
+	{
+	    echo "alreadypost";
+	}
 	else{
 	$query = mysqli_query($con,"INSERT INTO `org_locations`(`org_location`, `org_address`, `org_postcode`,`org_id`)VALUES('$locname','$locaddress','$locpost','$org')");
 	

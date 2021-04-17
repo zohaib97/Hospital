@@ -181,7 +181,7 @@ if(isset($_POST['addsubadmin']))
 		    $query3 = mysqli_query($con,"SELECT * FROM organisation_type WHERE ort_name = '$orgtype'");
 		    $typefetch = mysqli_fetch_array($query3);
 		    $typeid = $typefetch['id'];
-		    $query1 = mysqli_query($con,"INSERT INTO `tbl_ruser`(`ur_fname`, `ur_sname`, `ur_email`, `ur_pass`, `title`, `ur_orgname`, `ur_orgcode`, `ur_orgtype`, `ur_role_id`, `ur_role_name`, `ur_orgphno`, `ur_orgaddress`, `ur_status`, `ur_proregno`, `ur_address`, `ur_city`, `ur_postcode`) VALUES ('$name','$sname','$email','$password','Mr','$orgname','$orgcode','$typeid','$roleid','$rolename','$orgphone','$orgaddress','approve','862131645','$orgaddress','$orgcity','$orgpostcode')");
+		    $query1 = mysqli_query($con,"INSERT INTO `tbl_ruser`(`ur_fname`, `ur_sname`, `ur_email`, `ur_pass`, `title`, `ur_orgname`, `ur_orgcode`, `ur_orgtype`, `ur_role_id`, `ur_role_name`, `ur_orgphno`, `ur_orgaddress`, `ur_status`, `ur_proregno`, `ur_address`, `ur_city`, `ur_postcode`) VALUES ('$name','$sname','$email','$password','Mr','$orgname','$orgcode','$organization','$roleid','$rolename','$orgphone','$orgaddress','approve','862131645','$orgaddress','$orgcity','$orgpostcode')");
 			echo "Success";
 		}
 		else

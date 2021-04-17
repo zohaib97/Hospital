@@ -976,10 +976,15 @@ $('#servage').val(serv);
 	
 		if(  $("#patientgender").val()== "Mr" && $("#servicegender").val() == "Female"){
 		    NioApp.Toast("<h5>This Service Only Available For Female</h5>", 'warning',{position:'top-right'});
+		    document.getElementById('tabItem6').innerHTML ="";
+		    document.getElementById('tabItem7').innerHTML ="";
+		     $('#attach').hide();
 		}
 		if(($("#patientgender").val()== "Ms" && $("#servicegender").val()== "Male") || ($("#patientgender").val()== "Mrs" && $("#servicegender").val()== "Male")){
 		     NioApp.Toast("<h5>This Service Only Available For Male</h5>", 'warning',{position:'top-right'});
-		    
+		    document.getElementById('tabItem6').innerHTML ="";
+		    document.getElementById('tabItem7').innerHTML ="";
+		     $('#attach').hide();
 		}
 		var ptage = parseInt($('#ptage').val());
 	var servage2 = parseInt($('#servage2').val());
@@ -990,6 +995,9 @@ $('#servage').val(serv);
 					{
 				
 						NioApp.Toast("<h5>Your Age doesn't match to service age range</h5>", 'warning',{position:'top-right'});
+						document.getElementById('tabItem6').innerHTML ='';
+						 document.getElementById('tabItem7').innerHTML ="";
+						 $('#attach').hide();
 					}
 		else{
 		    	if(  $("#patientgender").val()== "Mr" && $("#servicegender").val() == "Male"){
@@ -1129,11 +1137,17 @@ $('#servage').val(serv);
 					{
 					   
 						NioApp.Toast("<h5>Your Age doesn't match to service age range</h5>", 'warning',{position:'top-right'});
+							document.getElementById('tabItem6').innerHTML ="";
+							document.getElementById('tabItem7').innerHTML ="";
+							$('#attach').hide();
 					}
 				else if(ptage < servage)
 					{
 					 
 						NioApp.Toast("<h5>Your Age doesn't match to service age range</h5>", 'warning',{position:'top-right'});
+							document.getElementById('tabItem6').innerHTML ="";
+							document.getElementById('tabItem7').innerHTML ="";
+							$('#attach').hide();
 					}
 		else{
 		   

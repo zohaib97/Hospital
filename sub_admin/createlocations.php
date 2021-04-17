@@ -234,11 +234,12 @@ include_once('../database/db.php');
 				else if(data == 'already'){
 				
 					toastr.clear();
-               NioApp.Toast("<h5>Location Already Exist</h5>", 'error',{position:'top-right'});
-             
-
-					
-					
+               NioApp.Toast("<h5>Location Already Exist</h5>", 'error',{position:'top-right'});	
+                }
+                else if(data == 'alreadypost'){
+				
+					toastr.clear();
+               NioApp.Toast("<h5>Location Postcode Exist</h5>", 'error',{position:'top-right'});	
                 }
 			
                 $('#locationadd').css("opacity","");
