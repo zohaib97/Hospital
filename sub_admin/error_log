@@ -607,3 +607,4 @@
 [17-Apr-2021 20:29:03 UTC] PHP Warning:  move_uploaded_file(): Unable to move '/tmp/php4JxBTA' to 'assets/uploads/Penguins.jpg' in /home/extremeearn/hospital.extremeearn.com/sub_admin/gpphpcode.php on line 2011
 [17-Apr-2021 20:29:04 UTC] PHP Warning:  move_uploaded_file(assets/uploads/Penguins.jpg): failed to open stream: No such file or directory in /home/extremeearn/hospital.extremeearn.com/sub_admin/gpphpcode.php on line 2011
 [17-Apr-2021 20:29:04 UTC] PHP Warning:  move_uploaded_file(): Unable to move '/tmp/php2uJpbF' to 'assets/uploads/Penguins.jpg' in /home/extremeearn/hospital.extremeearn.com/sub_admin/gpphpcode.php on line 2011
+[20-Apr-2021 04:31:08 UTC] PHP Warning:  date_format() expects parameter 1 to be DateTimeInterface, bool given in /home/extremeearn/hospital.extremeearn.com/sub_admin/gpphpcode.php on line 2286

@@ -166,15 +166,13 @@ if(isset($_POST['serrefferelfetch']))
 <table class="nowrap nk-tb-list is-separate" data-auto-responsive="false" id="myTable">
 <thead>
 <tr class="nk-tb-item nk-tb-head">
+<th class="nk-tb-col"><span>Refferal ID</span></th>
+<th class="nk-tb-col"><span>Date Refferal Recieved</span></th>
 	<th class="nk-tb-col"><span>NHS no</span></th>
-	<th class="nk-tb-col"><span>Referrer</span></th>
-	<th class="nk-tb-col"><span>Service Name</span></th>
-	
+	<th class="nk-tb-col"><span>Patient First name</span></th>
+	<th class="nk-tb-col"><span>Patient Last name</span></th>
+	<th class="nk-tb-col"><span>D.O.B</span></th>
 		<th class="nk-tb-col"><span>Response Chat Status </span></th>
-	<th class="nk-tb-col"><span>Specialty</span></th>
-	<th class="nk-tb-col"><span>Clinic Type</span></th>
-	<th class="nk-tb-col"><span>Clinicians</span></th>
-	<th class="nk-tb-col"><span>Pateint Name</span></th>
 	<th class="nk-tb-col"><span>Reply To Refferer</span></th>
 	<th class="nk-tb-col"><span>Accept </span></th>
 
@@ -184,19 +182,29 @@ if(isset($_POST['serrefferelfetch']))
 		while ($fetch = mysqli_fetch_array($query)) {
 			$rfid = $fetch['pt_id'];
 		 	$referalid =$fetch["c_id"];
+		 	$datecreate = $fetch['createdate'];
+		 	$dt = new DateTime($datecreate);
+		 	$dt->format('Y-m-d');
 $qki2=mysqli_query($con,"select * from tbl_refferelattachment,tbl_consultantrefferels  where  tbl_refferelattachment.ra_refferelid='$referalid' and tbl_consultantrefferels.c_id=tbl_refferelattachment.ra_refferelid and request_type='Advice Request' ORDER BY ra_id DESC LIMIT 1");
 $hks=mysqli_fetch_array($qki2);
 			echo '   <tr class="nk-tb-item">
-
+<td class="nk-tb-col">
+<span class="tb-lead">' . $fetch['c_id'] . '</span>
+</td>
+<td class="nk-tb-col">
+<span class="tb-lead">' . $dt . '</span>
+</td>
 <td class="nk-tb-col">
 <span class="tb-lead">' . $fetch['pt_nhsno'] . '</span>
 </td>
-
 <td class="nk-tb-col">
-<span class="tb-lead">'.$fetch['ur_fname'].''. $fetch['ur_sname'] . '</span>
+<span class="tb-lead">' . $fetch['pt_name'] . '</span>
 </td>
 <td class="nk-tb-col">
-<span class="tb-lead">' . $fetch['s_name'] . '</span>
+<span class="tb-lead">' . $fetch['pt_surname'] . '</span>
+</td>
+<td class="nk-tb-col">
+<span class="tb-lead">' . $fetch['pt_dob'] . '</span>
 </td>';
 	if($hks["sender"] == $id && $hks["reciever"]==$fetch["c_gpid"] && $hks["reply"] == 1){
  echo '
@@ -228,18 +236,7 @@ $hks=mysqli_fetch_array($qki2);
 	</td>
 	';
 	}
-echo'<td class="nk-tb-col">
-<span class="tb-lead">' . $fetch['spec_name'] . '</span>
-</td>
-<td class="nk-tb-col">
-<span class="tb-lead">' . $fetch['cl_type'] . '</span>
-</td>
-<td class="nk-tb-col">
-<span class="tb-lead">' . $fetch['ur_fname'] . '</span>
-</td>
-<td class="nk-tb-col">
-<span class="tb-lead">' . $fetch['pt_name'] . '</span>
-</td>
+echo'
 <td class="nk-tb-col">
 <a href="adreqreply.php?nhsno='.$fetch['pt_nhsno'].'&pid='.$fetch["c_rfid"].'&request_type=Advice Request" class="btn btn-info btn-sm">View Refferer</a>
 </td>';
@@ -301,14 +298,12 @@ if(isset($_POST['serrefferelfetch1']))
 <table class="nowrap nk-tb-list is-separate" data-auto-responsive="false" id="myTable">
 <thead>
 <tr class="nk-tb-item nk-tb-head">
-	<th class="nk-tb-col tb-col-sm"><span>NHS no</span></th>
-
-	<th class="nk-tb-col"><span>Referrer</span></th>
-	<th class="nk-tb-col"><span>Service Name</span></th>
-	<th class="nk-tb-col"><span>Specialty</span></th>
-	<th class="nk-tb-col"><span>Clinic Type</span></th>
-	<th class="nk-tb-col"><span>Clinicians</span></th>
-	<th class="nk-tb-col"><span>Pateint Name</span></th>
+	<th class="nk-tb-col"><span>Refferal ID</span></th>
+<th class="nk-tb-col"><span>Date Refferal Recieved</span></th>
+	<th class="nk-tb-col"><span>NHS no</span></th>
+	<th class="nk-tb-col"><span>Patient First name</span></th>
+	<th class="nk-tb-col"><span>Patient Last name</span></th>
+	<th class="nk-tb-col"><span>D.O.B</span></th>
 	<th class="nk-tb-col"><span>Reply To Refferer</span></th>
 	<th class="nk-tb-col"><span>Status </span></th>
 
@@ -317,29 +312,28 @@ if(isset($_POST['serrefferelfetch1']))
 <tbody id="">';
 		while ($fetch = mysqli_fetch_array($query)) {
 			$rfid = $fetch['pt_id'];
-
+	$datecreate = $fetch['createdate'];
+		 	$dt = new DateTime($datecreate);
+		 	$dt->format('Y-m-d');
 			echo '   <tr class="nk-tb-item">
 
 <td class="nk-tb-col">
+<span class="tb-lead">' . $fetch['c_id'] . '</span>
+</td>
+<td class="nk-tb-col">
+<span class="tb-lead">' . $dt . '</span>
+</td>
+<td class="nk-tb-col">
 <span class="tb-lead">' . $fetch['pt_nhsno'] . '</span>
-</td>
-
-<td class="nk-tb-col">
-<span class="tb-lead">'.$fetch['ur_fname'].''. $fetch['ur_sname'] . '</span>
-</td>
-<td class="nk-tb-col">
-<span class="tb-lead">' . $fetch['s_name'] . '</span>
-</td><td class="nk-tb-col">
-<span class="tb-lead">' . $fetch['spec_name'] . '</span>
-</td>
-<td class="nk-tb-col">
-<span class="tb-lead">' . $fetch['cl_type'] . '</span>
-</td>
-<td class="nk-tb-col">
-<span class="tb-lead">' . $fetch['ur_fname'] . '</span>
 </td>
 <td class="nk-tb-col">
 <span class="tb-lead">' . $fetch['pt_name'] . '</span>
+</td>
+<td class="nk-tb-col">
+<span class="tb-lead">' . $fetch['pt_surname'] . '</span>
+</td>
+<td class="nk-tb-col">
+<span class="tb-lead">' . $fetch['pt_dob'] . '</span>
 </td>
 <td class="nk-tb-col">
 <a href="adreqreply.php?nhsno='.$fetch['pt_nhsno'].'&pid='.$fetch["c_rfid"].'&request_type=Advice Request" class="btn btn-info btn-sm">View Refferer</a>
@@ -386,15 +380,13 @@ if(isset($_POST['serrefferelfetch2']))
 <table class="nowrap nk-tb-list is-separate" data-auto-responsive="false" id="myTable">
 <thead>
 <tr class="nk-tb-item nk-tb-head">
-	<th class="nk-tb-col tb-col-sm"><span>NHS no</span></th>
-
-	<th class="nk-tb-col"><span>Referrer</span></th>
-	<th class="nk-tb-col"><span>Service Name</span></th>
+    <th class="nk-tb-col"><span>Refferal ID</span></th>
+<th class="nk-tb-col"><span>Date Refferal Recieved</span></th>
+	<th class="nk-tb-col"><span>NHS no</span></th>
 	<th class="nk-tb-col"><span>Response Chat Status </span></th>
-	<th class="nk-tb-col"><span>Speciality</span></th>
-	<th class="nk-tb-col"><span>Clinic Type</span></th>
-	<th class="nk-tb-col"><span>Clinicians</span></th>
-	<th class="nk-tb-col"><span>Pateint Name</span></th>
+		<th class="nk-tb-col"><span>Patient First name</span></th>
+	<th class="nk-tb-col"><span>Patient Last name</span></th>
+	<th class="nk-tb-col"><span>D.O.B</span></th>
 	<th class="nk-tb-col"><span>Reply To Refferer</span></th>
 	<th class="nk-tb-col"><span>Accept </span></th>
 
@@ -404,20 +396,22 @@ if(isset($_POST['serrefferelfetch2']))
 		while ($fetch = mysqli_fetch_array($query)) {
 			$rfid = $fetch['pt_id'];
 $referalid =$fetch["c_id"];
+$datecreate = $fetch['createdate'];
+		 	$dt = new DateTime($datecreate);
+		 	$dt->format('Y-m-d');
 $qki2=mysqli_query($con,"select * from tbl_refferelattachment,tbl_consultantrefferels  where  tbl_refferelattachment.ra_refferelid='$referalid' and tbl_consultantrefferels.c_id=tbl_refferelattachment.ra_refferelid and request_type !='Advice Request' ORDER BY ra_id DESC LIMIT 1");
 $hks=mysqli_fetch_array($qki2);
 			echo '   <tr class="nk-tb-item">
-
+<td class="nk-tb-col">
+<span class="tb-lead">' . $fetch['c_id'] . '</span>
+</td>
+<td class="nk-tb-col">
+<span class="tb-lead">' . $dt . '</span>
+</td>
 <td class="nk-tb-col">
 <span class="tb-lead">' . $fetch['pt_nhsno'] . '</span>
 </td>
-
-<td class="nk-tb-col">
-<span class="tb-lead">'.$fetch['ur_fname'].''. $fetch['ur_sname'] . '</span>
-</td>
-<td class="nk-tb-col">
-<span class="tb-lead">' . $fetch['s_name'] . '</span>
-</td>';
+';
 	if($hks["sender"] == $id && $hks["reciever"]==$fetch["c_gpid"] && $hks["reply"] == 1){
  echo '
  
@@ -425,7 +419,15 @@ $hks=mysqli_fetch_array($qki2);
 
 	<span class="badge badge-danger">Clinician Provider Response Required</span>
 	</td>
-	
+	<td class="nk-tb-col">
+<span class="tb-lead">' . $fetch['pt_name'] . '</span>
+</td>
+<td class="nk-tb-col">
+<span class="tb-lead">' . $fetch['pt_surname'] . '</span>
+</td>
+<td class="nk-tb-col">
+<span class="tb-lead">' . $fetch['pt_dob'] . '</span>
+</td>
 
 	';   
 	}
@@ -448,18 +450,7 @@ $hks=mysqli_fetch_array($qki2);
 	</td>
 	';
 	}
-echo'<td class="nk-tb-col">
-<span class="tb-lead">' . $fetch['spec_name'] . '</span>
-</td>
-<td class="nk-tb-col">
-<span class="tb-lead">' . $fetch['cl_type'] . '</span>
-</td>
-<td class="nk-tb-col">
-<span class="tb-lead">' . $fetch['ur_fname'] . '</span>
-</td>
-<td class="nk-tb-col">
-<span class="tb-lead">' . $fetch['pt_name'] . '</span>
-</td>
+echo'
 <td class="nk-tb-col">
 <a href="adreqreply.php?nhsno='.$fetch['pt_nhsno'].'&pid='.$fetch["c_rfid"].'&request_type=Appointment Request" class="btn btn-info btn-sm">View Refferer</a>
 </td>';
@@ -527,14 +518,13 @@ if(isset($_POST['serrefferelfetch3']))
 <table class="nowrap nk-tb-list is-separate" data-auto-responsive="false" id="myTable">
 <thead>
 <tr class="nk-tb-item nk-tb-head">
-	<th class="nk-tb-col tb-col-sm"><span>NHS no</span></th>
-
-	<th class="nk-tb-col"><span>Referrer</span></th>
-	<th class="nk-tb-col"><span>Service Name</span></th>
-	<th class="nk-tb-col"><span>Specialty</span></th>
-	<th class="nk-tb-col"><span>Clinic Type</span></th>
-	<th class="nk-tb-col"><span>Clinicians</span></th>
-	<th class="nk-tb-col"><span>Pateint Name</span></th>
+	<th class="nk-tb-col"><span>Refferal ID</span></th>
+<th class="nk-tb-col"><span>Date Refferal Recieved</span></th>
+	<th class="nk-tb-col"><span>NHS no</span></th>
+	<th class="nk-tb-col"><span>Patient First name</span></th>
+	<th class="nk-tb-col"><span>Patient Last name</span></th>
+	<th class="nk-tb-col"><span>D.O.B</span></th>
+	
 	<th class="nk-tb-col"><span>Reply To Refferer</span></th>
 	<th class="nk-tb-col"><span>Accept </span></th>
 
@@ -547,25 +537,22 @@ if(isset($_POST['serrefferelfetch3']))
 			echo '   <tr class="nk-tb-item">
 
 <td class="nk-tb-col">
+<span class="tb-lead">' . $fetch['c_id'] . '</span>
+</td>
+<td class="nk-tb-col">
+<span class="tb-lead">' . $dt . '</span>
+</td>
+<td class="nk-tb-col">
 <span class="tb-lead">' . $fetch['pt_nhsno'] . '</span>
-</td>
-
-<td class="nk-tb-col">
-<span class="tb-lead">'.$fetch['ur_fname'].''. $fetch['ur_sname'] . '</span>
-</td>
-<td class="nk-tb-col">
-<span class="tb-lead">' . $fetch['s_name'] . '</span>
-</td><td class="nk-tb-col">
-<span class="tb-lead">' . $fetch['spec_name'] . '</span>
-</td>
-<td class="nk-tb-col">
-<span class="tb-lead">' . $fetch['cl_type'] . '</span>
-</td>
-<td class="nk-tb-col">
-<span class="tb-lead">' . $fetch['ur_fname'] . '</span>
 </td>
 <td class="nk-tb-col">
 <span class="tb-lead">' . $fetch['pt_name'] . '</span>
+</td>
+<td class="nk-tb-col">
+<span class="tb-lead">' . $fetch['pt_surname'] . '</span>
+</td>
+<td class="nk-tb-col">
+<span class="tb-lead">' . $fetch['pt_dob'] . '</span>
 </td>
 <td class="nk-tb-col">
 <a href="adreqreply.php?nhsno='.$fetch['pt_nhsno'].'&pid='.$fetch["c_rfid"].'&request_type=Appointment Request" class="btn btn-info btn-sm">View Refferer</a>
@@ -625,14 +612,12 @@ if(isset($_POST['serrefferelfetch4']))
 <table class="nowrap nk-tb-list is-separate" data-auto-responsive="false" id="myTable">
 <thead>
 <tr class="nk-tb-item nk-tb-head">
-	<th class="nk-tb-col tb-col-sm"><span>NHS no</span></th>
-
-	<th class="nk-tb-col"><span>Referrer</span></th>
-	<th class="nk-tb-col"><span>Service Name4</span></th>
-	<th class="nk-tb-col"><span>Specialty</span></th>
-	<th class="nk-tb-col"><span>Clinic Type</span></th>
-	<th class="nk-tb-col"><span>Clinicians</span></th>
-	<th class="nk-tb-col"><span>Pateint Name</span></th>
+    <th class="nk-tb-col"><span>Refferal ID</span></th>
+<th class="nk-tb-col"><span>Date Refferal Recieved</span></th>
+	<th class="nk-tb-col"><span>NHS no</span></th>
+	<th class="nk-tb-col"><span>Patient First name</span></th>
+	<th class="nk-tb-col"><span>Patient Last name</span></th>
+	<th class="nk-tb-col"><span>D.O.B</span></th>
 	<th class="nk-tb-col"><span>Reply To Refferer</span></th>
 	<th class="nk-tb-col"><span>Accept </span></th>
 
@@ -645,25 +630,22 @@ if(isset($_POST['serrefferelfetch4']))
 			echo '   <tr class="nk-tb-item">
 
 <td class="nk-tb-col">
+<span class="tb-lead">' . $fetch['c_id'] . '</span>
+</td>
+<td class="nk-tb-col">
+<span class="tb-lead">' . $dt . '</span>
+</td>
+<td class="nk-tb-col">
 <span class="tb-lead">' . $fetch['pt_nhsno'] . '</span>
-</td>
-
-<td class="nk-tb-col">
-<span class="tb-lead">'.$fetch['ur_fname'].''. $fetch['ur_sname'] . '</span>
-</td>
-<td class="nk-tb-col">
-<span class="tb-lead">' . $fetch['s_name'] . '</span>
-</td><td class="nk-tb-col">
-<span class="tb-lead">' . $fetch['spec_name'] . '</span>
-</td>
-<td class="nk-tb-col">
-<span class="tb-lead">' . $fetch['cl_type'] . '</span>
-</td>
-<td class="nk-tb-col">
-<span class="tb-lead">' . $fetch['ur_fname'] . '</span>
 </td>
 <td class="nk-tb-col">
 <span class="tb-lead">' . $fetch['pt_name'] . '</span>
+</td>
+<td class="nk-tb-col">
+<span class="tb-lead">' . $fetch['pt_surname'] . '</span>
+</td>
+<td class="nk-tb-col">
+<span class="tb-lead">' . $fetch['pt_dob'] . '</span>
 </td>
 <td class="nk-tb-col">
 <a href="adreqreply.php?nhsno='.$fetch['pt_nhsno'].'&pid='.$fetch["c_rfid"].'&request_type=Appointment Request" class="btn btn-info btn-sm">View Refferer</a>

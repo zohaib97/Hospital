@@ -115,7 +115,7 @@ include_once('header.php');
 														?>
                                                         <span class="font-weight-bold">Named Clinician</span>
                                                         <br>
-                                                        <span><?=$dref['ur_sname']?></span>
+                                                        <span><?=$dref['ur_fname']." ".$dref['ur_sname']?></span>
                                                     </div>
                                                     
                                                     <div class="col-md-6 mb-2">
@@ -163,9 +163,7 @@ include_once('header.php');
                                                     <div class="col-md-12 mb-2">
                                                         <span class="font-weight-bold">Registered Practice</span>
                                                         <br>
-                                                        <span>Karachi
-                                                            Sindh
-                                                            Pakistan</span>
+                                                        <span><?=$dref['ur_address']?></span>
                                                     </div>
                                                     
                                                    
@@ -493,6 +491,10 @@ $('#acceptreason').on('submit',function(e){
                     position: 'top-right'
                 });
                 $('#acceptmodal').modal('hide');
+                setTimeout(function(){
+                    
+                    window.location.href="index.php";
+                    }, 1500);
 	        }
 	        if(res == "error"){
 	          toastr.clear();
