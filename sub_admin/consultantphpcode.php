@@ -247,7 +247,16 @@ if($fetch["c_status"]==0){
 echo '
 <td class="nk-tb-col">
 
-<a href="javascript:void(0)" onclick="slsl(\''.$fetch["c_id"].'\',\''.$fetch['c_status'].'\')" class="btn btn-primary btn-sm">Mark as Incomplete </a>
+<a href="javascript:void(0)" onclick="slsl(\''.$fetch["c_id"].'\',\''.$fetch['c_status'].'\')" class="btn btn-primary btn-sm">UnAccept Request </a>
+</td>
+
+';
+}
+elseif($fetch["c_status"]==2){
+echo '
+<td class="nk-tb-col">
+
+<a href="javascript:void(0)" onclick="slsl(\''.$fetch["c_id"].'\',\''.$fetch['c_status'].'\')" class="btn btn-primary btn-sm">UnAccept Request </a>
 </td>
 
 ';
@@ -255,7 +264,7 @@ echo '
  echo '
 <td class="nk-tb-col">
 
-<a href="javascript:void(0)" onclick="slsl(\''.$fetch["c_id"].'\',\''.$fetch['c_status'].'\')" class="btn btn-primary btn-sm">Mark as Complete</a>
+<a href="javascript:void(0)" onclick="slsl(\''.$fetch["c_id"].'\',\''.$fetch['c_status'].'\')" class="btn btn-primary btn-sm">Accepted</a>
 </td>
 
 ';   
@@ -471,7 +480,17 @@ echo '
 </td>
 
 ';
-}elseif($fetch["c_status"] == 1 ){
+}
+elseif($fetch["c_status"]==2){
+echo '
+<td class="nk-tb-col">
+
+<a href="javascript:void(0)" onclick="slsl(\''.$fetch["c_id"].'\',\''.$fetch['c_status'].'\')" class="btn btn-primary btn-sm">UnAccept Request </a>
+</td>
+
+';
+}
+elseif($fetch["c_status"] == 1 ){
  echo '
 <td class="nk-tb-col">
 
@@ -569,7 +588,16 @@ echo '
 </td>
 
 ';
-}elseif($fetch["c_status"] == 1 ){
+}elseif($fetch["c_status"]==2){
+echo '
+<td class="nk-tb-col">
+
+<span  class="badge badge-danger">UnAccept Request </span >
+</td>
+
+';
+}
+elseif($fetch["c_status"] == 1 ){
  echo '
 <td class="nk-tb-col">
 
@@ -667,7 +695,16 @@ echo '
 </td>
 
 ';
-}elseif($fetch["c_status"] == 1 ){
+}elseif($fetch["c_status"]==2){
+echo '
+<td class="nk-tb-col">
+
+<span  class="badge badge-danger">UnAccept Request </span >
+</td>
+
+';
+}
+elseif($fetch["c_status"] == 1 ){
  echo '
 <td class="nk-tb-col">
 
@@ -691,6 +728,22 @@ $("#myTable").DataTable({
 ';
 	}
 }
+
+//for comment status
+if(isset($_POST['updatestatus']))
+{
+    $rfno = $_POST['rfno'];
+    $query = mysqli_query($con,"UPDATE `tbl_refferelattachment` SET `status`= 'seen' WHERE ra_refferelid = '$rfno' and reply = '0'");
+    if($query)
+    {
+        echo "Success";
+    }
+    else
+    {
+        echo"error";
+    }
+}
+
 if(isset($_POST['consultantdata']))
 {
 	$id = $_POST['rid'];

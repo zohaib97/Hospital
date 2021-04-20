@@ -608,3 +608,6 @@
 [17-Apr-2021 20:29:04 UTC] PHP Warning:  move_uploaded_file(assets/uploads/Penguins.jpg): failed to open stream: No such file or directory in /home/extremeearn/hospital.extremeearn.com/sub_admin/gpphpcode.php on line 2011
 [17-Apr-2021 20:29:04 UTC] PHP Warning:  move_uploaded_file(): Unable to move '/tmp/php2uJpbF' to 'assets/uploads/Penguins.jpg' in /home/extremeearn/hospital.extremeearn.com/sub_admin/gpphpcode.php on line 2011
 [20-Apr-2021 04:31:08 UTC] PHP Warning:  date_format() expects parameter 1 to be DateTimeInterface, bool given in /home/extremeearn/hospital.extremeearn.com/sub_admin/gpphpcode.php on line 2286
+[20-Apr-2021 06:02:04 UTC] PHP Warning:  mysqli_num_rows() expects parameter 1 to be mysqli_result, bool given in /home/extremeearn/hospital.extremeearn.com/sub_admin/phpcode.php on line 2167
+[20-Apr-2021 07:38:02 UTC] PHP Parse error:  syntax error, unexpected '<' in /home/extremeearn/hospital.extremeearn.com/sub_admin/headernav.php on line 237
+[20-Apr-2021 07:38:04 UTC] PHP Parse error:  syntax error, unexpected '<' in /home/extremeearn/hospital.extremeearn.com/sub_admin/headernav.php on line 237

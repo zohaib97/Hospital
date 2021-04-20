@@ -58,7 +58,7 @@ if(!isset($_SESSION['gprefferer'])){
 						<div class="dropdown-menu dropdown-menu-xl dropdown-menu-right">
 							<div class="dropdown-head">
 								<span class="sub-title nk-dropdown-title">Recent Chats</span>
-								<a href="#">Setting</a>
+							
 							</div>
 							<div class="dropdown-body">
 								<ul class="chat-list">

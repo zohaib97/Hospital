@@ -112,8 +112,10 @@ if(!isset($_SESSION['consultant'])){
 									$f = mysqli_fetch_array($q);
 									$id = $f['ur_id'];
 							
-									$qq= mysqli_query($con,"SELECT  count(*) as a FROM tbl_consultantrefferels WHERE c_userid = '$id' and c_status='2'");
+									$qq= mysqli_query($con,"SELECT  count(*) as a FROM tbl_consultantrefferels,tbl_refferelattachment WHERE tbl_refferelattachment.ra_refferelid=tbl_consultantrefferels.c_id and c_userid = '$id' and c_status='2'");
 									$rfcksj=mysqli_fetch_array($qq);
+								
+									$reqtype111 = $rfcksj['request_type'] ? $rfcksj['request_type'] :"";
 									if($rfcksj["a"] >0){
 									?>
 									<div class="nk-notification-item dropdown-inner">
@@ -129,7 +131,7 @@ if(!isset($_SESSION['consultant'])){
 								</div><!-- .nk-notification -->
 							</div><!-- .nk-dropdown-body -->
 							<div class="dropdown-foot center">
-								<a href="servicerefferels.php">View All</a>
+								<a href="servicerefferels.php?reqtype=<?=$reqtype111?>&status=0">View All</a>
 							</div>
 						</div>
 					</li>

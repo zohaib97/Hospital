@@ -151,6 +151,8 @@ $fetchsa=mysqli_fetch_array($qiu);
                                                 </div><!-- .nk-ecwg -->
                                             </div><!-- .card -->
                                         </div><!-- .col -->
+                                        
+                                     
                                         <?php
                            }
                                         $id = $_SESSION['a_id'];
@@ -164,6 +166,7 @@ $fetchsa=mysqli_fetch_array($qiu);
                            {
                                         $qe = mysqli_query($con, "SELECT COUNT(u_serid) AS number FROM tbl_service_definer WHERE u_orgid = '$orgid'");
                                         $usr = mysqli_fetch_assoc($qe);
+                                       
                                          ?>
                                        <div class="col-xxl-3 col-sm-6">
                                             <div class="card">
@@ -187,7 +190,146 @@ $fetchsa=mysqli_fetch_array($qiu);
                                             </div><!-- .card -->
                                         </div><!-- .col -->
                                         <?php
+                                         $loginem=   $_SESSION['consultant'];
+                                $idq = mysqli_query($con, "SELECT * FROM `tbl_ruser` WHERE `ur_email` = '$loginem'");
+			$dataid = mysqli_fetch_assoc($idq);
+			$orgid1 = $dataid['ur_orgtype'];
+				$urid = $dataid['ur_id'];
+                 $qe = mysqli_query($con, "SELECT COUNT(m_id) AS number FROM `tbl_consultantrefferels` JOIN `services` ON tbl_consultantrefferels.c_serid = services.service_id WHERE services.s_orgid = '$orgid' and services.ser_priority_urg !='' and services.service_r_t_support = 'Advice Request,' and tbl_consultantrefferels.c_userid = '$urid'");
+
+
+              $hos = mysqli_fetch_assoc($qe);
+            
+                                        ?>
+                                           <div class="col-xxl-3 col-sm-6">
+                                            <div class="card">
+                                                <div class="nk-ecwg nk-ecwg6">
+                                                    <div class="card-inner">
+                                                        <div class="card-title-group">
+                                                            <div class="card-title">
+                                                                <h6 class="title">Urgent Advice Request</h6>
+                                                            </div>
+                                                        </div>
+                                                        <div class="data">
+                                                            <div class="data-group">
+                                                                <div class="amount"><?php echo $hos['number']?></div>
+                                                                <div class="nk-ecwg6-ck">
+                                                                    <canvas class="ecommerce-line-chart-s3" id="todayRevenue"></canvas>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div><!-- .card-inner -->
+                                                </div><!-- .nk-ecwg -->
+                                            </div><!-- .card -->
+                                        </div><!-- .col -->
+                                        <?php
+             
+                   $loginem=   $_SESSION['consultant'];
+                                $idq = mysqli_query($con, "SELECT * FROM `tbl_ruser` WHERE `ur_email` = '$loginem'");
+			$dataid = mysqli_fetch_assoc($idq);
+			$orgid1 = $dataid['ur_orgtype'];
+				$urid = $dataid['ur_id'];
+                 $qe = mysqli_query($con, "SELECT COUNT(m_id) AS number FROM `tbl_consultantrefferels` JOIN `services` ON tbl_consultantrefferels.c_serid = services.service_id WHERE services.s_orgid = '$orgid' and services.ser_priority_rout !='' and services.service_r_t_support = 'Advice Request,' and tbl_consultantrefferels.c_userid = '$urid'");
+
+
+              $hos = mysqli_fetch_assoc($qe);
+            
+                                        ?>
+                                         <div class="col-xxl-3 col-sm-6">
+                                            <div class="card">
+                                                <div class="nk-ecwg nk-ecwg6">
+                                                    <div class="card-inner">
+                                                        <div class="card-title-group">
+                                                            <div class="card-title">
+                                                                <h6 class="title">Routine Advice Request</h6>
+                                                            </div>
+                                                        </div>
+                                                        <div class="data">
+                                                            <div class="data-group">
+                                                                <div class="amount"><?php echo $hos['number']?></div>
+                                                                <div class="nk-ecwg6-ck">
+                                                                    <canvas class="ecommerce-line-chart-s3" id="todayRevenue"></canvas>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div><!-- .card-inner -->
+                                                </div><!-- .nk-ecwg -->
+                                            </div><!-- .card -->
+                                        </div><!-- .col -->
+                                        <?php
+             
+                  $loginem=   $_SESSION['consultant'];
+                                $idq = mysqli_query($con, "SELECT * FROM `tbl_ruser` WHERE `ur_email` = '$loginem'");
+			$dataid = mysqli_fetch_assoc($idq);
+			$orgid1 = $dataid['ur_orgtype'];
+				$urid = $dataid['ur_id'];
+                 $qe = mysqli_query($con, "SELECT COUNT(m_id) AS number FROM `tbl_consultantrefferels` JOIN `services` ON tbl_consultantrefferels.c_serid = services.service_id WHERE services.s_orgid = '$orgid' and services.ser_priority_urg !='' and services.service_r_t_support = 'Appointment Request,' and tbl_consultantrefferels.c_userid = '$urid'");
+
+
+              $hos = mysqli_fetch_assoc($qe);
+           
+                                        ?>
+                                         <div class="col-xxl-3 col-sm-6">
+                                            <div class="card">
+                                                <div class="nk-ecwg nk-ecwg6">
+                                                    <div class="card-inner">
+                                                        <div class="card-title-group">
+                                                            <div class="card-title">
+                                                                <h6 class="title">Urgent Refferals Awaiting Triage</h6>
+                                                            </div>
+                                                        </div>
+                                                        <div class="data">
+                                                            <div class="data-group">
+                                                                <div class="amount"><?php echo $hos['number']?></div>
+                                                                <div class="nk-ecwg6-ck">
+                                                                    <canvas class="ecommerce-line-chart-s3" id="todayRevenue"></canvas>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div><!-- .card-inner -->
+                                                </div><!-- .nk-ecwg -->
+                                            </div><!-- .card -->
+                                        </div><!-- .col -->
+                                        <?php
+            
+                 $loginem=   $_SESSION['consultant'];
+                                $idq = mysqli_query($con, "SELECT * FROM `tbl_ruser` WHERE `ur_email` = '$loginem'");
+			$dataid = mysqli_fetch_assoc($idq);
+			$orgid1 = $dataid['ur_orgtype'];
+				$urid = $dataid['ur_id'];
+                 $qe = mysqli_query($con, "SELECT COUNT(m_id) AS number FROM `tbl_consultantrefferels` JOIN `services` ON tbl_consultantrefferels.c_serid = services.service_id WHERE services.s_orgid = '$orgid' and services.ser_priority_rout !='' and services.service_r_t_support = 'Appointment Request,' and tbl_consultantrefferels.c_userid = '$urid'");
+
+
+              $hos = mysqli_fetch_assoc($qe);
+            
+                                        ?>
+                                        <div class="col-xxl-3 col-sm-6">
+                                            <div class="card">
+                                                <div class="nk-ecwg nk-ecwg6">
+                                                    <div class="card-inner">
+                                                        <div class="card-title-group">
+                                                            <div class="card-title">
+                                                                <h6 class="title">Routine Refferals Awaiting Triage</h6>
+                                                            </div>
+                                                        </div>
+                                                        <div class="data">
+                                                            <div class="data-group">
+                                                                <div class="amount"><?php echo $hos['number']?></div>
+                                                                <div class="nk-ecwg6-ck">
+                                                                    <canvas class="ecommerce-line-chart-s3" id="todayRevenue"></canvas>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div><!-- .card-inner -->
+                                                </div><!-- .nk-ecwg -->
+                                            </div><!-- .card -->
+                                        </div><!-- .col -->
+                                        <?php
+           
+                                        ?>
+                                        <?php
                            }
+                           
                                         $id = $_SESSION['a_id'];
 								$sql = mysqli_query($con,"SELECT * FROM admin WHERE id = '$id'");
 								$fetch = mysqli_fetch_array($sql);

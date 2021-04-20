@@ -66,7 +66,7 @@ include_once('../database/db.php');
 													elseif($rtype == "Appointment Request" && $status == 2)
 													{
 													?>
-													<option value="Referrals Recieved" selected>Referrals Recieved</option>
+													<option value="Referrals Recieved" selected>Referrals Awaiting Triage</option>
 													<?php
 													}
 													elseif($rtype == "Advice request" && $status == 0)
@@ -84,7 +84,7 @@ include_once('../database/db.php');
 														?>
 														<option value="Advice and Guidance Request">Advice request</option>
 														<option value="Advice Responded">Advice Responded</option>
-														<option value="Referrals Recieved">Referrals Recieved</option>
+														<option value="Referrals Recieved">Referrals Awaiting Triage</option>
 														<option value="Referrals Accepted">Referrals Accepted</option>
 														<option value="Referals Rejected">Referals Rejected</option>
 													</select>

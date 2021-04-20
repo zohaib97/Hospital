@@ -156,10 +156,11 @@ $fetchsa=mysqli_fetch_array($qiu);
 // 		echo $senderid;
 						$ks=mysqli_query($con,"SELECT * FROM `orginzation` where orid ='$orid'");
 						$klo=mysqli_fetch_array($ks);
-									$qqqq = mysqli_query($con,"SELECT count(*) as a FROM tbl_consultantrefferels,tbl_refferelattachment WHERE tbl_refferelattachment.ra_refferelid=tbl_consultantrefferels.c_id and tbl_consultantrefferels.c_gpid = '$senderid' and tbl_consultantrefferels.c_status ='2' ");
+									$qqqq = mysqli_query($con,"SELECT count(*) as a FROM tbl_consultantrefferels,tbl_refferelattachment WHERE tbl_refferelattachment.ra_refferelid=tbl_consultantrefferels.c_id and tbl_consultantrefferels.c_gpid = '$senderid' and tbl_consultantrefferels.c_status ='1' ");
 									$fdsw=mysqli_fetch_array($qqqq);
-									$mss = mysqli_query($con,"SELECT * FROM tbl_consultantrefferels,tbl_refferelattachment WHERE tbl_refferelattachment.ra_refferelid=tbl_consultantrefferels.c_id and tbl_consultantrefferels.c_gpid = '$senderid' and tbl_consultantrefferels.c_status ='2' ");
+									$mss = mysqli_query($con,"SELECT * FROM tbl_consultantrefferels,tbl_refferelattachment WHERE tbl_refferelattachment.ra_refferelid=tbl_consultantrefferels.c_id and tbl_consultantrefferels.c_gpid = '$senderid' and tbl_consultantrefferels.c_status ='1' ");
 									$fff111= mysqli_fetch_array($mss);
+								$status =	$fff111["c_status"];
 									$reqtype111 = $fff111['request_type'] ? $fff111['request_type'] :"";
 									$cid = $fff111['ra_sender_id'] ? $fff111['ra_sender_id'] :"";
 									$query = mysqli_query($con,"SELECT * FROM `tbl_ruser` WHERE `ur_id` = '$cid'");
@@ -177,6 +178,7 @@ $fetchsa=mysqli_fetch_array($qiu);
 									$fdsw=mysqli_fetch_array($qqqq);
 									$mss = mysqli_query($con,"SELECT * FROM tbl_consultantrefferels,tbl_refferelattachment WHERE tbl_refferelattachment.ra_refferelid=tbl_consultantrefferels.c_id and tbl_consultantrefferels.c_userid = '$senderid' and tbl_consultantrefferels.c_status ='2'");
 									$fff111= mysqli_fetch_array($mss);
+									$status =	$fff111["c_status"];
 									$reqtype111 = $fff111['request_type'] ? $fff111['request_type'] :"";
 									$cid = $fff111['ra_sender_id'] ? $fff111['ra_sender_id'] :"";
 									$query = mysqli_query($con,"SELECT * FROM `tbl_ruser` WHERE `ur_id` = '$cid'");
@@ -226,7 +228,20 @@ $fetchsa=mysqli_fetch_array($qiu);
 										</div>
 											</div>
 										<hr>';
-									}if($f5["a"] > 0){
+									}
+										if($fdsw["a"] > 0){
+									    echo '<div class="nk-notification-item dropdown-inner">
+										<div class="nk-notification-icon">
+											<em class="icon icon-circle bg-warning-dim ni ni-curve-down-right"></em>
+										</div>
+									    <div class="nk-notification-content">
+											<div class="nk-notification-text">You have new <span>Refferal Request</span></div>
+											<div class="nk-notification-time"><a href="servicerefferels.php?reqtype='.$reqtype111.'&status='.$status.'">View All</a></div>
+										</div>
+											</div>
+										<hr>';
+									}
+									if($f5["a"] > 0){
 									    echo '<div class="nk-notification-item dropdown-inner">
 										<div class="nk-notification-icon">
 											<em class="icon icon-circle bg-warning-dim ni ni-curve-down-right"></em>

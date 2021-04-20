@@ -360,7 +360,7 @@ $("#reg_form").on("submit", function(e)
 						}else if(data == "success")
 						{
 
-							toastr.success("You have been registered successfully.Please Wait for admin approval!");
+				// 			toastr.success("You have been registered successfully.Please Wait for admin approval!");
 							  swal("Success!", "You have been registered successfully.Please Wait for admin approval!", "success");
 							$("#regis").attr("disabled","disabled");
 							$("#reg_form")[0].reset();

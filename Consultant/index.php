@@ -70,27 +70,28 @@ include_once('header.php');
                                         </div><!-- .nk-block-head-content -->
                                     </div><!-- .nk-block-between -->
                                 </div><!-- .nk-block-head -->
-
+                                <div class="nk-block">
+                                    <div class="row g-gs">
                                 <?php   
-                                $_SESSION['consultant'];
+                             $loginem=   $_SESSION['consultant'];
                                 $idq = mysqli_query($con, "SELECT * FROM `tbl_ruser` WHERE `ur_email` = '$loginem'");
 			$dataid = mysqli_fetch_assoc($idq);
 			$orgid = $dataid['ur_orgtype'];
-                 $qe = mysqli_query($con, "SELECT COUNT(m_id) AS number FROM `services` WHERE s_orgid = '$orgid'");
+				$urid = $dataid['ur_id'];
+                 $qe = mysqli_query($con, "SELECT COUNT(m_id) AS number FROM `tbl_consultantrefferels` JOIN `services` ON tbl_consultantrefferels.c_serid = services.service_id WHERE services.s_orgid = '$orgid' and services.ser_priority_urg !='' and services.service_r_t_support = 'Advice Request,' and tbl_consultantrefferels.c_userid = '$urid'");
 
 
               $hos = mysqli_fetch_assoc($qe);
                 
             ?>
-                                <div class="nk-block">
-                                    <div class="row g-gs">
+                               
                                     <div class="col-xxl-3 col-sm-6">
                                             <div class="card">
                                                 <div class="nk-ecwg nk-ecwg6">
                                                     <div class="card-inner">
                                                         <div class="card-title-group">
                                                             <div class="card-title">
-                                                                <h6 class="title">TOTAL SERVICES</h6>
+                                                                <h6 class="title">Urgent Advice Request</h6>
                                                             </div>
                                                         </div>
                                                         <div class="data">
@@ -106,6 +107,109 @@ include_once('header.php');
                                             </div><!-- .card -->
                                         </div><!-- .col -->
                                     
+                                  
+                                
+                                <?php   
+                                $_SESSION['consultant'];
+                                $idq = mysqli_query($con, "SELECT * FROM `tbl_ruser` WHERE `ur_email` = '$loginem'");
+			$dataid = mysqli_fetch_assoc($idq);
+			$orgid = $dataid['ur_orgtype'];
+				$urid = $dataid['ur_id'];
+                 $qe = mysqli_query($con, "SELECT COUNT(m_id) AS number FROM `tbl_consultantrefferels` JOIN `services` ON tbl_consultantrefferels.c_serid = services.service_id WHERE services.s_orgid = '$orgid' and services.ser_priority_rout !='' and services.service_r_t_support = 'Advice Request,' and tbl_consultantrefferels.c_userid = '$urid'");
+
+
+              $hos = mysqli_fetch_assoc($qe);
+                
+            ?>
+           
+                                    <div class="col-xxl-3 col-sm-6">
+                                            <div class="card">
+                                                <div class="nk-ecwg nk-ecwg6">
+                                                    <div class="card-inner">
+                                                        <div class="card-title-group">
+                                                            <div class="card-title">
+                                                                <h6 class="title">Routine Advice Request</h6>
+                                                            </div>
+                                                        </div>
+                                                        <div class="data">
+                                                            <div class="data-group">
+                                                                <div class="amount"><?php echo $hos['number']?></div>
+                                                                <div class="nk-ecwg6-ck">
+                                                                    <canvas class="ecommerce-line-chart-s3" id="todayOrders"></canvas>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div><!-- .card-inner -->
+                                                </div><!-- .nk-ecwg -->
+                                            </div><!-- .card -->
+                                        </div><!-- .col -->
+                                     <?php   
+                                $_SESSION['consultant'];
+                                $idq = mysqli_query($con, "SELECT * FROM `tbl_ruser` WHERE `ur_email` = '$loginem'");
+			$dataid = mysqli_fetch_assoc($idq);
+			$orgid = $dataid['ur_orgtype'];
+				$urid = $dataid['ur_id'];
+                 $qe = mysqli_query($con, "SELECT COUNT(m_id) AS number FROM `tbl_consultantrefferels` JOIN `services` ON tbl_consultantrefferels.c_serid = services.service_id WHERE services.s_orgid = '$orgid' and services.ser_priority_urg !='' and services.service_r_t_support = 'Appointment Request,' and tbl_consultantrefferels.c_userid = '$urid'");
+
+
+              $hos = mysqli_fetch_assoc($qe);
+                
+            ?>
+                                      <div class="col-xxl-3 col-sm-6">
+                                            <div class="card">
+                                                <div class="nk-ecwg nk-ecwg6">
+                                                    <div class="card-inner">
+                                                        <div class="card-title-group">
+                                                            <div class="card-title">
+                                                                <h6 class="title">Urgent Refferals Awaiting Triage</h6>
+                                                            </div>
+                                                        </div>
+                                                        <div class="data">
+                                                            <div class="data-group">
+                                                                <div class="amount"><?php echo $hos['number']?></div>
+                                                                <div class="nk-ecwg6-ck">
+                                                                    <canvas class="ecommerce-line-chart-s3" id="todayOrders"></canvas>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div><!-- .card-inner -->
+                                                </div><!-- .nk-ecwg -->
+                                            </div><!-- .card -->
+                                        </div><!-- .col -->
+                                         <?php   
+                                $_SESSION['consultant'];
+                                $idq = mysqli_query($con, "SELECT * FROM `tbl_ruser` WHERE `ur_email` = '$loginem'");
+			$dataid = mysqli_fetch_assoc($idq);
+			$orgid = $dataid['ur_orgtype'];
+			$urid = $dataid['ur_id'];
+                 $qe = mysqli_query($con, "SELECT COUNT(m_id) AS number FROM `tbl_consultantrefferels` JOIN `services` ON tbl_consultantrefferels.c_serid = services.service_id WHERE services.s_orgid = '$orgid' and services.ser_priority_rout !='' and services.service_r_t_support = 'Appointment Request,' and tbl_consultantrefferels.c_userid = '$urid'");
+
+
+              $hos = mysqli_fetch_assoc($qe);
+                
+            ?>
+                                        <div class="col-xxl-3 col-sm-6">
+                                            <div class="card">
+                                                <div class="nk-ecwg nk-ecwg6">
+                                                    <div class="card-inner">
+                                                        <div class="card-title-group">
+                                                            <div class="card-title">
+                                                                <h6 class="title">Routine Refferals Awaiting Triage</h6>
+                                                            </div>
+                                                        </div>
+                                                        <div class="data">
+                                                            <div class="data-group">
+                                                                <div class="amount"><?php echo $hos['number']?></div>
+                                                                <div class="nk-ecwg6-ck">
+                                                                    <canvas class="ecommerce-line-chart-s3" id="todayOrders"></canvas>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div><!-- .card-inner -->
+                                                </div><!-- .nk-ecwg -->
+                                            </div><!-- .card -->
+                                        </div><!-- .col -->
+                                        
                                     </div><!-- .row -->
                                 </div><!-- .nk-block -->
                             </div>

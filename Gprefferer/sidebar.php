@@ -51,12 +51,7 @@
                                         <span class="nk-menu-text">Patients</span>
                                   </a>
 								</li>
-                                <li class="nk-menu-item">
-                                <a href="Appointment.php" class="nk-menu-link">
-                                <span class="nk-menu-icon"><em class="icon ni ni-users-fill"></em></span>
-                                        <span class="nk-menu-text">Appointment</span>
-                                </a>
-                                </li>
+                              
 								<li class="nk-menu-item">
 									<a href="e-refferelservice.php" class="nk-menu-link">
 										<span class="nk-menu-icon"><em class="icon ni ni-users-fill"></em></span>
