@@ -74,8 +74,8 @@ include_once('../database/db.php');
 												</div>
 												<div class="col-md-6">
 													<div class="form-group">
-														<label class="col-form-label" for="email">Patient Surname</label>
-														<input type="text" class="form-control form-control-lg" id="" value="<?php echo $sname?>" placeholder="Enter Surname" name="psurname" autocomplete="off" required>
+														<label class="col-form-label" for="email">Patient Lastname</label>
+														<input type="text" class="form-control form-control-lg" id="" value="<?php echo $sname?>" placeholder="Enter Last name" name="psurname" autocomplete="off" required>
 													</div>
 												</div>
 												   <?php 

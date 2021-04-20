@@ -99,7 +99,7 @@ include_once('connect.php');
 												<div class="col-md-6">
 													<div class="form-group">
 														<label class="col-form-label" for="oaddress">Organisation Second Line Address</label>
-														<input type="text" class="form-control form-control-lg " id="oaddress" placeholder="Enter Address" name="oaddress" required autocomplete="off">
+														<input type="text" class="form-control form-control-lg " id="oaddress" placeholder="Enter Second Line Address" name="oaddress" required autocomplete="off">
 													</div>
 												</div>
                                                 <div class="col-md-6">

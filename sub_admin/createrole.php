@@ -68,13 +68,13 @@ include_once('header.php');
 														<div class="form-group">
 															<label class="col-form-label" for="fname">First Name</label>
 															<!--														<input type="text" value="" id="cid" hidden="true" name="id">-->
-															<input type="text" class="form-control form-control-lg" id="fname" value="" placeholder="Enter Full name" autocomplete="off" name="staff_name">
+															<input type="text" class="form-control form-control-lg" id="fname" value="" placeholder="Enter First name" autocomplete="off" name="staff_name">
 														</div>
 													</div>
 													<div class="col-md-6">
 														<div class="form-group">
-															<label class="col-form-label" for="sname">Sur Name</label>
-															<input type="text" class="form-control form-control-lg" id="sname" value="" placeholder="Enter display name" autocomplete="off" name="staff_sname">
+															<label class="col-form-label" for="sname">Last Name</label>
+															<input type="text" class="form-control form-control-lg" id="sname" value="" placeholder="Enter Last name" autocomplete="off" name="staff_sname">
 														</div>
 													</div>
 													<div class="col-md-6">

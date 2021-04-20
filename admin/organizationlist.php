@@ -115,6 +115,21 @@ include_once('connect.php');
   <script src="assets/js/example-toastr.js?ver=2.2.0"></script>
 </body>
 <script>
+
+	function fetchhospitalsdata(status)
+	{
+		 $.ajax({    
+        type: "POST",
+        url: "phpcode.php", 
+		data:{status:status,orginaztionfetch:"btn"},	            
+        success: function(response){                    
+            $("#hdata").html(response); 
+            //alert(response);
+        }
+
+    });
+	}
+
 <?php
                                       if(isset($_GET['status']))
                                       {
@@ -131,25 +146,18 @@ include_once('connect.php');
 	});
 	<?php
                 }
-            }
+            
+                    }
+                    else{
 	?>
-	function fetchhospitalsdata(status)
-	{
-		 $.ajax({    
-        type: "POST",
-        url: "phpcode.php", 
-		data:{status:status,orginaztionfetch:"btn"},	            
-        success: function(response){                    
-            $("#hdata").html(response); 
-            //alert(response);
-        }
-
-    });
-	}
-	$(document).ready(function(){
+	     	$(document).ready(function(){
 	    var status="Approved";
 		fetchhospitalsdata(status);
 	});
+	<?php
+                    }
+	?>
+	
 	function confirm(id)
 	{
 		 Swal.fire({

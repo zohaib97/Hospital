@@ -48,22 +48,28 @@ include_once('../database/db.php');
 													
 													?>
 													<div class="form-group">
-														<label class="col-form-label" for="fname">Enter Location name</label>
+														<label class="col-form-label" for="fname">Enter First Line Address</label>
 																
-														<input type="text" class="form-control form-control-lg" id="" value="" placeholder="Enter location name" name="locname" required>
+														<input type="text" class="form-control form-control-lg" id="" value="" placeholder="Enter First Line Address" name="locname" required>
 														
 													</div>
 												</div>
 												<div class="col-md-6">
 													<div class="form-group">
-														<label class="col-form-label" for="sname">Location Address</label>
-														<input type="text" class="form-control form-control-lg" id="" value="" placeholder="Enter location address" name="locaddress" autocomplete="off" required>
+														<label class="col-form-label" for="sname">Second Line Address</label>
+														<input type="text" class="form-control form-control-lg" id="" value="" placeholder="Enter Second Line Address" name="locaddress" autocomplete="off" required>
 													</div>
 												</div>
 												<div class="col-md-6">
 													<div class="form-group">
 														<label class="col-form-label" for="email">Location Postcode</label>
 														<input type="text" class="form-control form-control-lg" id="" value="" placeholder="Enter Postcode" name="locpost" autocomplete="off" required>
+													</div>
+												</div>
+												<div class="col-md-6">
+													<div class="form-group">
+														<label class="col-form-label" for="email">Location City</label>
+														<input type="text" class="form-control form-control-lg" id="" value="" placeholder="Enter City" name="loccity" autocomplete="off" required>
 													</div>
 												</div>
 <!--

@@ -1185,7 +1185,8 @@ var ser_instr = $('#ser_ins').val();
 //		});
 //			reqtype = reqtype.toString();		
 //		
-if(ser_name != '' && ser_loc != '' && ser_spec != '' && ser_app != '' && ser_gen != '' && ser_dir != '' && ser_eff != '' && ser_ager != '' && ser_care != '' && ser_clt != '' && ser_conna != '' && ser_conad != '' && ser_concoun != '' && ser_conpos != '' && ser_hpem != ''){
+if(ser_name != '' && ser_loc != '' && ser_spec != '' && ser_app != '' && ser_gen != '' && ser_dir != '' && ser_eff != '' && ser_ager != '' && ser_care != '' && ser_clt != '' && ser_conna != '' && ser_conad != '' && ser_concoun != '' && ser_conpos != '' && ser_hpem != '')
+{
 
 var formdata = new FormData(this);
 formdata.append("servicadd","btn");
@@ -1221,7 +1222,70 @@ NioApp.Toast("<h5>Service Added</h5>", 'success',{position:'top-right'});
 //                $("#privacysubmit").removeAttr("disabled");
 }
 });
-}else {
+}
+else {
+    
+    if(ser_name == '' || ser_name == null)
+    {
+     
+        $('#ser_name').css("border", "2px solid red");
+    }
+    if(ser_loc == '' || ser_name == null)
+    {
+        $('#ser_location').css("border-color","red");
+    }
+    if(ser_spec == '')
+    {
+        $('#ser_speciality').css("border-color","red");
+    }
+    if(ser_app == '')
+    {
+        $('#ser_apptype').css("border-color","red");
+    }
+    if(ser_gen == '')
+    {
+        $('#ser_gen').css("border-color","red");
+    }
+    if(ser_dir == '')
+    {
+        $('#ser_direct').css("border-color","red");
+    }
+    if(ser_eff == '')
+    {
+        $('#ser_effect').css("border-color", "red");
+    }
+    if(ser_ager == '')
+    {
+        $('#ser_ager').css("border-color","red");
+    }
+    if(ser_care == '')
+    {
+        $('#ser_carem').css("border-color","red");
+    }
+    if(ser_clt == '')
+    {
+        $('#ser_cltype').css("border-color","red");
+    }
+    if(ser_conna == '')
+    {
+        $('#ser_conname').css("border-color", "red");
+    }
+    if(ser_conad == '')
+    {
+        $('#ser_conadd').css("border-color","red");
+    }
+    if(ser_concoun == '')
+    {
+        $('#ser_concount').css("border-color","red");
+    }
+    if(ser_conpos == '')
+    {
+        $('#ser_conpost').css("border-color","red");
+    }
+    if(ser_hpem == '')
+    {
+        $('#hp_email').css("border-color","red");
+    }
 toastr.clear();
 NioApp.Toast("<h5>All Fields are required</h5>", 'error',{position:'top-right'});
 }
@@ -1371,7 +1435,8 @@ $(function () {
 // INITIALIZE DATEPICKER PLUGIN
 $('.datepicker').datepicker({
 	clearBtn: true,
-	format: "dd/mm/yyyy"
+	format: "dd/mm/yyyy",
+	autoclose: true
 });
 
 

@@ -249,6 +249,7 @@ if(isset($_POST['addlocation']))
 	$locname = $_POST['locname'];
 	$locaddress = $_POST['locaddress'];
 	$locpost = $_POST['locpost'];
+	$loccity = $_POST['loccity'];
 	    $aid =$_SESSION["a_id"];
 $qiu=mysqli_query($con,"SELECT * FROM `admin`,orginzation where admin.organization = orginzation.orid and admin.id='$aid'");
 $fetchsa=mysqli_fetch_array($qiu);
@@ -259,14 +260,14 @@ $fetchsa=mysqli_fetch_array($qiu);
 	{
 	    echo "already";
 	}
-	$sql1 = mysqli_query($con,"SELECT * FROM `org_locations` WHERE org_postcode = '$locpost'");
-	$fe1 = mysqli_num_rows($sql1);
-	if($fe1 > 0)
-	{
-	    echo "alreadypost";
-	}
+// 	$sql1 = mysqli_query($con,"SELECT * FROM `org_locations` WHERE org_postcode = '$locpost'");
+// 	$fe1 = mysqli_num_rows($sql1);
+// 	if($fe1 > 0)
+// 	{
+// 	    echo "alreadypost";
+// 	}
 	else{
-	$query = mysqli_query($con,"INSERT INTO `org_locations`(`org_location`, `org_address`, `org_postcode`,`org_id`)VALUES('$locname','$locaddress','$locpost','$org')");
+	$query = mysqli_query($con,"INSERT INTO `org_locations`(`org_location`, `org_address`, `org_postcode`,`org_city`,`org_id`)VALUES('$locname','$locaddress','$locpost','$loccity','$org')");
 	
 	if($query)
 	{
@@ -379,18 +380,23 @@ if(isset($_POST["appgeneralbtn"]))
 		'X-Mailer: PHP/' . phpversion();
 	
 	mail($to, $subject, $message, $headers);
+	$sql = mysqli_query($con,"SELECT * FROM `tbl_ruser` WHERE ur_id = '$vid'");
+		    $fe = mysqli_fetch_array($sql);
 		if($vq){
-			echo "Success";
+		    
+		echo json_encode(array("res"=>"Success","name"=>$fe['ur_fname']));
 		}else {
-			echo "Error";
+		echo json_encode(array("res"=>"Error","name"=>$fe['ur_fname']));
 		} 
 	}elseif($status =="approve"){
 		$vdel = "UPDATE  `tbl_ruser` SET ur_status='not_approve' WHERE `ur_id` = '$vid'";
 		$vq = mysqli_query($con,$vdel);
+			$sql = mysqli_query($con,"SELECT * FROM `tbl_ruser` WHERE ur_id = '$vid'");
+		    $fe = mysqli_fetch_array($sql);
 		if($vq){
-			echo "Successs";
+		echo json_encode(array("res"=>"Successs","name"=>$fe['ur_fname']));
 		}else {
-			echo "Errorr";
+		echo json_encode(array("res"=>"Errorr","name"=>$fe['ur_fname']));
 		} 
 	}
 }
@@ -987,8 +993,8 @@ if(isset($_POST['updatelocation']))
 		$name = $_POST['locname'];
 		$address = $_POST['locaddress'];
 		$popstcode = $_POST['locpostcode'];
-
-		$query = mysqli_query($con,"UPDATE `org_locations` SET `org_location`='$name',`org_address`='$address',`org_postcode` = '$popstcode' WHERE `id` = '$id'");
+$loccity = $_POST['loccity'];
+		$query = mysqli_query($con,"UPDATE `org_locations` SET `org_location`='$name',`org_address`='$address',`org_postcode` = '$popstcode',`org_city` = '$loccity' WHERE `id` = '$id'");
 		
 		if($query)
 		{
@@ -2474,10 +2480,11 @@ if(isset($_POST['method']))
 				$id = $_POST['id'];
 				$query = "UPDATE `tbl_ruser` SET `ur_status` = 'not_approve' WHERE `ur_id` = '$id'";
 				$vq = mysqli_query($con,$query);
-				
+				$sql = mysqli_query($con,"SELECT * FROM `tbl_ruser` WHERE ur_id = '$id'");
+		    $fe = mysqli_fetch_array($sql);
 				if($vq)
 				{
-					echo("Success");
+					echo json_encode(array("res"=>"Success","name"=>$fe['ur_fname']));
 				}
 			
 		}
@@ -2503,9 +2510,11 @@ if(isset($_POST['method']))
 		'X-Mailer: PHP/' . phpversion();
 	
 	mail($to, $subject, $message, $headers);
+		$sql = mysqli_query($con,"SELECT * FROM `tbl_ruser` WHERE ur_id = '$id'");
+		    $fe = mysqli_fetch_array($sql);
 			if($vq > 0)
 			{
-				echo("Success");
+			echo json_encode(array("res"=>"Success","name"=>$fe['ur_fname']));
 			}
 			
 		}
@@ -2520,7 +2529,7 @@ if(isset($_POST['method']))
 				
 				if($vq)
 				{
-					echo("Success");
+				echo "Success";
 				}
 			
 		}

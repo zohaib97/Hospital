@@ -520,6 +520,7 @@ else if(Role == "Optometrist")
         $.ajax({
             type: 'POST',
             url: 'phpcode.php',
+            dataType: 'JSON',
             data: {
                 method: name,
                 id: ide,
@@ -534,17 +535,17 @@ else if(Role == "Optometrist")
                         position: 'top-right'
                     });
 
-                } else if (data == 'Success') {
+                } else if (data['res'] == 'Success') {
                     if (name == 'capprove') {
 
                         toastr.clear();
-                        NioApp.Toast("<h5>Consultant De-Activated</h5>", 'success', {
+                        NioApp.Toast("<h5>"+data['name']+" Account De-Activated</h5>", 'success', {
                             position: 'top-right'
                         });
                         fetchadmindata();
                     } else {
                         toastr.clear();
-                        NioApp.Toast("<h5>Consultant Activated Successfully</h5>", 'success', {
+                        NioApp.Toast("<h5>"+data['name']+" Account Activated Successfully</h5>", 'success', {
                             position: 'top-right'
                         });
                         fetchadmindata();
@@ -653,6 +654,7 @@ else if(Role == "Optometrist")
         $.ajax({
             type: 'POST',
             url: 'phpcode.php',
+             dataType: 'JSON',
             data: {
                 vid: id,
                 appgeneralbtn: "btn",
@@ -661,30 +663,30 @@ else if(Role == "Optometrist")
 
             success: function(data) {
 // alert(data);
-                if (data == 'Error') {
+                if (data['res'] == 'Error') {
 
                     toastr.clear();
-                    NioApp.Toast("<h5>General pratictional Didn't Delete</h5>", 'error', {
+                    NioApp.Toast("<h5>"+data['name']+" Account Didn't Delete</h5>", 'error', {
                         position: 'top-right'
                     });
-                } else if (data == 'Success') {
+                } else if (data['res'] == 'Success') {
 
                     toastr.clear();
-                    NioApp.Toast("<h5>General pratictional Active Successfully</h5>", 'success', {
+                    NioApp.Toast("<h5>"+data['name']+" Account Active Successfully</h5>", 'success', {
                         position: 'top-right'
                     });
                     fetchadmindata();
                 }
-                if (data == 'Errorr') {
+                if (data['res'] == 'Errorr') {
 
                     toastr.clear();
-                    NioApp.Toast("<h5>General pratictional Didn't Delete</h5>", 'error', {
+                    NioApp.Toast("<h5>"+data['name']+" Account Didn't Delete</h5>", 'error', {
                         position: 'top-right'
                     });
-                } else if (data == 'Successs') {
+                } else if (data['res'] == 'Successs') {
 
                     toastr.clear();
-                    NioApp.Toast("<h5>General pratictional  Not Active Successfully</h5>", 'success', {
+                    NioApp.Toast("<h5>"+data['name']+" Account  Not Active Successfully</h5>", 'success', {
                         position: 'top-right'
                     });
                     fetchadmindata();

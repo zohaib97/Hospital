@@ -186,7 +186,7 @@ include_once('../database/db.php');
                     <form class="form-validate is-alter" id="locupdate" method="post">
                         <div class="row">
                             <div class="form-group col-md-6">
-                                <label class="form-label" for="first_name">Location Name</label>
+                                <label class="form-label" for="first_name">Location First Line Address</label>
                                 <div class="form-control-wrap">
                                     <input type="text" value="" id="mid" hidden="true" name="mid">
                                   
@@ -194,7 +194,7 @@ include_once('../database/db.php');
                                 </div>
                             </div>
                             <div class="form-group col-md-6">
-                                <label class="form-label" for="sure_name">Location Address</label>
+                                <label class="form-label" for="sure_name">Location Second Line Address</label>
                                 <div class="form-control-wrap">
                                     <input type="text" class="form-control" id="locaddress" name="locaddress" required>
                                 </div>
@@ -205,6 +205,12 @@ include_once('../database/db.php');
                                 <label class="form-label" for="memail">Location Postcode</label>
                                 <div class="form-control-wrap">
                                     <input type="text" class="form-control" id="locpostcode" required name="locpostcode">
+                                </div>
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label class="form-label" for="loccity">Location City</label>
+                                <div class="form-control-wrap">
+                                    <input type="text" class="form-control" id="loccity" required name="loccity">
                                 </div>
                             </div>
                         </div>
@@ -381,11 +387,12 @@ function deleteadmin(id) {
 
 
 
-function openmodal1(id,name,address,postcode) {
+function openmodal1(id,name,address,postcode,city) {
     $('#mid').val(id);
     $('#locname').val(name);
     $('#locaddress').val(address);
     $('#locpostcode').val(postcode);
+    $('#loccity').val(city);
 
     $('#modalForm2').modal('show');
 };

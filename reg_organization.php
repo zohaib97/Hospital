@@ -122,7 +122,7 @@ include_once('database/db.php');
                                     <div class="form-group">
                                         <label class="col-form-label" for="oaddress">Organisation First Line Address</label>
                                         <input type="text" class="form-control form-control-sm " id="oaddress"
-                                            placeholder="Enter Address" name="oaddress" autocomplete="off" required >
+                                            placeholder="Enter First Line Address" name="oaddress" autocomplete="off" required >
                                     </div>
                                 </div>
                                 <div class="col-md-6">
@@ -136,7 +136,7 @@ include_once('database/db.php');
                                     <div class="form-group">
                                         <label class="col-form-label" for="ofaddress">Organisation Second Line Address</label>
                                         <input type="text" class="form-control form-control-sm " id="ofaddress"
-                                            placeholder="Enter First Address" name="ofaddress" autocomplete="off" required
+                                            placeholder="Enter Second Line Address" name="ofaddress" autocomplete="off" required
                                             >
                                     </div>
                                 </div>

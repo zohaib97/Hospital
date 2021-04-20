@@ -53,14 +53,14 @@ include_once('connect.php');
 													<div class="form-group">
 														<label class="col-form-label" for="saname">Admin Name</label>
 														
-														<input type="text" class="form-control form-control-lg" id="saname" value="" placeholder="Enter Name" name="saname">
+														<input type="text" class="form-control form-control-lg" id="saname" value="" placeholder="Enter First Name" name="saname">
 													</div>
 												</div>
 												<div class="col-md-6">
 													<div class="form-group">
-														<label class="col-form-label" for="saname">Sur Name</label>
+														<label class="col-form-label" for="saname">Last Name</label>
 														
-														<input type="text" class="form-control form-control-lg" id="ssname" value="" placeholder="Enter Name" name="ssname">
+														<input type="text" class="form-control form-control-lg" id="ssname" value="" placeholder="Enter Last Name" name="ssname">
 													</div>
 												</div>
 												<div class="col-md-6">

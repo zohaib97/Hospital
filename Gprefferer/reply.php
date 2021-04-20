@@ -421,7 +421,7 @@ function showpat()
 function fetchreplydata() {
     var rfno = $('#refno').val();
     $.ajax({
-        url: 'gpphpcode.php',
+        url: 'phpcode.php',
         type: 'post',
         data: {
             rfno:rfno,
@@ -447,7 +447,7 @@ $("#reply").on('submit', function(e) {
         formdata.append("cmntdatabtn", "btn");
         $.ajax({
             type: 'POST',
-            url: 'gpphpcode.php',
+            url: 'phpcode.php',
             data: formdata,
             contentType: false,
             processData: false,

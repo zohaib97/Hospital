@@ -113,35 +113,10 @@ if(!isset($_SESSION['gprefferer'])){
 									?>
 				        	<a href="#" class="dropdown-toggle nk-quick-nav-icon" data-toggle="dropdown" style="width: 37px;height: 37px;">
 							<i class="icon ni ni-bell"></i>
-														<sup class="badge badge-primary rounded-circle ml-n1 mt-n2"><?=$fds["a"]?></sup>
+													
 						</a>
 						
-						<div class="dropdown-menu dropdown-menu-xl dropdown-menu-right">
-						<?php
-						if($fds["a"] >0){
-						?>	<div class="dropdown-head">
-								<span class="sub-title nk-dropdown-title">Notifications</span>
-							
-							</div>
-							<div class="dropdown-body">
-								<div class="nk-notification">
-							
-										<div class="nk-notification-item dropdown-inner">
-										<div class="nk-notification-icon">
-											<em class="icon icon-circle bg-warning-dim ni ni-curve-down-right"></em>
-										</div>
-										<div class="nk-notification-content">
-											<div class="nk-notification-text">You have New Refferel Reply From <?=$cfetch['ur_fname']?><?=$cfetch['ur_sname']?></div>
-											
-										</div>
-									</div>
-								</div><!-- .nk-notification -->
-							</div><!-- .nk-dropdown-body -->
-							<div class="dropdown-foot center">
-								<a href="refferels.php?reqtype=<?=$reqtype111?>">View All</a>
-							</div>
-							<?php }?>
-						</div>
+					
 					</li>
 					<?php
 						

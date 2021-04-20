@@ -77,7 +77,7 @@ include_once('database/db.php');
 								 <input type="text" class="form-control" id="conname" placeholder="First Name" name="form_fname" autocomplete="off">
 							  </div>
 							  <div class="form-group col-lg-6 mt-2">
-								 <input type="text" class="form-control" id="consname" placeholder="Sur Name" name="form_sname" autocomplete="off">
+								 <input type="text" class="form-control" id="consname" placeholder="Last Name" name="form_sname" autocomplete="off">
 							  </div>
 							  <div class="form-group col-lg-6 mt-2">
 								 <input type="email" class="form-control" id="conemail" placeholder="Email" name="form_email" autocomplete="off">
