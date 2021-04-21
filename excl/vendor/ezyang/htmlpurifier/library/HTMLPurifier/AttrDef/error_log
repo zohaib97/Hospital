@@ -1,0 +1,28 @@
+[17-Mar-2021 06:03:43 UTC] PHP Fatal error:  Uncaught Error: Class 'HTMLPurifier_AttrDef' not found in /home/extremeearn/public_html/vendor/ezyang/htmlpurifier/library/HTMLPurifier/AttrDef/CSS.php:14
+Stack trace:
+#0 {main}
+  thrown in /home/extremeearn/public_html/vendor/ezyang/htmlpurifier/library/HTMLPurifier/AttrDef/CSS.php on line 14
+[17-Mar-2021 06:03:43 UTC] PHP Fatal error:  Uncaught Error: Class 'HTMLPurifier_AttrDef' not found in /home/extremeearn/public_html/vendor/ezyang/htmlpurifier/library/HTMLPurifier/AttrDef/Enum.php:10
+Stack trace:
+#0 {main}
+  thrown in /home/extremeearn/public_html/vendor/ezyang/htmlpurifier/library/HTMLPurifier/AttrDef/Enum.php on line 10
+[17-Mar-2021 06:03:43 UTC] PHP Fatal error:  Uncaught Error: Class 'HTMLPurifier_AttrDef' not found in /home/extremeearn/public_html/vendor/ezyang/htmlpurifier/library/HTMLPurifier/AttrDef/Clone.php:7
+Stack trace:
+#0 {main}
+  thrown in /home/extremeearn/public_html/vendor/ezyang/htmlpurifier/library/HTMLPurifier/AttrDef/Clone.php on line 7
+[17-Mar-2021 06:03:44 UTC] PHP Fatal error:  Uncaught Error: Class 'HTMLPurifier_AttrDef' not found in /home/extremeearn/public_html/vendor/ezyang/htmlpurifier/library/HTMLPurifier/AttrDef/Integer.php:10
+Stack trace:
+#0 {main}
+  thrown in /home/extremeearn/public_html/vendor/ezyang/htmlpurifier/library/HTMLPurifier/AttrDef/Integer.php on line 10
+[17-Mar-2021 06:03:45 UTC] PHP Fatal error:  Uncaught Error: Class 'HTMLPurifier_AttrDef' not found in /home/extremeearn/public_html/vendor/ezyang/htmlpurifier/library/HTMLPurifier/AttrDef/Lang.php:7
+Stack trace:
+#0 {main}
+  thrown in /home/extremeearn/public_html/vendor/ezyang/htmlpurifier/library/HTMLPurifier/AttrDef/Lang.php on line 7
+[17-Mar-2021 06:03:45 UTC] PHP Fatal error:  Uncaught Error: Class 'HTMLPurifier_AttrDef' not found in /home/extremeearn/public_html/vendor/ezyang/htmlpurifier/library/HTMLPurifier/AttrDef/Text.php:6
+Stack trace:
+#0 {main}
+  thrown in /home/extremeearn/public_html/vendor/ezyang/htmlpurifier/library/HTMLPurifier/AttrDef/Text.php on line 6
+[17-Mar-2021 06:03:45 UTC] PHP Fatal error:  Uncaught Error: Class 'HTMLPurifier_AttrDef' not found in /home/extremeearn/public_html/vendor/ezyang/htmlpurifier/library/HTMLPurifier/AttrDef/URI.php:7
+Stack trace:
+#0 {main}
+  thrown in /home/extremeearn/public_html/vendor/ezyang/htmlpurifier/library/HTMLPurifier/AttrDef/URI.php on line 7

@@ -1,0 +1,8 @@
+[17-Mar-2021 06:01:11 UTC] PHP Fatal error:  Uncaught Error: Interface 'Psr\Http\Client\ClientExceptionInterface' not found in /home/extremeearn/public_html/vendor/psr/http-client/src/RequestExceptionInterface.php:14
+Stack trace:
+#0 {main}
+  thrown in /home/extremeearn/public_html/vendor/psr/http-client/src/RequestExceptionInterface.php on line 14
+[17-Mar-2021 06:01:11 UTC] PHP Fatal error:  Uncaught Error: Interface 'Psr\Http\Client\ClientExceptionInterface' not found in /home/extremeearn/public_html/vendor/psr/http-client/src/NetworkExceptionInterface.php:14
+Stack trace:
+#0 {main}
+  thrown in /home/extremeearn/public_html/vendor/psr/http-client/src/NetworkExceptionInterface.php on line 14

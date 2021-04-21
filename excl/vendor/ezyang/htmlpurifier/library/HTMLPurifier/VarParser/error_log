@@ -1,0 +1,8 @@
+[17-Mar-2021 06:05:06 UTC] PHP Fatal error:  Uncaught Error: Class 'HTMLPurifier_VarParser' not found in /home/extremeearn/public_html/vendor/ezyang/htmlpurifier/library/HTMLPurifier/VarParser/Native.php:8
+Stack trace:
+#0 {main}
+  thrown in /home/extremeearn/public_html/vendor/ezyang/htmlpurifier/library/HTMLPurifier/VarParser/Native.php on line 8
+[17-Mar-2021 06:05:06 UTC] PHP Fatal error:  Uncaught Error: Class 'HTMLPurifier_VarParser' not found in /home/extremeearn/public_html/vendor/ezyang/htmlpurifier/library/HTMLPurifier/VarParser/Flexible.php:8
+Stack trace:
+#0 {main}
+  thrown in /home/extremeearn/public_html/vendor/ezyang/htmlpurifier/library/HTMLPurifier/VarParser/Flexible.php on line 8

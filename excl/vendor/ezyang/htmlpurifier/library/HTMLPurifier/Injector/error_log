@@ -1,0 +1,28 @@
+[17-Mar-2021 06:04:23 UTC] PHP Fatal error:  Uncaught Error: Class 'HTMLPurifier_Injector' not found in /home/extremeearn/public_html/vendor/ezyang/htmlpurifier/library/HTMLPurifier/Injector/DisplayLinkURI.php:6
+Stack trace:
+#0 {main}
+  thrown in /home/extremeearn/public_html/vendor/ezyang/htmlpurifier/library/HTMLPurifier/Injector/DisplayLinkURI.php on line 6
+[17-Mar-2021 06:04:23 UTC] PHP Fatal error:  Uncaught Error: Class 'HTMLPurifier_Injector' not found in /home/extremeearn/public_html/vendor/ezyang/htmlpurifier/library/HTMLPurifier/Injector/AutoParagraph.php:9
+Stack trace:
+#0 {main}
+  thrown in /home/extremeearn/public_html/vendor/ezyang/htmlpurifier/library/HTMLPurifier/Injector/AutoParagraph.php on line 9
+[17-Mar-2021 06:04:23 UTC] PHP Fatal error:  Uncaught Error: Class 'HTMLPurifier_Injector' not found in /home/extremeearn/public_html/vendor/ezyang/htmlpurifier/library/HTMLPurifier/Injector/Linkify.php:6
+Stack trace:
+#0 {main}
+  thrown in /home/extremeearn/public_html/vendor/ezyang/htmlpurifier/library/HTMLPurifier/Injector/Linkify.php on line 6
+[17-Mar-2021 06:04:24 UTC] PHP Fatal error:  Uncaught Error: Class 'HTMLPurifier_Injector' not found in /home/extremeearn/public_html/vendor/ezyang/htmlpurifier/library/HTMLPurifier/Injector/PurifierLinkify.php:7
+Stack trace:
+#0 {main}
+  thrown in /home/extremeearn/public_html/vendor/ezyang/htmlpurifier/library/HTMLPurifier/Injector/PurifierLinkify.php on line 7
+[17-Mar-2021 06:04:25 UTC] PHP Fatal error:  Uncaught Error: Class 'HTMLPurifier_Injector' not found in /home/extremeearn/public_html/vendor/ezyang/htmlpurifier/library/HTMLPurifier/Injector/RemoveSpansWithoutAttributes.php:6
+Stack trace:
+#0 {main}
+  thrown in /home/extremeearn/public_html/vendor/ezyang/htmlpurifier/library/HTMLPurifier/Injector/RemoveSpansWithoutAttributes.php on line 6
+[17-Mar-2021 06:04:25 UTC] PHP Fatal error:  Uncaught Error: Class 'HTMLPurifier_Injector' not found in /home/extremeearn/public_html/vendor/ezyang/htmlpurifier/library/HTMLPurifier/Injector/SafeObject.php:7
+Stack trace:
+#0 {main}
+  thrown in /home/extremeearn/public_html/vendor/ezyang/htmlpurifier/library/HTMLPurifier/Injector/SafeObject.php on line 7
+[17-Mar-2021 06:04:25 UTC] PHP Fatal error:  Uncaught Error: Class 'HTMLPurifier_Injector' not found in /home/extremeearn/public_html/vendor/ezyang/htmlpurifier/library/HTMLPurifier/Injector/RemoveEmpty.php:3
+Stack trace:
+#0 {main}
+  thrown in /home/extremeearn/public_html/vendor/ezyang/htmlpurifier/library/HTMLPurifier/Injector/RemoveEmpty.php on line 3

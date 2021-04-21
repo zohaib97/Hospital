@@ -1,0 +1,12 @@
+[17-Mar-2021 06:04:37 UTC] PHP Fatal error:  Uncaught Error: Class 'HTMLPurifier_Node' not found in /home/extremeearn/public_html/vendor/ezyang/htmlpurifier/library/HTMLPurifier/Node/Comment.php:6
+Stack trace:
+#0 {main}
+  thrown in /home/extremeearn/public_html/vendor/ezyang/htmlpurifier/library/HTMLPurifier/Node/Comment.php on line 6
+[17-Mar-2021 06:04:37 UTC] PHP Fatal error:  Uncaught Error: Class 'HTMLPurifier_Node' not found in /home/extremeearn/public_html/vendor/ezyang/htmlpurifier/library/HTMLPurifier/Node/Text.php:12
+Stack trace:
+#0 {main}
+  thrown in /home/extremeearn/public_html/vendor/ezyang/htmlpurifier/library/HTMLPurifier/Node/Text.php on line 12
+[17-Mar-2021 06:04:37 UTC] PHP Fatal error:  Uncaught Error: Class 'HTMLPurifier_Node' not found in /home/extremeearn/public_html/vendor/ezyang/htmlpurifier/library/HTMLPurifier/Node/Element.php:6
+Stack trace:
+#0 {main}
+  thrown in /home/extremeearn/public_html/vendor/ezyang/htmlpurifier/library/HTMLPurifier/Node/Element.php on line 6

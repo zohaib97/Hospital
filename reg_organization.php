@@ -115,21 +115,24 @@ include_once('database/db.php');
                                     <div class="form-group">
                                         <label class="col-form-label" for="ocontact">Organisation Phone no</label>
                                         <input type="number" class="form-control form-control-sm " id="ocontact"
-                                            placeholder="Enter Contact" name="ocontact" autocomplete="off" required >
+                                            placeholder="Enter Contact" name="ocontact" autocomplete="off" required onchange="stringlength(this.value)">
+                                            <small id="valid-nhs"></small>
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label class="col-form-label" for="oaddress">Organisation First Line Address</label>
                                         <input type="text" class="form-control form-control-sm " id="oaddress"
-                                            placeholder="Enter First Line Address" name="oaddress" autocomplete="off" required >
+                                            placeholder="Enter First Line Address" name="oaddress" autocomplete="off" required  >
+                                            
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label class="col-form-label" for="ocode">Organisation Code</label>
                                         <input type="text" class="form-control form-control-sm " id="ocode"
-                                            placeholder="Enter Code" name="ocode" autocomplete="off" required >
+                                            placeholder="Enter Code" name="ocode" autocomplete="off" required onchange="stringlength1(this.value)">
+                                            <small id="valid-nhs1"></small>
                                     </div>
                                 </div>
                                 <div class="col-md-6">
@@ -247,6 +250,43 @@ include_once('database/db.php');
   "showMethod": "fadeIn",
   "hideMethod": "fadeOut"
 };
+function stringlength(num)
+{ 
+ 
+var no = num;
+var mnlen = 5;
+var mxlen = 15;
+if(no.length<mnlen || no.length> mxlen)
+{ 
+    
+$("#valid-nhs").html("Please enter number between 5 to 15 digits").removeClass("text-success").addClass("text-danger");
+$("#valid-nhs").show();
+
+}
+else
+{
+    $("#valid-nhs").hide();
+}
+}
+
+function stringlength1(num)
+{ 
+ 
+var no = num;
+var mnlen = 3;
+var mxlen = 10;
+if(no.length<mnlen || no.length> mxlen)
+{ 
+    
+$("#valid-nhs1").html("Please enter number between 3 to 10 digits").removeClass("text-success").addClass("text-danger");
+$("#valid-nhs1").show();
+
+}
+else
+{
+    $("#valid-nhs1").hide();
+}
+}
 	$("#oradd").on('submit', function(e){
 		
         	e.preventDefault();

@@ -80,7 +80,8 @@ include_once('connect.php');
 												<div class="col-md-6">
 													<div class="form-group">
 														<label class="col-form-label" for="sacontact">Contact</label>
-														<input type="number" class="form-control form-control-lg" id="sacontact" name="sacontact" required autocomplete="off">
+														<input type="number" class="form-control form-control-lg" id="sacontact" name="sacontact" required autocomplete="off" onchange="stringlength(this.value)">
+													<small id="valid-nhs"></small>
 													</div>
 												</div>
 												<div class="col-md-6">
@@ -164,6 +165,26 @@ include_once('connect.php');
   "showMethod": "fadeIn",
   "hideMethod": "fadeOut"
 };
+
+	function stringlength(num)
+{ 
+ 
+var no = num;
+var mnlen = 5;
+var mxlen = 15;
+if(no.length<mnlen || no.length> mxlen)
+{ 
+    
+$("#valid-nhs").html("Please enter between 5 to 15 numbers").removeClass("text-success").addClass("text-danger");
+$("#valid-nhs").show();
+$('#sacontact').val('');
+}
+else
+{
+    $("#valid-nhs").hide();
+}
+}
+
 	$("#saadd").on('submit', function(e){
 		
         	e.preventDefault();

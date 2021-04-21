@@ -901,6 +901,7 @@ $('#servage').val(serv);
         url: "gpphpcode.php", 
 		data:{nhs:nhs,patientfetch:"btn"},	            
         success: function(response){ 
+      
 			if(response == 'There is no patient matching criteria')
 				{
 				     $('#createpatient').show();
@@ -924,10 +925,14 @@ $('#servage').val(serv);
 		
 		
 	
-			
+			var ptage = $('#pt_age').val();
+			var pttitle = $('#pt_title').val();
 			var refform = new FormData(this);
 			refform.append("searchservice","btn");
-			
+			refform.append("ptage",ptage);
+			refform.append("pttitle",pttitle);
+		
+	
 			$.ajax({
 				url: 'gpphpcode.php',
 				type: 'post',
@@ -942,7 +947,16 @@ $('#servage').val(serv);
                
                 	document.getElementById('tabItem7').innerHTML=data;
 						$("#modalname").modal("hide");
-						}else{
+						}
+					else if(data == '')
+						{
+						
+               document.getElementById('tabItem7').innerHTML='';
+                
+						$("#modalname").modal("hide");
+						}
+					
+						else{
 						    
                 	document.getElementById('tabItem7').innerHTML=data;
 						$("#modalname").modal("hide");

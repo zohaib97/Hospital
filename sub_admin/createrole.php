@@ -104,6 +104,7 @@ include_once('header.php');
 													<div class="form-group col-lg-6">
 														<label class="col-form-label" for="pno">Registration No</label>
 														<input type="text" class="form-control form-control-lg" id="proregno" placeholder="Professional Registration No" name="proregno" autocomplete="off" onchange="proregnocheck()">
+													    <small id="valid-nhs1"></small>
 													</div>
 													<div class="form-group col-lg-6">
 														<label class="col-form-label" for="pno">Code</label>
@@ -234,7 +235,19 @@ include_once('header.php');
 function proregnocheck()
 {
    var no = $('#proregno').val();
-
+var mnlen = 5;
+var mxlen = 10;
+if(no.length<mnlen || no.length> mxlen)
+{ 
+    
+$("#valid-nhs1").html("Please enter between 5 to 10 numbers").removeClass("text-success").addClass("text-danger");
+$("#valid-nhs1").show();
+$('#proregno').val('');
+}
+else
+{
+    $("#valid-nhs1").hide();
+}
     $.ajax({
 		url:"phpcode.php",
 		type:"POST",

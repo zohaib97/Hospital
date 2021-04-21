@@ -1430,20 +1430,20 @@ if(isset($_POST['patientfetch']))
 {
 	$nhs = $_POST['nhs'];
 	$query = mysqli_query($con,"SELECT * FROM `tbl_patients` WHERE pt_nhsno = '$nhs'");
-	if(mysqli_num_rows($query ) > 0)
+$query1 = mysqli_query($con,"SELECT * FROM `tbl_patients` WHERE pt_nhsno = '$nhs'");
+$fetch1 = mysqli_fetch_array($query1);
+	if(mysqli_num_rows($query) > 0)
 	{
 		echo'<link rel="stylesheet" href="https://cdn.datatables.net/1.10.23/css/dataTables.bootstrap4.min.css">
 		<hr>
 	<h5>Patient List</h5>
-	
+	<input type="text" value="'.$fetch1["pt_age"].'" hidden id="pt_age">
+	<input type="text" value="'.$fetch1["pt_title"].'" hidden id="pt_title">
 		<table class="nowrap nk-tb-list is-separate" data-auto-responsive="false" id="myTable">
 			<thead>
 				<tr class="nk-tb-item nk-tb-head">
 					<th class="nk-tb-col nk-tb-col-check">
-						<div class="custom-control custom-control-sm custom-checkbox notext">
-							<input type="checkbox" class="custom-control-input" id="puid">
-							<label class="custom-control-label" for="puid"></label>
-						</div>
+					
 					</th>
 					<th class="nk-tb-col tb-col-sm"><span>Name</span></th>
 				
@@ -1502,7 +1502,7 @@ if(isset($_POST['patientfetch']))
 	</td>
 	';
 		
-	echo'<input type="text" value="'.$fetch["pt_age"].'" hidden id="ptage">';
+
 										
 		}
 		echo'</tbody> </table>
@@ -1609,6 +1609,8 @@ if(isset($_POST['apppatientfetch']))
 if(isset($_POST['searchservice']))
 {
 		$res="";
+		$ptage = $_POST['ptage'];
+		$pttitle = $_POST['pttitle'];
 		$periority = $_POST['ref_priority'];
 		$speciality = $_POST['ref_spec'];
 		$cliniciantype = $_POST['ref_cltype'];
@@ -1625,19 +1627,28 @@ if(isset($_POST['searchservice']))
 		$res ="ser_priority_2week !=''";
 	}
 	$query = mysqli_query($con,"SELECT * FROM `services` WHERE ".$res." and FIND_IN_SET('$cliniciantype',ser_cl_type)  and service_speciality = '$speciality'");
+	$query1 = mysqli_query($con,"SELECT * FROM `services` WHERE ".$res." and FIND_IN_SET('$cliniciantype',ser_cl_type)  and service_speciality = '$speciality'");
+	$fetch1 = mysqli_fetch_array($query);
+// 	if($fetch1['service_age'] > $ptage || $fetch1['service_age2'] < $ptage)
+// 	{
+// 	    echo"age";
+// 	}
+// 	elseif($fetch1['service_gender'] == "Male" && $pttitle == "Ms" || $fetch1['service_gender'] == "Female" && $pttitle == "Mr")
+// 	{
+// 	    echo"gender";
+// 	}
+
 		echo mysqli_error($con);
 		if(mysqli_num_rows($query) >0)
 		{
 			echo'<link rel="stylesheet" href="https://cdn.datatables.net/1.10.23/css/dataTables.bootstrap4.min.css">
 			<hr>
+			<h5 class="text-center">Service List</h5>
 			<table class="nowrap nk-tb-list is-separate" data-auto-responsive="false" id="myTable1" >
 				<thead>
 					<tr class="nk-tb-item nk-tb-head">
 						<th class="nk-tb-col nk-tb-col-check">
-							<div class="custom-control custom-control-sm custom-checkbox notext">
-								<input type="checkbox" class="custom-control-input" id="puid">
-								<label class="custom-control-label" for="puid"></label>
-							</div>
+							
 						</th>
 						<th class="nk-tb-col tb-col-sm"><span>Service Name</span></th>
 					
@@ -1675,7 +1686,15 @@ if(isset($_POST['searchservice']))
 		// 		$fe3 = mysqli_fetch_array($sql3);
 		// 		$dob = $fe3['lo_location'];
 		$id = $fetch['service_id'];
-
+	if($fetch1['service_age'] > $ptage || $fetch1['service_age2'] < $ptage)
+	{
+	 
+	}
+	elseif($fetch1['service_gender'] == "Male" && $pttitle == "Ms" || $fetch1['service_gender'] == "Female" && $pttitle == "Mr")
+	{
+	  
+	}
+	else{
 	echo'   <tr class="nk-tb-item">
 		<td class="nk-tb-col nk-tb-col-check">
 			<div class="custom-control custom-control-sm custom-radio notext">
@@ -1703,7 +1722,7 @@ if(isset($_POST['searchservice']))
 		</td>
 		';
 			
-											
+	}								
 			}
 			echo'</tbody> </table>
 		
@@ -2281,11 +2300,15 @@ if(isset($_POST['searchpatienta']))
 	$dob = date_format($date,"Y-m-d");
 
 $assa = mysqli_query($con,"SELECT * FROM `tbl_patients` where pt_name ='$nm' and pt_dob='$dob' and pt_surname='$em'");
+$query1 = mysqli_query($con,"SELECT * FROM `tbl_patients` where pt_name ='$nm' and pt_dob='$dob' and pt_surname='$em'");
+$fetch1 = mysqli_fetch_array($query1);
 	if(mysqli_num_rows($assa)>0)
 	{
 		echo'<link rel="stylesheet" href="https://cdn.datatables.net/1.10.23/css/dataTables.bootstrap4.min.css">
 		<hr>
 			<h5>Patient List</h5>
+				<input type="text" value="'.$fetch1["pt_age"].'" hidden id="pt_age">
+	<input type="text" value="'.$fetch1["pt_title"].'" hidden id="pt_title">
 		<table class="nowrap nk-tb-list is-separate" data-auto-responsive="false" id="myTable">
 			<thead>
 				<tr class="nk-tb-item nk-tb-head">

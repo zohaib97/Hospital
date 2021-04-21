@@ -148,7 +148,8 @@ include_once('../database/db.php');
 												<div class="col-md-6" id="">
 													<div class="form-group">
 														<label class="col-form-label" for="rno">POST Code</label>
-														<input type="text" class="form-control form-control-lg" id="" value="" placeholder="Postal Code" name="postalcode" autocomplete="off"   required>
+														<input type="text" class="form-control form-control-lg" id="post" value="" placeholder="Postal Code" name="postalcode" autocomplete="off" required onchange="stringlength1(this.value)">
+														<small id="valid-nhs1"></small>
 													</div>
 												</div>
 												<div class="col-md-6">
@@ -218,6 +219,26 @@ include_once('../database/db.php');
   <script src="assets/js/example-toastr.js?ver=2.2.0"></script>
 </body>
 <script>
+
+function stringlength1(num)
+{ 
+ 
+var no = num;
+var mnlen = 3;
+var mxlen = 8;
+if(no.length<mnlen || no.length> mxlen)
+{ 
+    
+$("#valid-nhs1").html("Please enter between 3 to 8 number/alphabets").removeClass("text-success").addClass("text-danger");
+$("#valid-nhs1").show();
+$('#post').val('');
+}
+else
+{
+    $("#valid-nhs1").hide();
+}
+}
+
 	function checkemail(email){
 	
 

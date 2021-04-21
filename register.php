@@ -124,6 +124,7 @@ include_once('database/db.php');
 							
 							  <div class="form-group col-lg-6 mt-2">
 								 <input type="text" class="form-control" id="proregno" placeholder="Professional Registration No" name="proregno" autocomplete="off" onchange="proregnocheck()">
+								 <small id="valid-nhs"></small>
 							  </div>
 							  <div class="form-group col-lg-6 mt-2">
 								 <input type="text" class="form-control" id="orgcode" readonly placeholder="Organisation Code" name="orgcode" autocomplete="off">
@@ -252,10 +253,17 @@ include_once('database/db.php');
   "showMethod": "fadeIn",
   "hideMethod": "fadeOut"
 };
+
 function proregnocheck()
 {
    var no = $('#proregno').val();
-
+var mnlen = 5;
+var mxlen = 10;
+if(no.length<mnlen || no.length> mxlen)
+{ 
+    toastr.error("Please Enter number between 5 digits to 10 digits");
+    $('#proregno').val('');
+}
     $.ajax({
 		url:"php/phpcode.php",
 		type:"POST",

@@ -1,0 +1,4 @@
+[17-Mar-2021 06:06:03 UTC] PHP Fatal error:  Uncaught Error: Interface 'Psr\SimpleCache\CacheInterface' not found in /home/extremeearn/public_html/vendor/phpoffice/phpspreadsheet/src/PhpSpreadsheet/Collection/Memory.php:13
+Stack trace:
+#0 {main}
+  thrown in /home/extremeearn/public_html/vendor/phpoffice/phpspreadsheet/src/PhpSpreadsheet/Collection/Memory.php on line 13

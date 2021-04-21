@@ -1,0 +1,12 @@
+[17-Mar-2021 06:01:15 UTC] PHP Fatal error:  Uncaught Error: Interface 'Psr\Http\Message\MessageInterface' not found in /home/extremeearn/public_html/vendor/psr/http-message/src/RequestInterface.php:24
+Stack trace:
+#0 {main}
+  thrown in /home/extremeearn/public_html/vendor/psr/http-message/src/RequestInterface.php on line 24
+[17-Mar-2021 06:01:15 UTC] PHP Fatal error:  Uncaught Error: Interface 'Psr\Http\Message\RequestInterface' not found in /home/extremeearn/public_html/vendor/psr/http-message/src/ServerRequestInterface.php:43
+Stack trace:
+#0 {main}
+  thrown in /home/extremeearn/public_html/vendor/psr/http-message/src/ServerRequestInterface.php on line 43
+[17-Mar-2021 06:01:15 UTC] PHP Fatal error:  Uncaught Error: Interface 'Psr\Http\Message\MessageInterface' not found in /home/extremeearn/public_html/vendor/psr/http-message/src/ResponseInterface.php:20
+Stack trace:
+#0 {main}
+  thrown in /home/extremeearn/public_html/vendor/psr/http-message/src/ResponseInterface.php on line 20

@@ -1,0 +1,8 @@
+[17-Mar-2021 06:04:06 UTC] PHP Fatal error:  Uncaught Error: Class 'HTMLPurifier_Filter' not found in /home/extremeearn/public_html/vendor/ezyang/htmlpurifier/library/HTMLPurifier/Filter/ExtractStyleBlocks.php:25
+Stack trace:
+#0 {main}
+  thrown in /home/extremeearn/public_html/vendor/ezyang/htmlpurifier/library/HTMLPurifier/Filter/ExtractStyleBlocks.php on line 25
+[17-Mar-2021 06:04:06 UTC] PHP Fatal error:  Uncaught Error: Class 'HTMLPurifier_Filter' not found in /home/extremeearn/public_html/vendor/ezyang/htmlpurifier/library/HTMLPurifier/Filter/YouTube.php:3
+Stack trace:
+#0 {main}
+  thrown in /home/extremeearn/public_html/vendor/ezyang/htmlpurifier/library/HTMLPurifier/Filter/YouTube.php on line 3

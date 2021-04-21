@@ -1,0 +1,44 @@
+[17-Mar-2021 06:06:13 UTC] PHP Fatal error:  Uncaught Error: Class 'PhpOffice\PhpSpreadsheet\Reader\BaseReader' not found in /home/extremeearn/public_html/vendor/phpoffice/phpspreadsheet/src/PhpSpreadsheet/Reader/Csv.php:10
+Stack trace:
+#0 {main}
+  thrown in /home/extremeearn/public_html/vendor/phpoffice/phpspreadsheet/src/PhpSpreadsheet/Reader/Csv.php on line 10
+[17-Mar-2021 06:06:13 UTC] PHP Fatal error:  Uncaught Error: Interface 'PhpOffice\PhpSpreadsheet\Reader\IReader' not found in /home/extremeearn/public_html/vendor/phpoffice/phpspreadsheet/src/PhpSpreadsheet/Reader/BaseReader.php:9
+Stack trace:
+#0 {main}
+  thrown in /home/extremeearn/public_html/vendor/phpoffice/phpspreadsheet/src/PhpSpreadsheet/Reader/BaseReader.php on line 9
+[17-Mar-2021 06:06:13 UTC] PHP Fatal error:  Uncaught Error: Interface 'PhpOffice\PhpSpreadsheet\Reader\IReadFilter' not found in /home/extremeearn/public_html/vendor/phpoffice/phpspreadsheet/src/PhpSpreadsheet/Reader/DefaultReadFilter.php:5
+Stack trace:
+#0 {main}
+  thrown in /home/extremeearn/public_html/vendor/phpoffice/phpspreadsheet/src/PhpSpreadsheet/Reader/DefaultReadFilter.php on line 5
+[17-Mar-2021 06:06:13 UTC] PHP Fatal error:  Uncaught Error: Class 'PhpOffice\PhpSpreadsheet\Exception' not found in /home/extremeearn/public_html/vendor/phpoffice/phpspreadsheet/src/PhpSpreadsheet/Reader/Exception.php:7
+Stack trace:
+#0 {main}
+  thrown in /home/extremeearn/public_html/vendor/phpoffice/phpspreadsheet/src/PhpSpreadsheet/Reader/Exception.php on line 7
+[17-Mar-2021 06:06:13 UTC] PHP Fatal error:  Uncaught Error: Class 'PhpOffice\PhpSpreadsheet\Reader\BaseReader' not found in /home/extremeearn/public_html/vendor/phpoffice/phpspreadsheet/src/PhpSpreadsheet/Reader/Gnumeric.php:25
+Stack trace:
+#0 {main}
+  thrown in /home/extremeearn/public_html/vendor/phpoffice/phpspreadsheet/src/PhpSpreadsheet/Reader/Gnumeric.php on line 25
+[17-Mar-2021 06:06:15 UTC] PHP Fatal error:  Uncaught Error: Class 'PhpOffice\PhpSpreadsheet\Reader\BaseReader' not found in /home/extremeearn/public_html/vendor/phpoffice/phpspreadsheet/src/PhpSpreadsheet/Reader/Html.php:22
+Stack trace:
+#0 {main}
+  thrown in /home/extremeearn/public_html/vendor/phpoffice/phpspreadsheet/src/PhpSpreadsheet/Reader/Html.php on line 22
+[17-Mar-2021 06:06:16 UTC] PHP Fatal error:  Uncaught Error: Class 'PhpOffice\PhpSpreadsheet\Reader\BaseReader' not found in /home/extremeearn/public_html/vendor/phpoffice/phpspreadsheet/src/PhpSpreadsheet/Reader/Ods.php:29
+Stack trace:
+#0 {main}
+  thrown in /home/extremeearn/public_html/vendor/phpoffice/phpspreadsheet/src/PhpSpreadsheet/Reader/Ods.php on line 29
+[17-Mar-2021 06:06:17 UTC] PHP Fatal error:  Uncaught Error: Class 'PhpOffice\PhpSpreadsheet\Reader\BaseReader' not found in /home/extremeearn/public_html/vendor/phpoffice/phpspreadsheet/src/PhpSpreadsheet/Reader/Slk.php:14
+Stack trace:
+#0 {main}
+  thrown in /home/extremeearn/public_html/vendor/phpoffice/phpspreadsheet/src/PhpSpreadsheet/Reader/Slk.php on line 14
+[17-Mar-2021 06:06:17 UTC] PHP Fatal error:  Uncaught Error: Class 'PhpOffice\PhpSpreadsheet\Reader\BaseReader' not found in /home/extremeearn/public_html/vendor/phpoffice/phpspreadsheet/src/PhpSpreadsheet/Reader/Xls.php:61
+Stack trace:
+#0 {main}
+  thrown in /home/extremeearn/public_html/vendor/phpoffice/phpspreadsheet/src/PhpSpreadsheet/Reader/Xls.php on line 61
+[17-Mar-2021 06:06:18 UTC] PHP Fatal error:  Uncaught Error: Class 'PhpOffice\PhpSpreadsheet\Reader\BaseReader' not found in /home/extremeearn/public_html/vendor/phpoffice/phpspreadsheet/src/PhpSpreadsheet/Reader/Xml.php:28
+Stack trace:
+#0 {main}
+  thrown in /home/extremeearn/public_html/vendor/phpoffice/phpspreadsheet/src/PhpSpreadsheet/Reader/Xml.php on line 28
+[17-Mar-2021 06:06:18 UTC] PHP Fatal error:  Uncaught Error: Class 'PhpOffice\PhpSpreadsheet\Reader\BaseReader' not found in /home/extremeearn/public_html/vendor/phpoffice/phpspreadsheet/src/PhpSpreadsheet/Reader/Xlsx.php:43
+Stack trace:
+#0 {main}
+  thrown in /home/extremeearn/public_html/vendor/phpoffice/phpspreadsheet/src/PhpSpreadsheet/Reader/Xlsx.php on line 43

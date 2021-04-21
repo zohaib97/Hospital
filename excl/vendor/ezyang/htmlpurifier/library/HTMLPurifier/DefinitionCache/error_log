@@ -1,0 +1,12 @@
+[17-Mar-2021 06:04:01 UTC] PHP Fatal error:  Uncaught Error: Class 'HTMLPurifier_DefinitionCache' not found in /home/extremeearn/public_html/vendor/ezyang/htmlpurifier/library/HTMLPurifier/DefinitionCache/Decorator.php:3
+Stack trace:
+#0 {main}
+  thrown in /home/extremeearn/public_html/vendor/ezyang/htmlpurifier/library/HTMLPurifier/DefinitionCache/Decorator.php on line 3
+[17-Mar-2021 06:04:02 UTC] PHP Fatal error:  Uncaught Error: Class 'HTMLPurifier_DefinitionCache' not found in /home/extremeearn/public_html/vendor/ezyang/htmlpurifier/library/HTMLPurifier/DefinitionCache/Null.php:6
+Stack trace:
+#0 {main}
+  thrown in /home/extremeearn/public_html/vendor/ezyang/htmlpurifier/library/HTMLPurifier/DefinitionCache/Null.php on line 6
+[17-Mar-2021 06:04:02 UTC] PHP Fatal error:  Uncaught Error: Class 'HTMLPurifier_DefinitionCache' not found in /home/extremeearn/public_html/vendor/ezyang/htmlpurifier/library/HTMLPurifier/DefinitionCache/Serializer.php:3
+Stack trace:
+#0 {main}
+  thrown in /home/extremeearn/public_html/vendor/ezyang/htmlpurifier/library/HTMLPurifier/DefinitionCache/Serializer.php on line 3

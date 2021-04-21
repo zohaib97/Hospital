@@ -127,7 +127,11 @@ $fetchsa=mysqli_fetch_array($qiu);
 
 
               $ser = mysqli_fetch_assoc($qe);
-                
+                $aid1 = $_SESSION['gprefferer'];
+						$query = mysqli_query($con,"SELECT * FROM `tbl_ruser` WHERE `ur_email` = '$aid1'");
+						$fetch = mysqli_fetch_array($query);
+									$id = $fetch['ur_id'];
+									$orid=$fetch["ur_orgtype"];
             ?>
                                 
                                         <div class="col-xxl-3 col-sm-6">
@@ -151,7 +155,84 @@ $fetchsa=mysqli_fetch_array($qiu);
                                                 </div><!-- .nk-ecwg -->
                                             </div><!-- .card -->
                                         </div><!-- .col -->
-                                        
+                                         <div class="col-xxl-3 col-sm-6">
+                                            <div class="card">
+                                                <div class="nk-ecwg nk-ecwg6">
+                                                    <div class="card-inner">
+                                                        <div class="card-title-group">
+                                                            <div class="card-title">
+                                                                <h6 class="title">Total Refferals Sent</h6>
+                                                            </div>
+                                                        </div>
+                                                        <div class="data">
+                                                            <div class="data-group">
+                                                                <div class="amount"><?php
+                                                                $q=mysqli_query($con,"SELECT count(*) as a FROM `tbl_consultantrefferels` WHERE c_gpid ='$id' and c_status = '2' and request_type ='Appointment Request'");
+                                                                if(mysqli_num_rows($q) >0){
+                                                                $r=mysqli_fetch_array($q);
+                                                                echo $r["a"];
+                                                                }?></div>
+                                                                <div class="nk-ecwg6-ck">
+                                                                    <canvas class="ecommerce-line-chart-s3" id="todayOrders"></canvas>
+                                                                </div>
+                                                            </div>
+                                                            </div>
+                                                    </div><!-- .card-inner -->
+                                                </div><!-- .nk-ecwg -->
+                                            </div><!-- .card -->
+                                        </div><!-- .col -->
+                                        <div class="col-xxl-3 col-sm-6">
+                                            <div class="card">
+                                                <div class="nk-ecwg nk-ecwg6">
+                                                    <div class="card-inner">
+                                                        <div class="card-title-group">
+                                                            <div class="card-title">
+                                                                <h6 class="title">Total Refferals Accepted</h6>
+                                                            </div>
+                                                        </div>
+                                                        <div class="data">
+                                                            <div class="data-group">
+                                                                <div class="amount"><?php
+                                                                $q=mysqli_query($con,"SELECT count(*) as a FROM `tbl_consultantrefferels` WHERE c_gpid ='$id' and c_status = '1' and request_type ='Appointment Request'");
+                                                                if(mysqli_num_rows($q) >0){
+                                                                $r=mysqli_fetch_array($q);
+                                                                echo $r["a"];
+                                                                }?></div>
+                                                                <div class="nk-ecwg6-ck">
+                                                                    <canvas class="ecommerce-line-chart-s3" id="todayOrders"></canvas>
+                                                                </div>
+                                                            </div>
+                                                            </div>
+                                                    </div><!-- .card-inner -->
+                                                </div><!-- .nk-ecwg -->
+                                            </div><!-- .card -->
+                                        </div><!-- .col -->
+                                        <div class="col-xxl-3 col-sm-6">
+                                            <div class="card">
+                                                <div class="nk-ecwg nk-ecwg6">
+                                                    <div class="card-inner">
+                                                        <div class="card-title-group">
+                                                            <div class="card-title">
+                                                                <h6 class="title">Total Refferals Rejected</h6>
+                                                            </div>
+                                                        </div>
+                                                        <div class="data">
+                                                            <div class="data-group">
+                                                                <div class="amount"><?php
+                                                                $q=mysqli_query($con,"SELECT count(*) as a FROM `tbl_consultantrefferels` WHERE c_gpid ='$id' and c_status = '0' and request_type ='Appointment Request'");
+                                                                if(mysqli_num_rows($q) >0){
+                                                                $r=mysqli_fetch_array($q);
+                                                                echo $r["a"];
+                                                                }?></div>
+                                                                <div class="nk-ecwg6-ck">
+                                                                    <canvas class="ecommerce-line-chart-s3" id="todayOrders"></canvas>
+                                                                </div>
+                                                            </div>
+                                                            </div>
+                                                    </div><!-- .card-inner -->
+                                                </div><!-- .nk-ecwg -->
+                                            </div><!-- .card -->
+                                        </div><!-- .col -->
                                      
                                         <?php
                            }
@@ -195,7 +276,7 @@ $fetchsa=mysqli_fetch_array($qiu);
 			$dataid = mysqli_fetch_assoc($idq);
 			$orgid1 = $dataid['ur_orgtype'];
 				$urid = $dataid['ur_id'];
-                 $qe = mysqli_query($con, "SELECT COUNT(m_id) AS number FROM `tbl_consultantrefferels` JOIN `services` ON tbl_consultantrefferels.c_serid = services.service_id WHERE services.s_orgid = '$orgid' and services.ser_priority_urg !='' and services.service_r_t_support = 'Advice Request,' and tbl_consultantrefferels.c_userid = '$urid'");
+                 $qe = mysqli_query($con, "SELECT COUNT(m_id) AS number FROM `tbl_consultantrefferels` JOIN `services` ON tbl_consultantrefferels.c_serid = services.service_id WHERE services.s_orgid = '$orgid1' and services.ser_priority_urg !='' and tbl_consultantrefferels.request_type = 'Advice Request' and tbl_consultantrefferels.c_userid = '$urid'");
 
 
               $hos = mysqli_fetch_assoc($qe);
@@ -229,7 +310,7 @@ $fetchsa=mysqli_fetch_array($qiu);
 			$dataid = mysqli_fetch_assoc($idq);
 			$orgid1 = $dataid['ur_orgtype'];
 				$urid = $dataid['ur_id'];
-                 $qe = mysqli_query($con, "SELECT COUNT(m_id) AS number FROM `tbl_consultantrefferels` JOIN `services` ON tbl_consultantrefferels.c_serid = services.service_id WHERE services.s_orgid = '$orgid' and services.ser_priority_rout !='' and services.service_r_t_support = 'Advice Request,' and tbl_consultantrefferels.c_userid = '$urid'");
+                 $qe = mysqli_query($con, "SELECT COUNT(m_id) AS number FROM `tbl_consultantrefferels` JOIN `services` ON tbl_consultantrefferels.c_serid = services.service_id WHERE services.s_orgid = '$orgid1' and services.ser_priority_rout !='' and tbl_consultantrefferels.request_type = 'Advice Request' and tbl_consultantrefferels.c_userid = '$urid'");
 
 
               $hos = mysqli_fetch_assoc($qe);
@@ -263,7 +344,7 @@ $fetchsa=mysqli_fetch_array($qiu);
 			$dataid = mysqli_fetch_assoc($idq);
 			$orgid1 = $dataid['ur_orgtype'];
 				$urid = $dataid['ur_id'];
-                 $qe = mysqli_query($con, "SELECT COUNT(m_id) AS number FROM `tbl_consultantrefferels` JOIN `services` ON tbl_consultantrefferels.c_serid = services.service_id WHERE services.s_orgid = '$orgid' and services.ser_priority_urg !='' and services.service_r_t_support = 'Appointment Request,' and tbl_consultantrefferels.c_userid = '$urid'");
+                 $qe = mysqli_query($con, "SELECT COUNT(m_id) AS number FROM `tbl_consultantrefferels` JOIN `services` ON tbl_consultantrefferels.c_serid = services.service_id WHERE services.s_orgid = '$orgid1' and services.ser_priority_urg !='' and tbl_consultantrefferels.request_type = 'Appointment Request' and tbl_consultantrefferels.c_userid = '$urid'");
 
 
               $hos = mysqli_fetch_assoc($qe);
@@ -297,7 +378,7 @@ $fetchsa=mysqli_fetch_array($qiu);
 			$dataid = mysqli_fetch_assoc($idq);
 			$orgid1 = $dataid['ur_orgtype'];
 				$urid = $dataid['ur_id'];
-                 $qe = mysqli_query($con, "SELECT COUNT(m_id) AS number FROM `tbl_consultantrefferels` JOIN `services` ON tbl_consultantrefferels.c_serid = services.service_id WHERE services.s_orgid = '$orgid' and services.ser_priority_rout !='' and services.service_r_t_support = 'Appointment Request,' and tbl_consultantrefferels.c_userid = '$urid'");
+                 $qe = mysqli_query($con, "SELECT COUNT(m_id) AS number FROM `tbl_consultantrefferels` JOIN `services` ON tbl_consultantrefferels.c_serid = services.service_id WHERE services.s_orgid = '$orgid1' and services.ser_priority_rout !='' and tbl_consultantrefferels.request_type = 'Appointment Request' and tbl_consultantrefferels.c_userid = '$urid'");
 
 
               $hos = mysqli_fetch_assoc($qe);

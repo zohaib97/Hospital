@@ -926,10 +926,12 @@ $('#servage').val(serv);
 		
 		
 	
-			
+			var ptage = $('#pt_age').val();
+			var pttitle = $('#pt_title').val();
 			var refform = new FormData(this);
 			refform.append("searchservice","btn");
-			
+			refform.append("ptage",ptage);
+			refform.append("pttitle",pttitle);
 			$.ajax({
 				url: 'phpcode.php',
 				type: 'post',

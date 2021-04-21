@@ -1,0 +1,4 @@
+[17-Mar-2021 06:07:48 UTC] PHP Fatal error:  Uncaught Error: Interface 'PhpOffice\PhpSpreadsheet\Chart\Renderer\IRenderer' not found in /home/extremeearn/public_html/vendor/phpoffice/phpspreadsheet/src/PhpSpreadsheet/Chart/Renderer/JpGraph.php:24
+Stack trace:
+#0 {main}
+  thrown in /home/extremeearn/public_html/vendor/phpoffice/phpspreadsheet/src/PhpSpreadsheet/Chart/Renderer/JpGraph.php on line 24

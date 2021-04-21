@@ -1,0 +1,12 @@
+[17-Mar-2021 06:03:11 UTC] PHP Fatal error:  Uncaught Error: Interface 'PhpOffice\PhpSpreadsheet\IComparable' not found in /home/extremeearn/public_html/vendor/phpoffice/phpspreadsheet/src/PhpSpreadsheet/Comment.php:7
+Stack trace:
+#0 {main}
+  thrown in /home/extremeearn/public_html/vendor/phpoffice/phpspreadsheet/src/PhpSpreadsheet/Comment.php on line 7
+[17-Mar-2021 06:03:13 UTC] PHP Fatal error:  Uncaught Error: Class 'PhpOffice\PhpSpreadsheet\DefinedName' not found in /home/extremeearn/public_html/vendor/phpoffice/phpspreadsheet/src/PhpSpreadsheet/NamedFormula.php:7
+Stack trace:
+#0 {main}
+  thrown in /home/extremeearn/public_html/vendor/phpoffice/phpspreadsheet/src/PhpSpreadsheet/NamedFormula.php on line 7
+[17-Mar-2021 06:03:14 UTC] PHP Fatal error:  Uncaught Error: Class 'PhpOffice\PhpSpreadsheet\DefinedName' not found in /home/extremeearn/public_html/vendor/phpoffice/phpspreadsheet/src/PhpSpreadsheet/NamedRange.php:8
+Stack trace:
+#0 {main}
+  thrown in /home/extremeearn/public_html/vendor/phpoffice/phpspreadsheet/src/PhpSpreadsheet/NamedRange.php on line 8

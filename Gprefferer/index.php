@@ -104,6 +104,84 @@ include_once('header.php');
                                                     <div class="card-inner">
                                                         <div class="card-title-group">
                                                             <div class="card-title">
+                                                                <h6 class="title">Total Refferals Sent</h6>
+                                                            </div>
+                                                        </div>
+                                                        <div class="data">
+                                                            <div class="data-group">
+                                                                <div class="amount"><?php
+                                                                $q=mysqli_query($con,"SELECT count(*) as a FROM `tbl_consultantrefferels` WHERE c_gpid ='$id' and c_status = '2' and request_type ='Appointment Request'");
+                                                                if(mysqli_num_rows($q) >0){
+                                                                $r=mysqli_fetch_array($q);
+                                                                echo $r["a"];
+                                                                }?></div>
+                                                                <div class="nk-ecwg6-ck">
+                                                                    <canvas class="ecommerce-line-chart-s3" id="todayOrders"></canvas>
+                                                                </div>
+                                                            </div>
+                                                            </div>
+                                                    </div><!-- .card-inner -->
+                                                </div><!-- .nk-ecwg -->
+                                            </div><!-- .card -->
+                                        </div><!-- .col -->
+                                        <div class="col-xxl-3 col-sm-6">
+                                            <div class="card">
+                                                <div class="nk-ecwg nk-ecwg6">
+                                                    <div class="card-inner">
+                                                        <div class="card-title-group">
+                                                            <div class="card-title">
+                                                                <h6 class="title">Total Refferals Accepted</h6>
+                                                            </div>
+                                                        </div>
+                                                        <div class="data">
+                                                            <div class="data-group">
+                                                                <div class="amount"><?php
+                                                                $q=mysqli_query($con,"SELECT count(*) as a FROM `tbl_consultantrefferels` WHERE c_gpid ='$id' and c_status = '1' and request_type ='Appointment Request'");
+                                                                if(mysqli_num_rows($q) >0){
+                                                                $r=mysqli_fetch_array($q);
+                                                                echo $r["a"];
+                                                                }?></div>
+                                                                <div class="nk-ecwg6-ck">
+                                                                    <canvas class="ecommerce-line-chart-s3" id="todayOrders"></canvas>
+                                                                </div>
+                                                            </div>
+                                                            </div>
+                                                    </div><!-- .card-inner -->
+                                                </div><!-- .nk-ecwg -->
+                                            </div><!-- .card -->
+                                        </div><!-- .col -->
+                                        <div class="col-xxl-3 col-sm-6">
+                                            <div class="card">
+                                                <div class="nk-ecwg nk-ecwg6">
+                                                    <div class="card-inner">
+                                                        <div class="card-title-group">
+                                                            <div class="card-title">
+                                                                <h6 class="title">Total Refferals Rejected</h6>
+                                                            </div>
+                                                        </div>
+                                                        <div class="data">
+                                                            <div class="data-group">
+                                                                <div class="amount"><?php
+                                                                $q=mysqli_query($con,"SELECT count(*) as a FROM `tbl_consultantrefferels` WHERE c_gpid ='$id' and c_status = '0' and request_type ='Appointment Request'");
+                                                                if(mysqli_num_rows($q) >0){
+                                                                $r=mysqli_fetch_array($q);
+                                                                echo $r["a"];
+                                                                }?></div>
+                                                                <div class="nk-ecwg6-ck">
+                                                                    <canvas class="ecommerce-line-chart-s3" id="todayOrders"></canvas>
+                                                                </div>
+                                                            </div>
+                                                            </div>
+                                                    </div><!-- .card-inner -->
+                                                </div><!-- .nk-ecwg -->
+                                            </div><!-- .card -->
+                                        </div><!-- .col -->
+                                        <div class="col-xxl-3 col-sm-6">
+                                            <div class="card">
+                                                <div class="nk-ecwg nk-ecwg6">
+                                                    <div class="card-inner">
+                                                        <div class="card-title-group">
+                                                            <div class="card-title">
                                                                 <h6 class="title">Advice Request</h6>
                                                             </div>
                                                         </div>

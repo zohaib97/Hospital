@@ -1,0 +1,52 @@
+[17-Mar-2021 06:08:26 UTC] PHP Fatal error:  Uncaught Error: Class 'PhpOffice\PhpSpreadsheet\Writer\Xlsx\WriterPart' not found in /home/extremeearn/public_html/vendor/phpoffice/phpspreadsheet/src/PhpSpreadsheet/Writer/Xlsx/ContentTypes.php:11
+Stack trace:
+#0 {main}
+  thrown in /home/extremeearn/public_html/vendor/phpoffice/phpspreadsheet/src/PhpSpreadsheet/Writer/Xlsx/ContentTypes.php on line 11
+[17-Mar-2021 06:08:26 UTC] PHP Fatal error:  Uncaught Error: Class 'PhpOffice\PhpSpreadsheet\Writer\Xlsx\WriterPart' not found in /home/extremeearn/public_html/vendor/phpoffice/phpspreadsheet/src/PhpSpreadsheet/Writer/Xlsx/Comments.php:9
+Stack trace:
+#0 {main}
+  thrown in /home/extremeearn/public_html/vendor/phpoffice/phpspreadsheet/src/PhpSpreadsheet/Writer/Xlsx/Comments.php on line 9
+[17-Mar-2021 06:08:26 UTC] PHP Fatal error:  Uncaught Error: Class 'PhpOffice\PhpSpreadsheet\Writer\Xlsx\WriterPart' not found in /home/extremeearn/public_html/vendor/phpoffice/phpspreadsheet/src/PhpSpreadsheet/Writer/Xlsx/Chart.php:17
+Stack trace:
+#0 {main}
+  thrown in /home/extremeearn/public_html/vendor/phpoffice/phpspreadsheet/src/PhpSpreadsheet/Writer/Xlsx/Chart.php on line 17
+[17-Mar-2021 06:08:27 UTC] PHP Fatal error:  Uncaught Error: Class 'PhpOffice\PhpSpreadsheet\Writer\Xlsx\WriterPart' not found in /home/extremeearn/public_html/vendor/phpoffice/phpspreadsheet/src/PhpSpreadsheet/Writer/Xlsx/DocProps.php:8
+Stack trace:
+#0 {main}
+  thrown in /home/extremeearn/public_html/vendor/phpoffice/phpspreadsheet/src/PhpSpreadsheet/Writer/Xlsx/DocProps.php on line 8
+[17-Mar-2021 06:08:27 UTC] PHP Fatal error:  Uncaught Error: Class 'PhpOffice\PhpSpreadsheet\Writer\Xlsx\WriterPart' not found in /home/extremeearn/public_html/vendor/phpoffice/phpspreadsheet/src/PhpSpreadsheet/Writer/Xlsx/Drawing.php:12
+Stack trace:
+#0 {main}
+  thrown in /home/extremeearn/public_html/vendor/phpoffice/phpspreadsheet/src/PhpSpreadsheet/Writer/Xlsx/Drawing.php on line 12
+[17-Mar-2021 06:08:27 UTC] PHP Fatal error:  Uncaught Error: Class 'PhpOffice\PhpSpreadsheet\Writer\Xlsx\WriterPart' not found in /home/extremeearn/public_html/vendor/phpoffice/phpspreadsheet/src/PhpSpreadsheet/Writer/Xlsx/Rels.php:10
+Stack trace:
+#0 {main}
+  thrown in /home/extremeearn/public_html/vendor/phpoffice/phpspreadsheet/src/PhpSpreadsheet/Writer/Xlsx/Rels.php on line 10
+[17-Mar-2021 06:08:27 UTC] PHP Fatal error:  Uncaught Error: Class 'PhpOffice\PhpSpreadsheet\Writer\Xlsx\WriterPart' not found in /home/extremeearn/public_html/vendor/phpoffice/phpspreadsheet/src/PhpSpreadsheet/Writer/Xlsx/RelsRibbon.php:8
+Stack trace:
+#0 {main}
+  thrown in /home/extremeearn/public_html/vendor/phpoffice/phpspreadsheet/src/PhpSpreadsheet/Writer/Xlsx/RelsRibbon.php on line 8
+[17-Mar-2021 06:08:28 UTC] PHP Fatal error:  Uncaught Error: Class 'PhpOffice\PhpSpreadsheet\Writer\Xlsx\WriterPart' not found in /home/extremeearn/public_html/vendor/phpoffice/phpspreadsheet/src/PhpSpreadsheet/Writer/Xlsx/RelsVBA.php:8
+Stack trace:
+#0 {main}
+  thrown in /home/extremeearn/public_html/vendor/phpoffice/phpspreadsheet/src/PhpSpreadsheet/Writer/Xlsx/RelsVBA.php on line 8
+[17-Mar-2021 06:08:28 UTC] PHP Fatal error:  Uncaught Error: Class 'PhpOffice\PhpSpreadsheet\Writer\Xlsx\WriterPart' not found in /home/extremeearn/public_html/vendor/phpoffice/phpspreadsheet/src/PhpSpreadsheet/Writer/Xlsx/Theme.php:8
+Stack trace:
+#0 {main}
+  thrown in /home/extremeearn/public_html/vendor/phpoffice/phpspreadsheet/src/PhpSpreadsheet/Writer/Xlsx/Theme.php on line 8
+[17-Mar-2021 06:08:28 UTC] PHP Fatal error:  Uncaught Error: Class 'PhpOffice\PhpSpreadsheet\Writer\Xlsx\WriterPart' not found in /home/extremeearn/public_html/vendor/phpoffice/phpspreadsheet/src/PhpSpreadsheet/Writer/Xlsx/StringTable.php:12
+Stack trace:
+#0 {main}
+  thrown in /home/extremeearn/public_html/vendor/phpoffice/phpspreadsheet/src/PhpSpreadsheet/Writer/Xlsx/StringTable.php on line 12
+[17-Mar-2021 06:08:28 UTC] PHP Fatal error:  Uncaught Error: Class 'PhpOffice\PhpSpreadsheet\Writer\Xlsx\WriterPart' not found in /home/extremeearn/public_html/vendor/phpoffice/phpspreadsheet/src/PhpSpreadsheet/Writer/Xlsx/Style.php:16
+Stack trace:
+#0 {main}
+  thrown in /home/extremeearn/public_html/vendor/phpoffice/phpspreadsheet/src/PhpSpreadsheet/Writer/Xlsx/Style.php on line 16
+[17-Mar-2021 06:08:29 UTC] PHP Fatal error:  Uncaught Error: Class 'PhpOffice\PhpSpreadsheet\Writer\Xlsx\WriterPart' not found in /home/extremeearn/public_html/vendor/phpoffice/phpspreadsheet/src/PhpSpreadsheet/Writer/Xlsx/Workbook.php:11
+Stack trace:
+#0 {main}
+  thrown in /home/extremeearn/public_html/vendor/phpoffice/phpspreadsheet/src/PhpSpreadsheet/Writer/Xlsx/Workbook.php on line 11
+[17-Mar-2021 06:08:29 UTC] PHP Fatal error:  Uncaught Error: Class 'PhpOffice\PhpSpreadsheet\Writer\Xlsx\WriterPart' not found in /home/extremeearn/public_html/vendor/phpoffice/phpspreadsheet/src/PhpSpreadsheet/Writer/Xlsx/Worksheet.php:16
+Stack trace:
+#0 {main}
+  thrown in /home/extremeearn/public_html/vendor/phpoffice/phpspreadsheet/src/PhpSpreadsheet/Writer/Xlsx/Worksheet.php on line 16

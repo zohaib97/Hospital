@@ -1,0 +1,5 @@
+[17-Mar-2021 06:00:52 UTC] PHP Fatal error:  Uncaught Error: Class 'HTMLPurifier_Bootstrap' not found in /home/extremeearn/public_html/vendor/ezyang/htmlpurifier/library/HTMLPurifier.autoload.php:11
+Stack trace:
+#0 {main}
+  thrown in /home/extremeearn/public_html/vendor/ezyang/htmlpurifier/library/HTMLPurifier.autoload.php on line 11
+[17-Mar-2021 06:00:52 UTC] PHP Deprecated:  __autoload() is deprecated, use spl_autoload_register() instead in /home/extremeearn/public_html/vendor/ezyang/htmlpurifier/library/HTMLPurifier.autoload-legacy.php on line 10

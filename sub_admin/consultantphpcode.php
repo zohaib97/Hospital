@@ -886,6 +886,14 @@ if(isset($_POST["fekk"])){
            echo "error";
        }
     }
+    if($_POST["status"] == 2){
+       $q=mysqli_query($con,"UPDATE tbl_consultantrefferels SET c_status='1' where c_id='$id'");
+       if($q){
+           echo "successs";
+       }else{
+           echo "error";
+       }
+    }
     
 }
 

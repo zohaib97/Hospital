@@ -611,3 +611,7 @@
 [20-Apr-2021 06:02:04 UTC] PHP Warning:  mysqli_num_rows() expects parameter 1 to be mysqli_result, bool given in /home/extremeearn/hospital.extremeearn.com/sub_admin/phpcode.php on line 2167
 [20-Apr-2021 07:38:02 UTC] PHP Parse error:  syntax error, unexpected '<' in /home/extremeearn/hospital.extremeearn.com/sub_admin/headernav.php on line 237
 [20-Apr-2021 07:38:04 UTC] PHP Parse error:  syntax error, unexpected '<' in /home/extremeearn/hospital.extremeearn.com/sub_admin/headernav.php on line 237
+[20-Apr-2021 18:34:00 UTC] PHP Warning:  mysqli_num_rows() expects parameter 1 to be mysqli_result, bool given in /home/extremeearn/hospital.extremeearn.com/sub_admin/phpcode.php on line 2167
+[20-Apr-2021 18:42:34 UTC] PHP Warning:  mysqli_num_rows() expects parameter 1 to be mysqli_result, bool given in /home/extremeearn/hospital.extremeearn.com/sub_admin/phpcode.php on line 2167
+[20-Apr-2021 19:24:50 UTC] PHP Warning:  move_uploaded_file(assets/uploads/Jellyfish.jpg): failed to open stream: No such file or directory in /home/extremeearn/hospital.extremeearn.com/sub_admin/gpphpcode.php on line 2011
+[20-Apr-2021 19:24:50 UTC] PHP Warning:  move_uploaded_file(): Unable to move '/tmp/phpl10wW2' to 'assets/uploads/Jellyfish.jpg' in /home/extremeearn/hospital.extremeearn.com/sub_admin/gpphpcode.php on line 2011

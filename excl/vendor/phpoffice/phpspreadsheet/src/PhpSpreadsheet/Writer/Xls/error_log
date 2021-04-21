@@ -1,0 +1,8 @@
+[17-Mar-2021 06:08:25 UTC] PHP Fatal error:  Uncaught Error: Class 'PhpOffice\PhpSpreadsheet\Writer\Xls\BIFFwriter' not found in /home/extremeearn/public_html/vendor/phpoffice/phpspreadsheet/src/PhpSpreadsheet/Writer/Xls/Workbook.php:48
+Stack trace:
+#0 {main}
+  thrown in /home/extremeearn/public_html/vendor/phpoffice/phpspreadsheet/src/PhpSpreadsheet/Writer/Xls/Workbook.php on line 48
+[17-Mar-2021 06:08:25 UTC] PHP Fatal error:  Uncaught Error: Class 'PhpOffice\PhpSpreadsheet\Writer\Xls\BIFFwriter' not found in /home/extremeearn/public_html/vendor/phpoffice/phpspreadsheet/src/PhpSpreadsheet/Writer/Xls/Worksheet.php:58
+Stack trace:
+#0 {main}
+  thrown in /home/extremeearn/public_html/vendor/phpoffice/phpspreadsheet/src/PhpSpreadsheet/Writer/Xls/Worksheet.php on line 58

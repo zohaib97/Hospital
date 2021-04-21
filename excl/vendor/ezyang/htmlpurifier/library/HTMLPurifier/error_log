@@ -1,0 +1,16 @@
+[17-Mar-2021 06:02:17 UTC] PHP Fatal error:  Uncaught Error: Class 'HTMLPurifier_Definition' not found in /home/extremeearn/public_html/vendor/ezyang/htmlpurifier/library/HTMLPurifier/CSSDefinition.php:7
+Stack trace:
+#0 {main}
+  thrown in /home/extremeearn/public_html/vendor/ezyang/htmlpurifier/library/HTMLPurifier/CSSDefinition.php on line 7
+[17-Mar-2021 06:02:23 UTC] PHP Fatal error:  Uncaught Error: Class 'HTMLPurifier_Definition' not found in /home/extremeearn/public_html/vendor/ezyang/htmlpurifier/library/HTMLPurifier/HTMLDefinition.php:26
+Stack trace:
+#0 {main}
+  thrown in /home/extremeearn/public_html/vendor/ezyang/htmlpurifier/library/HTMLPurifier/HTMLDefinition.php on line 26
+[17-Mar-2021 06:02:34 UTC] PHP Fatal error:  Uncaught Error: Class 'HTMLPurifier_Definition' not found in /home/extremeearn/public_html/vendor/ezyang/htmlpurifier/library/HTMLPurifier/URIDefinition.php:3
+Stack trace:
+#0 {main}
+  thrown in /home/extremeearn/public_html/vendor/ezyang/htmlpurifier/library/HTMLPurifier/URIDefinition.php on line 3
+[17-Mar-2021 06:02:39 UTC] PHP Fatal error:  Uncaught Error: Class 'HTMLPurifier_Exception' not found in /home/extremeearn/public_html/vendor/ezyang/htmlpurifier/library/HTMLPurifier/VarParserException.php:6
+Stack trace:
+#0 {main}
+  thrown in /home/extremeearn/public_html/vendor/ezyang/htmlpurifier/library/HTMLPurifier/VarParserException.php on line 6

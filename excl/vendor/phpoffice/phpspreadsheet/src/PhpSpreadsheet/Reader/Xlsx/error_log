@@ -1,0 +1,20 @@
+[17-Mar-2021 06:07:58 UTC] PHP Fatal error:  Uncaught Error: Class 'PhpOffice\PhpSpreadsheet\Reader\Xlsx\BaseParserClass' not found in /home/extremeearn/public_html/vendor/phpoffice/phpspreadsheet/src/PhpSpreadsheet/Reader/Xlsx/ColumnAndRowAttributes.php:10
+Stack trace:
+#0 {main}
+  thrown in /home/extremeearn/public_html/vendor/phpoffice/phpspreadsheet/src/PhpSpreadsheet/Reader/Xlsx/ColumnAndRowAttributes.php on line 10
+[17-Mar-2021 06:07:58 UTC] PHP Fatal error:  Uncaught Error: Class 'PhpOffice\PhpSpreadsheet\Reader\Xlsx\BaseParserClass' not found in /home/extremeearn/public_html/vendor/phpoffice/phpspreadsheet/src/PhpSpreadsheet/Reader/Xlsx/PageSetup.php:9
+Stack trace:
+#0 {main}
+  thrown in /home/extremeearn/public_html/vendor/phpoffice/phpspreadsheet/src/PhpSpreadsheet/Reader/Xlsx/PageSetup.php on line 9
+[17-Mar-2021 06:08:00 UTC] PHP Fatal error:  Uncaught Error: Class 'PhpOffice\PhpSpreadsheet\Reader\Xlsx\BaseParserClass' not found in /home/extremeearn/public_html/vendor/phpoffice/phpspreadsheet/src/PhpSpreadsheet/Reader/Xlsx/SheetViewOptions.php:8
+Stack trace:
+#0 {main}
+  thrown in /home/extremeearn/public_html/vendor/phpoffice/phpspreadsheet/src/PhpSpreadsheet/Reader/Xlsx/SheetViewOptions.php on line 8
+[17-Mar-2021 06:08:00 UTC] PHP Fatal error:  Uncaught Error: Class 'PhpOffice\PhpSpreadsheet\Reader\Xlsx\BaseParserClass' not found in /home/extremeearn/public_html/vendor/phpoffice/phpspreadsheet/src/PhpSpreadsheet/Reader/Xlsx/Styles.php:16
+Stack trace:
+#0 {main}
+  thrown in /home/extremeearn/public_html/vendor/phpoffice/phpspreadsheet/src/PhpSpreadsheet/Reader/Xlsx/Styles.php on line 16
+[17-Mar-2021 06:08:00 UTC] PHP Fatal error:  Uncaught Error: Class 'PhpOffice\PhpSpreadsheet\Reader\Xlsx\BaseParserClass' not found in /home/extremeearn/public_html/vendor/phpoffice/phpspreadsheet/src/PhpSpreadsheet/Reader/Xlsx/SheetViews.php:9
+Stack trace:
+#0 {main}
+  thrown in /home/extremeearn/public_html/vendor/phpoffice/phpspreadsheet/src/PhpSpreadsheet/Reader/Xlsx/SheetViews.php on line 9
