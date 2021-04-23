@@ -10,6 +10,9 @@ if(!isset($_SESSION['gprefferer'])){
 						$fetch = mysqli_fetch_array($query);
 									$id = $fetch['ur_id'];
 									$orid=$fetch["ur_orgtype"];
+									$query1 = mysqli_query($con,"SELECT * FROM `orginzation` WHERE `orid` = '$orid'");
+									$fetch1 = mysqli_fetch_array($query1);
+									
 ?> 
 
 <div class="nk-header nk-header-fixed is-light">
@@ -113,9 +116,163 @@ if(!isset($_SESSION['gprefferer'])){
 									?>
 				        	<a href="#" class="dropdown-toggle nk-quick-nav-icon" data-toggle="dropdown" style="width: 37px;height: 37px;">
 							<i class="icon ni ni-bell"></i>
-													
-						</a>
+												<?php
+											
+												$q1 = mysqli_query($con,"SELECT count(*) as a FROM `tbl_ruser` WHERE ur_orgtype = '$org' and ur_role_id = '1' and ur_status='not_approve'");
+								$f1=mysqli_fetch_array($q1);
+									$q2 = mysqli_query($con,"SELECT count(*) as a FROM `tbl_ruser` WHERE ur_orgtype = '$org' and ur_role_id = '3' and ur_status='not_approve'");
+								$f2=mysqli_fetch_array($q2);
+									$q3 = mysqli_query($con,"SELECT count(*) as a FROM `tbl_ruser` WHERE ur_orgtype = '$org' and ur_role_id = '4' and ur_status='not_approve'");
+								$f3=mysqli_fetch_array($q3);
+									$q4 = mysqli_query($con,"SELECT count(*) as a FROM `tbl_ruser` WHERE ur_orgtype = '$org' and ur_role_id = '5' and ur_status='not_approve'");
+								$f4=mysqli_fetch_array($q4);
+								$jk=mysqli_query($con,"SELECT  count(*) as a FROM tbl_serviceappointment JOIN services ON services.service_id = tbl_serviceappointment.sp_serviceid WHERE services.s_orgid ='$org'");
+ $klsa=mysqli_fetch_array($jk);
+ $fj=$klsa["a"];
+ 	$jk1=mysqli_query($con,"SELECT  count(*) as a FROM tbl_patientappointment WHERE o_orgid ='$org'");
+ $klsa1=mysqli_fetch_array($jk1);
+ $fj1=$klsa1["a"];
+								$q5 = mysqli_query($con,"SELECT count(*) as a,nhsno FROM `tbl_app` WHERE orid = '$org'");
+								$f5=mysqli_fetch_array($q5);
+								
+								$total =$f1["a"]+$f2["a"]+$f3["a"]+$f4["a"]+$f5["a"]+$fj+$fj1+$fdsw["a"];
 						
+												?>	
+												<sup class="badge badge-primary rounded-circle ml-n1 mt-n2"><?=$total?></sup>
+						</a>
+							<?php if($total >0){?>
+						<div class="dropdown-menu dropdown-menu-xl dropdown-menu-right">
+							<div class="dropdown-head">
+								<span class="sub-title nk-dropdown-title">Notifications</span>
+							
+							</div>
+							
+							<div class="dropdown-body">
+								<div class="nk-notification">
+								
+									
+									<?php 
+									if($f1["a"] > 0){
+									    echo '<div class="nk-notification-item dropdown-inner">
+										<div class="nk-notification-icon">
+											<em class="icon icon-circle bg-warning-dim ni ni-curve-down-right"></em>
+										</div>
+									    <div class="nk-notification-content">
+											<div class="nk-notification-text">You have new <span>Dentist for Approval</span></div>
+											<div class="nk-notification-time"><a href="consultant.php?role=Dentist">View All</a></div>
+										</div>
+											</div>
+										<hr>';
+									}
+									if(isset($_SESSION['consultant']))
+									{
+										if($fdsw["a"] > 0){
+									    echo '<div class="nk-notification-item dropdown-inner">
+										<div class="nk-notification-icon">
+											<em class="icon icon-circle bg-warning-dim ni ni-curve-down-right"></em>
+										</div>
+									    <div class="nk-notification-content">
+											<div class="nk-notification-text">You have new <span>Refferal Request</span></div>
+											<div class="nk-notification-time"><a href="servicerefferels.php?reqtype='.$reqtype111.'&status='.$status.'">View All</a></div>
+										</div>
+											</div>
+										<hr>';
+										}
+									}
+									if(isset($_SESSION['gprefferer']))
+									{
+									    if($fdsw["a"] > 0){
+									    echo '<div class="nk-notification-item dropdown-inner">
+										<div class="nk-notification-icon">
+											<em class="icon icon-circle bg-warning-dim ni ni-curve-down-right"></em>
+										</div>
+									    <div class="nk-notification-content">
+											<div class="nk-notification-text">You have new <span>Refferal Request Accepted</span></div>
+											<div class="nk-notification-time"><a href="refferels.php?reqtype='.$reqtype111.'&status='.$status.'">View All</a></div>
+										</div>
+											</div>
+										<hr>';
+										}
+									}
+									if($f5["a"] > 0){
+									    echo '<div class="nk-notification-item dropdown-inner">
+										<div class="nk-notification-icon">
+											<em class="icon icon-circle bg-warning-dim ni ni-curve-down-right"></em>
+										</div>
+									    <div class="nk-notification-content">
+											<div class="nk-notification-text">You have new <span> Appointment From NHS-No : '.$f5["nhsno"].' </span></div>
+											
+										</div>
+											</div>
+										<hr>';
+									}if($fj > 0){
+									    echo '<div class="nk-notification-item dropdown-inner">
+										<div class="nk-notification-icon">
+											<em class="icon icon-circle bg-warning-dim ni ni-curve-down-right"></em>
+										</div>
+									    <div class="nk-notification-content">
+											<div class="nk-notification-text"><a href="serviceappointment.php">You have new <span> Service Appointment </span></a></div>
+											
+										</div>
+											</div>
+										<hr>';
+									}
+									if($fj1 > 0){
+									    echo '<div class="nk-notification-item dropdown-inner">
+										<div class="nk-notification-icon">
+											<em class="icon icon-circle bg-warning-dim ni ni-curve-down-right"></em>
+										</div>
+									    <div class="nk-notification-content">
+											<div class="nk-notification-text"><a href="patientappointment.php">You have new <span> Patient Appointment </span></a></div>
+											
+										</div>
+											</div>
+										<hr>';
+									}
+									
+										if($f2["a"] > 0){
+									    echo '<div class="nk-notification-item dropdown-inner">
+										<div class="nk-notification-icon">
+											<em class="icon icon-circle bg-warning-dim ni ni-curve-down-right"></em>
+										</div>
+									    <div class="nk-notification-content">
+											<div class="nk-notification-text">You have new <span>Consultant for Approval</span></div>
+											<div class="nk-notification-time"><a href="consultant.php?role=consultant">View All</a></div>
+										</div>
+											</div>
+										<hr>';
+									}
+										if($f3["a"] > 0){
+									    echo '<div class="nk-notification-item dropdown-inner">
+										<div class="nk-notification-icon">
+											<em class="icon icon-circle bg-warning-dim ni ni-curve-down-right"></em>
+										</div>
+									    <div class="nk-notification-content">
+											<div class="nk-notification-text">You have new <span>Community Nurse for Approval</span></div>
+											<div class="nk-notification-time"><a href="consultant.php?role=Nurse">View All</a></div>
+										</div>
+											</div>
+										<hr>';
+									}	if($f4["a"] > 0){
+									    echo '<div class="nk-notification-item dropdown-inner">
+										<div class="nk-notification-icon">
+											<em class="icon icon-circle bg-warning-dim ni ni-curve-down-right"></em>
+										</div>
+									    <div class="nk-notification-content">
+											<div class="nk-notification-text">You have new <span>General practitioner Referrer for Approval</span></div>
+											<div class="nk-notification-time"><a href="consultant.php?role=GP_Refferer">View All</a></div>
+										</div>
+											</div>
+										';
+									}
+							?>
+								
+								
+								</div><!-- .nk-notification -->
+							</div>
+						
+						</div>
+						<?php }?>
 					
 					</li>
 					<?php

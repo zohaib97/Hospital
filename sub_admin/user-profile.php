@@ -163,6 +163,7 @@ include_once('../database/db.php');
         url: "phpcode.php",
 		data:{adminfetchupdate:"btn"},
         success: function(response){
+        
             $("#profile").html(response);
             //alert(response);
         }

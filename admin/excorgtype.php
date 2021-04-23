@@ -149,6 +149,7 @@ include_once('connect.php');
 			
                 $('#orgtypeadd').css("opacity","");
                 $("#btnsubmit").removeAttr("disabled");
+                setTimeout(function(){window.location.href="organizationlist.php"},3000);
             }
 			
         });

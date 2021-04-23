@@ -116,10 +116,10 @@ include_once('../database/db.php');
                                                                 type="text" placeholder="Surname"  id="em" required
                                                                 autocomplete="off" onChange="showsearch()">
                                                         </div>
-                                                        <div class="col-md-2 pb-4">
+                                                        <div class="col-md-3 pb-4">
                                                             <label for="">Date of birth</label>
                                                             <input style="border-color: #000000;"
-                                                                class="form-control datepicker" type="text"
+                                                                class="form-control" type="date"
                                                                 placeholder="Date Of Birth" id="dob" required
                                                                 onChange="showsearch()" autocomplete="off">
                                                         </div>

@@ -45,7 +45,7 @@ include_once('database/db.php');
             <div class="row">
                 <div class="col-lg-8 col-md-8 col-sm-12 col-12">
                     <div class="single-page-title">
-                        <h2>Register</h2>
+                        <h2>Register Organisation</h2>
                     </div>
                 </div>
                 <div class="col-lg-4 col-md-4 col-sm-12 col-12">
@@ -65,17 +65,17 @@ include_once('database/db.php');
     <!-- START APPOINTMENT SECTION -->
     <section id="appointment" class="">
         <div class="auto-container">
-            <div class="row">
-                <div class="col-lg-8 text-center mx-auto">
-                    <div class="section-title">
-                        <h3> Register <span>Organisation</span></h3>
-                        <span class="line"></span>
-                    </div>
-                </div>
+            <!--<div class="row">-->
+            <!--    <div class="col-lg-8 text-center mx-auto">-->
+            <!--        <div class="section-title">-->
+            <!--            <h3> Register <span>Organisation</span></h3>-->
+            <!--            <span class="line"></span>-->
+            <!--        </div>-->
+            <!--    </div>-->
                 <!-- end section title -->
-            </div>
+            <!--</div>-->
             <div class="row mb-3">
-                <div class="col-lg-8 mx-auto">
+                <div class="col-lg-8 mx-auto mt-2">
                     <div class="appointment-form-ma">
                         <form method="post" id="oradd" enctype="multipart/form-data">
                             <div class="row" id="form1">

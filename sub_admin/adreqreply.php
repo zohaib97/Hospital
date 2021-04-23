@@ -77,24 +77,38 @@ include_once('header.php');
 												<div class="nk-block-head nk-block-head-lg wide-sm">
 												<span class="float-right p-2  w-100 col-form-label font-weight-bold">Patient Info - </span>
 												<button type="button" class="btn btn-info btn-sm float-right mt-1" onclick="showpat()">More Info</button>
-												<span class="text-dark">
-												Name: <?=$fetch2['pt_name']." ".$fetch2["pt_surname"]?></span>
+												<div class="row">
+													<span class="text-dark col-md-3">
+												<b>Name:</b> <?=$fetch2['pt_name']." ".$fetch2["pt_surname"]?>(<?=$fetch2['pt_title']?>)</span>
 												
 												<br>
-												<span class="text-dark">
-												NHS no: <?=$fetch2['pt_nhsno']?></span>
+												<span class="text-dark col-md-3">
+												<b>NHS no:</b> <?=$fetch2['pt_nhsno']?></span>
 												<br>
-												<span class="text-dark">
-												Date of Birth: <?php
+												<span class="text-dark col-md-3">
+												<b>Date of Birth:</b> <?php
+												$da=date_create($fetch2['pt_dob']);
+												echo date_format($da,"m-d-Y");
 												
-												$daa=date_create($fetch2['pt_dob']);
-												echo date_format($daa,"m-d-Y");
+												
 												?></span>
 												<br>
-												<span class="text-dark">
-												Email: <?=$fetch2['pt_email']?>
+												<span class="text-dark col-md-3">
+												<b>Email:</b> <?=$fetch2['pt_email']?>
 												</span>
 												<br>
+													</div>
+													<br>
+													<div class="row">
+												<span class="text-dark col-md-3 ml-2">
+												<b>Street Name:</b><?=$fetch2['pt_streetname']?>
+												</span>
+												<br>
+												<span class="text-dark col-md-3">
+												<b>Telephone no:</b> <?=$fetch2['pt_telno']?>
+												</span>
+												<br>
+											</div>
 											</div>
                                         </div>
                                         <div class="col-lg-4 col-md-4 col-12">

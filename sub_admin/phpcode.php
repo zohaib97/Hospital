@@ -250,6 +250,8 @@ if(isset($_POST['addlocation']))
 	$locaddress = $_POST['locaddress'];
 	$locpost = $_POST['locpost'];
 	$loccity = $_POST['loccity'];
+	$locsite = $_POST['locsite'];
+	$locname = $_POST['locname'];
 	    $aid =$_SESSION["a_id"];
 $qiu=mysqli_query($con,"SELECT * FROM `admin`,orginzation where admin.organization = orginzation.orid and admin.id='$aid'");
 $fetchsa=mysqli_fetch_array($qiu);
@@ -267,7 +269,7 @@ $fetchsa=mysqli_fetch_array($qiu);
 // 	    echo "alreadypost";
 // 	}
 	else{
-	$query = mysqli_query($con,"INSERT INTO `org_locations`(`org_location`, `org_address`, `org_postcode`,`org_city`,`org_id`)VALUES('$locname','$locaddress','$locpost','$loccity','$org')");
+	$query = mysqli_query($con,"INSERT INTO `org_locations`(`org_location_name`,`org_location`, `org_address`, `org_postcode`,`org_city`,`org_id`,`org_sitecode`)VALUES('$locname','$locname','$locaddress','$locpost','$loccity','$org','$locsite')");
 	
 	if($query)
 	{
@@ -384,9 +386,9 @@ if(isset($_POST["appgeneralbtn"]))
 		    $fe = mysqli_fetch_array($sql);
 		if($vq){
 		    
-		echo json_encode(array("res"=>"Success","name"=>$fe['ur_fname']));
+		echo json_encode(array("res"=>"Success","name"=>$fe['ur_fname']." ".$fe['ur_sname']));
 		}else {
-		echo json_encode(array("res"=>"Error","name"=>$fe['ur_fname']));
+		echo json_encode(array("res"=>"Error","name"=>$fe['ur_fname']." ".$fe['ur_sname']));
 		} 
 	}elseif($status =="approve"){
 		$vdel = "UPDATE  `tbl_ruser` SET ur_status='not_approve' WHERE `ur_id` = '$vid'";
@@ -394,9 +396,9 @@ if(isset($_POST["appgeneralbtn"]))
 			$sql = mysqli_query($con,"SELECT * FROM `tbl_ruser` WHERE ur_id = '$vid'");
 		    $fe = mysqli_fetch_array($sql);
 		if($vq){
-		echo json_encode(array("res"=>"Successs","name"=>$fe['ur_fname']));
+		echo json_encode(array("res"=>"Successs","name"=>$fe['ur_fname']." ".$fe['ur_sname']));
 		}else {
-		echo json_encode(array("res"=>"Errorr","name"=>$fe['ur_fname']));
+		echo json_encode(array("res"=>"Errorr","name"=>$fe['ur_fname']." ".$fe['ur_sname']));
 		} 
 	}
 }
@@ -829,6 +831,31 @@ $fetchsa=mysqli_fetch_array($qiu);
  }
 }
 
+// for fetch service name
+if(isset($_POST['fetchserbtndata1']))
+{
+	$snameid = $_POST['snameid'];
+	$aid =$_SESSION["a_id"];
+$qiu=mysqli_query($con,"SELECT * FROM `admin`,orginzation where admin.organization = orginzation.orid and admin.id='$aid'");
+$fetchsa=mysqli_fetch_array($qiu);
+    $org = $fetchsa['organization'];
+    $sql = mysqli_query($con,"SELECT * FROM services WHERE s_orgid = '$org'");
+    $fetch = mysqli_fetch_array($sql);
+    $sname = $fetch['service_name'];
+	$sernameq = mysqli_query($con, "SELECT * FROM `service_name` where  org_id ='$org'");
+	echo'<option value="">- Select -</option>';
+ while($datarole = mysqli_fetch_assoc($sernameq)){ 
+	 if($datarole['s_name']==$snameid)
+	 {
+		echo'<option value='.$datarole['s_id'].' selected>'.$datarole['s_name'].'</option>';
+
+	 }
+	 else{
+ 	echo'<option value='.$datarole['s_id'].'>'.$datarole['s_name'].'</option>';
+	 }
+ }
+}
+
 // for fetch service location
 if(isset($_POST['fetchserlocbtn']))
 {
@@ -929,7 +956,7 @@ if(isset($_POST['locationfetch']))
 	$sernameq = mysqli_query($con, "SELECT * FROM `org_locations` WHERE id = '$locid'");
 
  $datarole = mysqli_fetch_assoc($sernameq);
- 	echo $datarole['org_address'];
+ 	echo $datarole['org_location'].",".$datarole['org_address'];
  
 }
 if(isset($_POST['locationfetch2']))
@@ -994,7 +1021,9 @@ if(isset($_POST['updatelocation']))
 		$address = $_POST['locaddress'];
 		$popstcode = $_POST['locpostcode'];
 $loccity = $_POST['loccity'];
-		$query = mysqli_query($con,"UPDATE `org_locations` SET `org_location`='$name',`org_address`='$address',`org_postcode` = '$popstcode',`org_city` = '$loccity' WHERE `id` = '$id'");
+$locsite = $_POST['locsite'];
+$locname = $_POST['locname1'];
+		$query = mysqli_query($con,"UPDATE `org_locations` SET `org_location`='$name',`org_address`='$address',`org_postcode` = '$popstcode',`org_city` = '$loccity',`org_sitecode` = '$locsite',`org_location_name` = '$locname' WHERE `id` = '$id'");
 		
 		if($query)
 		{
@@ -2484,7 +2513,7 @@ if(isset($_POST['method']))
 		    $fe = mysqli_fetch_array($sql);
 				if($vq)
 				{
-					echo json_encode(array("res"=>"Success","name"=>$fe['ur_fname']));
+					echo json_encode(array("res"=>"Success","name"=>$fe['ur_fname']." ".$fe['ur_sname']));
 				}
 			
 		}
@@ -2514,7 +2543,7 @@ if(isset($_POST['method']))
 		    $fe = mysqli_fetch_array($sql);
 			if($vq > 0)
 			{
-			echo json_encode(array("res"=>"Success","name"=>$fe['ur_fname']));
+			echo json_encode(array("res"=>"Success","name"=>$fe['ur_fname']." ".$fe['ur_sname']));
 			}
 			
 		}
@@ -2805,10 +2834,7 @@ $e = $_SESSION['superadmin'];
 					<th class="nk-tb-col"><span>2 Week Wait</span></th>
 					<th class="nk-tb-col"><span>Organisation Name</span></th>
 					<th class="nk-tb-col"><span>Status</span></th>
-	<th class="nk-tb-col nk-tb-col-tools">
-								Delete
-							</th>
-							<th class="nk-tb-col nk-tb-col-tools">
+							<th class="nk-tb-col ">
 							<span>Action</span>
 							</th>
 					
@@ -2907,27 +2933,9 @@ $e = $_SESSION['superadmin'];
 	}
 	echo '
 	<td class="nk-tb-col">
-	<a href="javascript:void(0)" onClick="confirm('.$fetch['m_id'].')" class="btn btn-danger mt-1"><em class="icon ni ni-trash"></em><span>Remove</span></a>
+	<a href="javascript:void(0)" onClick="confirm('.$fetch['m_id'].')" class="btn btn-danger mt-1 btn-circle btn-sm"><em class="icon ni ni-trash"></em></a> | <a href="updateservice.php?sid='.$fetch['m_id'].'" class="btn btn-success btn-circle btn-sm"><em class="icon ni ni-edit "></em></a>
 	</td>
-	<td class="nk-tb-col nk-tb-col-tools">
-		<ul class="nk-tb-actions gx-1 my-n1">
-			<li class="mr-n1">
-				<div class="dropdown">
-					<a href="#" class="dropdown-toggle btn btn-icon btn-trigger" data-toggle="dropdown"><em class="icon ni ni-more-h"></em></a>
-					<div class="dropdown-menu dropdown-menu-right">
-						<ul class="link-list-opt no-bdr">';
-			// <li><a href="javascript:void(0)" onClick="openmodal1('."'$mid'".','."'$mname'".','."'$msname'".','."'$memail'".','."'$mpass'".','."'$mphn'".','."'$mdepart'".','."'$mdob'".','."'$mrole'".')"><em class="icon ni ni-edit"></em><span>Edit</span></a></li>
-							 
-							//  <li><a href="javascript:void(0)"><em class="icon ni ni-eye" data-toggle="modal" data-target="#modalForm2" onClick="openmodal2('."'$mname'".','."'$msname'".','."'$memail'".','."'$mpass'".')"></em><span>View</span></a></li>
-							
-							 echo '<li><a href="updateservice.php?sid='.$fetch['m_id'].'"><em class="icon ni ni-edit"></em><span>Edit</span></a></li>
 
-						</ul>
-					</div>
-				</div>
-			</li>
-		</ul>
-	</td>
 	</tr>';
 										
 		}
@@ -2937,7 +2945,7 @@ $e = $_SESSION['superadmin'];
 		<script src="https://cdn.datatables.net/1.10.23/js/jquery.dataTables.min.js"></script>
 	<script src="https://cdn.datatables.net/1.10.23/js/dataTables.bootstrap4.min.js"></script>
 	<script>$(document).ready(function () {
-		$("#myTable").DataTable({});
+		$("#myTable").DataTable({responsive:true});
 	} )
 	</script>
 	';

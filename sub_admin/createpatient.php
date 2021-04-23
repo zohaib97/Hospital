@@ -165,13 +165,15 @@ include_once('../database/db.php');
 												<div class="col-md-6" id="">
 													<div class="form-group">
 														<label class="col-form-label" for="rno">Home Telephone Number</label>
-														<input type="number" class="form-control form-control-lg" id="" value="" placeholder="Enter Telephone no" name="telephoneno" autocomplete="off" required>
+														<input type="number" class="form-control form-control-lg" id="htelno" value="" placeholder="Enter Telephone no" name="telephoneno" autocomplete="off" required onchange="stringlength2(this.value)">
+													<small id="valid-nhs2"></small>
 													</div>
 												</div>
 												<div class="col-md-6" id="">
 													<div class="form-group">
 														<label class="col-form-label" for="rno">Mobile Number</label>
-														<input type="number" class="form-control form-control-lg" id="" value="" placeholder="Enter Mobile no" name="mobileno" autocomplete="off" required>
+														<input type="number" class="form-control form-control-lg" id="" value="" placeholder="Enter Mobile no" name="mobileno" autocomplete="off" required onchange="stringlength3(this.value)">
+													<small id="valid-nhs3"></small>
 													</div>
 												</div>
 												<div class="col-md-6" id="">
@@ -236,6 +238,44 @@ $('#post').val('');
 else
 {
     $("#valid-nhs1").hide();
+}
+}
+
+function stringlength2(num)
+{ 
+ 
+var no = num;
+var mnlen = 5;
+var mxlen = 15;
+if(no.length<mnlen || no.length> mxlen)
+{ 
+    
+$("#valid-nhs2").html("Please enter between 5 to 15 numbers").removeClass("text-success").addClass("text-danger");
+$("#valid-nhs2").show();
+$('#htelno').val('');
+}
+else
+{
+    $("#valid-nhs2").hide();
+}
+}
+
+function stringlength3(num)
+{ 
+ 
+var no = num;
+var mnlen = 5;
+var mxlen = 15;
+if(no.length<mnlen || no.length> mxlen)
+{ 
+    
+$("#valid-nhs3").html("Please enter between 5 to 15 numbers").removeClass("text-success").addClass("text-danger");
+$("#valid-nhs3").show();
+$('#htelno').val('');
+}
+else
+{
+    $("#valid-nhs3").hide();
 }
 }
 

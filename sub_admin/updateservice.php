@@ -407,7 +407,7 @@ $fetch = mysqli_fetch_array($query);
 						  <h5 class="mb-0">
 						  <i class="fas fa-plus pull-right"></i>
 							<a class="btn p-0 m-0 ml-3 pull-left collapsed">
-							  Clinician Type
+							  Clinic Type
 							</a>
 						  </h5>
 						</div>
@@ -416,7 +416,7 @@ $fetch = mysqli_fetch_array($query);
 							<div class="col-lg-12">
 								<div class="form-group">
                                 <input type="text" value="<?=$fetch['ser_cl_type']?>" hidden id="cltypeid">
-									<label class="form-label" for="full-name-1">Clinician Type</label>
+									<label class="form-label" for="full-name-1">Clinic Type</label>
 									<div class="form-control-wrap">
 										<select name="ser_cltype[]" class="form-control" id="ser_cltype" multiple>
 											<!-- phpcode.php -->
@@ -1163,7 +1163,7 @@ function fetcserdatadrop(){
 $.ajax({
 url: 'phpcode.php',
 type: 'post',
-data:{fetchserbtndata:"btn",snameid:snameid},
+data:{fetchserbtndata1:"btn",snameid:snameid},
 success: function(response){
 $('#ser_name').html(response);
 }

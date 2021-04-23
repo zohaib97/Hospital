@@ -125,6 +125,10 @@ include_once('../database/db.php');
             $fee = mysqli_fetch_array($mss);
             $q2 = mysqli_query($con,"SELECT * FROM tbl_serviceappointment join tbl_consultantrefferels on tbl_consultantrefferels.c_serid = tbl_serviceappointment.sp_serviceid WHERE sp_id = '$appid'");
             $f2 = mysqli_fetch_array($q2);
+            $loname = $f['service_location'];
+				$sql3 = mysqli_query($con,"SELECT * FROM `org_locations` WHERE id = '$loname'");
+				$fe3 = mysqli_fetch_array($sql3);
+				$locname =$fe3['org_location_name'];
             ?>
             <tr class="nk-tb-item">
 	<!-- <td class="nk-tb-col nk-tb-col-check">
@@ -151,7 +155,7 @@ include_once('../database/db.php');
 	<td class="nk-tb-col tb-col-sm">
 		<span class="tb-product">
 			
-			<span class="title"><?=$f['service_location']?></span>
+			<span class="title"><?=$locname?></span>
 		</span>
 	</td>
 	<td class="nk-tb-col">

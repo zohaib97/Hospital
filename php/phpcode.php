@@ -42,7 +42,7 @@ if(isset($_POST['registeruser']))
 	$num = mysqli_num_rows($emq);
 	
 	if($num>0){
-		echo"alemail";
+	echo json_encode(array("res"=>"alemail"));
 	}else {
 	
 		
@@ -80,9 +80,9 @@ if(isset($_POST['registeruser']))
 	
 	mail($to, $subject, $message, $headers);
 		if($q >0){
-			echo "success";
+		echo json_encode(array("res"=>"success","name"=>$nfame." ".$nsame));
 		}else{
-			echo "Error";
+		echo json_encode(array("res"=>"Error","name"=>$nfame." ".$nsame));
 		}
 	
   }

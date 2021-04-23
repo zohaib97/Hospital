@@ -213,6 +213,18 @@ include_once('../database/db.php');
                                     <input type="text" class="form-control" id="loccity" required name="loccity">
                                 </div>
                             </div>
+                            <div class="form-group col-md-6">
+                                <label class="form-label" for="locsite">Location Site Code</label>
+                                <div class="form-control-wrap">
+                                    <input type="text" class="form-control" id="locsite" required name="locsite">
+                                </div>
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label class="form-label" for="locname1">Location Name</label>
+                                <div class="form-control-wrap">
+                                    <input type="text" class="form-control" id="locname1" required name="locname1">
+                                </div>
+                            </div>
                         </div>
                         <br>
                         <div class="row">
@@ -377,7 +389,7 @@ function deleteadmin(id) {
                 NioApp.Toast("<h5>Location Deleted Successfully</h5>", 'success', {
                     position: 'top-right'
                 });
-                fetchadmindata();
+                fetchlocation();
             }
 
 
@@ -387,12 +399,14 @@ function deleteadmin(id) {
 
 
 
-function openmodal1(id,name,address,postcode,city) {
+function openmodal1(id,name,address,postcode,city,site,locname) {
     $('#mid').val(id);
     $('#locname').val(name);
     $('#locaddress').val(address);
     $('#locpostcode').val(postcode);
     $('#loccity').val(city);
+    $('#locsite').val(site);
+    $('#locname1').val(locname);
 
     $('#modalForm2').modal('show');
 };

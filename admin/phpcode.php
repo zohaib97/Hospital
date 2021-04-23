@@ -1517,7 +1517,7 @@ $query = mysqli_query($con,"SELECT * FROM `orginzation` WHERE status = '$status'
 				<th class="nk-tb-col"><span>Address</span></th>
 				<th class="nk-tb-col"><span>Contact</span></th>
 				<th class="nk-tb-col"><span>Code </span></th>
-				<th class="nk-tb-col"><span>Frist Line Address</span></th>
+				<th class="nk-tb-col"><span>First Line Address</span></th>
 				<th class="nk-tb-col"><span>City</span></th>
 				<th class="nk-tb-col"><span>Postal code</span></th>
 				<th class="nk-tb-col"><span>Status</span></th>

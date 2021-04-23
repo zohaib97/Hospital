@@ -83,21 +83,28 @@ include_once('header.php');
                                             <div class="nk-block-head nk-block-head-lg wide-sm">
 												<span class="float-right w-100 col-form-label font-weight-bold">Patient Info - </span>
 												<button type="button" class="btn btn-info btn-sm float-right mt-1" onclick="showpat()">More Info</button>
-												<br>
-												<span class="text-dark">
-												Name: <?=$fetch2['pt_name']?>(<?=$fetch2['pt_title']?>)</span>
+											<div class="row">
+													<span class="text-dark col-md-4">
+												<b>Full Details:</b><br> <?=$fetch2['pt_name']." ".$fetch2["pt_surname"]?>(<?=$fetch2['pt_title']?>) <br> <small>[<?=$fetch2['pt_email']?>]</small></span>
 												
-												<br>
-												<span class="text-dark">
-												NHS no: <?=$fetch2['pt_nhsno']?></span>
-												<br>
-												<span class="text-dark">
-												Date of Birth: <?=$fetch2['pt_dob']?></span>
-												<br>
-												<span class="text-dark">
-												Email: <?=$fetch2['pt_email']?>
+												<span class="text-dark col-md-4">
+												<b>NHS no:</b>br> <?=$fetch2['pt_nhsno']?></span>
+												<span class="text-dark col-md-4">
+												<b>Date of Birth:</b> <br><?php
+												$da=date_create($fetch2['pt_dob']);
+												echo date_format($da,"m-d-Y");
+												
+												
+												?></span>
+											
+												<span class="text-dark col-md-4">
+												<b>Street Name:</b> <br><?=$fetch2['pt_streetname']?>
 												</span>
-												<br>
+												<span class="text-dark col-md-4">
+												<b>Telephone no:</b> <br><?=$fetch2['pt_telno']?>
+												</span>
+												
+											</div>
 												
                                         </div>
                                         </div>

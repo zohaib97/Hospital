@@ -25,6 +25,14 @@
     padding: 2px !important;
     border-radius: 50% !important;
 }
+.btn-circle {
+    width: 30px;
+    height: 30px;
+    padding: 6px 6px;
+    border-radius: 15px;
+    text-align: center;
+    font-size: 12px;
+}
 
     </style>
 </head>

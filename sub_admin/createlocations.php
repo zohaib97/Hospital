@@ -39,6 +39,12 @@ include_once('../database/db.php');
                                        <div class="card p-5">
 										   <form method="post" id="locationadd" enctype="multipart/form-data">
 											<div class="row gy-4">
+											    	<div class="col-md-6">
+													<div class="form-group">
+														<label class="col-form-label" for="email">Location Name</label>
+														<input type="text" class="form-control form-control-lg" id="" value="" placeholder="Enter Name" name="locname" autocomplete="off" required>
+													</div>
+												</div>
 												<div class="col-md-6">
 													<?php
 													
@@ -73,6 +79,14 @@ include_once('../database/db.php');
 														<input type="text" class="form-control form-control-lg" id="" value="" placeholder="Enter City" name="loccity" autocomplete="off" required>
 													</div>
 												</div>
+												<div class="col-md-6">
+													<div class="form-group">
+														<label class="col-form-label" for="email">Location Site Code</label>
+														<input type="text" class="form-control form-control-lg" id="locsite" value="" placeholder="Enter Site Code" name="locsite" autocomplete="off" required onchange="stringlength2(this.value)">
+													<small id="valid-nhs2"></small>
+													</div>
+												</div>
+											
 <!--
 												<div class="col-12">
 													<div class="custom-control custom-switch">
@@ -129,6 +143,26 @@ else
     $("#valid-nhs1").hide();
 }
 }
+
+	function stringlength2(num)
+{ 
+ 
+var no = num;
+var mnlen = 3;
+var mxlen = 8;
+if(no.length<mnlen || no.length> mxlen)
+{ 
+    
+$("#valid-nhs2").html("Please enter between 3 to 8 numbers").removeClass("text-success").addClass("text-danger");
+$("#valid-nhs2").show();
+$('#locsite').val('');
+}
+else
+{
+    $("#valid-nhs2").hide();
+}
+}
+
 //	function confirm(id)
 //	{
 //		 Swal.fire({

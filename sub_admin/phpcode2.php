@@ -120,12 +120,14 @@ $query = mysqli_query($con,"SELECT * FROM `org_locations` where org_id = '$org'"
 		<table class="nowrap nk-tb-list is-separate" data-auto-responsive="false" id="myTable">
 			<thead>
 				<tr class="nk-tb-item nk-tb-head">
-				
+					<th class="nk-tb-col text-center"><span>Location Name</span></th>
 					<th class="nk-tb-col tb-col-sm text-center"><span>Location First Line Address</span></th>
 				
 					<th class="nk-tb-col text-center"><span>Location Second Line Address</span></th>
 					<th class="nk-tb-col text-center"><span>Location Postcode</span></th>
 					<th class="nk-tb-col text-center"><span>Location City</span></th>
+					<th class="nk-tb-col text-center"><span>Location Site Code</span></th>
+				
 				<th class="nk-tb-col text-center"><span>Actions</span></th>
 					
 				</tr><!-- .nk-tb-item -->
@@ -139,8 +141,12 @@ $query = mysqli_query($con,"SELECT * FROM `org_locations` where org_id = '$org'"
 	$postcode = $fetch['org_postcode'];
 
 	$loccity = $fetch['org_city'];
+	$locsite = $fetch['org_sitecode'];
+	$locname = $fetch['org_location_name'];
 echo'   <tr class="nk-tb-item">
-	
+		<td class="nk-tb-col text-center">
+		<span class="tb-lead">'.$locname.'</span>
+	</td>
 	<td class="nk-tb-col tb-col-sm text-center">
 
 			<span class="tb-lead">'.$name.'</span>
@@ -155,6 +161,10 @@ echo'   <tr class="nk-tb-item">
 	<td class="nk-tb-col text-center">
 		<span class="tb-lead">'.$loccity.'</span>
 	</td>
+	<td class="nk-tb-col text-center">
+		<span class="tb-lead">'.$locsite.'</span>
+	</td>
+
 <td class="nk-tb-col nk-tb-col-tools">
 		<ul class="nk-tb-actions gx-1 my-n1">
 			<li class="mx-auto">
@@ -162,7 +172,7 @@ echo'   <tr class="nk-tb-item">
 					<a href="#" class="dropdown-toggle btn btn-icon btn-trigger" data-toggle="dropdown"><em class="icon ni ni-more-h"></em></a>
 					<div class="dropdown-menu dropdown-menu-right">
 						<ul class="link-list-opt no-bdr">
-							<li><a href="javascript:void(0)" onClick="openmodal1('."'$mid'".','."'$name'".','."'$address'".','."'$postcode'".','."'$loccity'".')"><em class="icon ni ni-edit"></em><span>Edit</span></a></li>
+							<li><a href="javascript:void(0)" onClick="openmodal1('."'$mid'".','."'$name'".','."'$address'".','."'$postcode'".','."'$loccity'".','."'$locsite'".','."'$locname'".')"><em class="icon ni ni-edit"></em><span>Edit</span></a></li>
 					
 							
 							<li><a href="javascript:void(0)" onClick="confirm('."'$mid'".')"><em class="icon ni ni-trash"></em><span>Remove</span></a></li>

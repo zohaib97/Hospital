@@ -38,7 +38,7 @@ include_once('database/db.php');
 			<div class="row">
 				<div class="col-lg-8 col-md-8 col-sm-12 col-12">
 					<div class="single-page-title">
-						<h2>Register</h2>
+						<h2>Register Your Self</h2>
 					</div>
 				</div>
 				<div class="col-lg-4 col-md-4 col-sm-12 col-12">
@@ -58,18 +58,18 @@ include_once('database/db.php');
 	<!-- START APPOINTMENT SECTION -->
      <section id="appointment" class="">
         <div class="auto-container">
-            <div class="row">
-				<div class="col-lg-8 text-center mx-auto">
-                    <div class="section-title">
-                        <h3>Get Register <span>Your Self</span></h3>
-                        <span class="line"></span>
-                    </div>
-				</div>
+   <!--         <div class="row">-->
+			<!--	<div class="col-lg-8 text-center mx-auto">-->
+   <!--                 <div class="section-title">-->
+   <!--                     <h3>Register <span>Your Self</span></h3>-->
+   <!--                     <span class="line"></span>-->
+   <!--                 </div>-->
+			<!--	</div>-->
 				<!-- end section title -->
-			</div>
+			<!--</div>-->
 			
             <div class="row mb-3">
-				<div class="col-lg-8 mx-auto">
+				<div class="col-lg-8 mx-auto mt-2">
                     <div class="appointment-form-ma">
                         <form id="reg_form">
                             <div class="row" id="form1">
@@ -356,34 +356,30 @@ $("#reg_form").on("submit", function(e)
 				$.ajax({
 					url: 'php/phpcode.php',
 					type: 'post',
+					dataType: 'JSON',
 					data: reform,
 					processData: false,
 					contentType: false,
 					success: function(data)
 					{
 					
-						if(data == "alemail"){
+						if(data['res'] == "alemail"){
 							toastr.error("Email Already Exist!");
 							document.getElementById("conemail").style.borderColor = "red";
-						}else if(data == "success")
+						}else if(data['res'] == "success")
 						{
 
 				// 			toastr.success("You have been registered successfully.Please Wait for admin approval!");
-							  swal("Success!", "You have been registered successfully.Please Wait for admin approval!", "success");
+							  swal("Success!", "Dear "+data['name']+" Thank you for registering on the Refferel System.\nThe details will be reviewed by admin before it is approved.\n You will recieve an email, once it has been approved\n  Regards\n The Refferel System!", "success");
 							$("#regis").attr("disabled","disabled");
 							$("#reg_form")[0].reset();
 				
                       setTimeout(() => {
                               window.location.href="index.php";
-}, 1500);
-						}else if(data == "nhserror"){
-								 toastr.error("Wrong NHS Number");
+}, 2000);
 						}
-						else if(data == "Error"){
-							toastr.error("Did not Register Successfully");
-						}
-						else if(data == "already"){
-								 toastr.error("Postcode Already Registered");
+						else{
+						    swal("Error!", "You have not been registered successfully! Something Went Wrong", "error");
 						}
 					}
 

@@ -281,7 +281,7 @@ $hks=mysqli_fetch_array($qki);
 	echo'   <tr class="nk-tb-item">
 
 	<td class="nk-tb-col">
-		<span class="tb-lead">'.$fetch['c_id'].'</span>
+		<span>'.$fetch['c_id'].'</span>
 	</td>
 	<td class="nk-tb-col">';
       if($fetch['ser_priority_rout'] != 0)
@@ -331,7 +331,7 @@ $hks=mysqli_fetch_array($qki);
 	}
 	echo'
 		<td class="nk-tb-col">
-		<span class="tb-lead">'.$fetch['s_name'].'</span>
+		<span>'.$fetch['s_name'].'</span>
 	</td>
 	
 	
@@ -384,7 +384,7 @@ $hks=mysqli_fetch_array($qki);
 		<script src="https://cdn.datatables.net/1.10.23/js/jquery.dataTables.min.js"></script>
 	<script src="https://cdn.datatables.net/1.10.23/js/dataTables.bootstrap4.min.js"></script>
 	<script>$(document).ready(function () {
-		$("#myTable").DataTable();
+		$("#myTable").DataTable({responsive:true});
 	} )
 	</script>
 	';
@@ -665,7 +665,7 @@ $hks=mysqli_fetch_array($qki);
 		<script src="https://cdn.datatables.net/1.10.23/js/jquery.dataTables.min.js"></script>
 	<script src="https://cdn.datatables.net/1.10.23/js/dataTables.bootstrap4.min.js"></script>
 	<script>$(document).ready(function () {
-		$("#myTable").DataTable();
+		$("#myTable").DataTable({responsive:true});
 	} )
 	</script>
 	';
@@ -780,7 +780,7 @@ if(isset($_POST['refferelfetch2']))
 		<script src="https://cdn.datatables.net/1.10.23/js/jquery.dataTables.min.js"></script>
 	<script src="https://cdn.datatables.net/1.10.23/js/dataTables.bootstrap4.min.js"></script>
 	<script>$(document).ready(function () {
-		$("#myTable").DataTable();
+		$("#myTable").DataTable({responsive:true});
 	} )
 	</script>
 	';
@@ -941,7 +941,7 @@ $hks=mysqli_fetch_array($qki);
 		<script src="https://cdn.datatables.net/1.10.23/js/jquery.dataTables.min.js"></script>
 	<script src="https://cdn.datatables.net/1.10.23/js/dataTables.bootstrap4.min.js"></script>
 	<script>$(document).ready(function () {
-		$("#myTable").DataTable();
+		$("#myTable").DataTable({responsive:true});
 	} )
 	</script>
 	';
@@ -1065,7 +1065,7 @@ if(isset($_POST['refferelfetch4']))
 		<script src="https://cdn.datatables.net/1.10.23/js/jquery.dataTables.min.js"></script>
 	<script src="https://cdn.datatables.net/1.10.23/js/dataTables.bootstrap4.min.js"></script>
 	<script>$(document).ready(function () {
-		$("#myTable").DataTable();
+		$("#myTable").DataTable({responsive:true});
 	} )
 	</script>
 	';
@@ -1189,7 +1189,7 @@ if(isset($_POST['refferelfetch5']))
 			<script src="https://cdn.datatables.net/1.10.23/js/jquery.dataTables.min.js"></script>
 	<script src="https://cdn.datatables.net/1.10.23/js/dataTables.bootstrap4.min.js"></script>
 	<script>$(document).ready(function () {
-		$("#myTable").DataTable();
+		$("#myTable").DataTable({responsive:true});
 	} )
 	</script>
 	';
@@ -1303,7 +1303,7 @@ if(isset($_POST['refferelfetch6']))
 			<script src="https://cdn.datatables.net/1.10.23/js/jquery.dataTables.min.js"></script>
 	<script src="https://cdn.datatables.net/1.10.23/js/dataTables.bootstrap4.min.js"></script>
 	<script>$(document).ready(function () {
-		$("#myTable").DataTable();
+		$("#myTable").DataTable({responsive:true});
 	} )
 	</script>
 	';
@@ -1417,7 +1417,7 @@ if(isset($_POST['refferelfetch7']))
 			<script src="https://cdn.datatables.net/1.10.23/js/jquery.dataTables.min.js"></script>
 	<script src="https://cdn.datatables.net/1.10.23/js/dataTables.bootstrap4.min.js"></script>
 	<script>$(document).ready(function () {
-		$("#myTable").DataTable();
+		$("#myTable").DataTable({responsive:true});
 	} )
 	</script>
 	';
@@ -1628,7 +1628,7 @@ if(isset($_POST['searchservice']))
 	}
 	$query = mysqli_query($con,"SELECT * FROM `services` WHERE ".$res." and FIND_IN_SET('$cliniciantype',ser_cl_type)  and service_speciality = '$speciality'");
 	$query1 = mysqli_query($con,"SELECT * FROM `services` WHERE ".$res." and FIND_IN_SET('$cliniciantype',ser_cl_type)  and service_speciality = '$speciality'");
-	$fetch1 = mysqli_fetch_array($query);
+	$fetch1 = mysqli_fetch_array($query1);
 // 	if($fetch1['service_age'] > $ptage || $fetch1['service_age2'] < $ptage)
 // 	{
 // 	    echo"age";
@@ -1680,19 +1680,51 @@ if(isset($_POST['searchservice']))
 					$loname = $fetch['service_location'];
 				$sql3 = mysqli_query($con,"SELECT * FROM `org_locations` WHERE id = '$loname'");
 				$fe3 = mysqli_fetch_array($sql3);
-				$locname =$fe3['org_location'];
+				$locname =$fe3['org_location_name'];
 		// $dob = $fetch['service_location'];
 		// 		$sql3 = mysqli_query($con,"SELECT * FROM `service_location` WHERE lo_id = '$dob'");
 		// 		$fe3 = mysqli_fetch_array($sql3);
 		// 		$dob = $fe3['lo_location'];
 		$id = $fetch['service_id'];
-	if($fetch1['service_age'] > $ptage || $fetch1['service_age2'] < $ptage)
+		if($fetch['service_age'] !="" && $fetch['service_age'] == ""){
+	if($fetch['service_age'] > $ptage)
+					{
+					    echo "<tr class='nk-tb-item'> 
+	 		<td class='nk-tb-col text-center'  colspan='6'>
+			<span class='tb-lead'>Your Age doesn't match to service age range  </span>
+		</td>
+		</tr>
+	 ";
+					}
+		}
+		elseif($fetch['service_age'] !="" && $fetch['service_age2'] !=""){
+		    	if($fetch['service_age'] > $ptage)
+					{
+					    echo "<tr class='nk-tb-item'> 
+	 		<td class='nk-tb-col text-center'  colspan='6'>
+			<span class='tb-lead'>Your Age doesn't match to service age range  </span>
+		</td>
+		</tr>
+	 ";
+					}
+	elseif($fetch['service_age2'] < $ptage)
 	{
-	 
+	echo " <tr class='nk-tb-item'> 
+	 		<td class='nk-tb-col text-center'  colspan='6'>
+			<span class='tb-lead'>Your Age doesn't match to service age range  </span>
+		</td>
+		</tr>
+	 ";
 	}
-	elseif($fetch1['service_gender'] == "Male" && $pttitle == "Ms" || $fetch1['service_gender'] == "Female" && $pttitle == "Mr")
+			}
+	elseif($fetch['service_gender'] == "Male" && $pttitle == "Ms" || $fetch['service_gender'] == "Female" && $pttitle == "Mr")
 	{
-	  
+	 echo "<tr class='nk-tb-item'> 
+	 		<td class='nk-tb-col text-center'  colspan='6'>
+			<span class='tb-lead'>Your Gender doesn't match to service gender range  </span>
+		</td>
+		</tr>
+	 ";
 	}
 	else{
 	echo'   <tr class="nk-tb-item">
@@ -1735,7 +1767,32 @@ if(isset($_POST['searchservice']))
 	';
 		}
 	else{
-		echo "Data Not Found";
+		echo '
+		<link rel="stylesheet" href="https://cdn.datatables.net/1.10.23/css/dataTables.bootstrap4.min.css">
+			<hr>
+			<h5 class="text-center">Service List</h5>
+			<table class="nowrap nk-tb-list is-separate" data-auto-responsive="false" id="myTable1" >
+				<thead>
+					<tr class="nk-tb-item nk-tb-head">
+						<th class="nk-tb-col nk-tb-col-check">
+							
+						</th>
+						<th class="nk-tb-col tb-col-sm"><span>Service Name</span></th>
+					
+						<th class="nk-tb-col"><span>Service Speciality</span></th>
+						<th class="nk-tb-col"><span>Gender</span></th>
+						<th class="nk-tb-col"><span>Clinician Type</span></th>
+						<th class="nk-tb-col"><span>Service Location</span></th>
+						
+						
+					</tr><!-- .nk-tb-item -->
+				</thead>
+				<tbody id=""><tr class="nk-tb-item"> 
+	 		<td class="nk-tb-col text-center"  colspan="6">
+			<span class="tb-lead">Data Not Found  </span>
+		</td>
+		</tr>
+		</tbody> </table>';
 	}
 }
 
@@ -1791,6 +1848,10 @@ $query = mysqli_query($con,"SELECT * FROM `tbl_consultantrefferels` join `servic
 	// 		$fe3 = mysqli_fetch_array($sql3);
 	// 		$dob = $fe3['lo_location'];
 	$id = $fetch['service_id'];
+		$loname = $fetch['service_location'];
+				$sql3 = mysqli_query($con,"SELECT * FROM `org_locations` WHERE id = '$loname'");
+				$fe3 = mysqli_fetch_array($sql3);
+				$locname =$fe3['org_location_name'];
 
 echo'   <tr class="nk-tb-item">
 	<td class="nk-tb-col nk-tb-col-check">
@@ -1815,7 +1876,7 @@ echo'   <tr class="nk-tb-item">
 		<span class="tb-lead">'.$sname.'</span>
 	</td>
 	<td class="nk-tb-col">
-		<span class="tb-lead">'.$fetch['service_location'].'</span>
+		<span class="tb-lead">'.$locname.'</span>
 	</td>
 	';
 		
@@ -2401,7 +2462,7 @@ echo'   <tr class="nk-tb-item">
 }
 
 if(isset($_POST['fetchconsultant']))
-{
+{ $em = $_SESSION['gprefferer'];
 			$orgid = $_POST['org'];
 									 $q = mysqli_query($con,"SELECT * FROM `tbl_ruser` WHERE ur_role_id = '3'  and ur_orgtype = '$orgid'");
 									 if(mysqli_num_rows($q)>0)
@@ -2538,7 +2599,7 @@ if(isset($_POST['apprefferelfetch']))
 		<script src="https://cdn.datatables.net/1.10.23/js/jquery.dataTables.min.js"></script>
 	<script src="https://cdn.datatables.net/1.10.23/js/dataTables.bootstrap4.min.js"></script>
 	<script>$(document).ready(function () {
-		$("#myTable").DataTable();
+		$("#myTable").DataTable({responsive:true});
 	} )
 	</script>
 	';
@@ -2632,7 +2693,7 @@ if(isset($_POST['apprefferelfetch1']))
 		<script src="https://cdn.datatables.net/1.10.23/js/jquery.dataTables.min.js"></script>
 	<script src="https://cdn.datatables.net/1.10.23/js/dataTables.bootstrap4.min.js"></script>
 	<script>$(document).ready(function () {
-		$("#myTable").DataTable();
+		$("#myTable").DataTable({responsive:true});
 	} )
 	</script>
 	';
@@ -2729,7 +2790,7 @@ if(isset($_POST['apprefferelfetch2']))
 		<script src="https://cdn.datatables.net/1.10.23/js/jquery.dataTables.min.js"></script>
 	<script src="https://cdn.datatables.net/1.10.23/js/dataTables.bootstrap4.min.js"></script>
 	<script>$(document).ready(function () {
-		$("#myTable").DataTable();
+		$("#myTable").DataTable({responsive:true});
 	} )
 	</script>
 	';
@@ -2830,7 +2891,7 @@ if(isset($_POST['apprefferelfetch3']))
 		<script src="https://cdn.datatables.net/1.10.23/js/jquery.dataTables.min.js"></script>
 	<script src="https://cdn.datatables.net/1.10.23/js/dataTables.bootstrap4.min.js"></script>
 	<script>$(document).ready(function () {
-		$("#myTable").DataTable();
+		$("#myTable").DataTable({responsive:true});
 	} )
 	</script>
 	';
@@ -2923,7 +2984,7 @@ if(isset($_POST['apprefferelfetch4']))
 		<script src="https://cdn.datatables.net/1.10.23/js/jquery.dataTables.min.js"></script>
 	<script src="https://cdn.datatables.net/1.10.23/js/dataTables.bootstrap4.min.js"></script>
 	<script>$(document).ready(function () {
-		$("#myTable").DataTable();
+		$("#myTable").DataTable({responsive:true});
 	} )
 	</script>
 	';

@@ -1628,7 +1628,7 @@ if(isset($_POST['searchservice']))
 	}
 	$query = mysqli_query($con,"SELECT * FROM `services` WHERE ".$res." and FIND_IN_SET('$cliniciantype',ser_cl_type)  and service_speciality = '$speciality'");
 	$query1 = mysqli_query($con,"SELECT * FROM `services` WHERE ".$res." and FIND_IN_SET('$cliniciantype',ser_cl_type)  and service_speciality = '$speciality'");
-	$fetch1 = mysqli_fetch_array($query);
+	$fetch1 = mysqli_fetch_array($query1);
 // 	if($fetch1['service_age'] > $ptage || $fetch1['service_age2'] < $ptage)
 // 	{
 // 	    echo"age";
@@ -1680,19 +1680,23 @@ if(isset($_POST['searchservice']))
 					$loname = $fetch['service_location'];
 				$sql3 = mysqli_query($con,"SELECT * FROM `org_locations` WHERE id = '$loname'");
 				$fe3 = mysqli_fetch_array($sql3);
-				$locname =$fe3['org_location'];
+				$locname =$fe3['org_location_name'];
 		// $dob = $fetch['service_location'];
 		// 		$sql3 = mysqli_query($con,"SELECT * FROM `service_location` WHERE lo_id = '$dob'");
 		// 		$fe3 = mysqli_fetch_array($sql3);
 		// 		$dob = $fe3['lo_location'];
 		$id = $fetch['service_id'];
-	if($fetch1['service_age'] > $ptage || $fetch1['service_age2'] < $ptage)
+	if($fetch['service_age'] > $ptage || $fetch['service_age2'] < $ptage)
 	{
 	 
 	}
-	elseif($fetch1['service_gender'] == "Male" && $pttitle == "Ms" || $fetch1['service_gender'] == "Female" && $pttitle == "Mr")
+	elseif($fetch['service_gender'] == "Male" && $pttitle == "Ms")
 	{
-	  
+	 
+	}
+	elseif($fetch['service_gender'] == "Female" && $pttitle == "Mr")
+	{
+	    
 	}
 	else{
 	echo'   <tr class="nk-tb-item">
@@ -1791,6 +1795,10 @@ $query = mysqli_query($con,"SELECT * FROM `tbl_consultantrefferels` join `servic
 	// 		$fe3 = mysqli_fetch_array($sql3);
 	// 		$dob = $fe3['lo_location'];
 	$id = $fetch['service_id'];
+	$loname = $fetch['service_location'];
+				$sql3 = mysqli_query($con,"SELECT * FROM `org_locations` WHERE id = '$loname'");
+				$fe3 = mysqli_fetch_array($sql3);
+				$locname =$fe3['org_location_name'];
 
 echo'   <tr class="nk-tb-item">
 	<td class="nk-tb-col nk-tb-col-check">
@@ -1815,7 +1823,7 @@ echo'   <tr class="nk-tb-item">
 		<span class="tb-lead">'.$sname.'</span>
 	</td>
 	<td class="nk-tb-col">
-		<span class="tb-lead">'.$fetch['service_location'].'</span>
+		<span class="tb-lead">'.$locname.'</span>
 	</td>
 	';
 		

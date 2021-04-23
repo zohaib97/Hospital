@@ -149,7 +149,8 @@ include_once('../database/db.php');
 												<div class="col-md-6" id="">
 													<div class="form-group">
 														<label class="col-form-label" for="rno">POST Code</label>
-														<input type="text" class="form-control form-control-lg"  placeholder="Postal Code" name="postalcode" required autocomplete="off">
+														<input type="text" class="form-control form-control-lg"  placeholder="Postal Code" name="postalcode" required autocomplete="off" onchange="stringlength1(this.value)">
+													<small id="valid-nhs1"></small>
 													</div>
 												</div>
 												<div class="col-md-6">
@@ -165,13 +166,15 @@ include_once('../database/db.php');
 												<div class="col-md-6" id="">
 													<div class="form-group">
 														<label class="col-form-label" for="rno">Home Telephone Number</label>
-														<input type="number" class="form-control form-control-lg"  placeholder="Enter Telephone no" name="telephoneno" required autocomplete="off">
+														<input type="number" class="form-control form-control-lg"  placeholder="Enter Telephone no" name="telephoneno" required autocomplete="off" onchange="stringlength2(this.value)">
+													<small id="valid-nhs2"></small>
 													</div>
 												</div>
 												<div class="col-md-6" id="">
 													<div class="form-group">
 														<label class="col-form-label" for="rno">Mobile Number</label>
-														<input type="number" class="form-control form-control-lg"  placeholder="Enter Mobile no" name="mobileno" required autocomplete="off">
+														<input type="number" class="form-control form-control-lg"  placeholder="Enter Mobile no" name="mobileno" required autocomplete="off" onchange="stringlength3(this.value)">
+													<small id="valid-nhs3"></small>
 													</div>
 												</div>
 												<div class="col-md-6" id="">
@@ -219,6 +222,65 @@ include_once('../database/db.php');
   <script src="assets/js/example-toastr.js?ver=2.2.0"></script>
 </body>
 <script>
+
+function stringlength1(num)
+{ 
+ 
+var no = num;
+var mnlen = 3;
+var mxlen = 8;
+if(no.length<mnlen || no.length> mxlen)
+{ 
+    
+$("#valid-nhs1").html("Please enter between 3 to 8 number/alphabets").removeClass("text-success").addClass("text-danger");
+$("#valid-nhs1").show();
+$('#post').val('');
+}
+else
+{
+    $("#valid-nhs1").hide();
+}
+}
+
+function stringlength2(num)
+{ 
+ 
+var no = num;
+var mnlen = 5;
+var mxlen = 15;
+if(no.length<mnlen || no.length> mxlen)
+{ 
+    
+$("#valid-nhs2").html("Please enter between 5 to 15 numbers").removeClass("text-success").addClass("text-danger");
+$("#valid-nhs2").show();
+$('#htelno').val('');
+}
+else
+{
+    $("#valid-nhs2").hide();
+}
+}
+
+function stringlength3(num)
+{ 
+ 
+var no = num;
+var mnlen = 5;
+var mxlen = 15;
+if(no.length<mnlen || no.length> mxlen)
+{ 
+    
+$("#valid-nhs3").html("Please enter between 5 to 15 numbers").removeClass("text-success").addClass("text-danger");
+$("#valid-nhs3").show();
+$('#htelno').val('');
+}
+else
+{
+    $("#valid-nhs3").hide();
+}
+}
+
+
 $(document).ready(function(){
     
     setTimeout(fnCalculateAge,3000); 

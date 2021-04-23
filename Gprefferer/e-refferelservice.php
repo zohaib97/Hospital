@@ -115,8 +115,8 @@ include_once('../database/db.php');
 											<input style="border-color: #000000" class="form-control" type="text" placeholder="Surname" id="em"
 											  required autocomplete="off">
 											</div>
-									         <div class="col-md-2 pb-3">
-											<input style="border-color: #000000;" class="form-control datepicker" type="text"  placeholder="Date Of Birth"  id="dob"
+									         <div class="col-md-3 pb-3">
+											<input style="border-color: #000000;" class="form-control" type="date"  placeholder="Date Of Birth"  id="dob"
 												   required  autocomplete="off">
 											</div>
 											<div class="col-md-2 res" id="btn3">
@@ -939,6 +939,7 @@ $('#servage').val(serv);
 				contentType: false,
 				processData: false,
 				success: function(data){
+				  
 					if(data == "Data Not Found")
 						{
 							toastr.clear();
@@ -1458,6 +1459,7 @@ $('#dob').change(function(){
 
 function fetchconsultant(org)
 {
+ 
 // 	var org = $('#organisation').val();
 	$.ajax({    
         type: "POST",

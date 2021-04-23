@@ -306,10 +306,7 @@ include_once('header.php');
     <script src="assets/js/example-toastr.js?ver=2.2.0"></script>
 </body>
 <script>
-$(document).ready(function(){
-   $("#Role").val("<?=$_GET["role"]?>");
-   fetchadmindata();
-});
+
     function fetchadmindata() {
 var Role = $('#Role').val();
 if(Role == "consultant")
@@ -411,9 +408,25 @@ else if(Role == "Optometrist")
         });
 }
     }
+    <?php
+if(isset($_GET["role"]))
+{
+?>
+$(document).ready(function(){
+   $("#Role").val("<?=$_GET["role"]?>");
+   fetchadmindata();
+});
+<?php
+}
+else
+{
+?>
     $(document).ready(function() {
         fetchadmindata();
     });
+    <?php
+}
+    ?>
 
     function confirm(id) {
         Swal.fire({

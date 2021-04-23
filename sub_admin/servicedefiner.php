@@ -109,7 +109,7 @@ include_once('headernav.php');
  	
  
 								    ?>
-								    <option value="<?=$datarole1['id']?>"><?=$datarole1['org_location']?></option>
+								    <option value="<?=$datarole1['id']?>"><?=$datarole1['org_location_name']?></option>
 								    <?php
  }
 								    ?>
@@ -444,7 +444,8 @@ include_once('headernav.php');
 								<div class="form-group">
 									<label class="col-form-label" for="full-name-1">Contact Telephone Number</label>
 									<div class="form-control-wrap">
-										<input type="number" class="form-control" id="hp_con" name="hp_con" autocomplete="off">
+										<input type="number" class="form-control" id="hp_con" name="hp_con" autocomplete="off" onchange="stringlength(this.value)">
+										<small id="valid-nhs"></small>
 									</div>
 								</div>
 							  </div>
@@ -452,7 +453,8 @@ include_once('headernav.php');
 								<div class="form-group">
 									<label class="col-form-label" for="full-name-1">Fax Number</label>
 									<div class="form-control-wrap">
-										<input type="number" class="form-control" id="hp_fax" name="hp_fax" autocomplete="off">
+										<input type="number" class="form-control" id="hp_fax" name="hp_fax" autocomplete="off" onchange="stringlength1(this.value)">
+										<small id="valid-nhs1"></small>
 									</div>
 								</div>
 							  </div>
@@ -462,7 +464,8 @@ include_once('headernav.php');
 								<div class="form-group">
 									<label class="col-form-label" for="full-name-1">Text Telephone Number</label>
 									<div class="form-control-wrap">
-										<input type="number" class="form-control" id="hp_text" name="hp_text" autocomplete="off">
+										<input type="number" class="form-control" id="hp_text" name="hp_text" autocomplete="off" onchange="stringlength2(this.value)">
+										<small id="valid-nhs2"></small>
 									</div>
 								</div>
 							  </div>
@@ -825,6 +828,66 @@ include_once('footer.php');
 
 </html>
 <script>
+
+function stringlength(num)
+{ 
+ 
+var no = num;
+var mnlen = 5;
+var mxlen = 15;
+if(no.length<mnlen || no.length> mxlen)
+{ 
+    
+$("#valid-nhs").html("Please enter between 5 to 15 number").removeClass("text-success").addClass("text-danger");
+$("#valid-nhs").show();
+$('#hp_con').val('');
+}
+else
+{
+    $("#valid-nhs").hide();
+}
+}
+
+function stringlength1(num)
+{ 
+ 
+var no = num;
+var mnlen = 3;
+var mxlen = 8;
+if(no.length<mnlen || no.length> mxlen)
+{ 
+    
+$("#valid-nhs1").html("Please enter between 3 to 8 number").removeClass("text-success").addClass("text-danger");
+$("#valid-nhs1").show();
+$('#hp_fax').val('');
+}
+else
+{
+    $("#valid-nhs1").hide();
+}
+}
+
+function stringlength2(num)
+{ 
+ 
+var no = num;
+var mnlen = 5;
+var mxlen = 15;
+if(no.length<mnlen || no.length> mxlen)
+{ 
+    
+$("#valid-nhs2").html("Please enter between 5 to 15 number").removeClass("text-success").addClass("text-danger");
+$("#valid-nhs2").show();
+$('#hp_text').val('');
+}
+else
+{
+    $("#valid-nhs2").hide();
+}
+}
+
+
+
 // for fetch data from clinical type
 function fetchdataclin(){
 $.ajax({

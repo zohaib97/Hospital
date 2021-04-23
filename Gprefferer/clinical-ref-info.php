@@ -38,7 +38,7 @@ include_once('header.php');
                                 <?php
                                 $refferalid=$fetch["ur_id"];
                                 $appid = $_GET['c_id'];
-                                $sql = mysqli_query($con,"SELECT * FROM tbl_serviceappointment,tbl_consultantrefferels,`services`,tbl_patients where tbl_patients.pt_id=tbl_serviceappointment.sp_patientid and tbl_serviceappointment.sp_serviceid = services.service_id and tbl_consultantrefferels.c_gpid=tbl_serviceappointment.sp_refferalid and sp_id = '$appid' and sp_refferalid='$refferalid'");
+                                $sql = mysqli_query($con,"SELECT * FROM tbl_serviceappointment,tbl_consultantrefferels,`services`,tbl_patients,orginzation where tbl_patients.pt_id=tbl_serviceappointment.sp_patientid and tbl_serviceappointment.sp_serviceid = services.service_id and tbl_consultantrefferels.c_gpid=tbl_serviceappointment.sp_refferalid and sp_id = '$appid' and sp_refferalid='$refferalid'");
                                 if(mysqli_num_rows($sql)>0)
                                 {
                                     $fe = mysqli_fetch_array($sql);
@@ -50,7 +50,7 @@ include_once('header.php');
                                     </div>
                                     <div>
                                     <p><b>Referral By :</b> <?=$fetch["ur_fname"]." ".$fetch["ur_sname"]?></p>
-                                    <p><b>Organisation Phone :</b> <?=$fetch["or_phone"]?></p>
+                                    <p><b>Organisation Phone :</b> <?=$fetch1["or_phone"]?></p>
                                     <p><b>Organisation Name :</b> <?=$klo["or_name"]?></p>
                                     <p><b>Organisation Address :</b> <?=$klo["or_address"]?></p>
                                     <p><b>Referral Created Date :</b> <?=$dowb?></p>
