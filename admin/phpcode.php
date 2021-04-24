@@ -1034,7 +1034,7 @@ if(isset($_POST['ser_app']))
 	{
 		$ser_name = $_POST['appname'];
 	$sql = mysqli_query($con,"SELECT * FROM `app_type` WHERE app_type = '$ser_name'");
-	if(mysqli_num_rows>0)
+	if(mysqli_num_rows($sql) > 0)
 	{
 	echo"already";
 	}
@@ -1054,7 +1054,7 @@ if(isset($_POST['ser_app']))
 	{
 		$ser_name = $_POST['appname'];
 	$sql = mysqli_query($con,"SELECT * FROM `app_type` WHERE app_type = '$ser_name'");
-	if(mysqli_num_rows>0)
+	if(mysqli_num_rows($sql)>0)
 	{
 	echo"already";
 	}
@@ -1482,12 +1482,13 @@ if(isset($_POST["addorginaztion"]))
 {
 	extract($_POST);
 	$sql = mysqli_query($con,"SELECT * FROM orginzation WHERE or_postcode = '$opost'");
+	$sql1 = mysqli_query($con,"SELECT * FROM orginzation WHERE or_code = '$ocode'");
 	if(mysqli_num_rows($sql) > 0)
 	{
 	    echo"postcodealready";
 	}
-	$sql1 = mysqli_query($con,"SELECT * FROM orginzation WHERE or_code = '$ocode'");
-	if(mysqli_num_rows($sql1) > 0)
+	
+	elseif(mysqli_num_rows($sql1) > 0)
 	{
 	    echo"orcodealready";
 	}
@@ -1500,6 +1501,32 @@ if(isset($_POST["addorginaztion"]))
 	}
 	}
 }
+
+// add addorginaztion
+if(isset($_POST["updateorginaztion"]))
+{
+	extract($_POST);
+	// $sql = mysqli_query($con,"SELECT * FROM orginzation WHERE or_postcode = '$opost'");
+	// $sql1 = mysqli_query($con,"SELECT * FROM orginzation WHERE or_code = '$ocode'");
+	// if(mysqli_num_rows($sql) > 0)
+	// {
+	//     echo"postcodealready";
+	// }
+	
+	// elseif(mysqli_num_rows($sql1) > 0)
+	// {
+	//     echo"orcodealready";
+	// }
+	// else{
+	$jjjs=mysqli_query($con,"UPDATE `orginzation` SET `or_type`='$otype',`or_name`='$name',`or_phone`='$ocontact',`or_address`='$oaddress',`or_code`='$ocode',`or_firstaddress`='$ofaddress',`or_city`='$ocity',`or_postcode`='$opost' WHERE orid = '$id'");
+	if($jjjs >0){
+		echo "sss";
+	}else{
+		echo "Error";
+	}
+	
+}
+
 //fetch orginaztion data
 if(isset($_POST['orginaztionfetch']))
 {
@@ -1531,6 +1558,14 @@ $query = mysqli_query($con,"SELECT * FROM `orginzation` WHERE status = '$status'
 		{
 	$id = $fetch['orid'];
 	$status =$fetch['status'];
+	$orname =$fetch['or_name'];
+	$ortype = $fetch['or_type'];
+	$oraddress = $fetch['or_address'];
+	$orphone = $fetch['or_phone'];
+	$orcode = $fetch['or_code'];
+	$orfirstaddress =$fetch['or_firstaddress'];
+	$orcity = $fetch['or_city'];
+	$orpostcode = $fetch['or_postcode'];
 	// $hname = $fetch['h_name'];
 	// $name = $fetch['name'];
 	// $status = $fetch['h_status'];
@@ -1582,9 +1617,9 @@ echo'<td class="nk-tb-col tb-col-md">
 					<a href="#" class="dropdown-toggle btn btn-icon btn-trigger" data-toggle="dropdown"><em class="icon ni ni-more-h"></em></a>
 					<div class="dropdown-menu dropdown-menu-right">
 						<ul class="link-list-opt no-bdr">';
-							// <li><a href="javascript:void(0)" onClick="openmodal('."'$id'".','."'$hname'".')"><em class="icon ni ni-edit"></em><span>Edit</span></a></li>
+						echo ' <li><a href="javascript:void(0)" onClick="openmodal('."'$id'".','."'$orname'".','."'$ortype'".','."'$oraddress'".','."'$orphone'".','."'$orcode'".','."'$orfirstaddress'".','."'$orcity'".','."'$orpostcode'".')"><em class="icon ni ni-edit"></em><span>Edit</span></a></li>
 							
-							echo '<li><a href="javascript:void(0)" onClick="confirm('."'$id'".')"><em class="icon ni ni-trash"></em><span>Remove</span></a></li>
+							<li><a href="javascript:void(0)" onClick="confirm('."'$id'".')"><em class="icon ni ni-trash"></em><span>Remove</span></a></li>
 
 						</ul>
 					</div>

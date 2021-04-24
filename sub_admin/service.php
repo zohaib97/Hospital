@@ -65,7 +65,36 @@ include_once('../database/db.php');
         <!-- main @e -->
     </div>
 	    <!-- Modal Form -->
-    
+        <div class="modal fade" tabindex="-1" id="modalForm2">
+<div class="modal-dialog" role="document">
+<div class="modal-content">
+<div class="modal-header">
+<h5 class="modal-title">Service name</h5>
+<a href="#" class="close" data-dismiss="modal" aria-label="Close">
+<em class="icon ni ni-cross"></em>
+</a>
+</div>
+<div class="modal-body">
+<form class="form-validate is-alter" id="nameupdate" method="post">
+<div class="row">
+<div class="form-group col-md-12 mb-4">
+<label class="form-label" for="sname">Name</label>
+<div class="form-control-wrap">
+<input type="text" class="form-control" id="id" name="id" hidden>
+<input type="text" class="form-control" id="sname" name="sname" required>
+</div>
+</div>
+</div>
+<div class="form-group">
+<button type="submit" class="btn btn-lg btn-primary" id="sernameupdate">Save</button>
+</div>
+</form>
+</div>
+<div class="modal-footer bg-light">
+</div>
+</div>
+</div>
+</div>
     <!-- app-root @e -->
   <script src="assets/js/example-toastr.js?ver=2.2.0"></script>
 </body>
@@ -82,14 +111,18 @@ $(document).ready(function(){
           data: {readRecord:readRecord},
          
           success: function (data) {
-            
+           
             $('#rdata').html(data);
             
           }
         }); 
 
    }
-   
+   function openmodal3(id,name) {	
+ $('#sname').val(name);
+ $('#id').val(id);
+$('#modalForm2').modal('show');
+};	
    
    function deleteadmin(id) {
 
@@ -171,5 +204,36 @@ $(document).ready(function(){
             }
         });
     }
+
+    $("#nameupdate").on('submit', function(e){
+e.preventDefault();
+
+var formapp = new FormData(this);
+formapp.append("sername","btn");
+
+$.ajax({
+type: 'POST',
+url: 'phpcode.php',
+data: formapp,
+contentType: false,
+processData:false,
+success: function(data){
+if(data){
+$('#nameupdate')[0].reset();
+toastr.clear();
+NioApp.Toast("<h5>Successfully Updated</h5>", 'success',{position:'top-right'});
+readRecord();
+$('#modalForm2').modal('hide');
+
+}
+else {
+toastr.clear(); 
+NioApp.Toast("<h5>Something Went Wrong</h5>", 'error',{position:'top-right'});
+}
+}
+
+});
+    });
+
 	</script>
 </html>

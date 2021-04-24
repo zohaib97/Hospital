@@ -40,34 +40,48 @@ $fetchsa=mysqli_fetch_array($qiu);
 			$idq = mysqli_query($con, "SELECT * FROM `tbl_ruser` WHERE `ur_email` = '$loginem'");
 			$dataid = mysqli_fetch_assoc($idq);
 			$senderid = $dataid['ur_id'];
+			$orid = $dataid['ur_orgtype'];
 // 		echo $senderid;
 						$ks=mysqli_query($con,"SELECT * FROM `orginzation` where orid ='$orid'");
 						$klo=mysqli_fetch_array($ks);
 									$qqqq = mysqli_query($con,"SELECT count(*) as a FROM tbl_consultantrefferels,tbl_refferelattachment WHERE tbl_refferelattachment.ra_refferelid=tbl_consultantrefferels.c_id and tbl_consultantrefferels.c_gpid = '$senderid' and reply='1' and status = 'unseen' ");
+									if(mysqli_num_rows($qqqq) > 0)
+									{
 									$fds=mysqli_fetch_array($qqqq);
 									$mss = mysqli_query($con,"SELECT * FROM tbl_consultantrefferels,tbl_refferelattachment WHERE tbl_refferelattachment.ra_refferelid=tbl_consultantrefferels.c_id and tbl_consultantrefferels.c_gpid = '$senderid' and reply='1' and status = 'unseen'");
+									if(mysqli_num_rows($mss) > 0)
+									{
 									$fff111= mysqli_fetch_array($mss);
 									$reqtype111 = $fff111['request_type'] ? $fff111['request_type'] :"";
 									$cid = $fff111['ra_sender_id'] ? $fff111['ra_sender_id'] :"";
 									$query = mysqli_query($con,"SELECT * FROM `tbl_ruser` WHERE `ur_id` = '$cid'");
 						$cfetch = mysqli_fetch_array($query);
+									}
+									}
 												}
 												if(isset($_SESSION['consultant'])){
 												    	$loginem = $_SESSION['consultant'];
 			$idq = mysqli_query($con, "SELECT * FROM `tbl_ruser` WHERE `ur_email` = '$loginem'");
 			$dataid = mysqli_fetch_assoc($idq);
 			$senderid = $dataid['ur_id'];
+			$orid = $dataid['ur_orgtype'];
 // 		echo $senderid;
 						$ks=mysqli_query($con,"SELECT * FROM `orginzation` where orid ='$orid'");
 						$klo=mysqli_fetch_array($ks);
 									$qqqq = mysqli_query($con,"SELECT count(*) as a FROM tbl_consultantrefferels,tbl_refferelattachment WHERE tbl_refferelattachment.ra_refferelid=tbl_consultantrefferels.c_id and tbl_consultantrefferels.c_userid = '$senderid' and reply='0' and status = 'unseen'");
+									if(mysqli_num_rows($qqqq) > 0)
+									{
 									$fds=mysqli_fetch_array($qqqq);
 									$mss = mysqli_query($con,"SELECT * FROM tbl_consultantrefferels,tbl_refferelattachment WHERE tbl_refferelattachment.ra_refferelid=tbl_consultantrefferels.c_id and tbl_consultantrefferels.c_userid = '$senderid' and reply='0' and status = 'unseen'");
+									if(mysqli_num_rows($mss) > 0)
+									{
 									$fff111= mysqli_fetch_array($mss);
 									$reqtype111 = $fff111['request_type'] ? $fff111['request_type'] :"";
 									$cid = $fff111['ra_sender_id'] ? $fff111['ra_sender_id'] :"";
 									$query = mysqli_query($con,"SELECT * FROM `tbl_ruser` WHERE `ur_id` = '$cid'");
 						$cfetch = mysqli_fetch_array($query);
+									}
+									}
 												}
 										?>
 						<a href="#" class="dropdown-toggle nk-quick-nav-icon" data-toggle="dropdown">
@@ -157,14 +171,20 @@ $fetchsa=mysqli_fetch_array($qiu);
 						$ks=mysqli_query($con,"SELECT * FROM `orginzation` where orid ='$orid'");
 						$klo=mysqli_fetch_array($ks);
 									$qqqq = mysqli_query($con,"SELECT count(*) as a FROM tbl_consultantrefferels WHERE tbl_consultantrefferels.c_gpid = '$senderid' and tbl_consultantrefferels.c_status ='1' ");
+									if(mysqli_num_rows($qqqq) > 0)
+									{
 									$fdsw=mysqli_fetch_array($qqqq);
 									$mss = mysqli_query($con,"SELECT * FROM tbl_consultantrefferels,tbl_refferelattachment WHERE tbl_refferelattachment.ra_refferelid=tbl_consultantrefferels.c_id and tbl_consultantrefferels.c_gpid = '$senderid' and tbl_consultantrefferels.c_status ='1' ");
+									if(mysqli_num_rows($mss) > 0)
+									{
 									$fff111= mysqli_fetch_array($mss);
 								$status =	$fff111["c_status"];
 									$reqtype111 = $fff111['request_type'] ? $fff111['request_type'] :"";
 									$cid = $fff111['ra_sender_id'] ? $fff111['ra_sender_id'] :"";
 									$query = mysqli_query($con,"SELECT * FROM `tbl_ruser` WHERE `ur_id` = '$cid'");
 						$cfetch = mysqli_fetch_array($query);
+									}
+									}
 												}
 												if(isset($_SESSION['consultant'])){
 												    	$loginem = $_SESSION['consultant'];
@@ -175,14 +195,20 @@ $fetchsa=mysqli_fetch_array($qiu);
 						$ks=mysqli_query($con,"SELECT * FROM `orginzation` where orid ='$orid'");
 						$klo=mysqli_fetch_array($ks);
 									$qqqq = mysqli_query($con,"SELECT count(*) as a FROM tbl_consultantrefferels WHERE tbl_consultantrefferels.c_userid = '$senderid'  and tbl_consultantrefferels.c_status ='2'");
+									if(mysqli_num_rows($qqqq) > 0)
+									{
 									$fdsw=mysqli_fetch_array($qqqq);
 									$mss = mysqli_query($con,"SELECT * FROM tbl_consultantrefferels,tbl_refferelattachment WHERE tbl_refferelattachment.ra_refferelid=tbl_consultantrefferels.c_id and tbl_consultantrefferels.c_userid = '$senderid' and tbl_consultantrefferels.c_status ='2'");
+									if(mysqli_num_rows($mss) > 0)
+									{
 									$fff111= mysqli_fetch_array($mss);
 									$status =	$fff111["c_status"];
 									$reqtype111 = $fff111['request_type'] ? $fff111['request_type'] :"";
 									$cid = $fff111['ra_sender_id'] ? $fff111['ra_sender_id'] :"";
 									$query = mysqli_query($con,"SELECT * FROM `tbl_ruser` WHERE `ur_id` = '$cid'");
 						$cfetch = mysqli_fetch_array($query);
+									}
+									}
 												}
 								$q1 = mysqli_query($con,"SELECT count(*) as a FROM `tbl_ruser` WHERE ur_orgtype = '$org' and ur_role_id = '1' and ur_status='not_approve'");
 								$f1=mysqli_fetch_array($q1);

@@ -956,7 +956,16 @@ if(isset($_POST['locationfetch']))
 	$sernameq = mysqli_query($con, "SELECT * FROM `org_locations` WHERE id = '$locid'");
 
  $datarole = mysqli_fetch_assoc($sernameq);
- 	echo $datarole['org_location'].",".$datarole['org_address'];
+ 	echo $datarole['org_location'];
+ 
+}
+if(isset($_POST['secondlineaddress']))
+{
+    $locid = $_POST['locid'];
+	$sernameq = mysqli_query($con, "SELECT * FROM `org_locations` WHERE id = '$locid'");
+
+ $datarole = mysqli_fetch_assoc($sernameq);
+ 	echo $datarole['org_address'];
  
 }
 if(isset($_POST['locationfetch2']))
@@ -2039,6 +2048,7 @@ if(isset($_POST['servicadd']))
 		$res_cmnt = mysqli_real_escape_string($con, $_POST['re_cmnt']);
 		$ser_conn = mysqli_real_escape_string($con, $_POST['ser_conname']);
 		$ser_conad = mysqli_real_escape_string($con, $_POST['ser_conadd']);
+		$ser_conad2 = mysqli_real_escape_string($con, $_POST['ser_conadd2']);
 		$ser_concoun = mysqli_real_escape_string($con, $_POST['ser_concount']);
 		$ser_conpos = mysqli_real_escape_string($con, $_POST['ser_conpost']);
 		// $ser_conton = mysqli_real_escape_string($con, $_POST['ser_sontown']);
@@ -2100,7 +2110,7 @@ if(isset($_POST['servicadd']))
 			$_SESSION['cltypeid'] = mysqli_insert_id($con);
 			$serid = $_SESSION['cltypeid'];
 			
-			$sercon = mysqli_query($con, "INSERT INTO `ser_contact`(`scon_name`, `scon_add`, `scon_coun`, `scon_postal`, `scon_town`, `sertbl_id`,`hp_ctel`, `hp_faxn`, `hp_texttel`, `hp_pemail`, `pa_tel`, `pa_hop`) VALUES ('$ser_conn','$ser_conad','$ser_concoun','$ser_conpos','$ser_conpos','$serid','$ser_hpcont','$ser_hpfax','$ser_hptex','$ser_hpemail','$ser_patel','$ser_paop')");
+			$sercon = mysqli_query($con, "INSERT INTO `ser_contact`(`scon_name`, `scon_add`,`scon_add2`, `scon_coun`, `scon_postal`, `scon_town`, `sertbl_id`,`hp_ctel`, `hp_faxn`, `hp_texttel`, `hp_pemail`, `pa_tel`, `pa_hop`) VALUES ('$ser_conn','$ser_conad','$ser_conad2','$ser_concoun','$ser_conpos','$ser_conpos','$serid','$ser_hpcont','$ser_hpfax','$ser_hptex','$ser_hpemail','$ser_patel','$ser_paop')");
 			
 			if($sercon){
 				// for slot amangement
@@ -2852,7 +2862,7 @@ $e = $_SESSION['superadmin'];
 		'.$fetch['service_id'].'
 	</td>
 	<td class="nk-tb-col">
-		<span class="tb-lead">'.$fetch['s_name'].'</span>
+		<span class="tb-lead" onclick="openmodal3(\''.$fetch['s_id'].'\',\''.$fetch['s_name'].'\')" style="cursor:pointer;">'.$fetch['s_name'].'</span>
 	</td>
 	<td class="nk-tb-col">
 		<span class="tb-lead">'.$fetch['service_r_t_support'].'</span>
@@ -3302,5 +3312,46 @@ if(isset($_POST['updatesdr']))
 			echo("Error");
 		}
 	}
+	if(isset($_POST['sername']))
+	{
+		$name = $_POST['sname'];
+	$id = $_POST['id'];
 
+		$query = mysqli_query($con,"UPDATE `service_name` SET `s_name`='$name' WHERE s_id = '$id'");
+		
+		if($query)
+		{
+		
+			echo "Success";
+			
+		}
+		else
+		{
+			echo("Error");
+		}
+	}
+
+//for staff manager delete
+if(isset($_POST['delname']))
+{
+	
+	
+   
+		$vid = $_POST['vid'];
+		$q=mysqli_query($con,"SELECT * FROM `services` WHERE service_name = '$vid'");
+		if(mysqli_num_rows($q) > 0)
+		{
+			echo"isinuse";
+		}
+else{
+		$vdel = "DELETE FROM `service_name` WHERE `s_id` = '$vid'";
+		$vq = mysqli_query($con,$vdel);
+		if($vq){
+			echo "Success";
+		}else {
+		    echo "error";
+		} 
+	}
+	
+}
 ?>

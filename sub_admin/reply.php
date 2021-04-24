@@ -37,7 +37,7 @@ include_once('header.php');
                                             <?php 
 												if(isset($_GET['rfno'])){
 													$rfno = $_GET['rfno'];
-													$qref = mysqli_query($con, "SELECT * FROM `tbl_refferelattachment` WHERE ra_refferelid = '$rfno' and reply = '1'");
+													$qref = mysqli_query($con, "SELECT * FROM `tbl_refferelattachment` WHERE ra_refferelid = '$rfno'");
 													$dref = mysqli_fetch_assoc($qref);
 												}
 											?>
@@ -47,8 +47,8 @@ include_once('header.php');
 				    $q = $_GET["c_id"];
 
 						$qref = mysqli_query($con, "SELECT * FROM `tbl_consultantrefferels` WHERE c_id = '$q'");
-						$dref = mysqli_fetch_assoc($qref);
-						if($dref['request_type'] == "Advice request")
+						$dref1 = mysqli_fetch_assoc($qref);
+						if($dref1['request_type'] == "Advice request")
 						{
 						    
 						
@@ -58,7 +58,7 @@ include_once('header.php');
                                             </nav>
                                              <?php
 						}
-						elseif($dref['request_type'] == "Appointment Request")
+						elseif($dref1['request_type'] == "Appointment Request")
 						{
 						    
 						

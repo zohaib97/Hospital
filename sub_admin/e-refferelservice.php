@@ -909,6 +909,7 @@ $('#servage').val(serv);
 					 toastr.clear();
                NioApp.Toast("<h5>There is no patient matching criteria</h5>", 'error',{position:'top-right'});
 				}
+
 	document.getElementById('tabItem6').innerHTML=response;
 			
 //            $("#tabItem6").html(response); 
@@ -917,6 +918,16 @@ $('#servage').val(serv);
 		  
 
     });
+	$.ajax({    
+        type: "POST",
+        url: "gpphpcode.php", 
+		dataType: 'JSON',
+		data:{nhs:nhs,patientfetchgeb:"btn"},	            
+        success: function(response){ 
+			alert(response['title']);
+				kk(response['title']);
+		}
+	});
     };
 	
 	// insert refer
@@ -928,6 +939,7 @@ $('#servage').val(serv);
 			var ptage = $('#pt_age').val();
 			var pttitle = $('#pt_title').val();
 			var refform = new FormData(this);
+		
 			refform.append("searchservice","btn");
 			refform.append("ptage",ptage);
 			refform.append("pttitle",pttitle);
@@ -940,6 +952,7 @@ $('#servage').val(serv);
 				contentType: false,
 				processData: false,
 				success: function(data){
+			
 					if(data == "Data Not Found")
 						{
 							toastr.clear();

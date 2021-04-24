@@ -367,7 +367,7 @@ $hks=mysqli_fetch_array($qki);
 		<span class="tb-lead">'.$fetch['or_name'].'</span>
 	</td>
 	<td class="nk-tb-col">
-		<a class="tb-lead btn btn-info btn-sm text-white" href="reply.php?c_id='.$fetch["c_id"].'&coid='.$fetch["c_userid"].'&pid='.$fetch["c_rfid"].'&rfno='.$fetch["c_id"].'&nhsno='.$fetch["c_nhsno"].'">Open </a>
+		<a class=" btn btn-info btn-sm text-white" href="reply.php?c_id='.$fetch["c_id"].'&coid='.$fetch["c_userid"].'&pid='.$fetch["c_rfid"].'&rfno='.$fetch["c_id"].'&nhsno='.$fetch["c_nhsno"].'">Open </a>
 	</td>
 	<td class="nk-tb-col">
 	<span class=""><a href="createappointment.php?ubrn='.$fetch['c_UBRN'].'" class="btn btn-info btn-sm">Refer to Appointment</a></span>
@@ -652,7 +652,7 @@ $hks=mysqli_fetch_array($qki);
 	    
 	}
 	echo'<td class="nk-tb-col">
-		<a class="tb-lead btn btn-info btn-sm text-white" href="reply.php?c_id='.$fetch["c_id"].'&coid='.$fetch["c_userid"].'&pid='.$fetch["c_rfid"].'&rfno='.$fetch["c_id"].'&nhsno='.$fetch["c_nhsno"].'">Open </a>
+		<a class=" btn btn-info btn-sm text-white" href="reply.php?c_id='.$fetch["c_id"].'&coid='.$fetch["c_userid"].'&pid='.$fetch["c_rfid"].'&rfno='.$fetch["c_id"].'&nhsno='.$fetch["c_nhsno"].'">Open </a>
 	</td>
 		<td class="nk-tb-col">
 	<span class=""><a href="createappointment.php?ubrn='.$fetch['c_UBRN'].'" class="btn btn-info btn-sm">Refer to Appointment</a></span>
@@ -926,7 +926,7 @@ $hks=mysqli_fetch_array($qki);
 		<span class="tb-lead">'.$fetch['or_name'].'</span>
 	</td>
 	<td class="nk-tb-col">
-		<a class="tb-lead btn btn-info btn-sm text-white" href="reply.php?c_id='.$fetch["c_id"].'&coid='.$fetch["c_userid"].'&pid='.$fetch["c_rfid"].'&rfno='.$fetch["c_id"].'&nhsno='.$fetch["c_nhsno"].'">Open </a>
+		<a class="btn btn-info btn-sm text-white" href="reply.php?c_id='.$fetch["c_id"].'&coid='.$fetch["c_userid"].'&pid='.$fetch["c_rfid"].'&rfno='.$fetch["c_id"].'&nhsno='.$fetch["c_nhsno"].'">Open </a>
 	</td>
 		<td class="nk-tb-col">
 	<span class=""><a href="createappointment.php?ubrn='.$fetch['c_UBRN'].'" class="btn btn-info btn-sm">Refer to Appointment</a></span>
@@ -1470,7 +1470,7 @@ $fetch1 = mysqli_fetch_array($query1);
 	echo'   <tr class="nk-tb-item">
 	<td class="nk-tb-col nk-tb-col-check">
 		<div class="custom-control custom-control-sm custom-radio notext">
-			<input type="radio" class="custom-control-input gg" name="check" value="'.$id.'" id="check'.$id.'"  onclick="kk(\''.$fetch['pt_title'].'\')">
+			<input type="radio" class="custom-control-input gg" name="check" value="'.$id.'" id="check'.$id.'"  onclick="kk(\''.$fetch['pt_title'].'\')" checked>
 			<label class="custom-control-label" for="check'.$id.'" ></label>
 		</div>
 		
@@ -1686,7 +1686,37 @@ if(isset($_POST['searchservice']))
 		// 		$fe3 = mysqli_fetch_array($sql3);
 		// 		$dob = $fe3['lo_location'];
 		$id = $fetch['service_id'];
-		if($fetch['service_age'] !="" && $fetch['service_age'] == ""){
+// 		if($fetch['service_age'] !="" || $fetch['service_age2'] == ""){
+// 			if($fetch['service_age'] > $ptage)
+// 							{
+// 							    echo "<tr class='nk-tb-item'> 
+// 			 		<td class='nk-tb-col text-center'  colspan='6'>
+// 					<span class='tb-lead'>Your Age doesn't match to service age range  </span>
+// 				</td>
+// 				</tr>
+// 			 ";
+// 							}
+// 				}
+// 		elseif($fetch1['service_age'] > $ptage || $fetch1['service_age2'] < $ptage)
+// 	{
+// 		echo "<tr class='nk-tb-item'> 
+// 		<td class='nk-tb-col text-center'  colspan='6'>
+// 	   <span class='tb-lead'>Your Age doesn't match to service age range  </span>
+//    </td>
+//    </tr>
+// ";
+// 	}
+// 	elseif($fetch1['service_gender'] == "Male" && $pttitle == "Ms" || $fetch1['service_gender'] == "Female" && $pttitle == "Mr")
+// 	{
+// 		echo "<tr class='nk-tb-item'> 
+// 		<td class='nk-tb-col text-center'  colspan='6'>
+// 	   <span class='tb-lead'>Your Gender doesn't match to service gender range  </span>
+//    </td>
+//    </tr>
+// ";
+// 	}
+		if($fetch['service_age'] !="" && $fetch['service_age2'] == ""){
+			
 	if($fetch['service_age'] > $ptage)
 					{
 					    echo "<tr class='nk-tb-item'> 
@@ -1697,9 +1727,11 @@ if(isset($_POST['searchservice']))
 	 ";
 					}
 		}
-		elseif($fetch['service_age'] !="" && $fetch['service_age2'] !=""){
-		    	if($fetch['service_age'] > $ptage)
+		if($fetch['service_age'] !="" && $fetch['service_age2'] !=""){
+		   
+			if($fetch['service_age'] > $ptage)
 					{
+						echo "1";
 					    echo "<tr class='nk-tb-item'> 
 	 		<td class='nk-tb-col text-center'  colspan='6'>
 			<span class='tb-lead'>Your Age doesn't match to service age range  </span>
@@ -1707,17 +1739,18 @@ if(isset($_POST['searchservice']))
 		</tr>
 	 ";
 					}
-	elseif($fetch['service_age2'] < $ptage)
-	{
-	echo " <tr class='nk-tb-item'> 
-	 		<td class='nk-tb-col text-center'  colspan='6'>
-			<span class='tb-lead'>Your Age doesn't match to service age range  </span>
-		</td>
-		</tr>
-	 ";
-	}
+					elseif( $fetch['service_age2'] < $ptage){
+						echo "2";
+						echo "<tr class='nk-tb-item'> 
+						<td class='nk-tb-col text-center'  colspan='6'>
+					   <span class='tb-lead'>Your Age doesn't match to service age range  </span>
+				   </td>
+				   </tr>
+				";
+					}
+
 			}
-	elseif($fetch['service_gender'] == "Male" && $pttitle == "Ms" || $fetch['service_gender'] == "Female" && $pttitle == "Mr")
+	if($fetch['service_gender'] == "Male" && $pttitle == "Ms" || $fetch['service_gender'] == "Female" && $pttitle == "Mr")
 	{
 	 echo "<tr class='nk-tb-item'> 
 	 		<td class='nk-tb-col text-center'  colspan='6'>
@@ -2306,7 +2339,7 @@ $da = date_format($date,"d-m-Y");
 			if($fe['reciever'] != $senderid)
 			{
 			echo' <div class="card p-2 col-md-7 float-right "
-			style="background-color: skyblue;text-align: right;color:white;"
+			style="background-color: skyblue;text-align: right;color:white;border-radius:15px;"
 			>
 			<small><b> Sent By '.$dataid['ur_fname']." ".$dataid['ur_sname'].' ('.$dataid["title"].') (Referring Clinician)</b></small>
 			<spane>'.$fe['ra_message'].'</spane>';
@@ -2333,7 +2366,7 @@ $da = date_format($date,"d-m-Y");
 			$date =date_create($fe['ra_date']);
 $da = date_format($date,"d-m-Y");
 				echo' <div class="card p-2 float-left col-md-7"
-			style="background-color: #58b666;text-align: left; color:white;"
+			style="background-color: #58b666;text-align: left; color:white;border-radius:15px;"
 			>
 			<small><b> Sent By '.$dataid1['ur_fname']." ".$dataid1['ur_sname'].' ('.$dataid1["title"].') (Service Provider Clinician)</b></small>
 			<span>'.$fe['ra_message'].'</span>
@@ -3503,5 +3536,16 @@ if(isset($_POST['updategpaddress']))
 		{
 			echo("Error");
 		}
+	}
+
+	if(isset($_POST['patientfetchgeb']))
+	{
+		$nhs = $_POST['nhs'];
+	$query = mysqli_query($con,"SELECT * FROM `tbl_patients` WHERE pt_nhsno = '$nhs'");
+	$fet = mysqli_fetch_array($query);
+	if(mysqli_num_rows($query) > 0)
+	{
+		echo json_encode(array("title"=>$fet['pt_title'],"age"=>$fet['pt_age']));
+	}
 	}
 ?>

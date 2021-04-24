@@ -143,7 +143,7 @@ include_once('connect.php');
 					$('#orgtypeadd')[0].reset();
 					toastr.clear();
                NioApp.Toast("<h5>Organisation Type Added Successfully</h5>", 'success',{position:'top-right'});
-		
+              
 
                 }
 			

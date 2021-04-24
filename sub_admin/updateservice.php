@@ -1587,7 +1587,8 @@ var ser_instr = $('#ser_ins').val();
 //		});
 //			reqtype = reqtype.toString();		
 //		
-if(ser_name != '' && ser_loc != '' && ser_spec != '' && ser_app != '' && ser_gen != '' && ser_dir != '' && ser_eff != ''  && ser_ager != '' && ser_care != '' && ser_clt != '' && ser_conna != '' && ser_conad != '' && ser_concoun != '' && ser_conpos != '' && ser_hpem != '' && ser_patel != ''){
+if(ser_name != '' && ser_loc != '' && ser_spec != '' && ser_app != '' && ser_gen != '' && ser_dir != '' && ser_eff != '' && ser_ager != '' && ser_care != '' && ser_clt != '' && ser_conna != '' && ser_conad != '' && ser_concoun != '' && ser_conpos != '' && ser_hpem != '')
+{
 
 var formdata = new FormData(this);
 formdata.append("servicupdate","btn");

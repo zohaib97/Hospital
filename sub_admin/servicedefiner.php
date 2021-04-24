@@ -403,9 +403,17 @@ include_once('headernav.php');
 								</div>
 								  <div class="col-lg-12">
 									<div class="form-group">
-										<label class="col-form-label" for="full-name-1">Address</label>
+										<label class="col-form-label" for="full-name-1">First Line Address</label>
 										<div class="form-control-wrap">
-											<textarea class="form-control form-control-sm" id="ser_conadd" placeholder="Write your message" name="ser_conadd" readonly><?=$fetchsa["or_firstaddress"]?></textarea>
+											<textarea class="form-control form-control-sm" id="ser_conadd" placeholder="" name="ser_conadd" readonly><?=$fetchsa["or_firstaddress"]?></textarea>
+										</div>
+									 </div>
+								 </div>
+								 <div class="col-lg-12">
+									<div class="form-group">
+										<label class="col-form-label" for="full-name-1">Second Line Address</label>
+										<div class="form-control-wrap">
+											<textarea class="form-control form-control-sm" id="ser_conadd2" placeholder="" name="ser_conadd2" readonly><?=$fetchsa["or_address"]?></textarea>
 										</div>
 									 </div>
 								 </div>
@@ -909,6 +917,21 @@ data: {locid:loc,locationfetch:"btn"},
 success: function(response){
   
 $('#ser_conadd').html(response);
+}
+});
+};
+$('#ser_location').on('change',function(){
+	locationfetch2();
+})
+function locationfetch2(){
+              var loc =  $('#ser_location').val();
+$.ajax({
+url: 'phpcode.php',
+type: 'post',
+data: {locid:loc,secondlineaddress:"btn"},
+success: function(response){
+  
+$('#ser_conadd2').html(response);
 }
 });
 };

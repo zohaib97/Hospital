@@ -202,4 +202,79 @@ echo'   <tr class="nk-tb-item">
 	}
 }
 
+
+if(isset($_POST['fetchnames']))
+{
+    $aid =$_SESSION["a_id"];
+$qiu=mysqli_query($con,"SELECT * FROM `admin`,orginzation where admin.organization = orginzation.orid and admin.id='$aid'");
+$fetchsa=mysqli_fetch_array($qiu);
+    $org = $fetchsa['organization'];
+$query = mysqli_query($con,"SELECT * FROM `service_name` where org_id = '$org'");
+	
+	if(mysqli_num_rows($query)>0)
+	{
+		echo'<link rel="stylesheet" href="https://cdn.datatables.net/1.10.23/css/dataTables.bootstrap4.min.css">
+
+		<table class="nowrap nk-tb-list is-separate" data-auto-responsive="false" id="myTable">
+			<thead>
+				<tr class="nk-tb-item nk-tb-head">
+					<th class="nk-tb-col text-center"><span>Service Name</span></th>
+					
+				
+				<th class="nk-tb-col text-center"><span>Actions</span></th>
+					
+				</tr><!-- .nk-tb-item -->
+			</thead>
+			 <tbody id="">';
+		while($fetch = mysqli_fetch_array($query))
+		{
+		    $mid = $fetch['s_id'];
+	$name = $fetch['s_name'];
+	
+
+	
+echo'   <tr class="nk-tb-item">
+		<td class="nk-tb-col text-center">
+		<span class="tb-lead">'.$name.'</span>
+	</td>
+
+<td class="nk-tb-col nk-tb-col-tools">
+		<ul class="nk-tb-actions gx-1 my-n1">
+			<li class="mx-auto">
+				<div class="dropdown">
+					<a href="#" class="dropdown-toggle btn btn-icon btn-trigger" data-toggle="dropdown"><em class="icon ni ni-more-h"></em></a>
+					<div class="dropdown-menu dropdown-menu-right">
+						<ul class="link-list-opt no-bdr">
+							<li><a href="javascript:void(0)" onClick="openmodal3('."'$mid'".','."'$name'".')"><em class="icon ni ni-edit"></em><span>Edit</span></a></li>
+					
+							
+							<li><a href="javascript:void(0)" onClick="confirm('."'$mid'".')"><em class="icon ni ni-trash"></em><span>Remove</span></a></li>
+
+						</ul>
+					</div>
+				</div>
+			</li>
+		</ul>
+	</td>
+	';
+		
+	
+										
+		}
+		echo'</tbody> </table>
+		<script src="https://cdn.datatables.net/1.10.23/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.10.23/js/dataTables.bootstrap4.min.js"></script>
+<script>$(document).ready(function () {
+    $("#myTable").DataTable();
+} );
+</script>
+';
+	}
+	else{
+		echo"No Data Found";
+	}
+}
+
+
+
 ?>

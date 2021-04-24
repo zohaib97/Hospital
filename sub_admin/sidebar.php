@@ -76,6 +76,12 @@ include_once('../database/db.php');
                                     </a>
                                 </li>
                                 <li class="nk-menu-item">
+                                    <a href="servicename.php" class="nk-menu-link">
+                                        <span class="nk-menu-icon"><em class="icon ni ni-users-fill"></em></span>
+                                        <span class="nk-menu-text">Service Names</span>
+                                    </a>
+                                </li>
+                                <li class="nk-menu-item">
 									<a href="locations.php" class="nk-menu-link">
                                         <span class="nk-menu-icon"><em class="icon ni ni-users-fill"></em></span>
                                         <span class="nk-menu-text">Locations</span>
