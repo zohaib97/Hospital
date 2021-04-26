@@ -154,7 +154,8 @@ include_once('database/db.php');
                                     <div class="form-group">
                                         <label class="col-form-label" for="opost">Organisation Post code</label>
                                         <input type="text" class="form-control form-control-sm " id="opost"
-                                            placeholder="Enter Post Code" name="opost" autocomplete="off" required >
+                                            placeholder="Enter Post Code" name="opost" autocomplete="off" required  onchange="stringlength2(this.value)">
+                                             <small id="valid-nhs2"></small>
                                     </div>
                                 </div>
                                 <!--
@@ -261,7 +262,7 @@ if(no.length<mnlen || no.length> mxlen)
     
 $("#valid-nhs").html("Please enter number between 5 to 15 digits").removeClass("text-success").addClass("text-danger");
 $("#valid-nhs").show();
-
+$('#ocontact').val('');
 }
 else
 {
@@ -280,13 +281,33 @@ if(no.length<mnlen || no.length> mxlen)
     
 $("#valid-nhs1").html("Please enter number between 3 to 10 digits").removeClass("text-success").addClass("text-danger");
 $("#valid-nhs1").show();
-
+$('#ocode').val('');
 }
 else
 {
     $("#valid-nhs1").hide();
 }
 }
+
+function stringlength2(num)
+{ 
+ 
+var no = num;
+var mnlen = 3;
+var mxlen = 10;
+if(no.length<mnlen || no.length> mxlen)
+{ 
+    
+$("#valid-nhs2").html("Please enter number between 3 to 10 digits").removeClass("text-success").addClass("text-danger");
+$("#valid-nhs2").show();
+$('#opost').val('');
+}
+else
+{
+    $("#valid-nhs2").hide();
+}
+}
+
 	$("#oradd").on('submit', function(e){
 		
         	e.preventDefault();

@@ -123,7 +123,7 @@ include_once('database/db.php');
 							
 							
 							  <div class="form-group col-lg-6 mt-2">
-								 <input type="text" class="form-control" id="proregno" placeholder="Professional Registration No" name="proregno" autocomplete="off" onchange="proregnocheck()">
+								 <input type="number" class="form-control" id="proregno" placeholder="Professional Registration No" name="proregno" autocomplete="off" onchange="proregnocheck()">
 								 <small id="valid-nhs"></small>
 							  </div>
 							  <div class="form-group col-lg-6 mt-2">

@@ -1541,10 +1541,11 @@ $query = mysqli_query($con,"SELECT * FROM `orginzation` WHERE status = '$status'
 			<tr class="nk-tb-item nk-tb-head">
 				<th class="nk-tb-col"><span>Organisation  Name</span></th>
 				<th class="nk-tb-col"><span>Type</span></th>
-				<th class="nk-tb-col"><span>Address</span></th>
+			
 				<th class="nk-tb-col"><span>Contact</span></th>
 				<th class="nk-tb-col"><span>Code </span></th>
 				<th class="nk-tb-col"><span>First Line Address</span></th>
+					<th class="nk-tb-col"><span>Second Line Address</span></th>
 				<th class="nk-tb-col"><span>City</span></th>
 				<th class="nk-tb-col"><span>Postal code</span></th>
 				<th class="nk-tb-col"><span>Status</span></th>
@@ -1580,17 +1581,18 @@ echo'   <tr class="nk-tb-item">
 	<td class="nk-tb-col">
 		<span class="tb-sub">'.$fetch['or_type'].'</span>
 	</td>
-	<td class="nk-tb-col">
-		<span class="tb-sub">'.$fetch['or_address'].'</span>
-	</td>
+
 	<td class="nk-tb-col">
 	<span class="tb-sub">'.$fetch['or_phone'].'</span>
 	</td>
 		<td class="nk-tb-col">
 	<span class="tb-sub">'.$fetch['or_code'].'</span>
 	</td>
-		<td class="nk-tb-col">
-	<span class="tb-sub">'.$fetch['or_firstaddress'].'</span>
+		<td class="nk-tb-col text-center">
+	<span class="tb-sub ">'.$fetch['or_firstaddress'].'</span>
+	</td>
+		<td class="nk-tb-col text-center">
+		<span class="tb-sub ">'.$fetch['or_address'].'</span>
 	</td>
 		<td class="nk-tb-col">
 	<span class="tb-sub">'.$fetch['or_city'].'</span>
