@@ -37,7 +37,7 @@ include_once('header.php');
                                             <?php 
 												if(isset($_GET['rfno'])){
 													$rfno = $_GET['rfno'];
-													$qref = mysqli_query($con, "SELECT * FROM `tbl_refferelattachment` WHERE ra_refferelid = '$rfno' and reply = '1'");
+													$qref = mysqli_query($con, "SELECT * FROM `tbl_refferelattachment` WHERE ra_refferelid = '$rfno'");
 													$dref = mysqli_fetch_assoc($qref);
 												}
 											?>
@@ -47,23 +47,19 @@ include_once('header.php');
 				    $q = $_GET["c_id"];
 
 						$qref = mysqli_query($con, "SELECT * FROM `tbl_consultantrefferels` WHERE c_id = '$q'");
-						$dref = mysqli_fetch_assoc($qref);
-						if($dref['request_type'] == "Advice request")
+						$dref1 = mysqli_fetch_assoc($qref);
+						if($dref1['request_type'] == "Advice request")
 						{
-						    
-						
 				    ?>
-                                            <nav class="p-2 bg-light mb-3 col-form-label font-weight-bold">Advice
+                                            <nav class="p-1 bg-light mb-3 col-form-label font-weight-bold">Advice
                                                 Request Details - <span class="text-info"><?=$dref['ra_refferelid']?></span>
                                             </nav>
                                              <?php
 						}
-						elseif($dref['request_type'] == "Appointment Request")
+						elseif($dref1['request_type'] == "Appointment Request")
 						{
-						    
-						
 				     ?>
-				     <nav class="p-2 bg-light mb-3 col-form-label font-weight-bold">Appointment
+				     <nav class="p-1 bg-light mb-3 col-form-label font-weight-bold">Appointment
                                                 Request Details - <span class="text-info"><?=$dref['ra_refferelid']?></span>
                                             </nav>
                                             <?php
@@ -83,39 +79,36 @@ include_once('header.php');
                                             <div class="nk-block-head nk-block-head-lg wide-sm">
 												<span class="float-right w-100 col-form-label font-weight-bold">Patient Info - </span>
 												<button type="button" class="btn btn-info btn-sm float-right mt-1" onclick="showpat()">More Info</button>
-											<div class="row">
-													<span class="text-dark col-md-3">
-												<b>Name:</b> <?=$fetch2['pt_name']." ".$fetch2["pt_surname"]?>(<?=$fetch2['pt_title']?>)</span>
+											<div class="float-left">
+													<span class="text-dark">
+												<b>Full Details:</b><br> <?=$fetch2['pt_name']." ".$fetch2["pt_surname"]?>(<?=$fetch2['pt_title']?>) <br> <small>[<?=$fetch2['pt_email']?>]</small></span>
+												<br>
 												
-												<br>
-												<span class="text-dark col-md-3">
-												<b>NHS no:</b> <?=$fetch2['pt_nhsno']?></span>
-												<br>
-												<span class="text-dark col-md-3">
-												<b>Date of Birth:</b> <?php
+                                            </div>
+                                            <div class="float-left ml-5">
+												<span class="text-dark">
+												<b>Date of Birth:</b><?php
 												$da=date_create($fetch2['pt_dob']);
 												echo date_format($da,"m-d-Y");
 												
 												
 												?></span>
-												<br>
-												<span class="text-dark col-md-3">
-												<b>Email:</b> <?=$fetch2['pt_email']?>
-												</span>
-												<br>
-													</div>
-													<br>
-													<div class="row">
-												<span class="text-dark col-md-3 ml-2">
+                                                <br>
+											
+												<span class="text-dark">
 												<b>Street Name:</b><?=$fetch2['pt_streetname']?>
 												</span>
-												<br>
-												<span class="text-dark col-md-3">
-												<b>Telephone no:</b> <?=$fetch2['pt_telno']?>
-												</span>
-												<br>
-											</div>
+                                                <br>
 												
+                                            </div>
+                                            <div class="float-left ml-5">
+                                            <span class="text-dark">
+												<b>NHS no:</b> <?=$fetch2['pt_nhsno']?></span>
+                                                <br>
+                                                <span class="text-dark">
+												<b>Telephone no:</b><?=$fetch2['pt_telno']?>
+												</span>
+                                            </div>
                                         </div>
                                         </div>
                                         <div class="col-lg-4 col-md-4 col-12">
@@ -269,7 +262,7 @@ include_once('header.php');
                                                         <!-- phpcode.php -->
                                                     </div>
                                                     </div>
-                                                    <br>
+                                               
                                                     
                                                 </div>
                                             </div>
@@ -283,34 +276,31 @@ include_once('header.php');
                                 
                                 <div>
                                     
-                                      <div class="float-left p-4 bg-light col-form-label font-weight-bold ml-0 mb-3 col-md-12 rounded">
+                                      <div class="float-left p-1 bg-light col-form-label font-weight-bold ml-0 mb-3 col-md-12 rounded">
                                           <p>Advice Status - <span class="text-info">Provider Response
                                                             Required</span>
                                                             </p></div>
-                                                    <br>
-                                                    <br>
-                                                    <br>
                                                     <form id="reply" enctype="multipart/form-data" class="col-md-12 ml-0 float-left w-100">
                                                     
                                                         <div class="row bg-light p-1 ml-0 w-100">
                                                             <div class="col-6">
                                                                 <label class="col-form-label" for="">Add
                                                                     Attachement</label>
-                                                                <span><input class="form-control" type="file"
+                                                                <span><input style="border-radius: 20px;" class="form-control" type="file"
                                                                         name="attachment"></span>
                                                             </div>
                                                             <div class="col-6">
                                                                 <label class="col-form-label" for="">Add Web
                                                                     Link</label>
-                                                                <input class="form-control" type="text" name="rid"
+                                                                <input  class="form-control" type="text" name="rid"
                                                                     hidden="true" value="<?=$rfno?>">
                                                                     <input class="form-control" type="text" name="coid"
                                                                     hidden="true" value="<?=$_GET["coid"]?>">
-                                                                <span><input class="form-control" type="text"
+                                                                <span><input style="border-radius: 20px;" class="form-control" type="text"
                                                                         name="weblink"></span>
                                                             </div>
-                                                            <div class="col-12 mt-1">
-                                                                <textarea
+                                                            <div class="col-12 mt-1" >
+                                                                <textarea style="border-radius: 20px;"
                                                                     placeholder="Enter advice response detail here"
                                                                     class="form-control" name="cmntad" id="" cols="30"
                                                                     rows="3" required></textarea>

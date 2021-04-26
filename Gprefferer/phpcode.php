@@ -114,7 +114,7 @@ if(isset($_POST['addrefferel']))
 //for add patient
 if(isset($_POST['addpatient']))
 {
-	$orgid = $_POST['orgid'];
+	
 	$gphid = $_POST['rid'];
 	$ptitle = $_POST['ptitle'];
 	$pfirstname = $_POST['pfirstname'];
@@ -139,8 +139,8 @@ if(isset($_POST['addpatient']))
 	    echo "nhs";
 	}
 	else{
-	$query = mysqli_query($con,"INSERT INTO `tbl_patients`(`pt_title`, `pt_name`, `pt_surname`, `pt_dob`, `pt_nhsno`, `pt_houseno`, `pt_streetname`, `pt_city`, `pt_country`, `pt_postcode`, `pt_telno`, `pt_mobno`, `pt_email`,`pt_createid`,`pt_age`,`pt_orgid`)VALUES('$ptitle','$pfirstname','$psurname','$pdob','$nhsno','$houseno','$streetname','$city','$country','$postalcode','$telephoneno','$mobileno','$email','$gphid','$age','$orgid')");
-	echo mysqli_error($con);
+	$query = mysqli_query($con,"INSERT INTO `tbl_patients`(`pt_title`, `pt_name`, `pt_surname`, `pt_dob`, `pt_nhsno`, `pt_houseno`, `pt_streetname`, `pt_city`, `pt_country`, `pt_postcode`, `pt_telno`, `pt_mobno`, `pt_email`,`pt_createid`,`pt_age`)VALUES('$ptitle','$pfirstname','$psurname','$pdob','$nhsno','$houseno','$streetname','$city','$country','$postalcode','$telephoneno','$mobileno','$email','$gphid','$age')");
+	
 	if($query)
 	{
 		echo "Success";
@@ -226,7 +226,6 @@ if(isset($_POST["checknhs"])){
         echo "not exists";
     }
 }
-
 //for refferels fetch
 if(isset($_POST['refferelfetch']))
 {
@@ -282,7 +281,7 @@ $hks=mysqli_fetch_array($qki);
 	echo'   <tr class="nk-tb-item">
 
 	<td class="nk-tb-col">
-		<span class="tb-lead">'.$fetch['c_id'].'</span>
+		<span>'.$fetch['c_id'].'</span>
 	</td>
 	<td class="nk-tb-col">';
       if($fetch['ser_priority_rout'] != 0)
@@ -332,7 +331,7 @@ $hks=mysqli_fetch_array($qki);
 	}
 	echo'
 		<td class="nk-tb-col">
-		<span class="tb-lead">'.$fetch['s_name'].'</span>
+		<span>'.$fetch['s_name'].'</span>
 	</td>
 	
 	
@@ -368,7 +367,7 @@ $hks=mysqli_fetch_array($qki);
 		<span class="tb-lead">'.$fetch['or_name'].'</span>
 	</td>
 	<td class="nk-tb-col">
-		<a class="tb-lead btn btn-info btn-sm text-white" href="reply.php?c_id='.$fetch["c_id"].'&coid='.$fetch["c_userid"].'&pid='.$fetch["c_rfid"].'&rfno='.$fetch["c_id"].'&nhsno='.$fetch["c_nhsno"].'">Open </a>
+		<a class=" btn btn-info btn-sm text-white" href="reply.php?c_id='.$fetch["c_id"].'&coid='.$fetch["c_userid"].'&pid='.$fetch["c_rfid"].'&rfno='.$fetch["c_id"].'&nhsno='.$fetch["c_nhsno"].'">Open </a>
 	</td>
 	<td class="nk-tb-col">
 	<span class=""><a href="createappointment.php?ubrn='.$fetch['c_UBRN'].'" class="btn btn-info btn-sm">Refer to Appointment</a></span>
@@ -385,7 +384,7 @@ $hks=mysqli_fetch_array($qki);
 		<script src="https://cdn.datatables.net/1.10.23/js/jquery.dataTables.min.js"></script>
 	<script src="https://cdn.datatables.net/1.10.23/js/dataTables.bootstrap4.min.js"></script>
 	<script>$(document).ready(function () {
-		$("#myTable").DataTable();
+		$("#myTable").DataTable({responsive:true});
 	} )
 	</script>
 	';
@@ -653,7 +652,7 @@ $hks=mysqli_fetch_array($qki);
 	    
 	}
 	echo'<td class="nk-tb-col">
-		<a class="tb-lead btn btn-info btn-sm text-white" href="reply.php?c_id='.$fetch["c_id"].'&coid='.$fetch["c_userid"].'&pid='.$fetch["c_rfid"].'&rfno='.$fetch["c_id"].'&nhsno='.$fetch["c_nhsno"].'">Open </a>
+		<a class=" btn btn-info btn-sm text-white" href="reply.php?c_id='.$fetch["c_id"].'&coid='.$fetch["c_userid"].'&pid='.$fetch["c_rfid"].'&rfno='.$fetch["c_id"].'&nhsno='.$fetch["c_nhsno"].'">Open </a>
 	</td>
 		<td class="nk-tb-col">
 	<span class=""><a href="createappointment.php?ubrn='.$fetch['c_UBRN'].'" class="btn btn-info btn-sm">Refer to Appointment</a></span>
@@ -666,7 +665,7 @@ $hks=mysqli_fetch_array($qki);
 		<script src="https://cdn.datatables.net/1.10.23/js/jquery.dataTables.min.js"></script>
 	<script src="https://cdn.datatables.net/1.10.23/js/dataTables.bootstrap4.min.js"></script>
 	<script>$(document).ready(function () {
-		$("#myTable").DataTable();
+		$("#myTable").DataTable({responsive:true});
 	} )
 	</script>
 	';
@@ -781,7 +780,7 @@ if(isset($_POST['refferelfetch2']))
 		<script src="https://cdn.datatables.net/1.10.23/js/jquery.dataTables.min.js"></script>
 	<script src="https://cdn.datatables.net/1.10.23/js/dataTables.bootstrap4.min.js"></script>
 	<script>$(document).ready(function () {
-		$("#myTable").DataTable();
+		$("#myTable").DataTable({responsive:true});
 	} )
 	</script>
 	';
@@ -927,7 +926,7 @@ $hks=mysqli_fetch_array($qki);
 		<span class="tb-lead">'.$fetch['or_name'].'</span>
 	</td>
 	<td class="nk-tb-col">
-		<a class="tb-lead btn btn-info btn-sm text-white" href="reply.php?c_id='.$fetch["c_id"].'&coid='.$fetch["c_userid"].'&pid='.$fetch["c_rfid"].'&rfno='.$fetch["c_id"].'&nhsno='.$fetch["c_nhsno"].'">Open </a>
+		<a class="btn btn-info btn-sm text-white" href="reply.php?c_id='.$fetch["c_id"].'&coid='.$fetch["c_userid"].'&pid='.$fetch["c_rfid"].'&rfno='.$fetch["c_id"].'&nhsno='.$fetch["c_nhsno"].'">Open </a>
 	</td>
 		<td class="nk-tb-col">
 	<span class=""><a href="createappointment.php?ubrn='.$fetch['c_UBRN'].'" class="btn btn-info btn-sm">Refer to Appointment</a></span>
@@ -942,7 +941,7 @@ $hks=mysqli_fetch_array($qki);
 		<script src="https://cdn.datatables.net/1.10.23/js/jquery.dataTables.min.js"></script>
 	<script src="https://cdn.datatables.net/1.10.23/js/dataTables.bootstrap4.min.js"></script>
 	<script>$(document).ready(function () {
-		$("#myTable").DataTable();
+		$("#myTable").DataTable({responsive:true});
 	} )
 	</script>
 	';
@@ -1066,7 +1065,7 @@ if(isset($_POST['refferelfetch4']))
 		<script src="https://cdn.datatables.net/1.10.23/js/jquery.dataTables.min.js"></script>
 	<script src="https://cdn.datatables.net/1.10.23/js/dataTables.bootstrap4.min.js"></script>
 	<script>$(document).ready(function () {
-		$("#myTable").DataTable();
+		$("#myTable").DataTable({responsive:true});
 	} )
 	</script>
 	';
@@ -1190,7 +1189,7 @@ if(isset($_POST['refferelfetch5']))
 			<script src="https://cdn.datatables.net/1.10.23/js/jquery.dataTables.min.js"></script>
 	<script src="https://cdn.datatables.net/1.10.23/js/dataTables.bootstrap4.min.js"></script>
 	<script>$(document).ready(function () {
-		$("#myTable").DataTable();
+		$("#myTable").DataTable({responsive:true});
 	} )
 	</script>
 	';
@@ -1304,7 +1303,7 @@ if(isset($_POST['refferelfetch6']))
 			<script src="https://cdn.datatables.net/1.10.23/js/jquery.dataTables.min.js"></script>
 	<script src="https://cdn.datatables.net/1.10.23/js/dataTables.bootstrap4.min.js"></script>
 	<script>$(document).ready(function () {
-		$("#myTable").DataTable();
+		$("#myTable").DataTable({responsive:true});
 	} )
 	</script>
 	';
@@ -1418,13 +1417,14 @@ if(isset($_POST['refferelfetch7']))
 			<script src="https://cdn.datatables.net/1.10.23/js/jquery.dataTables.min.js"></script>
 	<script src="https://cdn.datatables.net/1.10.23/js/dataTables.bootstrap4.min.js"></script>
 	<script>$(document).ready(function () {
-		$("#myTable").DataTable();
+		$("#myTable").DataTable({responsive:true});
 	} )
 	</script>
 	';
 		}
 	}
 }
+
 //for patient fetch
 if(isset($_POST['patientfetch']))
 {
@@ -1470,7 +1470,7 @@ $fetch1 = mysqli_fetch_array($query1);
 	echo'   <tr class="nk-tb-item">
 	<td class="nk-tb-col nk-tb-col-check">
 		<div class="custom-control custom-control-sm custom-radio notext">
-			<input type="radio" class="custom-control-input gg" name="check" value="'.$id.'" id="check'.$id.'"  onclick="kk(\''.$fetch['pt_title'].'\')">
+			<input type="radio" class="custom-control-input gg" name="check" value="'.$id.'" id="check'.$id.'"  onclick="kk(\''.$fetch['pt_title'].'\')" checked>
 			<label class="custom-control-label" for="check'.$id.'" ></label>
 		</div>
 		
@@ -1524,7 +1524,7 @@ $fetch1 = mysqli_fetch_array($query1);
 //for Appointment patient fetch
 if(isset($_POST['apppatientfetch']))
 {
-    $ubrn = $_POST['ubrn'];
+$ubrn = $_POST['ubrn'];
 	$query = mysqli_query($con,"SELECT * FROM `tbl_consultantrefferels` Join `tbl_patients` ON tbl_consultantrefferels.c_rfid = tbl_patients.pt_id WHERE c_UBRN = '$ubrn' GROUP BY pt_name");
 	if(mysqli_num_rows($query )>0)
 	{
@@ -1686,17 +1686,78 @@ if(isset($_POST['searchservice']))
 		// 		$fe3 = mysqli_fetch_array($sql3);
 		// 		$dob = $fe3['lo_location'];
 		$id = $fetch['service_id'];
-	if($fetch['service_age'] > $ptage || $fetch['service_age2'] < $ptage)
+// 		if($fetch['service_age'] !="" || $fetch['service_age2'] == ""){
+// 			if($fetch['service_age'] > $ptage)
+// 							{
+// 							    echo "<tr class='nk-tb-item'> 
+// 			 		<td class='nk-tb-col text-center'  colspan='6'>
+// 					<span class='tb-lead'>Your Age doesn't match to service age range  </span>
+// 				</td>
+// 				</tr>
+// 			 ";
+// 							}
+// 				}
+// 		elseif($fetch1['service_age'] > $ptage || $fetch1['service_age2'] < $ptage)
+// 	{
+// 		echo "<tr class='nk-tb-item'> 
+// 		<td class='nk-tb-col text-center'  colspan='6'>
+// 	   <span class='tb-lead'>Your Age doesn't match to service age range  </span>
+//    </td>
+//    </tr>
+// ";
+// 	}
+// 	elseif($fetch1['service_gender'] == "Male" && $pttitle == "Ms" || $fetch1['service_gender'] == "Female" && $pttitle == "Mr")
+// 	{
+// 		echo "<tr class='nk-tb-item'> 
+// 		<td class='nk-tb-col text-center'  colspan='6'>
+// 	   <span class='tb-lead'>Your Gender doesn't match to service gender range  </span>
+//    </td>
+//    </tr>
+// ";
+// 	}
+		if($fetch['service_age'] !="" && $fetch['service_age2'] == ""){
+			
+	if($fetch['service_age'] > $ptage)
+					{
+					    echo "<tr class='nk-tb-item'> 
+	 		<td class='nk-tb-col text-center'  colspan='6'>
+			<span class='tb-lead'>Your Age doesn't match to service age range  </span>
+		</td>
+		</tr>
+	 ";
+					}
+		}
+		if($fetch['service_age'] !="" && $fetch['service_age2'] !=""){
+		   
+			if($fetch['service_age'] > $ptage)
+					{
+						echo "1";
+					    echo "<tr class='nk-tb-item'> 
+	 		<td class='nk-tb-col text-center'  colspan='6'>
+			<span class='tb-lead'>Your Age doesn't match to service age range  </span>
+		</td>
+		</tr>
+	 ";
+					}
+					elseif( $fetch['service_age2'] < $ptage){
+						echo "2";
+						echo "<tr class='nk-tb-item'> 
+						<td class='nk-tb-col text-center'  colspan='6'>
+					   <span class='tb-lead'>Your Age doesn't match to service age range  </span>
+				   </td>
+				   </tr>
+				";
+					}
+
+			}
+	if($fetch['service_gender'] == "Male" && $pttitle == "Ms" || $fetch['service_gender'] == "Female" && $pttitle == "Mr")
 	{
-	 
-	}
-	elseif($fetch['service_gender'] == "Male" && $pttitle == "Ms")
-	{
-	 
-	}
-	elseif($fetch['service_gender'] == "Female" && $pttitle == "Mr")
-	{
-	    
+	 echo "<tr class='nk-tb-item'> 
+	 		<td class='nk-tb-col text-center'  colspan='6'>
+			<span class='tb-lead'>Your Gender doesn't match to service gender range  </span>
+		</td>
+		</tr>
+	 ";
 	}
 	else{
 	echo'   <tr class="nk-tb-item">
@@ -1739,7 +1800,32 @@ if(isset($_POST['searchservice']))
 	';
 		}
 	else{
-		echo "Data Not Found";
+		echo '
+		<link rel="stylesheet" href="https://cdn.datatables.net/1.10.23/css/dataTables.bootstrap4.min.css">
+			<hr>
+			<h5 class="text-center">Service List</h5>
+			<table class="nowrap nk-tb-list is-separate" data-auto-responsive="false" id="myTable1" >
+				<thead>
+					<tr class="nk-tb-item nk-tb-head">
+						<th class="nk-tb-col nk-tb-col-check">
+							
+						</th>
+						<th class="nk-tb-col tb-col-sm"><span>Service Name</span></th>
+					
+						<th class="nk-tb-col"><span>Service Speciality</span></th>
+						<th class="nk-tb-col"><span>Gender</span></th>
+						<th class="nk-tb-col"><span>Clinician Type</span></th>
+						<th class="nk-tb-col"><span>Service Location</span></th>
+						
+						
+					</tr><!-- .nk-tb-item -->
+				</thead>
+				<tbody id=""><tr class="nk-tb-item"> 
+	 		<td class="nk-tb-col text-center"  colspan="6">
+			<span class="tb-lead">Data Not Found  </span>
+		</td>
+		</tr>
+		</tbody> </table>';
 	}
 }
 
@@ -1795,7 +1881,7 @@ $query = mysqli_query($con,"SELECT * FROM `tbl_consultantrefferels` join `servic
 	// 		$fe3 = mysqli_fetch_array($sql3);
 	// 		$dob = $fe3['lo_location'];
 	$id = $fetch['service_id'];
-	$loname = $fetch['service_location'];
+		$loname = $fetch['service_location'];
 				$sql3 = mysqli_query($con,"SELECT * FROM `org_locations` WHERE id = '$loname'");
 				$fe3 = mysqli_fetch_array($sql3);
 				$locname =$fe3['org_location_name'];
@@ -2017,7 +2103,6 @@ if(isset($_POST['updatestatus']))
     }
 }
 
-
 // for add cmnt from gp
 
 if(isset($_POST['cmntdatabtn']))
@@ -2065,6 +2150,7 @@ if(isset($_POST['cmntdatabtn']))
 		echo mysqli_error($con);
 	}
 }
+
 
 if(isset($_POST['searchpatient']))
 {
@@ -2193,7 +2279,7 @@ if(isset($_POST['replyfetch']))
 		<th class="nk-tb-col"><span>Consultant Name</span></th>
 		<th class="nk-tb-col"><span>Message</span></th>
 		<th class="nk-tb-col"><span>Weblink</span></th>
-<th class="nk-tb-col"><span>View Referr</span></th>
+<th class="nk-tb-col"><span>View referrer</span></th>
 	</tr><!-- .nk-tb-item -->
 	</thead>
 	<tbody id="">';
@@ -2253,16 +2339,19 @@ $da = date_format($date,"d-m-Y");
 			if($fe['reciever'] != $senderid)
 			{
 			echo' <div class="card p-2 col-md-7 float-right "
-			style="background-color: skyblue;text-align: right;color:white;border-radius:15px;"
+			style="background-color: #986cfb;text-align: right;color:white;border-radius:15px;"
 			>
-			<small><b>'.$da.' Sent By '.$dataid['ur_fname']." ".$dataid['ur_sname'].' ('.$dataid["title"].') (Referring Clinician)</b></small>
+			<small><b> Sent By '.$dataid['ur_fname']." ".$dataid['ur_sname'].' ('.$dataid["title"].') (Referring Clinician)</b></small>
 			<spane>'.$fe['ra_message'].'</spane>';
 			if($fe['ra_attach'] != null)
 			{
 
 			echo'<a href="assets/uploads/'.$fe['ra_attach'].'" class="btn btn-white btn-sm col-md-5 p-0" download><i class="icon ni ni-arrow-down-round"></i>'.$fe['ra_attach'].'</a>';
 			}
-			echo'</div>
+			echo'
+					<p class="text-right"><i class="icon ni ni-calendar-grid-58" aria-hidden="true"></i>'.$da.'</p>
+		
+			</div>
 
 			';
 
@@ -2277,12 +2366,11 @@ $da = date_format($date,"d-m-Y");
 			$date =date_create($fe['ra_date']);
 $da = date_format($date,"d-m-Y");
 				echo' <div class="card p-2 float-left col-md-7"
-			style="background-color: #58b666;text-align: left;color:white;border-radius:15px;"
+			style="background-color: #f5f6fa;text-align: left; color:black;border-radius:15px;"
 			>
-			<small><b>'.$da.' Sent By '.$dataid1['ur_fname']." ".$dataid1['ur_sname'].' ('.$dataid1["title"].') (Service Provider Clinician)</b></small>
+			<small><b> Sent By '.$dataid1['ur_fname']." ".$dataid1['ur_sname'].' ('.$dataid1["title"].') (Service Provider Clinician)</b></small>
 			<span>'.$fe['ra_message'].'</span>
-			<br>
-			</div>
+			
 			
 			';
 			if($fe['ra_attach'] != null)
@@ -2290,7 +2378,10 @@ $da = date_format($date,"d-m-Y");
 
 			echo'<a href="assets/uploads/'.$fe['ra_attach'].'" class="btn btn-info btn-sm col-md-5 p-0" download><i class="icon ni ni-arrow-down-round"></i>'.$fe['ra_attach'].'</a>';
 			}
-			echo'</div>
+			echo'
+				<p class="text-right"><i class="icon ni ni-calendar-grid-58" aria-hidden="true"></i>'.$da.'</p>
+		
+			</div>
 
 			';
 			
@@ -2308,15 +2399,11 @@ if(isset($_POST['searchpatienta']))
 	$dob = date_format($date,"Y-m-d");
 
 $assa = mysqli_query($con,"SELECT * FROM `tbl_patients` where pt_name ='$nm' and pt_dob='$dob' and pt_surname='$em'");
-$query1 = mysqli_query($con,"SELECT * FROM `tbl_patients` where pt_name ='$nm' and pt_dob='$dob' and pt_surname='$em'");
-$fetch1 = mysqli_fetch_array($query1);
 	if(mysqli_num_rows($assa)>0)
 	{
 		echo'<link rel="stylesheet" href="https://cdn.datatables.net/1.10.23/css/dataTables.bootstrap4.min.css">
 		<hr>
 			<h5>Patient List</h5>
-				<input type="text" value="'.$fetch1["pt_age"].'" hidden id="pt_age">
-	<input type="text" value="'.$fetch1["pt_title"].'" hidden id="pt_title">
 		<table class="nowrap nk-tb-list is-separate" data-auto-responsive="false" id="myTable">
 			<thead>
 				<tr class="nk-tb-item nk-tb-head">
@@ -2408,9 +2495,9 @@ echo'   <tr class="nk-tb-item">
 }
 
 if(isset($_POST['fetchconsultant']))
-{
+{ $em = $_SESSION['gprefferer'];
 			$orgid = $_POST['org'];
-									 $q = mysqli_query($con,"SELECT * FROM `tbl_ruser` WHERE ur_role_id = '3' and ur_orgtype = '$orgid'");
+									 $q = mysqli_query($con,"SELECT * FROM `tbl_ruser` WHERE ur_role_id = '3'  and ur_orgtype = '$orgid'");
 									 if(mysqli_num_rows($q)>0)
 									 {
 									     echo '<option value="">-- Select --</option>';
@@ -2459,28 +2546,756 @@ if(isset($_POST["fetchclims"])){
 								}
 }
 
-if(isset($_POST["fetorg"])){
-    $val=$_POST["val"];
-     $query = mysqli_query($con,"SELECT * FROM `orginzation` where orid ='$val'");
-     $fetch = mysqli_fetch_array($query);
-     $orgname = $fetch['or_name'];
-     
-     $query1 = mysqli_query($con,"SELECT * FROM `tbl_ruser` where ur_orgname ='$orgname'");
-     $fetch1 = mysqli_fetch_array($query);
+//for refferels fetch
+if(isset($_POST['apprefferelfetch']))
+{
+	$e = $_SESSION['gprefferer'];
+	
+	$q= mysqli_query($con,"SELECT * FROM `tbl_ruser` WHERE ur_email = '$e'");
+	$f = mysqli_fetch_array($q);
+	$id = $f['ur_id'];
+	
+	
+	$query = mysqli_query($con,"SELECT * FROM `tbl_consultantrefferels`JOIN tbl_ruser ON tbl_ruser.ur_id = tbl_consultantrefferels.c_userid JOIN services ON services.service_id = tbl_consultantrefferels.c_serid JOIN service_name ON service_name.s_id = services.service_name JOIN orginzation ON orginzation.orid = tbl_consultantrefferels.c_orgid where c_gpid = '$id' and request_type = 'Appointment Request' GROUP BY c_serid");
 
-								$num = mysqli_num_rows($query1);
-								if($num>0)
-								{
-								    ?>
-									<option value="">-Select-</option>
-								    <?php
-									while($fe = mysqli_fetch_array($query))
-									{
-								?>
-										<option value="<?=$fe['ur_id']?>"><?=$fe['ur_fname']?></option>
-										<?php
-											}
-								}
+	// $query = mysqli_query($con,"SELECT * FROM `tbl_consultantrefferels`,orginzation,tbl_patients where orginzation.orid=tbl_consultantrefferels.c_orgid and tbl_patients.pt_nhsno=tbl_consultantrefferels.c_nhsno and c_gpid = '$id'");
+	if($query)
+	{
+		echo'<link rel="stylesheet" href="https://cdn.datatables.net/1.10.23/css/dataTables.bootstrap4.min.css">
+		
+		<table class="nowrap nk-tb-list is-separate" data-auto-responsive="false" id="myTable">
+			<thead>
+				<tr class="nk-tb-item nk-tb-head">
+				
+					<th class="nk-tb-col"><span>Service Id</span></th>
+					<th class="nk-tb-col tb-col-sm"><span>Consultant Name</span></th>
+					<th class="nk-tb-col"><span>Service Name</span></th>
+					<th class="nk-tb-col"><span>NHS Number</span></th>
+					<th class="nk-tb-col"><span>Organisation Name</span></th>
+					<th class="nk-tb-col"><span>Status</span></th>
+					<th class="nk-tb-col"><span>Action</span></th>
+				</tr><!-- .nk-tb-item -->
+			</thead>
+			 <tbody id="">';
+		while($fetch = mysqli_fetch_array($query))
+		{
+	$rfid = $fetch['c_id'];
+
+	echo'   <tr class="nk-tb-item">
+	
+	<td class="nk-tb-col">
+		<span class="tb-lead">'.$fetch['c_serid'].'</span>
+	</td>
+	<td class="nk-tb-col tb-col-sm">
+		<span class="tb-product">
+			
+			<span class="title">'.$fetch['ur_fname'].'</span>
+		</span>
+	</td>
+	<td class="nk-tb-col">
+		<span class="tb-lead">'.$fetch['s_name'].'</span>
+	</td>
+	
+	
+	<td class="nk-tb-col">
+		<span class="tb-lead">'.$fetch['c_nhsno'].'</span>
+	</td>	
+	<td class="nk-tb-col">
+		<span class="tb-lead">'.$fetch['or_name'].'</span>
+	</td>
+	';
+		if($fetch["c_status"] == 1 ){
+ echo '
+	<td class="nk-tb-col">
+
+	<span class="badge badge-primary ">Accepted</span>
+	</td>
+
+	';   
+	}if($fetch["c_status"] == 0 ){
+	echo '
+	<td class="nk-tb-col">
+
+	<span class="badge badge-danger">Un-Accepted</span>
+	</td>
+
+	';   
+	}
+	echo'<td class="nk-tb-col">
+	<span class=""><a href="createappointment.php" class="btn btn-info btn-sm">Refer to Appointment</a></span>
+	</td>';
+										
+		}
+		echo'</tbody> </table>
+		
+		
+		<script src="https://cdn.datatables.net/1.10.23/js/jquery.dataTables.min.js"></script>
+	<script src="https://cdn.datatables.net/1.10.23/js/dataTables.bootstrap4.min.js"></script>
+	<script>$(document).ready(function () {
+		$("#myTable").DataTable({responsive:true});
+	} )
+	</script>
+	';
+		}
+}
+//for refferels fetch1
+if(isset($_POST['apprefferelfetch1']))
+{
+	$e = $_SESSION['gprefferer'];
+	
+	$q= mysqli_query($con,"SELECT * FROM `tbl_ruser` WHERE ur_email = '$e' ");
+	$f = mysqli_fetch_array($q);
+	$id = $f['ur_id'];
+	
+	
+	$query = mysqli_query($con,"SELECT * FROM `tbl_consultantrefferels`JOIN tbl_ruser ON tbl_ruser.ur_id = tbl_consultantrefferels.c_userid JOIN services ON services.m_id = tbl_consultantrefferels.c_rfid JOIN service_name ON service_name.s_id = services.service_name JOIN orginzation ON orginzation.orid = tbl_consultantrefferels.c_orgid where c_gpid = '$id' and c_status= 1 and request_type = 'Appointment Request' GROUP BY c_serid");
+
+	// $query = mysqli_query($con,"SELECT * FROM `tbl_consultantrefferels`,orginzation,tbl_patients where orginzation.orid=tbl_consultantrefferels.c_orgid and tbl_patients.pt_nhsno=tbl_consultantrefferels.c_nhsno and c_gpid = '$id'");
+	if($query)
+	{
+		echo'<link rel="stylesheet" href="https://cdn.datatables.net/1.10.23/css/dataTables.bootstrap4.min.css">
+		
+		<table class="nowrap nk-tb-list is-separate" data-auto-responsive="false" id="myTable">
+			<thead>
+				<tr class="nk-tb-item nk-tb-head">
+					<th class="nk-tb-col nk-tb-col-check">
+						<div class="custom-control custom-control-sm custom-checkbox notext">
+							<input type="checkbox" class="custom-control-input" id="puid">
+							<label class="custom-control-label" for="puid"></label>
+						</div>
+					</th>
+				<th class="nk-tb-col"><span>Service Id</span></th>
+					<th class="nk-tb-col tb-col-sm"><span>Consultant Name</span></th>
+					<th class="nk-tb-col"><span>Service Name</span></th>
+					<th class="nk-tb-col"><span>NHS Number</span></th>
+					<th class="nk-tb-col tb-col-sm"><span>Organisation Name</span></th>
+					<th class="nk-tb-col"><span>Status</span></th>
+					<th class="nk-tb-col"><span>Action</span></th>
+					
+				</tr><!-- .nk-tb-item -->
+			</thead>
+			 <tbody id="">';
+		while($fetch = mysqli_fetch_array($query))
+		{
+	$rfid = $fetch['c_id'];
+
+	echo'   <tr class="nk-tb-item">
+	<td class="nk-tb-col nk-tb-col-check">
+		<div class="custom-control custom-control-sm custom-checkbox notext">
+			<input type="checkbox" class="custom-control-input" name="check" id="'.$rfid.'" onclick="show('."'$rfid'".')">
+			<label class="custom-control-label" for="'.$rfid.'"></label>
+		</div>
+	</td>
+	<td class="nk-tb-col">
+		<span class="tb-lead">'.$fetch['c_serid'].'</span>
+	</td>
+	<td class="nk-tb-col tb-col-sm">
+		<span class="tb-product">
+			
+			<span class="title">'.$fetch['ur_fname'].'</span>
+		</span>
+	</td>
+	<td class="nk-tb-col">
+		<span class="tb-lead">'.$fetch['s_name'].'</span>
+	</td>
+	
+	
+	<td class="nk-tb-col">
+		<span class="tb-lead">'.$fetch['c_nhsno'].'</span>
+	</td>	
+	<td class="nk-tb-col">
+		<span class="tb-lead">'.$fetch['or_name'].'</span>
+	</td>';
+		if($fetch["c_status"] == 1 ){
+ echo '
+	<td class="nk-tb-col">
+
+	<span class="badge badge-primary ">Accepted</span>
+	</td>
+
+	';   
+	}
+	echo'<td class="nk-tb-col">
+	<span class=""><a href="createappointment.php" class="btn btn-info btn-sm">Refer to Appointment</a></span>
+	</td>';
+										
+		}
+		echo'</tbody> </table>
+		
+		
+		<script src="https://cdn.datatables.net/1.10.23/js/jquery.dataTables.min.js"></script>
+	<script src="https://cdn.datatables.net/1.10.23/js/dataTables.bootstrap4.min.js"></script>
+	<script>$(document).ready(function () {
+		$("#myTable").DataTable({responsive:true});
+	} )
+	</script>
+	';
+		}
+}
+
+
+//for refferels fetch2
+if(isset($_POST['apprefferelfetch2']))
+{
+	$e = $_SESSION['gprefferer'];
+	
+	$q= mysqli_query($con,"SELECT * FROM `tbl_ruser` WHERE ur_email = '$e' ");
+	$f = mysqli_fetch_array($q);
+	$id = $f['ur_id'];
+	
+	
+	$query = mysqli_query($con,"SELECT * FROM `tbl_consultantrefferels`JOIN tbl_ruser ON tbl_ruser.ur_id = tbl_consultantrefferels.c_userid JOIN services ON services.service_id = tbl_consultantrefferels.c_serid JOIN service_name ON service_name.s_id = services.service_name JOIN orginzation ON orginzation.orid = tbl_consultantrefferels.c_orgid where c_gpid = '$id' and c_status= 0 and request_type = 'Appointment Request' GROUP BY c_serid");
+
+	// $query = mysqli_query($con,"SELECT * FROM `tbl_consultantrefferels`,orginzation,tbl_patients where orginzation.orid=tbl_consultantrefferels.c_orgid and tbl_patients.pt_nhsno=tbl_consultantrefferels.c_nhsno and c_gpid = '$id'");
+	if($query)
+	{
+		echo'<link rel="stylesheet" href="https://cdn.datatables.net/1.10.23/css/dataTables.bootstrap4.min.css">
+		
+		<table class="nowrap nk-tb-list is-separate" data-auto-responsive="false" id="myTable">
+			<thead>
+				<tr class="nk-tb-item nk-tb-head">
+					<th class="nk-tb-col nk-tb-col-check">
+						<div class="custom-control custom-control-sm custom-checkbox notext">
+							<input type="checkbox" class="custom-control-input" id="puid">
+							<label class="custom-control-label" for="puid"></label>
+						</div>
+					</th>
+				<th class="nk-tb-col"><span>Service Id</span></th>
+					<th class="nk-tb-col tb-col-sm"><span>Consultant Name</span></th>
+					<th class="nk-tb-col"><span>Service Name</span></th>
+					<th class="nk-tb-col"><span>NHS Number</span></th>
+					<th class="nk-tb-col tb-col-sm"><span>Organisation Name</span></th>
+					<th class="nk-tb-col"><span>Status</span></th>
+					<th class="nk-tb-col"><span>Action</span></th>
+					
+					
+				</tr><!-- .nk-tb-item -->
+			</thead>
+			 <tbody id="">';
+		while($fetch = mysqli_fetch_array($query))
+		{
+	$rfid = $fetch['c_id'];
+
+	echo'   <tr class="nk-tb-item">
+	<td class="nk-tb-col nk-tb-col-check">
+		<div class="custom-control custom-control-sm custom-checkbox notext">
+			<input type="checkbox" class="custom-control-input" name="check" id="'.$rfid.'" onclick="show('."'$rfid'".')">
+			<label class="custom-control-label" for="'.$rfid.'"></label>
+		</div>
+	</td>
+	<td class="nk-tb-col">
+		<span class="tb-lead">'.$fetch['c_serid'].'</span>
+	</td>
+	<td class="nk-tb-col tb-col-sm">
+		<span class="tb-product">
+			
+			<span class="title">'.$fetch['ur_fname'].'</span>
+		</span>
+	</td>
+	<td class="nk-tb-col">
+		<span class="tb-lead">'.$fetch['s_name'].'</span>
+	</td>
+	
+	
+	<td class="nk-tb-col">
+		<span class="tb-lead">'.$fetch['c_nhsno'].'</span>
+	</td>	
+	<td class="nk-tb-col">
+		<span class="tb-lead">'.$fetch['or_name'].'</span>
+	</td>';
+		if($fetch["c_status"] == 0 ){
+ echo '
+	<td class="nk-tb-col">
+
+	<span class="badge badge-danger">Un-Accepted</span>
+	</td>
+
+	';   
+	}
+	echo'<td class="nk-tb-col">
+	<span class=""><a href="createappointment.php" class="btn btn-info btn-sm">Refer to Appointment</a></span>
+	</td>';
+										
+		}
+		echo'</tbody> </table>
+		
+		
+		<script src="https://cdn.datatables.net/1.10.23/js/jquery.dataTables.min.js"></script>
+	<script src="https://cdn.datatables.net/1.10.23/js/dataTables.bootstrap4.min.js"></script>
+	<script>$(document).ready(function () {
+		$("#myTable").DataTable({responsive:true});
+	} )
+	</script>
+	';
+		}
+}
+
+
+//for refferels fetch3
+if(isset($_POST['apprefferelfetch3']))
+{
+	$e = $_SESSION['gprefferer'];
+	
+	$q= mysqli_query($con,"SELECT * FROM `tbl_ruser` WHERE ur_email = '$e'");
+	$f = mysqli_fetch_array($q);
+	$id = $f['ur_id'];
+	$q1 = mysqli_query($con, "SELECT * FROM `tbl_consultantrefferels` WHERE c_gpid = '$id' and request_type = 'Advice request'");
+		$f1 = mysqli_fetch_array($q1);
+		$refferid = $f1['c_id'];
+
+	$query = mysqli_query($con,"SELECT * FROM `tbl_consultantrefferels`JOIN tbl_ruser ON tbl_ruser.ur_id = tbl_consultantrefferels.c_userid JOIN services ON services.service_id = tbl_consultantrefferels.c_serid JOIN app_type ON app_type.app_id = services.service_a_type JOIN service_name ON service_name.s_id = services.service_name JOIN service_cliniciant ON services.ser_cl_type= service_cliniciant.cl_id JOIN ser_specialty_add ON services.service_speciality = ser_specialty_add.spec_id JOIN orginzation ON orginzation.orid = tbl_consultantrefferels.c_orgid join tbl_refferelattachment on tbl_consultantrefferels.c_id = tbl_refferelattachment.ra_refferelid where c_gpid = '$id' and tbl_refferelattachment.ra_refferelid = '$refferid' and request_type = 'Advice request' GROUP BY c_serid");
+
+	// $query = mysqli_query($con,"SELECT * FROM `tbl_consultantrefferels`,orginzation,tbl_patients where orginzation.orid=tbl_consultantrefferels.c_orgid and tbl_patients.pt_nhsno=tbl_consultantrefferels.c_nhsno and c_gpid = '$id'");
+	if($query)
+	{
+		echo'<link rel="stylesheet" href="https://cdn.datatables.net/1.10.23/css/dataTables.bootstrap4.min.css">
+		
+		<table class="nowrap nk-tb-list is-separate" data-auto-responsive="false" id="myTable">
+			<thead>
+				<tr class="nk-tb-item nk-tb-head">
+				
+				<th class="nk-tb-col"><span>Service Id</span></th>
+					<th class="nk-tb-col tb-col-sm"><span>Consultant Name</span></th>
+					<th class="nk-tb-col"><span>Service Name</span></th>
+					<th class="nk-tb-col"><span>NHS Number</span></th>
+										<th class="nk-tb-col"><span>Appointment type</span></th>
+
+					<th class="nk-tb-col tb-col-sm"><span>Organisation Name</span></th>
+					<th class="nk-tb-col"><span>Status</span></th>
+					<th class="nk-tb-col"><span>Action</span></th>
+					
+				</tr><!-- .nk-tb-item -->
+			</thead>
+			 <tbody id="">';
+		while($fetch = mysqli_fetch_array($query))
+		{
+	$rfid = $fetch['c_id'];
+
+	echo'   <tr class="nk-tb-item">
+	
+	<td class="nk-tb-col">
+		<span class="tb-lead">'.$fetch['c_serid'].'</span>
+	</td>
+	<td class="nk-tb-col tb-col-sm">
+		<span class="tb-product">
+			
+			<span class="title">'.$fetch['ur_fname'].'</span>
+		</span>
+	</td>
+	<td class="nk-tb-col">
+		<span class="tb-lead">'.$fetch['s_name'].'</span>
+	</td>
+	
+	
+	<td class="nk-tb-col">
+		<span class="tb-lead">'.$fetch['c_nhsno'].'</span>
+	</td>	
+	<td class="nk-tb-col">
+		<span class="tb-lead">'.$fetch['app_type'].'</span>
+	</td>
+	<td class="nk-tb-col">
+		<span class="tb-lead">'.$fetch['or_name'].'</span>
+	</td>';
+		if($fetch["c_status"] == 1 ){
+ echo '
+	<td class="nk-tb-col">
+
+	<span class="badge badge-primary ">Accepted</span>
+	</td>
+
+	';   
+	}if($fetch["c_status"] == 0 ){
+	echo '
+	<td class="nk-tb-col">
+
+	<span class="badge badge-danger">Un-Accepted</span>
+	</td>
+
+	';   
+	}
+	echo'<td class="nk-tb-col">
+	<span class=""><a href="createappointment.php" class="btn btn-info btn-sm">Refer to Appointment</a></span>
+	</td>';
+										
+		}
+		echo'</tbody> </table>
+		
+		
+		<script src="https://cdn.datatables.net/1.10.23/js/jquery.dataTables.min.js"></script>
+	<script src="https://cdn.datatables.net/1.10.23/js/dataTables.bootstrap4.min.js"></script>
+	<script>$(document).ready(function () {
+		$("#myTable").DataTable({responsive:true});
+	} )
+	</script>
+	';
+		}
+}
+//for refferels fetch4
+if(isset($_POST['apprefferelfetch4']))
+{
+		$e = $_SESSION['gprefferer'];
+	
+	$q= mysqli_query($con,"SELECT * FROM `tbl_ruser` WHERE ur_email = '$e'");
+	$f = mysqli_fetch_array($q);
+	$id = $f['ur_id'];
+	$q1 = mysqli_query($con, "SELECT * FROM `tbl_consultantrefferels` WHERE c_gpid = '$id' and request_type = 'Advice request'");
+		$f1 = mysqli_fetch_array($q1);
+		$refferid = $f1['c_id'];
+	
+	$query = mysqli_query($con,"SELECT * FROM `tbl_consultantrefferels`JOIN tbl_ruser ON tbl_ruser.ur_id = tbl_consultantrefferels.c_userid JOIN services ON services.service_id = tbl_consultantrefferels.c_serid JOIN app_type ON app_type.app_id = services.service_a_type JOIN service_name ON service_name.s_id = services.service_name JOIN orginzation ON orginzation.orid = tbl_consultantrefferels.c_orgid join tbl_refferelattachment on tbl_consultantrefferels.c_id = tbl_refferelattachment.ra_refferelid where c_gpid = '$id' and tbl_refferelattachment.ra_refferelid = '$refferid' and request_type = 'Advice request' and c_status= 1 GROUP BY c_serid");
+
+	// $query = mysqli_query($con,"SELECT * FROM `tbl_consultantrefferels`,orginzation,tbl_patients where orginzation.orid=tbl_consultantrefferels.c_orgid and tbl_patients.pt_nhsno=tbl_consultantrefferels.c_nhsno and c_gpid = '$id'");
+	if($query)
+	{
+		echo'<link rel="stylesheet" href="https://cdn.datatables.net/1.10.23/css/dataTables.bootstrap4.min.css">
+		
+		<table class="nowrap nk-tb-list is-separate" data-auto-responsive="false" id="myTable">
+			<thead>
+				<tr class="nk-tb-item nk-tb-head">
+					
+					<th class="nk-tb-col"><span>Service Id</span></th>
+					<th class="nk-tb-col tb-col-sm"><span>Consultant Name</span></th>
+					<th class="nk-tb-col"><span>Service Name</span></th>
+					<th class="nk-tb-col"><span>NHS Number</span></th>
+					<th class="nk-tb-col tb-col-sm"><span>Organisation Name</span></th>
+					<th class="nk-tb-col"><span>Status</span></th>
+					<th class="nk-tb-col"><span>Action</span></th>
+				</tr><!-- .nk-tb-item -->
+			</thead>
+			 <tbody id="">';
+		while($fetch = mysqli_fetch_array($query))
+		{
+	$rfid = $fetch['c_id'];
+
+	echo'   <tr class="nk-tb-item">
+	
+	<td class="nk-tb-col">
+		<span class="tb-lead">'.$fetch['c_serid'].'</span>
+	</td>
+	<td class="nk-tb-col tb-col-sm">
+		<span class="tb-product">
+			
+			<span class="title">'.$fetch['ur_fname'].'</span>
+		</span>
+	</td>
+	<td class="nk-tb-col">
+		<span class="tb-lead">'.$fetch['s_name'].'</span>
+	</td>
+	
+	
+	<td class="nk-tb-col">
+		<span class="tb-lead">'.$fetch['c_nhsno'].'</span>
+	</td>	
+	<td class="nk-tb-col">
+		<span class="tb-lead">'.$fetch['or_name'].'</span>
+	</td>';
+		if($fetch["c_status"] == 1 ){
+ echo '
+	<td class="nk-tb-col">
+
+	<span class="badge badge-primary ">Accepted</span>
+	</td>
+
+	';   
+	}if($fetch["c_status"] == 0 ){
+	echo '
+	<td class="nk-tb-col">
+
+	<span class="badge badge-danger">Un-Accepted</span>
+	</td>
+
+	';   
+	}
+	echo'<td class="nk-tb-col">
+	<span class=""><a href="createappointment.php" class="btn btn-info btn-sm">Refer to Appointment</a></span>
+	</td>';
+										
+		}
+		echo'</tbody> </table>
+		
+		
+		<script src="https://cdn.datatables.net/1.10.23/js/jquery.dataTables.min.js"></script>
+	<script src="https://cdn.datatables.net/1.10.23/js/dataTables.bootstrap4.min.js"></script>
+	<script>$(document).ready(function () {
+		$("#myTable").DataTable({responsive:true});
+	} )
+	</script>
+	';
+		}
+}
+
+//for refferels fetch1
+if(isset($_POST['apprefferelfetch5']))
+{
+	$e = $_SESSION['gprefferer'];
+	
+	$q= mysqli_query($con,"SELECT * FROM `tbl_ruser` WHERE ur_email = '$e'");
+	$f = mysqli_fetch_array($q);
+	$id = $f['ur_id'];
+	$q1 = mysqli_query($con, "SELECT * FROM `tbl_consultantrefferels` WHERE c_gpid = '$id' and request_type = 'Advice request'");
+		$f1 = mysqli_fetch_array($q1);
+		$refferid = $f1['c_id'];
+	
+	$query = mysqli_query($con,"SELECT * FROM `tbl_consultantrefferels`JOIN tbl_ruser ON tbl_ruser.ur_id = tbl_consultantrefferels.c_userid JOIN services ON services.service_id = tbl_consultantrefferels.c_serid JOIN app_type ON app_type.app_id = services.service_a_type JOIN service_name ON service_name.s_id = services.service_name JOIN orginzation ON orginzation.orid = tbl_consultantrefferels.c_orgid join tbl_refferelattachment on tbl_consultantrefferels.c_id = tbl_refferelattachment.ra_refferelid where c_gpid = '$id' and tbl_refferelattachment.ra_refferelid = '$refferid' and request_type = 'Advice request' and c_status= 0 GROUP BY c_serid ");
+
+	// $query = mysqli_query($con,"SELECT * FROM `tbl_consultantrefferels`,orginzation,tbl_patients where orginzation.orid=tbl_consultantrefferels.c_orgid and tbl_patients.pt_nhsno=tbl_consultantrefferels.c_nhsno and c_gpid = '$id'");
+	if($query)
+	{
+		echo'<link rel="stylesheet" href="https://cdn.datatables.net/1.10.23/css/dataTables.bootstrap4.min.css">
+		
+		<table class="nowrap nk-tb-list is-separate" data-auto-responsive="false" id="myTable">
+			<thead>
+				<tr class="nk-tb-item nk-tb-head">
+					
+					<th class="nk-tb-col"><span>Service Id</span></th>
+					<th class="nk-tb-col tb-col-sm"><span>Consultant Name</span></th>
+					<th class="nk-tb-col"><span>Service Name</span></th>
+					<th class="nk-tb-col"><span>NHS Number</span></th>
+					<th class="nk-tb-col tb-col-sm"><span>Organisation Name</span></th>
+					<th class="nk-tb-col"><span>Status</span></th>
+					<th class="nk-tb-col"><span>Action</span></th>
+					
+				</tr><!-- .nk-tb-item -->
+			</thead>
+			 <tbody id="">';
+		while($fetch = mysqli_fetch_array($query))
+		{
+	$rfid = $fetch['c_id'];
+
+	echo'   <tr class="nk-tb-item">
+	
+	<td class="nk-tb-col">
+		<span class="tb-lead">'.$fetch['c_serid'].'</span>
+	</td>
+	<td class="nk-tb-col tb-col-sm">
+		<span class="tb-product">
+			
+			<span class="title">'.$fetch['ur_fname'].'</span>
+		</span>
+	</td>
+	<td class="nk-tb-col">
+		<span class="tb-lead">'.$fetch['s_name'].'</span>
+	</td>
+	
+	
+	<td class="nk-tb-col">
+		<span class="tb-lead">'.$fetch['c_nhsno'].'</span>
+	</td>	
+	<td class="nk-tb-col">
+		<span class="tb-lead">'.$fetch['or_name'].'</span>
+	</td>';
+		if($fetch["c_status"] == 1 ){
+ echo '
+	<td class="nk-tb-col">
+
+	<span class="badge badge-primary ">Accepted</span>
+	</td>
+
+	';   
+	}if($fetch["c_status"] == 0 ){
+	echo '
+	<td class="nk-tb-col">
+
+	<span class="badge badge-danger">Un-Accepted</span>
+	</td>
+
+	';   
+	}
+	echo'<td class="nk-tb-col">
+	<span class=""><a href="createappointment.php" class="btn btn-info btn-sm">Refer to Appointment</a></span>
+	</td>';	
+											
+			}
+			echo'</tbody> </table>
+			
+			
+			<script src="https://cdn.datatables.net/1.10.23/js/jquery.dataTables.min.js"></script>
+	<script src="https://cdn.datatables.net/1.10.23/js/dataTables.bootstrap4.min.js"></script>
+	<script>$(document).ready(function () {
+		$("#myTable").DataTable();
+	} )
+	</script>
+	';
+		}
+}
+
+
+//for refferels fetch6
+if(isset($_POST['apprefferelfetch6']))
+{
+	$e = $_SESSION['gprefferer'];
+	
+	$q= mysqli_query($con,"SELECT * FROM `tbl_ruser` WHERE ur_email = '$e'");
+	$f = mysqli_fetch_array($q);
+	$id = $f['ur_id'];
+	
+	
+	$query = mysqli_query($con,"SELECT * FROM `tbl_serviceappointment` JOIN services ON services.service_id = tbl_serviceappointment.sp_serviceid JOIN service_name on service_name.s_id = services.service_name JOIN tbl_ruser ON tbl_ruser.ur_id = tbl_serviceappointment.sp_refferalid JOIN tbl_patients on tbl_patients.pt_id= tbl_serviceappointment.sp_patientid WHERE tbl_ruser.ur_email = '$e'");
+
+	// $query = mysqli_query($con,"SELECT * FROM `tbl_consultantrefferels`,orginzation,tbl_patients where orginzation.orid=tbl_consultantrefferels.c_orgid and tbl_patients.pt_nhsno=tbl_consultantrefferels.c_nhsno and c_gpid = '$id'");
+	if($query)
+	{
+		echo'<link rel="stylesheet" href="https://cdn.datatables.net/1.10.23/css/dataTables.bootstrap4.min.css">
+		
+		<table class="nowrap nk-tb-list is-separate" data-auto-responsive="false" id="myTable">
+			<thead>
+				<tr class="nk-tb-item nk-tb-head">
+					
+				<th class="nk-tb-col"><span>Service Id</span></th>
+					<th class="nk-tb-col tb-col-sm"><span>Refferer Name</span></th>
+					<th class="nk-tb-col"><span>Service Name</span></th>
+					<th class="nk-tb-col"><span>NHS Number</span></th>
+					<th class="nk-tb-col tb-col-sm"><span>Patient Name</span></th>
+				
+					
+				</tr><!-- .nk-tb-item -->
+			</thead>
+			 <tbody id="">';
+		while($fetch = mysqli_fetch_array($query))
+		{
+	$rfid = $fetch['c_id'];
+
+	echo'   <tr class="nk-tb-item">
+	
+	<td class="nk-tb-col">
+		<span class="tb-lead">'.$fetch['sp_serviceid'].'</span>
+	</td>
+	<td class="nk-tb-col tb-col-sm">
+		<span class="tb-product">
+			
+			<span class="title">'.$fetch['ur_fname'].'</span>
+		</span>
+	</td>
+	<td class="nk-tb-col">
+		<span class="tb-lead">'.$fetch['s_name'].'</span>
+	</td>
+	
+	
+	<td class="nk-tb-col">
+		<span class="tb-lead">'.$fetch['pt_nhsno'].'</span>
+	</td>	
+	<td class="nk-tb-col">
+		<span class="tb-lead">'.$fetch['pt_name'].'</span>
+	</td>';
+	
+
+											
+			}
+			echo'</tbody> </table>
+			
+			
+			<script src="https://cdn.datatables.net/1.10.23/js/jquery.dataTables.min.js"></script>
+	<script src="https://cdn.datatables.net/1.10.23/js/dataTables.bootstrap4.min.js"></script>
+	<script>$(document).ready(function () {
+		$("#myTable").DataTable();
+	} )
+	</script>
+	';
+		}
+}
+
+
+//for refferels fetch7
+if(isset($_POST['apprefferelfetch7']))
+{
+	$e = $_SESSION['gprefferer'];
+	
+	$q= mysqli_query($con,"SELECT * FROM `tbl_ruser` WHERE ur_email = '$e'");
+	$f = mysqli_fetch_array($q);
+	$id = $f['ur_id'];
+	
+	
+	$query = mysqli_query($con,"SELECT * FROM `tbl_consultantrefferels` JOIN tbl_ruser ON tbl_ruser.ur_id = tbl_consultantrefferels.c_userid JOIN services ON services.m_id = tbl_consultantrefferels.c_rfid JOIN service_name ON service_name.s_id = services.service_name JOIN orginzation ON orginzation.orid = tbl_consultantrefferels.c_orgid where c_gpid = '$id'");
+
+	// $query = mysqli_query($con,"SELECT * FROM `tbl_consultantrefferels`,orginzation,tbl_patients where orginzation.orid=tbl_consultantrefferels.c_orgid and tbl_patients.pt_nhsno=tbl_consultantrefferels.c_nhsno and c_gpid = '$id'");
+	if($query)
+	{
+		echo'<link rel="stylesheet" href="https://cdn.datatables.net/1.10.23/css/dataTables.bootstrap4.min.css">
+		
+		<table class="nowrap nk-tb-list is-separate" data-auto-responsive="false" id="myTable">
+			<thead>
+				<tr class="nk-tb-item nk-tb-head">
+					<th class="nk-tb-col nk-tb-col-check">
+						<div class="custom-control custom-control-sm custom-checkbox notext">
+							<input type="checkbox" class="custom-control-input" id="puid">
+							<label class="custom-control-label" for="puid"></label>
+						</div>
+					</th>
+					<th class="nk-tb-col"><span>Service Id</span></th>
+					<th class="nk-tb-col tb-col-sm"><span>Consultant Name</span></th>
+					<th class="nk-tb-col"><span>Service Name</span></th>
+					<th class="nk-tb-col"><span>NHS Number</span></th>
+					<th class="nk-tb-col tb-col-sm"><span>Organisation Name</span></th>
+					<th class="nk-tb-col"><span>Status</span></th>
+					<th class="nk-tb-col"><span>Action</span></th>
+					
+				</tr><!-- .nk-tb-item -->
+			</thead>
+			 <tbody id="">';
+		while($fetch = mysqli_fetch_array($query))
+		{
+	$rfid = $fetch['c_id'];
+
+	echo'   <tr class="nk-tb-item">
+	<td class="nk-tb-col nk-tb-col-check">
+		<div class="custom-control custom-control-sm custom-checkbox notext">
+			<input type="checkbox" class="custom-control-input" name="check" id="'.$rfid.'" onclick="show('."'$rfid'".')">
+			<label class="custom-control-label" for="'.$rfid.'"></label>
+		</div>
+	</td>
+	<td class="nk-tb-col">
+		<span class="tb-lead">'.$fetch['c_serid'].'</span>
+	</td>
+	<td class="nk-tb-col tb-col-sm">
+		<span class="tb-product">
+			
+			<span class="title">'.$fetch['ur_fname'].'</span>
+		</span>
+	</td>
+	<td class="nk-tb-col">
+		<span class="tb-lead">'.$fetch['s_name'].'</span>
+	</td>
+	
+	
+	<td class="nk-tb-col">
+		<span class="tb-lead">'.$fetch['c_nhsno'].'</span>
+	</td>	
+	<td class="nk-tb-col">
+		<span class="tb-lead">'.$fetch['or_name'].'</span>
+	</td>';
+		if($fetch["c_status"] == 1 ){
+ echo '
+	<td class="nk-tb-col">
+
+	<span class="badge badge-primary ">Accepted</span>
+	</td>
+
+	';   
+	}if($fetch["c_status"] == 0 ){
+	echo '
+	<td class="nk-tb-col">
+
+	<span class="badge badge-danger">Un-Accepted</span>
+	</td>
+
+	';   
+	}
+	echo'<td class="nk-tb-col">
+	<span class=""><a href="createappointment.php" class="btn btn-info btn-sm">Refer to Appointment</a></span>
+	</td>';	
+											
+			}
+			echo'</tbody> </table>
+			
+			
+			<script src="https://cdn.datatables.net/1.10.23/js/jquery.dataTables.min.js"></script>
+	<script src="https://cdn.datatables.net/1.10.23/js/dataTables.bootstrap4.min.js"></script>
+	<script>$(document).ready(function () {
+		$("#myTable").DataTable();
+	} )
+	</script>
+	';
+		}
 }
 
 
@@ -2721,5 +3536,16 @@ if(isset($_POST['updategpaddress']))
 		{
 			echo("Error");
 		}
+	}
+
+	if(isset($_POST['patientfetchgeb']))
+	{
+		$nhs = $_POST['nhs'];
+	$query = mysqli_query($con,"SELECT * FROM `tbl_patients` WHERE pt_nhsno = '$nhs'");
+	$fet = mysqli_fetch_array($query);
+	if(mysqli_num_rows($query) > 0)
+	{
+		echo json_encode(array("title"=>$fet['pt_title'],"age"=>$fet['pt_age']));
+	}
 	}
 ?>

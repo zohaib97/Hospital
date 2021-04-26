@@ -65,6 +65,7 @@ include_once('../database/db.php');
 													}
 													elseif($rtype == "Appointment Request" && $status == 2)
 													{
+													 
 													?>
 													<option value="Referrals Recieved" selected>Referrals Awaiting Triage</option>
 													<?php
@@ -221,8 +222,15 @@ include_once('../database/db.php');
 	})
 	<?php
 	}
+	else
+	{
 	?>
-		
+		$(document).ready(function(){
+		fetchrefferels();
+	});	
+	<?php
+	}
+	?>
 	function fetchrefferels()
 	{
 		 $.ajax({    
@@ -260,16 +268,8 @@ include_once('../database/db.php');
 
 //     });
 // 	}
-	<?php
-	if(!isset($_GET['reqtype']) && !isset($_GET['status']))
-	{
-	?>
-	$(document).ready(function(){
-		fetchrefferels();
-	});
-		<?php
-	}
-	?>
+
+	
 	function slsl(cid,status){
 	    $.ajax({
 	        url:"phpcode.php",

@@ -171,18 +171,18 @@ include_once('../database/db.php');
 
     });
 	}
-		<?php
+	<?php
 	if(isset($_GET['reqtype']) && isset($_GET['status']))
 	{
 	?>
-		$(document).ready(function(){
-		    workbltdata();
-		})
-		<?php
+	$(document).ready(function(){
+	    	workbltdata();
+	})
+	<?php
 	}
-	else
-	{
+	else{
 	?>
+	
 	$(document).ready(function(){
 	fetchrefferels();
 

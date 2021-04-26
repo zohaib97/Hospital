@@ -238,7 +238,7 @@ include_once('../database/db.php');
 									 <label for="consultant">Consultant</label>
 									  <select class="form-control" name="consultant" id="consultant" onchange="showproceed()">
 									  <option>Select</option>
-								
+										 
 								 </select>
 									 </div>
 									 
@@ -580,7 +580,7 @@ include_once('../database/db.php');
 												<div class="col-md-6">
 													<div class="form-group">
 														<label class="col-form-label" for="cpass">City</label>
-														<input type="text" class="form-control form-control-lg"  placeholder="City" name="city" id="pcity" required autocomplete="off">
+														<input type="text" class="form-control form-control-lg"  placeholder="City" name="city" id="Pcity" required autocomplete="off">
 													</div>
 												</div>
 												<div class="col-md-6" id="">
@@ -649,22 +649,20 @@ $nhs3=substr($_GET["nhs"],7,10);
 ?>	
 <script>
    $(document).ready(function(){
- var nhs1 = $('#nhs1').val('<?=$nhs1?>');
-		var nhs2 =	$('#nhs2').val('<?=$nhs2?>');
-		var nhs3 =	$('#nhs3').val('<?=$nhs3?>');
+      $('#nhs1').val('<?=$nhs1?>');
+			$('#nhs2').val('<?=$nhs2?>');
+			$('#nhs3').val('<?=$nhs3?>');
 			$('#nhs1').prop('readonly', false);
 			$('#nhs2').prop('readonly', false);
 			$('#nhs3').prop('readonly', false);
 			$("#nhsno").show();
 			$("#nhs").attr("checked",true);
 			showsearch();
-			var total = "<?=$_GET["nhs"]?>";
+				var total = "<?=$_GET["nhs"]?>";
 			setTimeout(function(){
 			    showpatient(total);
 			    
 			},3000);
-			
-			
 			
 			
    });
@@ -699,12 +697,12 @@ elseif(isset($_GET["fname"])){ ?>
 	
 		var btn = document.getElementById('btn3').innerHTML='<a href="javascript:void(0)" class="btn btn-info " id="searchpatient" onClick="showpatienta(\'' + dob + '\')">Search</a>';
 			document.getElementById('btn4').innerHTML='<a href="javascript:void(0)" class="btn btn-primary" id="searchpatient" onClick="reset()">Reset</a>';
-			
-				var total = "<?=$_GET["dob"]?>";
+			var total = "<?=$_GET["dob"]?>";
 			setTimeout(function(){
 			    showpatienta(total);
 			    
 			},3000);
+		    
 		}
 </script>
 <?php }?>
@@ -751,7 +749,7 @@ elseif(isset($_GET["fname"])){ ?>
     $("#houseno").val(hno);
     $("#streetname").val(street);
     $("#country").val(country);
-    $("#pcity").val(city);
+    $("#Pcity").val(city);
     $("#postalcode").val(post);
     $("#telephoneno").val(tele);
     $("#mobileno").val(mob);
@@ -847,7 +845,7 @@ function getclint(vals){
     $('#ref_priority').select2();
     $('#consultant').select2();
     $('#organisation').select2();
-    
+
 
 	
 });
@@ -903,6 +901,7 @@ $('#servage').val(serv);
         url: "phpcode.php", 
 		data:{nhs:nhs,patientfetch:"btn"},	            
         success: function(response){ 
+      
 			if(response == 'There is no patient matching criteria')
 				{
 				     $('#createpatient').show();
@@ -910,6 +909,7 @@ $('#servage').val(serv);
 					 toastr.clear();
                NioApp.Toast("<h5>There is no patient matching criteria</h5>", 'error',{position:'top-right'});
 				}
+
 	document.getElementById('tabItem6').innerHTML=response;
 			
 //            $("#tabItem6").html(response); 
@@ -918,6 +918,16 @@ $('#servage').val(serv);
 		  
 
     });
+	$.ajax({    
+        type: "POST",
+        url: "phpcode.php", 
+		dataType: 'JSON',
+		data:{nhs:nhs,patientfetchgeb:"btn"},	            
+        success: function(response){ 
+			alert(response['title']);
+				kk(response['title']);
+		}
+	});
     };
 	
 	// insert refer
@@ -929,9 +939,12 @@ $('#servage').val(serv);
 			var ptage = $('#pt_age').val();
 			var pttitle = $('#pt_title').val();
 			var refform = new FormData(this);
+		
 			refform.append("searchservice","btn");
 			refform.append("ptage",ptage);
 			refform.append("pttitle",pttitle);
+		
+	
 			$.ajax({
 				url: 'phpcode.php',
 				type: 'post',
@@ -939,7 +952,7 @@ $('#servage').val(serv);
 				contentType: false,
 				processData: false,
 				success: function(data){
-				  
+			
 					if(data == "Data Not Found")
 						{
 							toastr.clear();
@@ -947,7 +960,16 @@ $('#servage').val(serv);
                
                 	document.getElementById('tabItem7').innerHTML=data;
 						$("#modalname").modal("hide");
-						}else{
+						}
+					else if(data == '')
+						{
+						
+               document.getElementById('tabItem7').innerHTML='';
+                
+						$("#modalname").modal("hide");
+						}
+					
+						else{
 						    
                 	document.getElementById('tabItem7').innerHTML=data;
 						$("#modalname").modal("hide");
@@ -987,10 +1009,9 @@ $('#servage').val(serv);
 		}
 		if(($("#patientgender").val()== "Ms" && $("#servicegender").val()== "Male") || ($("#patientgender").val()== "Mrs" && $("#servicegender").val()== "Male")){
 		     NioApp.Toast("<h5>This Service Only Available For Male</h5>", 'warning',{position:'top-right'});
-		     document.getElementById('tabItem6').innerHTML ="";
-		     document.getElementById('tabItem7').innerHTML ="";
+		    document.getElementById('tabItem6').innerHTML ="";
+		    document.getElementById('tabItem7').innerHTML ="";
 		     $('#attach').hide();
-		    
 		}
 		var ptage = parseInt($('#ptage').val());
 	var servage2 = parseInt($('#servage2').val());
@@ -1001,9 +1022,9 @@ $('#servage').val(serv);
 					{
 				
 						NioApp.Toast("<h5>Your Age doesn't match to service age range</h5>", 'warning',{position:'top-right'});
-						document.getElementById('tabItem6').innerHTML ="";
-						document.getElementById('tabItem7').innerHTML ="";
-						$('#attach').hide();
+						document.getElementById('tabItem6').innerHTML ='';
+						 document.getElementById('tabItem7').innerHTML ="";
+						 $('#attach').hide();
 					}
 		else{
 		    	if(  $("#patientgender").val()== "Mr" && $("#servicegender").val() == "Male"){
@@ -1033,7 +1054,7 @@ $('#servage').val(serv);
 					{
 						toastr.clear();
               NioApp.Toast("<h5>Data Added Successfully</h5>", 'success',{position:'top-right'});
-						window.location.href = "adcmnt.php?c_id="+data["c_id"]+"&coid="+coid+"&pid="+pid+"";
+					window.location.href = "adcmnt.php?c_id="+data["c_id"]+"&coid="+coid+"&pid="+pid+"";
 					}
 					else if(data["res"] == "Error")
 						{
@@ -1093,7 +1114,6 @@ $('#servage').val(serv);
 		    	    
 		    	}
 	if(  $("#servicegender").val() == "Male & Female"){
-	    alert("hello");
 		var reqtype = $('#ref_reqt').val();
 		var coid = $('#consultant').val();
 		var pid = $("input:radio[name='check']:checked").val();
@@ -1144,17 +1164,17 @@ $('#servage').val(serv);
 					{
 					   
 						NioApp.Toast("<h5>Your Age doesn't match to service age range</h5>", 'warning',{position:'top-right'});
-						document.getElementById('tabItem6').innerHTML ="";
-						document.getElementById('tabItem7').innerHTML ="";
-						 $('#attach').hide();
+							document.getElementById('tabItem6').innerHTML ="";
+							document.getElementById('tabItem7').innerHTML ="";
+							$('#attach').hide();
 					}
 				else if(ptage < servage)
 					{
 					 
 						NioApp.Toast("<h5>Your Age doesn't match to service age range</h5>", 'warning',{position:'top-right'});
-						document.getElementById('tabItem6').innerHTML ="";
-						document.getElementById('tabItem7').innerHTML ="";
-						 $('#attach').hide();
+							document.getElementById('tabItem6').innerHTML ="";
+							document.getElementById('tabItem7').innerHTML ="";
+							$('#attach').hide();
 					}
 		else{
 		   
@@ -1459,7 +1479,6 @@ $('#dob').change(function(){
 
 function fetchconsultant(org)
 {
- 
 // 	var org = $('#organisation').val();
 	$.ajax({    
         type: "POST",
@@ -1501,5 +1520,6 @@ $('#reservationDate').on('change', function () {
 
 
 	</script>
+	
 
 </html>

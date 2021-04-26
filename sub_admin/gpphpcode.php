@@ -2339,7 +2339,7 @@ $da = date_format($date,"d-m-Y");
 			if($fe['reciever'] != $senderid)
 			{
 			echo' <div class="card p-2 col-md-7 float-right "
-			style="background-color: skyblue;text-align: right;color:white;border-radius:15px;"
+			style="background-color: #986cfb;text-align: right;color:white;border-radius:15px;"
 			>
 			<small><b> Sent By '.$dataid['ur_fname']." ".$dataid['ur_sname'].' ('.$dataid["title"].') (Referring Clinician)</b></small>
 			<spane>'.$fe['ra_message'].'</spane>';
@@ -2366,7 +2366,7 @@ $da = date_format($date,"d-m-Y");
 			$date =date_create($fe['ra_date']);
 $da = date_format($date,"d-m-Y");
 				echo' <div class="card p-2 float-left col-md-7"
-			style="background-color: #58b666;text-align: left; color:white;border-radius:15px;"
+			style="background-color: #f5f6fa;text-align: left; color:black;border-radius:15px;"
 			>
 			<small><b> Sent By '.$dataid1['ur_fname']." ".$dataid1['ur_sname'].' ('.$dataid1["title"].') (Service Provider Clinician)</b></small>
 			<span>'.$fe['ra_message'].'</span>

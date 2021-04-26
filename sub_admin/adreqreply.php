@@ -51,13 +51,13 @@ include_once('header.php');
 						    
 						
 				    ?>
-                                            <nav class="p-2 bg-light mb-3 col-form-label font-weight-bold">Advice
+                                            <nav class="p-1 bg-light mb-3 col-form-label font-weight-bold">Advice
                                                 Request Details - <span class="text-info"><?=$dref['c_nhsno']?></span>
                                             </nav>
                                             <?php
 						}elseif($dref['request_type'] == "Appointment Request"){
                                             ?>
-                                            <nav class="p-2 bg-light mb-3 col-form-label font-weight-bold">Appointment
+                                            <nav class="p-1 bg-light mb-3 col-form-label font-weight-bold">Appointment
                                                 Request Details - <span class="text-info"><?=$dref['c_nhsno']?></span>
                                             </nav>
                                             <?php
@@ -77,38 +77,43 @@ include_once('header.php');
 												<div class="nk-block-head nk-block-head-lg wide-sm">
 												<span class="float-right p-2  w-100 col-form-label font-weight-bold">Patient Info - </span>
 												<button type="button" class="btn btn-info btn-sm float-right mt-1" onclick="showpat()">More Info</button>
-												<div class="row">
-													<span class="text-dark col-md-3">
+												<div class="float-left ">
+													<span class="text-dark">
 												<b>Name:</b> <?=$fetch2['pt_name']." ".$fetch2["pt_surname"]?>(<?=$fetch2['pt_title']?>)</span>
 												
 												<br>
-												<span class="text-dark col-md-3">
-												<b>NHS no:</b> <?=$fetch2['pt_nhsno']?></span>
-												<br>
-												<span class="text-dark col-md-3">
+											
+												<span class="text-dark">
 												<b>Date of Birth:</b> <?php
 												$da=date_create($fetch2['pt_dob']);
 												echo date_format($da,"m-d-Y");
 												
 												
 												?></span>
-												<br>
-												<span class="text-dark col-md-3">
-												<b>Email:</b> <?=$fetch2['pt_email']?>
-												</span>
-												<br>
+											
+												
 													</div>
-													<br>
-													<div class="row">
-												<span class="text-dark col-md-3 ml-2">
+													
+													<div class="float-left ml-5">
+												<span class="text-dark">
 												<b>Street Name:</b><?=$fetch2['pt_streetname']?>
 												</span>
 												<br>
-												<span class="text-dark col-md-3">
-												<b>Telephone no:</b> <?=$fetch2['pt_telno']?>
+                                                <span class="text-dark">
+												<b>Email:</b> <?=$fetch2['pt_email']?>
 												</span>
 												<br>
+                                                
+											
 											</div>
+                                            <div class="float-left ml-5">
+                                            <span class="text-dark">
+												<b>NHS no:</b> <?=$fetch2['pt_nhsno']?></span>
+												<br>
+												<span class="text-dark">
+												<b>Telephone no:</b> <?=$fetch2['pt_telno']?>
+												</span>
+                                            </div>
 											</div>
                                         </div>
                                         <div class="col-lg-4 col-md-4 col-12">
@@ -231,16 +236,15 @@ include_once('header.php');
                                     <!-- nk-block -->
                                 </div><!-- .components-preview -->
                                 <div>
-                                 <div class="float-right p-4 bg-light w-100 col-form-label font-weight-bold mb-3 ml-0"><p>Advice
+                                 <div class="float-right p-1 bg-light w-100 col-form-label font-weight-bold mb-3 ml-0"><p>Advice
                                                         Status - <span class="text-info">Provider Response
                                                             Required</span></p></div>
-                                                    
                                                  <center>   <form id="reply" enctype="multipart/form-data">
                                                         <div class="row bg-light p-1 ml-0 mr-0">
                                                             <div class="col-6">
                                                                 <label class="col-form-label" for="">Add
                                                                     Attachement</label>
-                                                                <span><input class="form-control" type="file"
+                                                                <span><input style="border-radius: 20px;" class="form-control" type="file"
                                                                         name="attachment"></span>
                                                             </div>
                                                             <div class="col-6">
@@ -248,11 +252,11 @@ include_once('header.php');
                                                                     Link</label>
                                                                 <input class="form-control" type="text" name="rid"
                                                                     hidden="true" value="<?=$refid?>">
-                                                                <span><input class="form-control" type="text"
+                                                                <span><input style="border-radius: 20px;" class="form-control" type="text"
                                                                         name="weblink"></span>
                                                             </div>
                                                             <div class="col-12 mt-1">
-                                                                <textarea
+                                                                <textarea style="border-radius: 20px;"
                                                                     placeholder="Enter advice response detail here"
                                                                     class="form-control" name="cmntad" id="" cols="30"
                                                                     rows="3" required></textarea>

@@ -697,6 +697,22 @@ $("#myTable").DataTable({
 ';
 	}
 }
+
+//for comment status
+if(isset($_POST['updatestatus']))
+{
+    $rfno = $_POST['rfno'];
+    $query = mysqli_query($con,"UPDATE `tbl_refferelattachment` SET `status`= 'seen' WHERE ra_refferelid = '$rfno' and reply = '0'");
+    if($query)
+    {
+        echo "Success";
+    }
+    else
+    {
+        echo"error";
+    }
+}
+
 if(isset($_POST['consultantdata']))
 {
 	$id = $_POST['rid'];
@@ -712,21 +728,6 @@ if(isset($_POST['consultantdata']))
 	{
 		echo "Error";
 	}
-}
-
-//for comment status
-if(isset($_POST['updatestatus']))
-{
-    $rfno = $_POST['rfno'];
-    $query = mysqli_query($con,"UPDATE `tbl_refferelattachment` SET `status`= 'seen' WHERE ra_refferelid = '$rfno' and reply = '0'");
-    if($query)
-    {
-        echo "Success";
-    }
-    else
-    {
-        echo"error";
-    }
 }
 
 // for add cmnt from consultant
@@ -838,15 +839,7 @@ $da = date_format($date,"d-m-Y");
 }
 if(isset($_POST["fekk"])){
     $id=$_POST["cid"];
-    if($_POST["status"] == 0){
-       $q=mysqli_query($con,"UPDATE tbl_consultantrefferels SET c_status='1' where c_id='$id'");
-       if($q){
-           echo "success";
-       }else{
-           echo "error";
-       }
-    }
-     if($_POST["status"] == 2){
+    if($_POST["status"] ==0){
        $q=mysqli_query($con,"UPDATE tbl_consultantrefferels SET c_status='1' where c_id='$id'");
        if($q){
            echo "success";
@@ -856,6 +849,14 @@ if(isset($_POST["fekk"])){
     }
     if($_POST["status"] == 1){
        $q=mysqli_query($con,"UPDATE tbl_consultantrefferels SET c_status='0' where c_id='$id'");
+       if($q){
+           echo "successs";
+       }else{
+           echo "error";
+       }
+    }
+    if($_POST["status"] == 2){
+       $q=mysqli_query($con,"UPDATE tbl_consultantrefferels SET c_status='1' where c_id='$id'");
        if($q){
            echo "successs";
        }else{
