@@ -108,13 +108,13 @@ $mail = new PHPMailer();
   $mail->isSMTP();
   $mail->Host     = 'smtp.gmail.com';
   $mail->SMTPAuth = true;
-  $mail->Username = 'rafaya34@gmail.com';
-  $mail->Password = 'r@f@ym3m0n';
+  $mail->Username = 'deevloopersibrahim@gmail.com';
+  $mail->Password = 'Qureshi18';
   $mail->SMTPSecure = 'tls';
   $mail->Port     = 587;
 
-  $mail->setFrom('rafaya34@gmail.com', 'Full Moon');
-  $mail->addReplyTo('rafaya34@gmail.com', 'Full Moon');
+  $mail->setFrom('deevloopersibrahim@gmail.com', 'Hospital');
+  $mail->addReplyTo('deevloopersibrahim@gmail.com', 'Hospital');
     $mail->Subject = 'NHS CONFIDENTIAL';
 
   // Set email format to HTML

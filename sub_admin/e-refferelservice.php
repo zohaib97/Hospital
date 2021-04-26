@@ -924,7 +924,7 @@ $('#servage').val(serv);
 		dataType: 'JSON',
 		data:{nhs:nhs,patientfetchgeb:"btn"},	            
         success: function(response){ 
-			alert(response['title']);
+		
 				kk(response['title']);
 		}
 	});

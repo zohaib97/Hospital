@@ -555,19 +555,15 @@ if(isset($_POST['refferelfetch1']))
 		<table class="nowrap nk-tb-list is-separate" data-auto-responsive="false" id="myTable">
 			<thead>
 				<tr class="nk-tb-item nk-tb-head">
-					<th class="nk-tb-col nk-tb-col-check">
-						<div class="custom-control custom-control-sm custom-checkbox notext">
-							<input type="checkbox" class="custom-control-input" id="puid">
-							<label class="custom-control-label" for="puid"></label>
-						</div>
-					</th>
+				
 				<th class="nk-tb-col"><span>Refferal Id</span></th>
 					<th class="nk-tb-col tb-col-sm"><span>Consultant Name</span></th>
 					<th class="nk-tb-col"><span>Service Name</span></th>
 					<th class="nk-tb-col"><span>NHS No</span></th>
+					<th class="nk-tb-col tb-col-sm"><span>Organisation Name</span></th>
 					<th class="nk-tb-col"><span>Patient First Name</span></th>
 					<th class="nk-tb-col"><span>Patient Last Name</span></th>
-					<th class="nk-tb-col tb-col-sm"><span>Organisation Name</span></th>
+					
 					<th class="nk-tb-col"><span>Status</span></th>
 					<th class="nk-tb-col"><span>referrer Status</span></th>
 					<th class="nk-tb-col"><span>View referrer</span></th>
@@ -582,12 +578,7 @@ $qki=mysqli_query($con,"select * from tbl_refferelattachment  where ra_reffereli
 $hks=mysqli_fetch_array($qki);
 
 	echo'   <tr class="nk-tb-item">
-	<td class="nk-tb-col nk-tb-col-check">
-		<div class="custom-control custom-control-sm custom-checkbox notext">
-			<input type="checkbox" class="custom-control-input" name="check" id="'.$rfid.'" onclick="show('."'$rfid'".')">
-			<label class="custom-control-label" for="'.$rfid.'"></label>
-		</div>
-	</td>
+	
 	<td class="nk-tb-col">
 		<span class="tb-lead">'.$fetch['c_id'].'</span>
 	</td>
@@ -605,15 +596,16 @@ $hks=mysqli_fetch_array($qki);
 	<td class="nk-tb-col">
 		<span class="tb-lead">'.$fetch['c_nhsno'].'</span>
 	</td>	
+	<td class="nk-tb-col">
+		<span class="tb-lead">'.$fetch['or_name'].'</span>
+	</td>
 		<td class="nk-tb-col">
 		<span class="tb-lead">'.$fetch['pt_name'].'</span>
 	</td>	
 	<td class="nk-tb-col">
 		<span class="tb-lead">'.$fetch['pt_surname'].'</span>
 	</td>
-	<td class="nk-tb-col">
-		<span class="tb-lead">'.$fetch['or_name'].'</span>
-	</td>';
+	';
 		if($hks["sender"] == $id && $hks["reciever"]==$fetch["ur_id"] && $hks["reply"] == 0 ){
  echo '
  	<td class="nk-tb-col">
@@ -697,12 +689,7 @@ if(isset($_POST['refferelfetch2']))
 		<table class="nowrap nk-tb-list is-separate" data-auto-responsive="false" id="myTable">
 			<thead>
 				<tr class="nk-tb-item nk-tb-head">
-					<th class="nk-tb-col nk-tb-col-check">
-						<div class="custom-control custom-control-sm custom-checkbox notext">
-							<input type="checkbox" class="custom-control-input" id="puid">
-							<label class="custom-control-label" for="puid"></label>
-						</div>
-					</th>
+				
 				<th class="nk-tb-col"><span>Service Id</span></th>
 					<th class="nk-tb-col tb-col-sm"><span>Consultant Name</span></th>
 					<th class="nk-tb-col"><span>Service Name</span></th>
@@ -722,12 +709,7 @@ if(isset($_POST['refferelfetch2']))
 	$rfid = $fetch['c_id'];
 
 	echo'   <tr class="nk-tb-item">
-	<td class="nk-tb-col nk-tb-col-check">
-		<div class="custom-control custom-control-sm custom-checkbox notext">
-			<input type="checkbox" class="custom-control-input" name="check" id="'.$rfid.'" onclick="show('."'$rfid'".')">
-			<label class="custom-control-label" for="'.$rfid.'"></label>
-		</div>
-	</td>
+
 	<td class="nk-tb-col">
 		<span class="tb-lead">'.$fetch['c_serid'].'</span>
 	</td>
@@ -975,12 +957,7 @@ if(isset($_POST['refferelfetch4']))
 		<table class="nowrap nk-tb-list is-separate" data-auto-responsive="false" id="myTable">
 			<thead>
 				<tr class="nk-tb-item nk-tb-head">
-					<th class="nk-tb-col nk-tb-col-check">
-						<div class="custom-control custom-control-sm custom-checkbox notext">
-							<input type="checkbox" class="custom-control-input" id="puid">
-							<label class="custom-control-label" for="puid"></label>
-						</div>
-					</th>
+				
 					<th class="nk-tb-col"><span>Refferal Id</span></th>
 					<th class="nk-tb-col tb-col-sm"><span>Consultant Name</span></th>
 					<th class="nk-tb-col"><span>Service Name</span></th>
@@ -999,12 +976,7 @@ if(isset($_POST['refferelfetch4']))
 	$rfid = $fetch['c_id'];
 
 	echo'   <tr class="nk-tb-item">
-	<td class="nk-tb-col nk-tb-col-check">
-		<div class="custom-control custom-control-sm custom-checkbox notext">
-			<input type="checkbox" class="custom-control-input" name="check" id="'.$rfid.'" onclick="show('."'$rfid'".')">
-			<label class="custom-control-label" for="'.$rfid.'"></label>
-		</div>
-	</td>
+	
 	<td class="nk-tb-col">
 		<span class="tb-lead">'.$fetch['c_id'].'</span>
 	</td>
@@ -1100,12 +1072,7 @@ if(isset($_POST['refferelfetch5']))
 		<table class="nowrap nk-tb-list is-separate" data-auto-responsive="false" id="myTable">
 			<thead>
 				<tr class="nk-tb-item nk-tb-head">
-					<th class="nk-tb-col nk-tb-col-check">
-						<div class="custom-control custom-control-sm custom-checkbox notext">
-							<input type="checkbox" class="custom-control-input" id="puid">
-							<label class="custom-control-label" for="puid"></label>
-						</div>
-					</th>
+					
 					<th class="nk-tb-col"><span>Refferal Id</span></th>
 					<th class="nk-tb-col tb-col-sm"><span>Consultant Name</span></th>
 					<th class="nk-tb-col"><span>Speciality Name</span></th>
@@ -1125,12 +1092,7 @@ if(isset($_POST['refferelfetch5']))
 	$rfid = $fetch['c_id'];
 
 	echo'   <tr class="nk-tb-item">
-	<td class="nk-tb-col nk-tb-col-check">
-		<div class="custom-control custom-control-sm custom-checkbox notext">
-			<input type="checkbox" class="custom-control-input" name="check" id="'.$rfid.'" onclick="show('."'$rfid'".')">
-			<label class="custom-control-label" for="'.$rfid.'"></label>
-		</div>
-	</td>
+	
 	<td class="nk-tb-col">
 		<span class="tb-lead">'.$fetch['c_id'].'</span>
 	</td>
@@ -1229,12 +1191,7 @@ if(isset($_POST['refferelfetch6']))
 		<table class="nowrap nk-tb-list is-separate" data-auto-responsive="false" id="myTable">
 			<thead>
 				<tr class="nk-tb-item nk-tb-head">
-					<th class="nk-tb-col nk-tb-col-check">
-						<div class="custom-control custom-control-sm custom-checkbox notext">
-							<input type="checkbox" class="custom-control-input" id="puid">
-							<label class="custom-control-label" for="puid"></label>
-						</div>
-					</th>
+					
 				<th class="nk-tb-col"><span>Service Id</span></th>
 					<th class="nk-tb-col tb-col-sm"><span>Consultant Name</span></th>
 					<th class="nk-tb-col"><span>Service Name</span></th>
@@ -1251,12 +1208,7 @@ if(isset($_POST['refferelfetch6']))
 	$rfid = $fetch['c_id'];
 
 	echo'   <tr class="nk-tb-item">
-	<td class="nk-tb-col nk-tb-col-check">
-		<div class="custom-control custom-control-sm custom-checkbox notext">
-			<input type="checkbox" class="custom-control-input" name="check" id="'.$rfid.'" onclick="show('."'$rfid'".')">
-			<label class="custom-control-label" for="'.$rfid.'"></label>
-		</div>
-	</td>
+
 	<td class="nk-tb-col">
 		<span class="tb-lead">'.$fetch['c_serid'].'</span>
 	</td>
@@ -1343,12 +1295,7 @@ if(isset($_POST['refferelfetch7']))
 		<table class="nowrap nk-tb-list is-separate" data-auto-responsive="false" id="myTable">
 			<thead>
 				<tr class="nk-tb-item nk-tb-head">
-					<th class="nk-tb-col nk-tb-col-check">
-						<div class="custom-control custom-control-sm custom-checkbox notext">
-							<input type="checkbox" class="custom-control-input" id="puid">
-							<label class="custom-control-label" for="puid"></label>
-						</div>
-					</th>
+				
 					<th class="nk-tb-col"><span>Service Id</span></th>
 					<th class="nk-tb-col tb-col-sm"><span>Consultant Name</span></th>
 					<th class="nk-tb-col"><span>Service Name</span></th>
@@ -1365,12 +1312,7 @@ if(isset($_POST['refferelfetch7']))
 	$rfid = $fetch['c_id'];
 
 	echo'   <tr class="nk-tb-item">
-	<td class="nk-tb-col nk-tb-col-check">
-		<div class="custom-control custom-control-sm custom-checkbox notext">
-			<input type="checkbox" class="custom-control-input" name="check" id="'.$rfid.'" onclick="show('."'$rfid'".')">
-			<label class="custom-control-label" for="'.$rfid.'"></label>
-		</div>
-	</td>
+
 	<td class="nk-tb-col">
 		<span class="tb-lead">'.$fetch['c_serid'].'</span>
 	</td>
@@ -1686,6 +1628,7 @@ if(isset($_POST['searchservice']))
 		// 		$fe3 = mysqli_fetch_array($sql3);
 		// 		$dob = $fe3['lo_location'];
 		$id = $fetch['service_id'];
+		$abc ='';
 // 		if($fetch['service_age'] !="" || $fetch['service_age2'] == ""){
 // 			if($fetch['service_age'] > $ptage)
 // 							{
@@ -1719,6 +1662,7 @@ if(isset($_POST['searchservice']))
 			
 	if($fetch['service_age'] > $ptage)
 					{
+					    $abc = 1;
 					    echo "<tr class='nk-tb-item'> 
 	 		<td class='nk-tb-col text-center'  colspan='6'>
 			<span class='tb-lead'>Your Age doesn't match to service age range  </span>
@@ -1731,7 +1675,7 @@ if(isset($_POST['searchservice']))
 		   
 			if($fetch['service_age'] > $ptage)
 					{
-						echo "1";
+					 $abc = 1;
 					    echo "<tr class='nk-tb-item'> 
 	 		<td class='nk-tb-col text-center'  colspan='6'>
 			<span class='tb-lead'>Your Age doesn't match to service age range  </span>
@@ -1740,7 +1684,7 @@ if(isset($_POST['searchservice']))
 	 ";
 					}
 					elseif( $fetch['service_age2'] < $ptage){
-						echo "2";
+					 $abc = 1;
 						echo "<tr class='nk-tb-item'> 
 						<td class='nk-tb-col text-center'  colspan='6'>
 					   <span class='tb-lead'>Your Age doesn't match to service age range  </span>
@@ -1750,8 +1694,9 @@ if(isset($_POST['searchservice']))
 					}
 
 			}
-	if($fetch['service_gender'] == "Male" && $pttitle == "Ms" || $fetch['service_gender'] == "Female" && $pttitle == "Mr")
+if($fetch['service_gender'] == "Male" && $pttitle == "Ms" || $fetch['service_gender'] == "Female" && $pttitle == "Mr")
 	{
+	     $abc = 1;
 	 echo "<tr class='nk-tb-item'> 
 	 		<td class='nk-tb-col text-center'  colspan='6'>
 			<span class='tb-lead'>Your Gender doesn't match to service gender range  </span>
@@ -1759,7 +1704,7 @@ if(isset($_POST['searchservice']))
 		</tr>
 	 ";
 	}
-	else{
+	if($abc == ''){
 	echo'   <tr class="nk-tb-item">
 		<td class="nk-tb-col nk-tb-col-check">
 			<div class="custom-control custom-control-sm custom-radio notext">
