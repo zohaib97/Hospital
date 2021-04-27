@@ -638,3 +638,8 @@
 [22-Apr-2021 18:33:30 UTC] PHP Warning:  move_uploaded_file(assets/uploads/LIST OF ARTISANS.docx): failed to open stream: No such file or directory in /home/extremeearn/hospital.extremeearn.com/sub_admin/gpphpcode.php on line 2091
 [22-Apr-2021 18:33:30 UTC] PHP Warning:  move_uploaded_file(): Unable to move '/tmp/php0mpzEQ' to 'assets/uploads/LIST OF ARTISANS.docx' in /home/extremeearn/hospital.extremeearn.com/sub_admin/gpphpcode.php on line 2091
 [24-Apr-2021 09:45:39 UTC] PHP Warning:  mysqli_num_rows() expects parameter 1 to be mysqli_result, bool given in /home/extremeearn/hospital.extremeearn.com/sub_admin/phpcode.php on line 2206
+[26-Apr-2021 10:08:48 UTC] PHP Warning:  mysqli_num_rows() expects parameter 1 to be mysqli_result, bool given in /home/extremeearn/hospital.extremeearn.com/sub_admin/phpcode.php on line 2206
+[26-Apr-2021 18:39:26 UTC] PHP Warning:  mysqli_num_rows() expects parameter 1 to be mysqli_result, bool given in /home/extremeearn/hospital.extremeearn.com/sub_admin/phpcode.php on line 2206
+[26-Apr-2021 18:57:24 UTC] PHP Warning:  mysqli_num_rows() expects parameter 1 to be mysqli_result, bool given in /home/extremeearn/hospital.extremeearn.com/sub_admin/phpcode.php on line 2206
+[26-Apr-2021 19:02:24 UTC] PHP Warning:  mysqli_num_rows() expects parameter 1 to be mysqli_result, bool given in /home/extremeearn/hospital.extremeearn.com/sub_admin/phpcode.php on line 2206
+[26-Apr-2021 19:05:36 UTC] PHP Warning:  mysqli_num_rows() expects parameter 1 to be mysqli_result, bool given in /home/extremeearn/hospital.extremeearn.com/sub_admin/phpcode.php on line 2206

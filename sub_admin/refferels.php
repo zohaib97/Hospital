@@ -61,27 +61,29 @@ include_once('../database/db.php');
 													elseif($rtype == "Advice request" && $status == 2)
 													{
 													?>
-													<option value="Advice Sent">Advice Sent</option>
+													<option value="Advice Sent" selected>Advice Sent</option>
 													<?php
 													}
 													elseif($rtype == "Appointment Request" && $status == 2)
 													{
 													?>
-														<option value="Referrer Sent">Referrer Sent</option>
+														<option value="Referrer Sent" selected>Referrer Sent</option>
 													<?php
 													}
 													elseif($rtype == "Advice request" && $status == 0)
 													{
 													?>
-														<option value="Advice Rejected">Advice Rejected</option>
+														<option value="Advice Rejected" selected>Advice Rejected</option>
 														<?php
 													}
 													elseif($rtype == "Appointment Request" && $status == 0)
 													{
 														?>
-														<option value="Referrer  Rejected">Referrer  Rejected</option>
+														<option value="Referrer  Rejected" selected>Referrer  Rejected</option>
 														<?php
 														}
+														else
+														{
 														?>
 														<option value="Advice Sent">Advice Sent</option>
 														<option value="Advice Accepted">Advice Accepted</option>
@@ -89,7 +91,9 @@ include_once('../database/db.php');
 															<option value="Referrer Sent">Referrer Sent</option>
 														<option value="Referrer Accepted">Referrer Accepted</option>
 														<option value="Referrer  Rejected">Referrer  Rejected</option>
-													
+													<?php
+														}
+													?>
 													</select>
 												</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 												<button id="btnshow" style="display: none;" class="btn btn-sm btn-info mt-1 float-right" onClick="workbltdata()">Load Result</button>
@@ -418,6 +422,7 @@ include_once('../database/db.php');
 		data:{refferelfetch1:"btn"},	            
         success: function(response){                    
             $("#rdata").html(response); 
+            console.log(response);
             //alert(response);
         }
 

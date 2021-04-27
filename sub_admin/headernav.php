@@ -44,7 +44,7 @@ $fetchsa=mysqli_fetch_array($qiu);
 // 		echo $senderid;
 						$ks=mysqli_query($con,"SELECT * FROM `orginzation` where orid ='$orid'");
 						$klo=mysqli_fetch_array($ks);
-									$qqqq = mysqli_query($con,"SELECT count(*) as a FROM tbl_consultantrefferels,tbl_refferelattachment WHERE tbl_refferelattachment.ra_refferelid=tbl_consultantrefferels.c_id and tbl_consultantrefferels.c_gpid = '$senderid' and reply='1' and status = 'unseen' ");
+									$qqqq = mysqli_query($con,"SELECT count(*) as a FROM tbl_consultantrefferels,tbl_refferelattachment WHERE tbl_refferelattachment.ra_refferelid=tbl_consultantrefferels.c_id and tbl_consultantrefferels.c_gpid = '$senderid' and reply='1' and status = 'unseen'");
 									if(mysqli_num_rows($qqqq) > 0)
 									{
 									$fds=mysqli_fetch_array($qqqq);
