@@ -68,7 +68,7 @@ include_once('header.php');
 								elseif($ortype == "GP Practice")
 								{
                                     ?>
-                                     <option value="GP_Refferer">GP Refferer</option>
+                                     <option value="GP_Refferer">Dentist</option>
                                      <?php
 								}
 								elseif($ortype == "Opticians")
@@ -80,7 +80,7 @@ include_once('header.php');
 								elseif($ortype == "Dental Practice" || $ortype == "Community Hospital")
 								{
                                       ?>
-                                      <option value="GP_Refferer">GP Refferer</option>
+                                      <option value="GP_Refferer">Dentist</option>
                                       <?php
                                       }
                                       ?>

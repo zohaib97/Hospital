@@ -93,6 +93,12 @@ include_once('../database/db.php');
 										<span class="nk-menu-text">Service Refferels</span>
 									</a>
 								</li>
+                                <li class="nk-menu-item">
+									<a href="createroom.php" class="nk-menu-link">
+										<span class="nk-menu-icon"><em class="icon ni ni-swap"></em></span>
+										<span class="nk-menu-text">Create Room</span>
+									</a>
+								</li>
                                 <?php
                            }
                            elseif($ortype == "GP Practice" || $ortype == "Opticians" || $ortype == "Dental Practice" || $ortype == "Community Hospital")

@@ -432,7 +432,15 @@ $("#locupdate").on('submit', function(e) {
                 NioApp.Toast("<h5>Location didn't update Successfully</h5>", 'error', {
                     position: 'top-right'
                 });
-            } else if (data == 'Success') {
+            }
+            else if (data == 'alreadysite') {
+                toastr.clear();
+                NioApp.Toast("<h5>Site code already exist</h5>", 'error', {
+                    position: 'top-right'
+                });
+            }
+            
+             else if (data == 'Success') {
                 $('#locupdate')[0].reset();
                 toastr.clear();
                 NioApp.Toast("<h5>Location Updated Successfully</h5>", 'success', {

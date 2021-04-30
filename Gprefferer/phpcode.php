@@ -236,11 +236,15 @@ if(isset($_POST['refferelfetch']))
 	$id = $f['ur_id'];
 	
 		$q1 = mysqli_query($con, "SELECT * FROM `tbl_consultantrefferels` WHERE c_gpid = '$id' and request_type = 'Appointment Request' ");
+		if(mysqli_num_rows($q1) > 0)
+	{
 		$f1 = mysqli_fetch_array($q1);
 		$refferid = $f1['c_id'];
+	}
+	$refferid ='';
 // 	$kk=mysqli_query($con,"SELECT * FROM `tbl_refferelattachment` where ra_refferelid='$refferid'");
 // 	if(mysqli_num_rows($kk) < 0){
-	$query = mysqli_query($con,"SELECT * FROM `tbl_consultantrefferels`JOIN tbl_ruser ON tbl_ruser.ur_id = tbl_consultantrefferels.c_userid JOIN services ON services.service_id = tbl_consultantrefferels.c_serid JOIN service_name ON service_name.s_id = services.service_name JOIN service_cliniciant ON services.ser_cl_type= service_cliniciant.cl_id JOIN ser_specialty_add ON services.service_speciality = ser_specialty_add.spec_id JOIN orginzation ON orginzation.orid = tbl_consultantrefferels.c_orgid JOIN tbl_patients ON tbl_patients.pt_id = tbl_consultantrefferels.c_rfid where c_gpid = '$id' and request_type = 'Appointment Request' and c_status= '2'");
+	$query = mysqli_query($con,"SELECT * FROM `tbl_consultantrefferels`JOIN tbl_ruser ON tbl_ruser.ur_id = tbl_consultantrefferels.c_userid JOIN services ON services.service_id = tbl_consultantrefferels.c_serid JOIN service_name ON service_name.s_id = services.service_name JOIN service_cliniciant ON services.ser_cl_type= service_cliniciant.cl_id JOIN ser_specialty_add ON services.service_speciality = ser_specialty_add.spec_id JOIN orginzation ON orginzation.orid = tbl_consultantrefferels.c_orgid JOIN tbl_patients ON tbl_patients.pt_id = tbl_consultantrefferels.c_rfid where c_gpid = '$id' and request_type = 'Appointment Request' and c_status= '2' GROUP BY c_id");
 
 	// $query = mysqli_query($con,"SELECT * FROM `tbl_consultantrefferels`,orginzation,tbl_patients where orginzation.orid=tbl_consultantrefferels.c_orgid and tbl_patients.pt_nhsno=tbl_consultantrefferels.c_nhsno and c_gpid = '$id'");
 	if($query)
@@ -540,10 +544,13 @@ if(isset($_POST['refferelfetch1']))
 	$f = mysqli_fetch_array($q);
 	$id = $f['ur_id'];
 	$q1 = mysqli_query($con, "SELECT * FROM `tbl_consultantrefferels` WHERE c_gpid = '$id'");
+	if(mysqli_num_rows($q1) > 0)
+	{
 		$f1 = mysqli_fetch_array($q1);
 		$refferid = $f1['c_id'];
-	
-	$query = mysqli_query($con,"SELECT * FROM `tbl_consultantrefferels`JOIN tbl_ruser ON tbl_ruser.ur_id = tbl_consultantrefferels.c_userid JOIN services ON services.service_id = tbl_consultantrefferels.c_serid JOIN service_name ON service_name.s_id = services.service_name JOIN orginzation ON orginzation.orid = tbl_consultantrefferels.c_orgid join tbl_refferelattachment on tbl_consultantrefferels.c_id = tbl_refferelattachment.ra_refferelid JOIN tbl_patients ON tbl_patients.pt_id = tbl_consultantrefferels.c_rfid JOIN ser_specialty_add ON services.service_speciality = ser_specialty_add.spec_id where c_gpid = '$id' and tbl_refferelattachment.ra_refferelid = '$refferid' and c_status= 1 and request_type = 'Appointment Request' GROUP BY c_serid");
+	}
+	$refferid ='';
+	$query = mysqli_query($con,"SELECT * FROM `tbl_consultantrefferels`JOIN tbl_ruser ON tbl_ruser.ur_id = tbl_consultantrefferels.c_userid JOIN services ON services.service_id = tbl_consultantrefferels.c_serid JOIN service_name ON service_name.s_id = services.service_name JOIN orginzation ON orginzation.orid = tbl_consultantrefferels.c_orgid join tbl_refferelattachment on tbl_consultantrefferels.c_id = tbl_refferelattachment.ra_refferelid JOIN tbl_patients ON tbl_patients.pt_id = tbl_consultantrefferels.c_rfid JOIN ser_specialty_add ON services.service_speciality = ser_specialty_add.spec_id where c_gpid = '$id' and c_status= 1 and request_type = 'Appointment Request' GROUP BY c_id");
 
 	// $query = mysqli_query($con,"SELECT * FROM `tbl_consultantrefferels`,orginzation,tbl_patients where orginzation.orid=tbl_consultantrefferels.c_orgid and tbl_patients.pt_nhsno=tbl_consultantrefferels.c_nhsno and c_gpid = '$id'");
 	if($query)
@@ -674,10 +681,13 @@ if(isset($_POST['refferelfetch2']))
 	$f = mysqli_fetch_array($q);
 	$id = $f['ur_id'];
 	$q1 = mysqli_query($con, "SELECT * FROM `tbl_consultantrefferels` WHERE c_gpid = '$id'");
+	if(mysqli_num_rows($q1) > 0)
+	{
 		$f1 = mysqli_fetch_array($q1);
 		$refferid = $f1['c_id'];
-	
-	$query = mysqli_query($con,"SELECT * FROM `tbl_consultantrefferels`JOIN tbl_ruser ON tbl_ruser.ur_id = tbl_consultantrefferels.c_userid JOIN services ON services.service_id = tbl_consultantrefferels.c_serid JOIN service_name ON service_name.s_id = services.service_name JOIN orginzation ON orginzation.orid = tbl_consultantrefferels.c_orgid join tbl_refferelattachment on tbl_consultantrefferels.c_id = tbl_refferelattachment.ra_refferelid JOIN tbl_patients ON tbl_patients.pt_id = tbl_consultantrefferels.c_rfid JOIN ser_specialty_add ON services.service_speciality = ser_specialty_add.spec_id where c_gpid = '$id' and tbl_refferelattachment.ra_refferelid = '$refferid' and c_status= 0 and request_type = 'Appointment Request' GROUP BY c_serid");
+	}
+	$refferid ='';
+	$query = mysqli_query($con,"SELECT * FROM `tbl_consultantrefferels`JOIN tbl_ruser ON tbl_ruser.ur_id = tbl_consultantrefferels.c_userid JOIN services ON services.service_id = tbl_consultantrefferels.c_serid JOIN service_name ON service_name.s_id = services.service_name JOIN orginzation ON orginzation.orid = tbl_consultantrefferels.c_orgid join tbl_refferelattachment on tbl_consultantrefferels.c_id = tbl_refferelattachment.ra_refferelid JOIN tbl_patients ON tbl_patients.pt_id = tbl_consultantrefferels.c_rfid JOIN ser_specialty_add ON services.service_speciality = ser_specialty_add.spec_id where c_gpid = '$id' and tbl_refferelattachment.ra_refferelid = '$refferid' and c_status= '0' and request_type = 'Appointment Request' GROUP BY c_id");
 
 	// $query = mysqli_query($con,"SELECT * FROM `tbl_consultantrefferels`,orginzation,tbl_patients where orginzation.orid=tbl_consultantrefferels.c_orgid and tbl_patients.pt_nhsno=tbl_consultantrefferels.c_nhsno and c_gpid = '$id'");
 	if($query)
@@ -784,8 +794,8 @@ if(mysqli_num_rows($q1) > 0)
 		$f1 = mysqli_fetch_array($q1);
 		$refferid = $f1['c_id'];
 	}
-
-	$query = mysqli_query($con,"SELECT * FROM `tbl_consultantrefferels`JOIN tbl_ruser ON tbl_ruser.ur_id = tbl_consultantrefferels.c_userid JOIN services ON services.service_id = tbl_consultantrefferels.c_serid JOIN service_name ON service_name.s_id = services.service_name JOIN service_cliniciant ON services.ser_cl_type= service_cliniciant.cl_id JOIN ser_specialty_add ON services.service_speciality = ser_specialty_add.spec_id JOIN orginzation ON orginzation.orid = tbl_consultantrefferels.c_orgid join tbl_refferelattachment on tbl_consultantrefferels.c_id = tbl_refferelattachment.ra_refferelid JOIN tbl_patients ON tbl_patients.pt_id = tbl_consultantrefferels.c_rfid where c_gpid = '$id' and tbl_refferelattachment.ra_refferelid = '$refferid' and request_type = 'Advice request' and c_status = '2' GROUP BY c_serid and c_userid");
+	$refferid ='';
+	$query = mysqli_query($con,"SELECT * FROM `tbl_consultantrefferels`JOIN tbl_ruser ON tbl_ruser.ur_id = tbl_consultantrefferels.c_userid JOIN services ON services.service_id = tbl_consultantrefferels.c_serid JOIN service_name ON service_name.s_id = services.service_name JOIN service_cliniciant ON services.ser_cl_type= service_cliniciant.cl_id JOIN ser_specialty_add ON services.service_speciality = ser_specialty_add.spec_id JOIN orginzation ON orginzation.orid = tbl_consultantrefferels.c_orgid join tbl_refferelattachment on tbl_consultantrefferels.c_id = tbl_refferelattachment.ra_refferelid JOIN tbl_patients ON tbl_patients.pt_id = tbl_consultantrefferels.c_rfid where c_gpid = '$id' and tbl_refferelattachment.ra_refferelid = '$refferid' and request_type = 'Advice request' and c_status = '2' GROUP BY c_serid and c_id");
 
 	// $query = mysqli_query($con,"SELECT * FROM `tbl_consultantrefferels`,orginzation,tbl_patients where orginzation.orid=tbl_consultantrefferels.c_orgid and tbl_patients.pt_nhsno=tbl_consultantrefferels.c_nhsno and c_gpid = '$id'");
 	if($query)
@@ -944,8 +954,8 @@ if(isset($_POST['refferelfetch4']))
 		$f1 = mysqli_fetch_array($q1);
 		$refferid = $f1['c_id'];
 	}
-
-	$query = mysqli_query($con,"SELECT * FROM `tbl_consultantrefferels`JOIN tbl_ruser ON tbl_ruser.ur_id = tbl_consultantrefferels.c_userid JOIN services ON services.service_id = tbl_consultantrefferels.c_serid JOIN service_name ON service_name.s_id = services.service_name JOIN orginzation ON orginzation.orid = tbl_consultantrefferels.c_orgid join tbl_refferelattachment on tbl_consultantrefferels.c_id = tbl_refferelattachment.ra_refferelid JOIN tbl_patients ON tbl_patients.pt_id = tbl_consultantrefferels.c_rfid JOIN ser_specialty_add ON services.service_speciality = ser_specialty_add.spec_id where c_gpid = '$id' and tbl_refferelattachment.ra_refferelid = '$refferid' and request_type != 'Appointment Request' and c_status= 1 GROUP BY c_serid");
+	$refferid ='';
+	$query = mysqli_query($con,"SELECT * FROM `tbl_consultantrefferels`JOIN tbl_ruser ON tbl_ruser.ur_id = tbl_consultantrefferels.c_userid JOIN services ON services.service_id = tbl_consultantrefferels.c_serid JOIN service_name ON service_name.s_id = services.service_name JOIN orginzation ON orginzation.orid = tbl_consultantrefferels.c_orgid join tbl_refferelattachment on tbl_consultantrefferels.c_id = tbl_refferelattachment.ra_refferelid JOIN tbl_patients ON tbl_patients.pt_id = tbl_consultantrefferels.c_rfid JOIN ser_specialty_add ON services.service_speciality = ser_specialty_add.spec_id where c_gpid = '$id' and tbl_refferelattachment.ra_refferelid = '$refferid' and request_type != 'Appointment Request' and c_status= 1 GROUP BY c_id");
 
 	// $query = mysqli_query($con,"SELECT * FROM `tbl_consultantrefferels`,orginzation,tbl_patients where orginzation.orid=tbl_consultantrefferels.c_orgid and tbl_patients.pt_nhsno=tbl_consultantrefferels.c_nhsno and c_gpid = '$id'");
 	if($query)
@@ -1059,7 +1069,7 @@ if(isset($_POST['refferelfetch5']))
 		$f1 = mysqli_fetch_array($q1);
 		$refferid = $f1['c_id'];
 	}
-	
+	$refferid ='';
 	$query = mysqli_query($con,"SELECT * FROM `tbl_consultantrefferels`JOIN tbl_ruser ON tbl_ruser.ur_id = tbl_consultantrefferels.c_userid JOIN services ON services.service_id = tbl_consultantrefferels.c_serid JOIN service_name ON service_name.s_id = services.service_name JOIN orginzation ON orginzation.orid = tbl_consultantrefferels.c_orgid join tbl_refferelattachment on tbl_consultantrefferels.c_id = tbl_refferelattachment.ra_refferelid JOIN ser_specialty_add ON services.service_speciality = ser_specialty_add.spec_id JOIN tbl_patients ON tbl_patients.pt_id = tbl_consultantrefferels.c_rfid where c_gpid = '$id' and tbl_refferelattachment.ra_refferelid = '$refferid' and request_type != 'Appointment Request' and c_status= 0 GROUP BY c_serid ");
 
 	// $query = mysqli_query($con,"SELECT * FROM `tbl_consultantrefferels`,orginzation,tbl_patients where orginzation.orid=tbl_consultantrefferels.c_orgid and tbl_patients.pt_nhsno=tbl_consultantrefferels.c_nhsno and c_gpid = '$id'");
@@ -1174,12 +1184,12 @@ if(isset($_POST['refferelfetch6']))
 		$f1 = mysqli_fetch_array($q1);
 		$refferid = $f1['c_id'];
 	}
-	else
-	{
-	$refferid = '';
+	
+	$refferid ='';
+	
 		
 	
-	$query = mysqli_query($con,"SELECT * FROM `tbl_consultantrefferels`JOIN tbl_ruser ON tbl_ruser.ur_id = tbl_consultantrefferels.c_userid JOIN services ON services.service_id = tbl_consultantrefferels.c_serid JOIN service_name ON service_name.s_id = services.service_name JOIN orginzation ON orginzation.orid = tbl_consultantrefferels.c_orgid join tbl_refferelattachment on tbl_consultantrefferels.c_id = tbl_refferelattachment.ra_refferelid where c_gpid = '$id' and tbl_refferelattachment.ra_refferelid = '$refferid' and tbl_refferelattachment.reply='1' and request_type != 'Appointment Request'");
+	$query = mysqli_query($con,"SELECT * FROM `tbl_consultantrefferels`JOIN tbl_ruser ON tbl_ruser.ur_id = tbl_consultantrefferels.c_userid JOIN services ON services.service_id = tbl_consultantrefferels.c_serid JOIN service_name ON service_name.s_id = services.service_name JOIN service_cliniciant ON services.ser_cl_type= service_cliniciant.cl_id JOIN ser_specialty_add ON services.service_speciality = ser_specialty_add.spec_id JOIN orginzation ON orginzation.orid = tbl_consultantrefferels.c_orgid join tbl_refferelattachment on tbl_consultantrefferels.c_id = tbl_refferelattachment.ra_refferelid JOIN tbl_patients ON tbl_patients.pt_id = tbl_consultantrefferels.c_rfid where c_gpid = '$id' and tbl_refferelattachment.ra_refferelid = '$refferid' and c_status = '3' GROUP BY c_serid and c_id");
 
 	// $query = mysqli_query($con,"SELECT * FROM `tbl_consultantrefferels`,orginzation,tbl_patients where orginzation.orid=tbl_consultantrefferels.c_orgid and tbl_patients.pt_nhsno=tbl_consultantrefferels.c_nhsno and c_gpid = '$id'");
 	if($query)
@@ -1192,11 +1202,15 @@ if(isset($_POST['refferelfetch6']))
 			<thead>
 				<tr class="nk-tb-item nk-tb-head">
 					
-				<th class="nk-tb-col"><span>Service Id</span></th>
+				<th class="nk-tb-col"><span>Refferal Id</span></th>
 					<th class="nk-tb-col tb-col-sm"><span>Consultant Name</span></th>
 					<th class="nk-tb-col"><span>Service Name</span></th>
-					<th class="nk-tb-col"><span>NHS Number</span></th>
+					<th class="nk-tb-col"><span>Speciality</span></th>
+					<th class="nk-tb-col"><span>NHS No</span></th>
 					<th class="nk-tb-col tb-col-sm"><span>Organisation Name</span></th>
+					<th class="nk-tb-col"><span>Patient First Name</span></th>
+					<th class="nk-tb-col"><span>Patient Last Name</span></th>
+					
 					<th class="nk-tb-col"><span>Status</span></th>
 					
 					
@@ -1208,9 +1222,9 @@ if(isset($_POST['refferelfetch6']))
 	$rfid = $fetch['c_id'];
 
 	echo'   <tr class="nk-tb-item">
-
+	
 	<td class="nk-tb-col">
-		<span class="tb-lead">'.$fetch['c_serid'].'</span>
+		<span class="tb-lead">'.$fetch['c_id'].'</span>
 	</td>
 	<td class="nk-tb-col tb-col-sm">
 		<span class="tb-product">
@@ -1221,14 +1235,26 @@ if(isset($_POST['refferelfetch6']))
 	<td class="nk-tb-col">
 		<span class="tb-lead">'.$fetch['s_name'].'</span>
 	</td>
-	
+	<td class="nk-tb-col tb-col-sm">
+		<span class="tb-product">
+			
+			<span class="title">'.$fetch['spec_name'].'</span>
+		</span>
+	</td>
 	
 	<td class="nk-tb-col">
 		<span class="tb-lead">'.$fetch['c_nhsno'].'</span>
-	</td>	
+	</td>
 	<td class="nk-tb-col">
 		<span class="tb-lead">'.$fetch['or_name'].'</span>
-	</td>';
+	</td>
+	<td class="nk-tb-col">
+		<span class="tb-lead">'.$fetch['pt_name'].'</span>
+	</td>	
+	<td class="nk-tb-col">
+		<span class="tb-lead">'.$fetch['pt_surname'].'</span>
+	</td>
+	';
 		if($fetch["c_status"] == 1 ){
  echo '
 	<td class="nk-tb-col">
@@ -1246,6 +1272,24 @@ if(isset($_POST['refferelfetch6']))
 
 	';   
 	}
+	if($fetch["c_status"] == 2 ){
+		echo '
+		<td class="nk-tb-col">
+	
+		<span class="badge badge-danger">Un-Accepted</span>
+		</td>
+	
+		';   
+		}
+	if($fetch["c_status"] == 3 ){
+		echo '
+		<td class="nk-tb-col">
+	
+		<span class="badge badge-danger">Draft</span>
+		</td>
+	
+		';   
+		}
 		
 											
 			}
@@ -1260,7 +1304,7 @@ if(isset($_POST['refferelfetch6']))
 	</script>
 	';
 		}
-	}
+	
 }
 
 
@@ -1628,8 +1672,8 @@ if(isset($_POST['searchservice']))
 		// 		$fe3 = mysqli_fetch_array($sql3);
 		// 		$dob = $fe3['lo_location'];
 		$id = $fetch['service_id'];
-	$abc = '';
-// 		if($fetch['service_age'] !="" && $fetch['service_age2'] == ""){
+		$abc ='';
+// 		if($fetch['service_age'] !="" || $fetch['service_age2'] == ""){
 // 			if($fetch['service_age'] > $ptage)
 // 							{
 // 							    echo "<tr class='nk-tb-item'> 
@@ -1640,22 +1684,13 @@ if(isset($_POST['searchservice']))
 // 			 ";
 // 							}
 // 				}
-// 		elseif($fetch1['service_age'] > $ptage)
+// 		elseif($fetch1['service_age'] > $ptage || $fetch1['service_age2'] < $ptage)
 // 	{
 // 		echo "<tr class='nk-tb-item'> 
 // 		<td class='nk-tb-col text-center'  colspan='6'>
 // 	   <span class='tb-lead'>Your Age doesn't match to service age range  </span>
-//     </td>
-//     </tr>
-// ";
-// 	}
-// 	elseif($fetch1['service_age2'] < $ptage)
-// 	{
-// 	    echo "<tr class='nk-tb-item'> 
-// 		<td class='nk-tb-col text-center'  colspan='6'>
-// 	   <span class='tb-lead'>Your Age doesn't match to service age range  </span>
-//     </td>
-//     </tr>
+//    </td>
+//    </tr>
 // ";
 // 	}
 // 	elseif($fetch1['service_gender'] == "Male" && $pttitle == "Ms" || $fetch1['service_gender'] == "Female" && $pttitle == "Mr")
@@ -1663,8 +1698,8 @@ if(isset($_POST['searchservice']))
 // 		echo "<tr class='nk-tb-item'> 
 // 		<td class='nk-tb-col text-center'  colspan='6'>
 // 	   <span class='tb-lead'>Your Gender doesn't match to service gender range  </span>
-//     </td>
-//     </tr>
+//    </td>
+//    </tr>
 // ";
 // 	}
 		if($fetch['service_age'] !="" && $fetch['service_age2'] == ""){
@@ -1672,46 +1707,48 @@ if(isset($_POST['searchservice']))
 	if($fetch['service_age'] > $ptage)
 					{
 					    $abc = 1;
-					    echo "<tr class='nk-tb-item'> 
-	 		<td class='nk-tb-col text-center'  colspan='6'>
-			<span class='tb-lead'>Your Age doesn't match to service age range  </span>
-		</td>
-		</tr>
-	 ";
+	// 				    echo "<tr class='nk-tb-item'> 
+	//  		<td class='nk-tb-col text-center'  colspan='6'>
+	// 		<span class='tb-lead'>Your Age doesn't match to service age range  </span>
+	// 	</td>
+	// 	</tr>
+	//  ";
 					}
 		}
 		if($fetch['service_age'] !="" && $fetch['service_age2'] !=""){
 		   
 			if($fetch['service_age'] > $ptage)
 					{
-					$abc = 1;
-					    echo "<tr class='nk-tb-item'> 
-	 		<td class='nk-tb-col text-center'  colspan='6'>
-			<span class='tb-lead'>Your Age doesn't match to service age range  </span>
-		</td>
-		</tr>
-	 ";
+					 $abc = 1;
+					 
+	// 				    echo "<tr class='nk-tb-item'> 
+	//  		<td class='nk-tb-col text-center'  colspan='6'>
+	// 		<span class='tb-lead'>Your Age doesn't match to service age range  </span>
+	// 	</td>
+	// 	</tr>
+	//  ";
 					}
 					elseif( $fetch['service_age2'] < $ptage){
-					$abc = 1;
-						echo "<tr class='nk-tb-item'> 
-						<td class='nk-tb-col text-center'  colspan='6'>
-					   <span class='tb-lead'>Your Age doesn't match to service age range  </span>
-				   </td>
-				   </tr>
-				";
+					 $abc = 1;
+					 
+				// 		echo "<tr class='nk-tb-item'> 
+				// 		<td class='nk-tb-col text-center'  colspan='6'>
+				// 	   <span class='tb-lead'>Your Age doesn't match to service age range  </span>
+				//    </td>
+				//    </tr>
+				// ";
 					}
 
 			}
-	if($fetch['service_gender'] == "Male" && $pttitle == "Ms" || $fetch['service_gender'] == "Female" && $pttitle == "Mr")
+if($fetch['service_gender'] == "Male" && $pttitle == "Ms" || $fetch['service_gender'] == "Female" && $pttitle == "Mr")
 	{
-	    $abc = 1;
-	 echo "<tr class='nk-tb-item'> 
-	 		<td class='nk-tb-col text-center'  colspan='6'>
-			<span class='tb-lead'>Your Gender doesn't match to service gender range  </span>
-		</td>
-		</tr>
-	 ";
+	     $abc = 1;
+	//  echo "<tr class='nk-tb-item'> 
+	//  		<td class='nk-tb-col text-center'  colspan='6'>
+	// 		<span class='tb-lead'>Your Gender doesn't match to service gender range  </span>
+	// 	</td>
+	// 	</tr>
+	//  ";
 	}
 	if($abc == ''){
 	echo'   <tr class="nk-tb-item">
@@ -1938,7 +1975,7 @@ if(isset($_POST['addservicerefferel']))
 	    {
 	        $ubrn = rand(9999999999,100000000);
 	    }
-	$q = mysqli_query($con,"INSERT INTO `tbl_consultantrefferels`(`c_UBRN`,`c_userid`, `c_rfid`, `c_serid`,`c_gpid`,`c_nhsno`,`c_orgid`,`c_status`,`request_type`) VALUES('$ubrn','$consultantid','$check','$checkw','$id','$nhs','$orgid','2','$reqtype')");
+	$q = mysqli_query($con,"INSERT INTO `tbl_consultantrefferels`(`c_UBRN`,`c_userid`, `c_rfid`, `c_serid`,`c_gpid`,`c_nhsno`,`c_orgid`,`c_status`,`request_type`) VALUES('$ubrn','$consultantid','$check','$checkw','$id','$nhs','$orgid','3','$reqtype')");
 	
 	if($q)
 {
@@ -2096,6 +2133,8 @@ if(isset($_POST['cmntdatabtn']))
 	$q = mysqli_query($con,"INSERT INTO `tbl_refferelattachment`".$r."");
 	if($q)
 	{
+		$sql = mysqli_query($con,"UPDATE `tbl_consultantrefferels` SET `c_status`= '2' WHERE c_id = '$id'");
+		
 	unset($_SESSION['refferellastid']);
 		echo "Success";
 	}

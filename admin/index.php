@@ -112,7 +112,8 @@ if($qe)
             ?>
                                 <div class="nk-block">
                                     <div class="row g-gs">
-                                        <div class="col-xxl-3 col-sm-6">
+                                    <a href="organizationlist.php" class="col-xxl-3 col-sm-6">
+                                     
                                             <div class="card">
                                                 <div class="nk-ecwg nk-ecwg6">
                                                     <div class="card-inner">
@@ -125,14 +126,14 @@ if($qe)
                                                             <div class="data-group">
                                                                 <div class="amount"><?php echo $hos['number']?></div>
                                                                 <div class="nk-ecwg6-ck">
-                                                                    <canvas class="ecommerce-line-chart-s3" id="todayOrders"></canvas>
+                                                                    <!-- <canvas class="ecommerce-line-chart-s3" id="todayOrders"></canvas> -->
                                                                 </div>
                                                             </div>
                                                         </div>
                                                     </div><!-- .card-inner -->
                                                 </div><!-- .nk-ecwg -->
                                             </div><!-- .card -->
-                                        </div><!-- .col -->
+                                        </a><!-- .col -->
                                         <?php           
                  $qe = mysqli_query($con, "SELECT COUNT(m_id) AS num FROM services");
 
@@ -141,8 +142,8 @@ if($qe)
               $ser = mysqli_fetch_assoc($qe);
                  }
             ?>
-                                
-                                        <div class="col-xxl-3 col-sm-6">
+                                <a href="services.php" class="col-xxl-3 col-sm-6">
+                                    
                                             <div class="card">
                                                 <div class="nk-ecwg nk-ecwg6">
                                                     <div class="card-inner">
@@ -154,16 +155,17 @@ if($qe)
                                                         <div class="data">
                                                             <div class="data-group">
                                                                 <div class="amount"><?php  echo $ser['num']?></div>
-                                                                <div class="nk-ecwg6-ck">
+                                                                <!-- <div class="nk-ecwg6-ck">
                                                                     <canvas class="ecommerce-line-chart-s3" id="todayRevenue"></canvas>
-                                                                </div>
+                                                                </div> -->
                                                             </div>
-                                                            <div class="info"><span class="change down text-danger"><em class="icon ni ni-arrow-long-down"></em>2.34%</span><span> vs. last week</span></div>
+                                                            <!-- <div class="info"><span class="change down text-danger"><em class="icon ni ni-arrow-long-down"></em>2.34%</span><span> vs. last week</span></div> -->
                                                         </div>
                                                     </div><!-- .card-inner -->
                                                 </div><!-- .nk-ecwg -->
                                             </div><!-- .card -->
-                                        </div><!-- .col -->
+                                   
+                                </a>
                                         <?php
                                         $qe = mysqli_query($con, "SELECT COUNT(ur_id) AS number FROM tbl_ruser WHERE ur_role_id = '5' ");
                                         if($qe)
@@ -171,7 +173,8 @@ if($qe)
                                         $usr = mysqli_fetch_assoc($qe);
 }
                                          ?>
-                                       <div class="col-xxl-3 col-sm-6">
+                                         <a href="organisationroles.php?role=GP_Refferer" class="col-xxl-3 col-sm-6 mt-2">
+                                   
                                             <div class="card">
                                                 <div class="nk-ecwg nk-ecwg6">
                                                     <div class="card-inner">
@@ -183,16 +186,14 @@ if($qe)
                                                         <div class="data">
                                                             <div class="data-group">
                                                                 <div class="amount"><?php echo $usr['number']?></div>
-                                                                <div class="nk-ecwg6-ck">
-                                                                    <canvas class="ecommerce-line-chart-s3" id="todayCustomers"></canvas>
-                                                                </div>
+                                                               
                                                             </div>
-                                                            <div class="info"><span class="change up text-danger"><em class="icon ni ni-arrow-long-up"></em>4.63%</span><span> vs. last week</span></div>
+                                                          
                                                         </div>
                                                     </div><!-- .card-inner -->
                                                 </div><!-- .nk-ecwg -->
                                             </div><!-- .card -->
-                                        </div><!-- .col -->
+                                        </a><!-- .col -->
                                         <?php
                                         $qe = mysqli_query($con, "SELECT COUNT(ur_id) AS number FROM tbl_ruser Where ur_role_id = '1'");
                                         if($qe)
@@ -200,7 +201,7 @@ if($qe)
                                         $usr = mysqli_fetch_assoc($qe);
 }
                                          ?>
-                                        <div class="col-xxl-3 col-sm-6">
+                                        <a href="organisationroles.php?role=Dentist" class="col-xxl-3 col-sm-6 mt-2">
                                             <div class="card">
                                                 <div class="nk-ecwg nk-ecwg6">
                                                     <div class="card-inner">
@@ -212,21 +213,19 @@ if($qe)
                                                         <div class="data">
                                                             <div class="data-group">
                                                                 <div class="amount"><?php echo $usr['number']?></div>
-                                                                <div class="nk-ecwg6-ck">
-                                                                    <canvas class="ecommerce-line-chart-s3" id="todayCustomers"></canvas>
-                                                                </div>
+                                                              
                                                             </div>
-                                                            <div class="info"><span class="change up text-danger"><em class="icon ni ni-arrow-long-up"></em>4.63%</span><span> vs. last week</span></div>
+                                                          
                                                         </div>
                                                     </div><!-- .card-inner -->
                                                 </div><!-- .nk-ecwg -->
                                             </div><!-- .card -->
-                                        </div>
+                                        </a>
                                         <?php
                                         $qe = mysqli_query($con, "SELECT COUNT(ur_id) AS number FROM tbl_ruser Where ur_role_id = '3'");
                                         $usr = mysqli_fetch_assoc($qe);
                                          ?>
-                                        <div class="col-xxl-3 col-sm-6">
+                                        <a href="organisationroles.php?role=consultant" class="col-xxl-3 col-sm-6 mt-2">
                                             <div class="card">
                                                 <div class="nk-ecwg nk-ecwg6">
                                                     <div class="card-inner">
@@ -238,16 +237,63 @@ if($qe)
                                                         <div class="data">
                                                             <div class="data-group">
                                                                 <div class="amount"><?php echo $usr['number']?></div>
-                                                                <div class="nk-ecwg6-ck">
-                                                                    <canvas class="ecommerce-line-chart-s3" id="todayCustomers"></canvas>
-                                                                </div>
+                                                              
                                                             </div>
-                                                            <div class="info"><span class="change up text-danger"><em class="icon ni ni-arrow-long-up"></em>4.63%</span><span> vs. last week</span></div>
+                                                        
                                                         </div>
                                                     </div><!-- .card-inner -->
                                                 </div><!-- .nk-ecwg -->
                                             </div><!-- .card -->
-                                        </div>
+                                        </a>
+                                        <?php
+                                        $qe = mysqli_query($con, "SELECT COUNT(ur_id) AS number FROM tbl_ruser Where ur_role_id = '6'");
+                                        $usr = mysqli_fetch_assoc($qe);
+                                         ?>
+                                        <a href="organisationroles.php?role=Optometrist" class="col-xxl-3 col-sm-6 mt-2">
+                                            <div class="card">
+                                                <div class="nk-ecwg nk-ecwg6">
+                                                    <div class="card-inner">
+                                                        <div class="card-title-group">
+                                                            <div class="card-title">
+                                                                <h6 class="title">Opticians</h6>
+                                                            </div>
+                                                        </div>
+                                                        <div class="data">
+                                                            <div class="data-group">
+                                                                <div class="amount"><?php echo $usr['number']?></div>
+                                                              
+                                                            </div>
+                                                        
+                                                        </div>
+                                                    </div><!-- .card-inner -->
+                                                </div><!-- .nk-ecwg -->
+                                            </div><!-- .card -->
+                                        </a>
+                                        
+                                        <?php
+                                        $qe = mysqli_query($con, "SELECT COUNT(id) AS number FROM admin where super_admin = '0'");
+                                        $usr = mysqli_fetch_assoc($qe);
+                                         ?>
+                                        <a href="adminlist.php" class="col-xxl-3 col-sm-6 mt-2">
+                                            <div class="card">
+                                                <div class="nk-ecwg nk-ecwg6">
+                                                    <div class="card-inner">
+                                                        <div class="card-title-group">
+                                                            <div class="card-title">
+                                                                <h6 class="title">Admins</h6>
+                                                            </div>
+                                                        </div>
+                                                        <div class="data">
+                                                            <div class="data-group">
+                                                                <div class="amount"><?php echo $usr['number']?></div>
+                                                              
+                                                            </div>
+                                                        
+                                                        </div>
+                                                    </div><!-- .card-inner -->
+                                                </div><!-- .nk-ecwg -->
+                                            </div><!-- .card -->
+                                        </a>
                                         <!-- <div class="col-xxl-8">
                                             <div class="card card-full">
                                                 <div class="card-inner">

@@ -11,6 +11,7 @@ $aid =$_SESSION["a_id"];
 $qiu=mysqli_query($con,"SELECT * FROM `admin`,orginzation where admin.organization = orginzation.orid and admin.id='$aid'");
 $fetchsa=mysqli_fetch_array($qiu);
     $org = $fetchsa['organization'];
+	$name = $fetchsa['name'];
  
     
 ?> 

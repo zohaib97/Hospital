@@ -246,7 +246,10 @@ include_once('../database/db.php');
 									 <div class="col-md-4" style="display:none;" id="proceed">
 									
 									 <input type="submit" class="btn btn-primary mt-5" name="rsubmit" value="Continue With Selected Service" id="rsubmit">
+									 
 									 </div>
+									 <div class="col-md-4" id="draft">
+									 <input type="submit" class="btn btn-info mt-5" name="savedraft" value="Save As Draft" id="savedraft">
 								 </div>
 								
 										</form>
@@ -998,8 +1001,12 @@ $('#servage').val(serv);
 			    $("#patientgender").val(gender);
 			}
 		
-		$("#attach").on('submit', function(e){
+		$("#rsubmit").on('click', function()
+		{
+
+	$('#attach').submit(function(e){
 		e.preventDefault();
+	
 	
 		if(  $("#patientgender").val()== "Mr" && $("#servicegender").val() == "Female"){
 		    NioApp.Toast("<h5>This Service Only Available For Female</h5>", 'warning',{position:'top-right'});
@@ -1032,7 +1039,7 @@ $('#servage').val(serv);
 		var reqtype = $('#ref_reqt').val();
 		var coid = $('#consultant').val();
 		var pid = $("input:radio[name='check']:checked").val();
-			var refform = new FormData(this);
+			var refform = new FormData($('#attach').this);
 			refform.append("check",$("input:radio[name='check']:checked").val());
 			refform.append("checkw",$("input:radio[name='checkw']:checked").val());
 			refform.append("addservicerefferel","btn");
@@ -1308,9 +1315,329 @@ $('#servage').val(serv);
 		    	}
 		}
 }
+		})
 			});
 
 	
+			$("#savedraft").on('click', function()
+	{
+
+					$('#attach').submit(function(e){
+						e.preventDefault();
+					
+					
+						if(  $("#patientgender").val()== "Mr" && $("#servicegender").val() == "Female"){
+							NioApp.Toast("<h5>This Service Only Available For Female</h5>", 'warning',{position:'top-right'});
+							document.getElementById('tabItem6').innerHTML ="";
+							document.getElementById('tabItem7').innerHTML ="";
+							$('#attach').hide();
+						}
+						if(($("#patientgender").val()== "Ms" && $("#servicegender").val()== "Male") || ($("#patientgender").val()== "Mrs" && $("#servicegender").val()== "Male")){
+							NioApp.Toast("<h5>This Service Only Available For Male</h5>", 'warning',{position:'top-right'});
+							document.getElementById('tabItem6').innerHTML ="";
+							document.getElementById('tabItem7').innerHTML ="";
+							$('#attach').hide();
+						}
+						var ptage = parseInt($('#ptage').val());
+					var servage2 = parseInt($('#servage2').val());
+					var servage = parseInt($('#servage').val());
+					
+						if(servage !="" && servage2 == ""){
+						if(ptage < servage)
+									{
+								
+										NioApp.Toast("<h5>Your Age doesn't match to service age range</h5>", 'warning',{position:'top-right'});
+										document.getElementById('tabItem6').innerHTML ='';
+										document.getElementById('tabItem7').innerHTML ="";
+										$('#attach').hide();
+									}
+						else{
+								if(  $("#patientgender").val()== "Mr" && $("#servicegender").val() == "Male"){
+									
+						var reqtype = $('#ref_reqt').val();
+						var coid = $('#consultant').val();
+						var pid = $("input:radio[name='check']:checked").val();
+							var refform = new FormData($('#attach').this);
+							refform.append("check",$("input:radio[name='check']:checked").val());
+							refform.append("checkw",$("input:radio[name='checkw']:checked").val());
+							refform.append("addservicerefferel","btn");
+							refform.append("reqtype",reqtype);
+							
+							$.ajax({
+								url: 'phpcode.php',
+								type: 'post',
+								data: refform,
+								contentType: false,
+								processData: false,
+								dataType:"JSON",
+								success: function(data){
+									console.log(data);
+				//	document.getElementById('tabItem7').innerHTML=data;
+				//						
+
+								if(data["res"] == "success")
+									{
+										toastr.clear();
+							NioApp.Toast("<h5>Data Added to Draft Successfully</h5>", 'success',{position:'top-right'});
+								
+									}
+									else if(data["res"] == "Error")
+										{
+											toastr.clear();
+							NioApp.Toast("<h5>Data Didn't Add to Draft Successfully</h5>", 'error',{position:'top-right'});
+										}
+										else if(data["res"] == "Already")
+										{
+											toastr.clear();
+							NioApp.Toast("<h5>Refferel Already Created</h5>", 'warning',{position:'top-right'});
+										}
+				//			
+									}
+								});
+								}
+								if(($("#patientgender").val()== "Ms" && $("#servicegender").val()== "Female") || ($("#patientgender").val()== "Mrs" && $("#servicegender").val()== "Female")){
+									var reqtype = $('#ref_reqt').val();
+						var coid = $('#consultant').val();
+						var pid = $("input:radio[name='check']:checked").val();
+							var refform = new FormData(this);
+							refform.append("check",$("input:radio[name='check']:checked").val());
+							refform.append("checkw",$("input:radio[name='checkw']:checked").val());
+							refform.append("addservicerefferel","btn");
+							refform.append("reqtype",reqtype);
+							
+							$.ajax({
+								url: 'phpcode.php',
+								type: 'post',
+								data: refform,
+								contentType: false,
+								processData: false,
+								dataType:"JSON",
+								success: function(data){
+									console.log(data);
+				//	document.getElementById('tabItem7').innerHTML=data;
+				//						
+
+								if(data["res"] == "success")
+									{
+										toastr.clear();
+										NioApp.Toast("<h5>Data Added to Draft Successfully</h5>", 'success',{position:'top-right'});
+										
+									}
+									else if(data["res"] == "Error")
+										{
+											toastr.clear();
+							NioApp.Toast("<h5>Data Didn't Add to Draft Successfully</h5>", 'error',{position:'top-right'});
+										}
+										else if(data["res"] == "Already")
+										{
+											toastr.clear();
+							NioApp.Toast("<h5>Refferel Already Created</h5>", 'warning',{position:'top-right'});
+										}
+				//			
+									}
+								});
+									
+								}
+					if(  $("#servicegender").val() == "Male & Female"){
+						var reqtype = $('#ref_reqt').val();
+						var coid = $('#consultant').val();
+						var pid = $("input:radio[name='check']:checked").val();
+							var refform = new FormData(this);
+							refform.append("check",$("input:radio[name='check']:checked").val());
+							refform.append("checkw",$("input:radio[name='checkw']:checked").val());
+							refform.append("addservicerefferel","btn");
+							refform.append("reqtype",reqtype);
+							
+							$.ajax({
+								url: 'phpcode.php',
+								type: 'post',
+								data: refform,
+								contentType: false,
+								processData: false,
+								dataType:"JSON",
+								success: function(data){
+									console.log(data);
+				//	document.getElementById('tabItem7').innerHTML=data;
+				//						
+
+								if(data["res"] == "success")
+									{
+										toastr.clear();
+										NioApp.Toast("<h5>Data Added to Draft Successfully</h5>", 'success',{position:'top-right'});
+										
+									}
+									else if(data["res"] == "Error")
+										{
+											toastr.clear();
+							NioApp.Toast("<h5>Data Didn't Add to Draft Successfully</h5>", 'error',{position:'top-right'});
+										}
+										else if(data["res"] == "Already")
+										{
+											toastr.clear();
+							NioApp.Toast("<h5>Refferel Already Created</h5>", 'warning',{position:'top-right'});
+										}
+				//			
+									}
+								});
+								}
+						}
+				}
+						if(servage !="" && servage2 != ""){
+						
+						
+								if(ptage > servage2)
+									{
+									
+										NioApp.Toast("<h5>Your Age doesn't match to service age range</h5>", 'warning',{position:'top-right'});
+											document.getElementById('tabItem6').innerHTML ="";
+											document.getElementById('tabItem7').innerHTML ="";
+											$('#attach').hide();
+									}
+								else if(ptage < servage)
+									{
+									
+										NioApp.Toast("<h5>Your Age doesn't match to service age range</h5>", 'warning',{position:'top-right'});
+											document.getElementById('tabItem6').innerHTML ="";
+											document.getElementById('tabItem7').innerHTML ="";
+											$('#attach').hide();
+									}
+						else{
+						
+								if(  $("#patientgender").val()== "Mr" && $("#servicegender").val() == "Male"){
+									
+						var reqtype = $('#ref_reqt').val();
+						var coid = $('#consultant').val();
+						var pid = $("input:radio[name='check']:checked").val();
+							var refform = new FormData(this);
+							refform.append("check",$("input:radio[name='check']:checked").val());
+							refform.append("checkw",$("input:radio[name='checkw']:checked").val());
+							refform.append("addservicerefferel","btn");
+							refform.append("reqtype",reqtype);
+							
+							$.ajax({
+								url: 'phpcode.php',
+								type: 'post',
+								data: refform,
+								contentType: false,
+								processData: false,
+								dataType:"JSON",
+								success: function(data){
+									console.log(data);
+				//	document.getElementById('tabItem7').innerHTML=data;
+				//						
+
+								if(data["res"] == "success")
+									{
+										toastr.clear();
+										NioApp.Toast("<h5>Data Added to Draft Successfully</h5>", 'success',{position:'top-right'});
+										
+									}
+									else if(data["res"] == "Error")
+										{
+											toastr.clear();
+							NioApp.Toast("<h5>Data Didn't Add to Draft Successfully</h5>", 'error',{position:'top-right'});
+										}
+										else if(data["res"] == "Already")
+										{
+											toastr.clear();
+							NioApp.Toast("<h5>Refferel Already Created</h5>", 'warning',{position:'top-right'});
+										}
+				//			
+									}
+								});
+								}
+								if(($("#patientgender").val()== "Ms" && $("#servicegender").val()== "Female") || ($("#patientgender").val()== "Mrs" && $("#servicegender").val()== "Female")){
+									var reqtype = $('#ref_reqt').val();
+						var coid = $('#consultant').val();
+						var pid = $("input:radio[name='check']:checked").val();
+							var refform = new FormData(this);
+							refform.append("check",$("input:radio[name='check']:checked").val());
+							refform.append("checkw",$("input:radio[name='checkw']:checked").val());
+							refform.append("addservicerefferel","btn");
+							refform.append("reqtype",reqtype);
+							
+							$.ajax({
+								url: 'phpcode.php',
+								type: 'post',
+								data: refform,
+								contentType: false,
+								processData: false,
+								dataType:"JSON",
+								success: function(data){
+									console.log(data);
+				//	document.getElementById('tabItem7').innerHTML=data;
+				//						
+
+								if(data["res"] == "success")
+									{
+										toastr.clear();
+										NioApp.Toast("<h5>Data Added to Draft Successfully</h5>", 'success',{position:'top-right'});
+										
+									}
+									else if(data["res"] == "Error")
+										{
+											toastr.clear();
+							NioApp.Toast("<h5>Data Didn't Add to Draft Successfully</h5>", 'error',{position:'top-right'});
+										}
+										else if(data["res"] == "Already")
+										{
+											toastr.clear();
+							NioApp.Toast("<h5>Refferel Already Created</h5>", 'warning',{position:'top-right'});
+										}
+				//			
+									}
+								});
+									
+								}
+					if(  $("#servicegender").val() == "Male & Female"){
+						var reqtype = $('#ref_reqt').val();
+						var coid = $('#consultant').val();
+						var pid = $("input:radio[name='check']:checked").val();
+							var refform = new FormData(this);
+							refform.append("check",$("input:radio[name='check']:checked").val());
+							refform.append("checkw",$("input:radio[name='checkw']:checked").val());
+							refform.append("addservicerefferel","btn");
+							refform.append("reqtype",reqtype);
+							
+							$.ajax({
+								url: 'phpcode.php',
+								type: 'post',
+								data: refform,
+								contentType: false,
+								processData: false,
+								dataType:"JSON",
+								success: function(data){
+									console.log(data);
+				//	document.getElementById('tabItem7').innerHTML=data;
+				//						
+
+								if(data["res"] == "success")
+									{
+										toastr.clear();
+										NioApp.Toast("<h5>Data Added to Draft Successfully</h5>", 'success',{position:'top-right'});
+										
+									}
+									else if(data["res"] == "Error")
+										{
+											toastr.clear();
+							NioApp.Toast("<h5>Data Didn't Add to Draft Successfully</h5>", 'error',{position:'top-right'});
+										}
+										else if(data["res"] == "Already")
+										{
+											toastr.clear();
+							NioApp.Toast("<h5>Refferel Already Created</h5>", 'warning',{position:'top-right'});
+										}
+				//			
+									}
+								});
+								}
+						}
+				}
+						})
+			});
+
+
+
 	
 //	// insert refer
 //	$("#refadfrom").on('submit', function(e){

@@ -1760,4 +1760,1021 @@ echo'	<td class="nk-tb-col nk-tb-col-tools">
 </script>';
 	}
 }
+
+if(isset($_POST['readRecord']))
+{
+$e = $_SESSION['superadmin'];
+	
+
+	$query = mysqli_query($con,"SELECT * FROM services  JOIN ser_specialty_add ON services.service_speciality=ser_specialty_add.spec_id JOIN app_type ON services.service_a_type=app_type.app_id JOIN service_cliniciant ON services.ser_cl_type=service_cliniciant.cl_id JOIN service_name ON services.service_name=service_name.s_id JOIN org_locations ON services.service_location=org_locations.id");
+	if($query)
+	{
+		echo'<link rel="stylesheet" href="https://cdn.datatables.net/1.10.23/css/dataTables.bootstrap4.min.css">
+		
+		<table class="nowrap nk-tb-list is-separate" id="myTable">
+			<thead>
+				<tr class="nk-tb-item nk-tb-head">
+				
+					<th class="nk-tb-col"><span>ID</span></th>
+					<th class="nk-tb-col"><span>Service Name</span></th>
+					<th class="nk-tb-col"><span>Service Request</span></th>
+					<th class="nk-tb-col"><span>Service Comments</span></th>
+					<th class="nk-tb-col"><span>Service refer</span></th>
+					<th class="nk-tb-col"><span>Service Location</span></th>
+					<th class="nk-tb-col"><span>Speciality</span></th>
+					<th class="nk-tb-col"><span>Appointment type</span></th>
+					<th class="nk-tb-col"><span>Gender</span></th>
+					<th class="nk-tb-col"><span>Bookable</span></th>
+					<th class="nk-tb-col"><span>Effective Start Date</span></th>
+					<th class="nk-tb-col"><span>Effective End Date</span></th>
+					<th class="nk-tb-col"><span>Minimum Age range</span></th>
+					<th class="nk-tb-col"><span>Maximum Age range</span></th>
+					<th class="nk-tb-col"><span>Care Menu</span></th>
+					<th class="nk-tb-col"><span>Clination type</span></th>
+					<th class="nk-tb-col"><span>Reason For Restriction</span></th>
+					<th class="nk-tb-col"><span>Restriction Comments</span></th>
+					<th class="nk-tb-col"><span>Instructions</span></th>
+					<th class="nk-tb-col"><span>Priority Routine</span></th>
+					<th class="nk-tb-col"><span>Priority Urgent</span></th>
+					<th class="nk-tb-col"><span>Priority  Week</span></th>
+					<th class="nk-tb-col"><span>2 Week Wait</span></th>
+					<th class="nk-tb-col"><span>Organisation Name</span></th>
+					<th class="nk-tb-col"><span>Status</span></th>
+							<th class="nk-tb-col ">
+							<span>Action</span>
+							</th>
+					
+					
+				</tr><!-- .nk-tb-item -->
+			</thead>
+			 <tbody id="">';
+		while($fetch = mysqli_fetch_array($query))
+		{
+	$rfid = $fetch['m_id'];
+
+	echo'   <tr class="nk-tb-item">
+
+	<td class="nk-tb-col">
+		'.$fetch['service_id'].'
+	</td>
+	<td class="nk-tb-col">
+		<span class="tb-lead" onclick="openmodal3(\''.$fetch['s_id'].'\',\''.$fetch['s_name'].'\')" style="cursor:pointer;">'.$fetch['s_name'].'</span>
+	</td>
+	<td class="nk-tb-col">
+		<span class="tb-lead">'.$fetch['service_r_t_support'].'</span>
+	</td>
+	<td class="nk-tb-col">
+		<span class="tb-lead">'.$fetch['service_cmnts'].'</span>
+	</td>
+	<td class="nk-tb-col">
+		<span class="tb-lead">'.$fetch['service_refer'].'</span>
+	</td>
+	<td class="nk-tb-col">
+		<span class="tb-lead">'.$fetch['org_location'].'</span>
+	</td>
+	<td class="nk-tb-col">
+	<span class="tb-lead">'.$fetch['spec_name'].'</span>
+    </td>
+   <td class="nk-tb-col">
+	<span class="tb-lead">'.$fetch['app_type'].'</span>
+    </td>
+       <td class="nk-tb-col">
+	<span class="tb-lead">'.$fetch['service_gender'].'</span>
+    </td>
+     <td class="nk-tb-col">
+	<span class="tb-lead">'.$fetch['sender_bookable'].'</span>
+    </td>
+     <td class="nk-tb-col">
+	<span class="tb-lead">'.$fetch['service_e_date'].'</span>
+    </td>
+    
+	<td class="nk-tb-col ">
+		
+		<span class="tb-lead">'.$fetch['service_e_date2'].'</span>
+		
+	</td>
+	<td class="nk-tb-col ">
+			<span class="tb-lead">'.$fetch['service_age'].'</span>
+	</td>
+	<td class="nk-tb-col ">
+			<span class="tb-lead">'.$fetch['service_age2'].'</span>
+	</td>
+	<td class="nk-tb-col">
+			<span class="tb-lead">'.$fetch['service_caremenu'].'</span>
+	</td>
+    <td class="nk-tb-col">
+    <span class="tb-lead">'.$fetch['cl_type'].'</span>
+     </td>
+     <td class="nk-tb-col">
+			<span class="tb-lead">'.$fetch['ser_res_reas'].'</span>
+	</td>
+	<td class="nk-tb-col">
+		<span class="tb-lead">'.$fetch['ser_res_cmnt'].'</span>
+	</td>
+	<td class="nk-tb-col">
+		<span class="tb-lead">'.$fetch['ser_instruct'].'</span>
+	</td>
+	<td class="nk-tb-col">
+		<span class="tb-lead">'.$fetch['ser_priority_rout'].'</span>
+	</td>
+	<td class="nk-tb-col">
+	<span class="tb-lead">'.$fetch['ser_priority_urg'].'</span>
+    </td>
+   
+    <td class="nk-tb-col">
+    <span class="tb-lead">'.$fetch['ser_priority_wekex'].'</span>
+     </td>
+     <td class="nk-tb-col">
+     	<span class="title">'.$fetch['ser_priority_2week'].'</span>
+		</span>
+	</td>
+	<td class="nk-tb-col">
+		<span class="tb-lead">'.$fetch['s_orgname'].'</span>
+	</td>
+	';
+	if($fetch["status"] =="not_approve" || $fetch["service_publish"] == null){
+		echo '<td class="nk-tb-col"><span class="btn btn-danger" id="gbtn" onclick="eaprovenotaprove(\''.$rfid.'\',\'gnot_approve\')">Not Active</span></td>';
+	}elseif($fetch["status"] =="approve"){
+		echo '<td class="nk-tb-col"><span class="btn btn-success" id="gbtn" onclick="eaprovenotaprove(\''.$rfid.'\',\'g'.$fetch["status"].'\')">Active</span></td>';
+	}
+	echo '
+	<td class="nk-tb-col">
+	<a href="javascript:void(0)" onClick="confirm('.$fetch['m_id'].')" class="btn btn-danger mt-1 btn-circle btn-sm"><em class="icon ni ni-trash"></em></a> | <a href="updateservice.php?sid='.$fetch['m_id'].'" class="btn btn-success btn-circle btn-sm"><em class="icon ni ni-edit "></em></a>
+	</td>
+
+	</tr>';
+										
+		}
+		echo'</tbody> </table>
+		
+		
+		<script src="https://cdn.datatables.net/1.10.23/js/jquery.dataTables.min.js"></script>
+	<script src="https://cdn.datatables.net/1.10.23/js/dataTables.bootstrap4.min.js"></script>
+	<script>$(document).ready(function () {
+		$("#myTable").DataTable({responsive:true});
+	} )
+	</script>
+	';
+	}
+}
+
+//fetch staff consultant data
+if(isset($_POST['consultantbtn']))
+{
+   
+   
+	$query = mysqli_query($con,"SELECT * FROM `tbl_ruser`,tbl_role,orginzation where tbl_role.ro_id=tbl_ruser.ur_role_id and tbl_ruser.ur_orgtype = orginzation.orid and tbl_ruser.ur_role_id='3'");
+				
+	if($query)
+	{
+		echo'<link rel="stylesheet" href="https://cdn.datatables.net/1.10.23/css/dataTables.bootstrap4.min.css">
+		<button onclick="window.print()" class="btn btn-danger">Print</button>
+		<br>
+		<br>
+		<table class="nowrap nk-tb-list is-separate " data-auto-responsive="false" id="myTable">
+					<thead>
+						<tr class="nk-tb-item nk-tb-head">
+						
+							<th class="nk-tb-col"><span>Full Name</span></th>
+							<th class="nk-tb-col"><span>Email</span></th>
+							<th class="nk-tb-col"><span>Password</span></th>
+							<th class="nk-tb-col"><span>Role</span></th>
+							<th class="nk-tb-col"><span>Organisation Type</span></th>
+							<th class="nk-tb-col "><span>Organisation Name</span></th>
+							<th class="nk-tb-col "><span>Status</span></th>
+							<th class="nk-tb-col nk-tb-col-tools">
+								<ul class="nk-tb-actions gx-1 my-n1">
+									<li class="mr-n1">
+										<div class="dropdown">
+											<a href="#" class="dropdown-toggle btn btn-icon btn-trigger" data-toggle="dropdown"><em class="icon ni ni-more-h"></em></a>
+											<div class="dropdown-menu dropdown-menu-right">
+												<ul class="link-list-opt no-bdr">
+													<li><a href="#"><em class="icon ni ni-edit"></em><span>Edit Selected</span></a></li>
+													<li><a href="#"><em class="icon ni ni-trash"></em><span>Remove Selected</span></a></li>
+													<li><a href="#"><em class="icon ni ni-bar-c"></em><span>Update Stock</span></a></li>
+													<li><a href="#"><em class="icon ni ni-invest"></em><span>Update Price</span></a></li>
+												</ul>
+											</div>
+										</div>
+									</li>
+								</ul>
+							</th>
+						</tr><!-- .nk-tb-item -->
+					</thead>
+					 <tbody id="">';
+		while($fetch = mysqli_fetch_array($query))
+		{
+	$mid = $fetch['ur_id'];
+	// $mname = $fetch['staff_fname'];
+	// $msname = $fetch['staff_sname'];
+	// $memail = $fetch['staff_email'];
+	// $mpass = $fetch['staff_pass'];
+	// $mphn = $fetch['staff_contact'];
+	// $mdepart = $fetch['staff_department'];
+	// $mdob = $fetch['staff_dob'];
+	// $mrole = $fetch['tbl_role'];
+	// $mrname = $fetch['role_name'];
+	$fname = $fetch['ur_fname'];
+	$sname = $fetch["ur_sname"];
+	$email = $fetch['ur_email'];
+	$pass = $fetch['ur_pass'];
+	echo'   <tr class="nk-tb-item">
+	
+	<td class="nk-tb-col ">
+		<span class="tb-product">
+		<span class="tb-sub">'.$fetch['ur_fname'].$fetch["ur_sname"].'</span>
+		</span>
+	</td>
+	<td class="nk-tb-col">
+		<span class="tb-sub">'.$fetch['ur_email'].'</span>
+	</td>
+	<td class="nk-tb-col">
+		<span class="tb-sub">'.$fetch['ur_pass'].'</span>
+	</td>
+	<td class="nk-tb-col">
+	    <span class="tb-sub">'.$fetch['ro_role'].'</span>
+	</td>
+	<td class="nk-tb-col">
+		<span class="tb-sub">'.$fetch['or_type'].'</span>
+	</td>
+	<td class="nk-tb-col">
+		<span class="tb-sub">'.$fetch['or_name'].'</span>
+	</td>
+	<td class="nk-tb-col">';
+	if($fetch["ur_status"] =="not_approve"){
+		echo '<span class="btn btn-danger" onclick="aprovenotaprove(\''.$mid.'\',\'c'.$fetch["ur_status"].'\')">Not Active</span>';
+	}elseif($fetch["ur_status"] =="approve"){
+		echo '<span class="btn btn-success" onclick="aprovenotaprove(\''.$mid.'\',\'c'.$fetch["ur_status"].'\')">Active</span>';
+	}
+	echo '</td>
+	<td class="nk-tb-col nk-tb-col-tools">
+		<ul class="nk-tb-actions gx-1 my-n1">
+			<li class="mr-n1">
+				<div class="dropdown">
+					<a href="#" class="dropdown-toggle btn btn-icon btn-trigger" data-toggle="dropdown"><em class="icon ni ni-more-h"></em></a>
+					<div class="dropdown-menu dropdown-menu-right">
+						<ul class="link-list-opt no-bdr">';
+			// <li><a href="javascript:void(0)" onClick="openmodal1('."'$mid'".','."'$mname'".','."'$msname'".','."'$memail'".','."'$mpass'".','."'$mphn'".','."'$mdepart'".','."'$mdob'".','."'$mrole'".')"><em class="icon ni ni-edit"></em><span>Edit</span></a></li>
+							// <li><a href="#"><em class="icon ni ni-eye"></em><span>View</span></a></li>
+							
+							echo '<li><a href="javascript:void(0)" onClick="confirm('."'$mid'".')"><em class="icon ni ni-trash"></em><span>Remove</span></a></li>
+							<li><a href="javascript:void(0)" onClick="openmodal2('."'$mid'".','."'$fname'".','."'$sname'".','."'$email'".','."'$pass'".')"><em class="icon ni ni-edit"></em><span>Edit</span></a></li>
+
+						</ul>
+					</div>
+				</div>
+			</li>
+		</ul>
+	</td>
+	</tr>';
+										
+		}
+		echo'</tbody> </table>
+		<script src="https://cdn.datatables.net/1.10.23/js/jquery.dataTables.min.js"></script>
+	<script src="https://cdn.datatables.net/1.10.23/js/dataTables.bootstrap4.min.js"></script>
+	<script>$(document).ready(function () {
+		$("#myTable").DataTable();
+	} )
+	</script>
+	';
+		}
+}
+
+//fetch staff Service Definer data
+if(isset($_POST['ServiceDefiner']))
+{
+   
+	
+	$query = mysqli_query($con,"SELECT * FROM `tbl_service_definer`,orginzation where tbl_service_definer.u_orgid = orginzation.orid");
+				
+	if($query)
+	{
+		echo'<link rel="stylesheet" href="https://cdn.datatables.net/1.10.23/css/dataTables.bootstrap4.min.css">
+		<button onclick="window.print()" class="btn btn-danger">Print</button>
+		<br>
+		<br>
+		<table class="nowrap nk-tb-list is-separate " data-auto-responsive="false" id="myTable">
+					<thead>
+						<tr class="nk-tb-item nk-tb-head">
+						
+							<th class="nk-tb-col"><span>Full Name</span></th>
+							<th class="nk-tb-col"><span>Email</span></th>
+							<th class="nk-tb-col"><span>Password</span></th>
+							<th class="nk-tb-col"><span>Role</span></th>
+							<th class="nk-tb-col"><span>Organisation Type</span></th>
+							<th class="nk-tb-col "><span>Organisation Name</span></th>
+							
+							<th class="nk-tb-col "><span>Status</span></th>
+						
+							<th class="nk-tb-col nk-tb-col-tools">
+								<ul class="nk-tb-actions gx-1 my-n1">
+									<li class="mr-n1">
+										<div class="dropdown">
+											<a href="#" class="dropdown-toggle btn btn-icon btn-trigger" data-toggle="dropdown"><em class="icon ni ni-more-h"></em></a>
+											<div class="dropdown-menu dropdown-menu-right">
+												<ul class="link-list-opt no-bdr">
+													<li><a href="#"><em class="icon ni ni-edit"></em><span>Edit Selected</span></a></li>
+													<li><a href="#"><em class="icon ni ni-trash"></em><span>Remove Selected</span></a></li>
+													<li><a href="#"><em class="icon ni ni-bar-c"></em><span>Update Stock</span></a></li>
+													<li><a href="#"><em class="icon ni ni-invest"></em><span>Update Price</span></a></li>
+												</ul>
+											</div>
+										</div>
+									</li>
+								</ul>
+							</th>
+						</tr><!-- .nk-tb-item -->
+					</thead>
+					 <tbody id="">';
+		while($fetch = mysqli_fetch_array($query))
+		{
+	$mid = $fetch['u_serid'];
+	// $mname = $fetch['staff_fname'];
+	// $msname = $fetch['staff_sname'];
+	// $memail = $fetch['staff_email'];
+	// $mpass = $fetch['staff_pass'];
+	// $mphn = $fetch['staff_contact'];
+	// $mdepart = $fetch['staff_department'];
+	// $mdob = $fetch['staff_dob'];
+	// $mrole = $fetch['tbl_role'];
+	// $mrname = $fetch['role_name'];
+	$fname = $fetch['u_sername'];
+	$sname = $fetch["u_sercontact"];
+	$email = $fetch['u_seremail'];
+	$pass = $fetch['u_serpass'];
+	$statys=$fetch["u_status"];
+	// echo $statys;
+	echo'   <tr class="nk-tb-item">
+	
+	<td class="nk-tb-col ">
+		<span class="tb-product">
+		<span class="tb-sub">'.$fetch['u_sername'].'</span>
+		</span>
+	</td>
+	<td class="nk-tb-col">
+		<span class="tb-sub">'.$fetch['u_seremail'].'</span>
+	</td>
+	<td class="nk-tb-col">
+		<span class="tb-sub">'.$fetch['u_serpass'].'</span>
+	</td>
+	<td class="nk-tb-col">
+	    <span class="tb-sub">Service Definer</span>
+	</td>
+	<td class="nk-tb-col">
+		<span class="tb-sub">'.$fetch['or_type'].'</span>
+	</td>
+	<td class="nk-tb-col">
+		<span class="tb-sub">'.$fetch['or_name'].'</span>
+	</td>
+	<td class="nk-tb-col">';
+	if($fetch["u_status"] =="not_approve"){
+		echo '<span class="btn btn-danger" onclick="aprovenotaprovesd(\''.$mid.'\',\'sdr'.$fetch["u_status"].'\')">Not Active</span>';
+	}elseif($fetch["u_status"] =="approve"){
+		echo '<span class="btn btn-success" onclick="aprovenotaprovesd(\''.$mid.'\',\'sdr'.$fetch["u_status"].'\')">Active</span>';
+	}
+	echo '</td>
+	<td class="nk-tb-col nk-tb-col-tools">
+		<ul class="nk-tb-actions gx-1 my-n1">
+			<li class="mr-n1">
+				<div class="dropdown">
+					<a href="#" class="dropdown-toggle btn btn-icon btn-trigger" data-toggle="dropdown"><em class="icon ni ni-more-h"></em></a>
+					<div class="dropdown-menu dropdown-menu-right">
+						<ul class="link-list-opt no-bdr">';
+			// <li><a href="javascript:void(0)" onClick="openmodal1('."'$mid'".','."'$mname'".','."'$msname'".','."'$memail'".','."'$mpass'".','."'$mphn'".','."'$mdepart'".','."'$mdob'".','."'$mrole'".')"><em class="icon ni ni-edit"></em><span>Edit</span></a></li>
+							// <li><a href="#"><em class="icon ni ni-eye"></em><span>View</span></a></li>
+							
+							echo '<li><a href="javascript:void(0)" onClick="confirm1('."'$mid'".')"><em class="icon ni ni-trash"></em><span>Remove</span></a></li>
+	<li><a href="javascript:void(0)" onClick="openmodal3(\''.$mid.'\',\''.$fname.'\',\''.$sname.'\',\''.$email.'\',\''.$pass.'\')"><em class="icon ni ni-edit"></em><span>Edit</span></a></li>
+						</ul>
+					</div>
+				</div>
+			</li>
+		</ul>
+	</td>
+	</tr>';
+										
+		}
+		echo'</tbody> </table>
+		<script src="https://cdn.datatables.net/1.10.23/js/jquery.dataTables.min.js"></script>
+	<script src="https://cdn.datatables.net/1.10.23/js/dataTables.bootstrap4.min.js"></script>
+	<script>$(document).ready(function () {
+		$("#myTable").DataTable();
+	} )
+	</script>
+	';
+		}
+}
+
+//fetch staff doctors data
+if(isset($_POST['doctorsbtn']))
+{
+	$query = mysqli_query($con,"SELECT * FROM tbl_user JOIN staff_role on tbl_user.tbl_role=staff_role.role_id WHERE tbl_user.tbl_role = '4'");
+				
+	if($query)
+	{
+		echo'<link rel="stylesheet" href="https://cdn.datatables.net/1.10.23/css/dataTables.bootstrap4.min.css">
+		<button onclick="window.print()" class="btn btn-danger">Print</button>
+		<br>
+		<br>
+		<table class="nowrap nk-tb-list is-separate" data-auto-responsive="false" id="myTable">
+					<thead>
+						<tr class="nk-tb-item nk-tb-head">
+							<th class="nk-tb-col nk-tb-col-check">
+								<div class="custom-control custom-control-sm custom-checkbox notext">
+									<input type="checkbox" class="custom-control-input" id="puid">
+									<label class="custom-control-label" for="puid"></label>
+								</div>
+							</th>
+							<th class="nk-tb-col"><span>Full Name</span></th>
+							<th class="nk-tb-col"><span>Email</span></th>
+							<th class="nk-tb-col"><span>Password</span></th>
+							<th class="nk-tb-col"><span>Contact</span></th>
+							<th class="nk-tb-col"><span>Department</span></th>
+							<th class="nk-tb-col"><span>Designtion</span></th>
+							<th class="nk-tb-col nk-tb-col-tools">
+								<ul class="nk-tb-actions gx-1 my-n1">
+									<li class="mr-n1">
+										<div class="dropdown">
+											<a href="#" class="dropdown-toggle btn btn-icon btn-trigger" data-toggle="dropdown"><em class="icon ni ni-more-h"></em></a>
+											<div class="dropdown-menu dropdown-menu-right">
+												<ul class="link-list-opt no-bdr">
+													<li><a href="#"><em class="icon ni ni-edit"></em><span>Edit Selected</span></a></li>
+													<li><a href="#"><em class="icon ni ni-trash"></em><span>Remove Selected</span></a></li>
+													<li><a href="#"><em class="icon ni ni-bar-c"></em><span>Update Stock</span></a></li>
+													<li><a href="#"><em class="icon ni ni-invest"></em><span>Update Price</span></a></li>
+												</ul>
+											</div>
+										</div>
+									</li>
+								</ul>
+							</th>
+						</tr><!-- .nk-tb-item -->
+					</thead>
+					 <tbody id="">';
+		while($fetch = mysqli_fetch_array($query))
+		{
+	$mid = $fetch['staff_id'];
+	$mname = $fetch['staff_fname'];
+	$msname = $fetch['staff_sname'];
+	$memail = $fetch['staff_email'];
+	$mpass = $fetch['staff_pass'];
+	$mphn = $fetch['staff_contact'];
+	$mdepart = $fetch['staff_department'];
+	$mdob = $fetch['staff_dob'];
+	$mrole = $fetch['tbl_role'];
+	$mrname = $fetch['role_name'];
+	$status = $fetch['staff_status'];
+
+	echo'   <tr class="nk-tb-item">
+	<td class="nk-tb-col nk-tb-col-check">
+		<div class="custom-control custom-control-sm custom-checkbox notext">
+			<input type="checkbox" class="custom-control-input" id="puid1">
+			<label class="custom-control-label" for="puid1"></label>
+		</div>
+	</td>
+	<td class="nk-tb-col tb-col-">
+		<span class="tb-product">
+			<span class="title">'.$fetch['staff_sname'].'</span>
+		</span>
+	</td>
+	<td class="nk-tb-col">
+		<span class="tb-sub">'.$fetch['staff_email'].'</span>
+	</td>
+	<td class="nk-tb-col">
+		<span class="tb-lead">'.$fetch['staff_pass'].'</span>
+	</td>
+	<td class="nk-tb-col">
+		<span class="tb-sub">'.$fetch['staff_contact'].'</span>
+	</td>
+	<td class="nk-tb-col">
+		<span class="tb-sub">'.$fetch['staff_department'].'</span>
+	</td>
+	<td class="nk-tb-col">
+		<span class="tb-sub">'.$fetch['role_name'].'</span>
+	</td>';
+			if($fetch['staff_status'] == "not_active")
+	{
+	echo'
+	<td class="nk-tb-col">
+		<span class="btn btn-danger" onClick="aprovenotaprove('."'$mid'".','."'d$status'".')">Not Active</span>
+	</td>';
+	}
+			else
+			{
+	echo'<td class="nk-tb-col">
+		<span class="btn btn-success" onClick="aprovenotaprove('."'$mid'".','."'d$status'".')">Active</span>
+	</td>';
+			}
+	echo'<td class="nk-tb-col nk-tb-col-tools">
+		<ul class="nk-tb-actions gx-1 my-n1">
+			<li class="mr-n1">
+				<div class="dropdown">
+					<a href="#" class="dropdown-toggle btn btn-icon btn-trigger" data-toggle="dropdown"><em class="icon ni ni-more-h"></em></a>
+					<div class="dropdown-menu dropdown-menu-right">
+						<ul class="link-list-opt no-bdr">
+							<li><a href="javascript:void(0)" onClick="openmodal1('."'$mid'".','."'$mname'".','."'$msname'".','."'$memail'".','."'$mpass'".','."'$mphn'".','."'$mdepart'".','."'$mdob'".','."'$mrole'".')"><em class="icon ni ni-edit"></em><span>Edit</span></a></li>
+							<li><a href="#"><em class="icon ni ni-eye"></em><span>View</span></a></li>
+							
+							<li><a href="javascript:void(0)" onClick="confirm('."'$mid'".')"><em class="icon ni ni-trash"></em><span>Remove</span></a></li>
+
+						</ul>
+					</div>
+				</div>
+			</li>
+		</ul>
+	</td>
+	</tr>';
+											
+			}
+			echo'</tbody> </table>
+			<script src="https://cdn.datatables.net/1.10.23/js/jquery.dataTables.min.js"></script>
+	<script src="https://cdn.datatables.net/1.10.23/js/dataTables.bootstrap4.min.js"></script>
+	<script>$(document).ready(function () {
+		$("#myTable").DataTable();
+	} )
+	</script>;
+	';
+	}
+}
+
+//fetch staff nurse data
+if(isset($_POST['nursebtn']))
+{
+	
+			$query = mysqli_query($con,"SELECT * FROM `tbl_ruser`,tbl_role,orginzation where tbl_role.ro_id=tbl_ruser.ur_role_id and tbl_ruser.ur_orgtype = orginzation.orid and tbl_ruser.ur_role_id='4'");
+						
+			if($query)
+			{
+				echo'<link rel="stylesheet" href="https://cdn.datatables.net/1.10.23/css/dataTables.bootstrap4.min.css">
+				<button onclick="window.print()" class="btn btn-danger">Print</button>
+		<br>
+		<br>
+				<table class="nowrap nk-tb-list is-separate " data-auto-responsive="false" id="myTable">
+							<thead>
+								<tr class="nk-tb-item nk-tb-head">
+								
+									<th class="nk-tb-col"><span>Full Name</span></th>
+									<th class="nk-tb-col"><span>Email</span></th>
+									<th class="nk-tb-col"><span>Password</span></th>
+									<th class="nk-tb-col"><span>Role</span></th>
+									<th class="nk-tb-col"><span>Organisation Type</span></th>
+									<th class="nk-tb-col"><span>Organisation Name</span></th>
+									<th class="nk-tb-col"><span>Status</span></th>
+									<th class="nk-tb-col nk-tb-col-tools">
+										<ul class="nk-tb-actions gx-1 my-n1">
+											<li class="mr-n1">
+												<div class="dropdown">
+													<a href="#" class="dropdown-toggle btn btn-icon btn-trigger" data-toggle="dropdown"><em class="icon ni ni-more-h"></em></a>
+													<div class="dropdown-menu dropdown-menu-right">
+														<ul class="link-list-opt no-bdr">
+															<li><a href="#"><em class="icon ni ni-edit"></em><span>Edit Selected</span></a></li>
+															<li><a href="#"><em class="icon ni ni-trash"></em><span>Remove Selected</span></a></li>
+															<li><a href="#"><em class="icon ni ni-bar-c"></em><span>Update Stock</span></a></li>
+															<li><a href="#"><em class="icon ni ni-invest"></em><span>Update Price</span></a></li>
+														</ul>
+													</div>
+												</div>
+											</li>
+										</ul>
+									</th>
+								</tr><!-- .nk-tb-item -->
+							</thead>
+							<tbody id="">';
+				while($fetch = mysqli_fetch_array($query))
+				{
+			$mid = $fetch['ur_id'];
+			// $mname = $fetch['staff_fname'];
+			// $msname = $fetch['staff_sname'];
+			// $memail = $fetch['staff_email'];
+			// $mpass = $fetch['staff_pass'];
+			// $mphn = $fetch['staff_contact'];
+			// $mdepart = $fetch['staff_department'];
+			// $mdob = $fetch['staff_dob'];
+			// $mrole = $fetch['tbl_role'];
+			// $mrname = $fetch['role_name'];
+	$fname = $fetch['ur_fname'];
+	$sname = $fetch["ur_sname"];
+	$email = $fetch['ur_email'];
+	$pass = $fetch['ur_pass'];
+		echo'   <tr class="nk-tb-item">
+			
+			<td class="nk-tb-col">
+				<span class="tb-product">
+					<span class="title">'.$fetch['ur_fname'].$fetch["ur_sname"].'</span>
+				</span>
+			</td>
+			<td class="nk-tb-col">
+				<span class="tb-sub">'.$fetch['ur_email'].'</span>
+			</td>
+			<td class="nk-tb-col">
+				<span class="tb-lead">'.$fetch['ur_pass'].'</span>
+			</td>
+			<td class="nk-tb-col">
+			<span class="tb-lead">'.$fetch['ro_role'].'</span>
+			</td>
+			<td class="nk-tb-col">
+				<span class="tb-sub">'.$fetch['or_type'].'</span>
+			</td>
+			<td class="nk-tb-col">
+				<span class="tb-sub">'.$fetch['or_name'].'</span>
+			</td>
+			<td class="nk-tb-col">';
+			if($fetch["ur_status"] =="not_approve"){
+				echo '<span class="btn btn-danger" onclick="aprovenotaprove(\''.$mid.'\',\''.$fetch["ur_status"].'\')">Not Active</span>';
+			}elseif($fetch["ur_status"] =="approve"){
+				echo '<span class="btn btn-success" onclick="aprovenotaprove(\''.$mid.'\',\''.$fetch["ur_status"].'\')">Active</span>';
+			}
+			echo '</td>
+			<td class="nk-tb-col nk-tb-col-tools">
+				<ul class="nk-tb-actions gx-1 my-n1">
+					<li class="mr-n1">
+						<div class="dropdown">
+							<a href="#" class="dropdown-toggle btn btn-icon btn-trigger" data-toggle="dropdown"><em class="icon ni ni-more-h"></em></a>
+							<div class="dropdown-menu dropdown-menu-right">
+								<ul class="link-list-opt no-bdr">';
+					// <li><a href="javascript:void(0)" onClick="openmodal1('."'$mid'".','."'$mname'".','."'$msname'".','."'$memail'".','."'$mpass'".','."'$mphn'".','."'$mdepart'".','."'$mdob'".','."'$mrole'".')"><em class="icon ni ni-edit"></em><span>Edit</span></a></li>
+									echo '<li><a href="javascript:void(0)" onClick="openmodal2('."'$mid'".','."'$fname'".','."'$sname'".','."'$email'".','."'$pass'".')"><em class="icon ni ni-edit"></em><span>Edit</span></a></li>
+									
+									<li><a href="javascript:void(0)" onClick="confirm('."'$mid'".')"><em class="icon ni ni-trash"></em><span>Remove</span></a></li>
+
+								</ul>
+							</div>
+						</div>
+					</li>
+				</ul>
+			</td>
+			</tr>';
+												
+				}
+				echo'</tbody> </table>
+				<script src="https://cdn.datatables.net/1.10.23/js/jquery.dataTables.min.js"></script>
+		<script src="https://cdn.datatables.net/1.10.23/js/dataTables.bootstrap4.min.js"></script>
+		<script>$(document).ready(function () {
+			$("#myTable").DataTable();
+		} )
+		</script>
+		';
+			}
+}
+
+//fetch staff dentist data
+if(isset($_POST['dentistbtn']))
+{
+	
+		$query = mysqli_query($con,"SELECT * FROM `tbl_ruser`,tbl_role,orginzation where tbl_role.ro_id=tbl_ruser.ur_role_id and tbl_ruser.ur_orgtype = orginzation.orid and tbl_ruser.ur_role_id='1'");
+					
+		if($query)
+		{
+			echo'<link rel="stylesheet" href="https://cdn.datatables.net/1.10.23/css/dataTables.bootstrap4.min.css">
+			<button onclick="window.print()" class="btn btn-danger">Print</button>
+		<br>
+		<br>
+			<table class="nowrap nk-tb-list is-separate " data-auto-responsive="false" id="myTable">
+						<thead>
+							<tr class="nk-tb-item nk-tb-head">
+							
+								<th class="nk-tb-col"><span>Full Name</span></th>
+								<th class="nk-tb-col"><span>Email</span></th>
+								<th class="nk-tb-col"><span>Password</span></th>
+								<th class="nk-tb-col"><span>Role</span></th>
+								<th class="nk-tb-col"><span>Organisation Type</span></th>
+								<th class="nk-tb-col"><span>Organisation Name</span></th>
+								<th class="nk-tb-col"><span>Status</span></th>
+								<th class="nk-tb-col nk-tb-col-tools">
+									<ul class="nk-tb-actions gx-1 my-n1">
+										<li class="mr-n1">
+											<div class="dropdown">
+												<a href="#" class="dropdown-toggle btn btn-icon btn-trigger" data-toggle="dropdown"><em class="icon ni ni-more-h"></em></a>
+												<div class="dropdown-menu dropdown-menu-right">
+													<ul class="link-list-opt no-bdr">
+														<li><a href="#"><em class="icon ni ni-edit"></em><span>Edit Selected</span></a></li>
+														<li><a href="#"><em class="icon ni ni-trash"></em><span>Remove Selected</span></a></li>
+														<li><a href="#"><em class="icon ni ni-bar-c"></em><span>Update Stock</span></a></li>
+														<li><a href="#"><em class="icon ni ni-invest"></em><span>Update Price</span></a></li>
+													</ul>
+												</div>
+											</div>
+										</li>
+									</ul>
+								</th>
+							</tr><!-- .nk-tb-item -->
+						</thead>
+						<tbody id="">';
+			while($fetch = mysqli_fetch_array($query))
+			{
+		$mid = $fetch['ur_id'];
+		// $mname = $fetch['staff_fname'];
+		// $msname = $fetch['staff_sname'];
+		// $memail = $fetch['staff_email'];
+		// $mpass = $fetch['staff_pass'];
+		// $mphn = $fetch['staff_contact'];
+		// $mdepart = $fetch['staff_department'];
+		// $mdob = $fetch['staff_dob'];
+		// $mrole = $fetch['tbl_role'];
+		// $mrname = $fetch['role_name'];
+	$fname = $fetch['ur_fname'];
+	$sname = $fetch["ur_sname"];
+	$email = $fetch['ur_email'];
+	$pass = $fetch['ur_pass'];
+	echo'   <tr class="nk-tb-item">
+		
+		<td class="nk-tb-col">
+			<span class="tb-product">
+				<span class="title">'.$fetch['ur_fname'].$fetch["ur_sname"].'</span>
+			</span>
+		</td>
+		<td class="nk-tb-col">
+			<span class="tb-sub">'.$fetch['ur_email'].'</span>
+		</td>
+		<td class="nk-tb-col">
+			<span class="tb-lead">'.$fetch['ur_pass'].'</span>
+		</td>
+		<td class="nk-tb-col">
+		<span class="tb-lead">'.$fetch['ro_role'].'</span>
+		</td>
+		<td class="nk-tb-col">
+			<span class="tb-sub">'.$fetch['or_type'].'</span>
+		</td>
+		<td class="nk-tb-col">
+			<span class="tb-sub">'.$fetch['or_name'].'</span>
+		</td>
+		<td class="nk-tb-col">';
+		if($fetch["ur_status"] =="not_approve"){
+			echo '<span class="btn btn-danger" onclick="aprovenotaprove(\''.$mid.'\',\''.$fetch["ur_status"].'\')">Not Active</span>';
+		}elseif($fetch["ur_status"] =="approve"){
+			echo '<span class="btn btn-success" onclick="aprovenotaprove(\''.$mid.'\',\''.$fetch["ur_status"].'\')">Active</span>';
+		}
+		echo '</td>
+		<td class="nk-tb-col nk-tb-col-tools">
+			<ul class="nk-tb-actions gx-1 my-n1">
+				<li class="mr-n1">
+					<div class="dropdown">
+						<a href="#" class="dropdown-toggle btn btn-icon btn-trigger" data-toggle="dropdown"><em class="icon ni ni-more-h"></em></a>
+						<div class="dropdown-menu dropdown-menu-right">
+							<ul class="link-list-opt no-bdr">';
+						echo '<li><a href="javascript:void(0)" onClick="openmodal2('."'$mid'".','."'$fname'".','."'$sname'".','."'$email'".','."'$pass'".')"><em class="icon ni ni-edit"></em><span>Edit</span></a></li>
+								
+								<li><a href="javascript:void(0)" onClick="confirm('."'$mid'".')"><em class="icon ni ni-trash"></em><span>Remove</span></a></li>
+
+							</ul>
+						</div>
+					</div>
+				</li>
+			</ul>
+		</td>
+		</tr>';
+											
+			}
+			echo'</tbody> </table>
+			<script src="https://cdn.datatables.net/1.10.23/js/jquery.dataTables.min.js"></script>
+	<script src="https://cdn.datatables.net/1.10.23/js/dataTables.bootstrap4.min.js"></script>
+	<script>$(document).ready(function () {
+		$("#myTable").DataTable();
+	} )
+	</script>
+	';
+		}
+
+}
+//fetch staff genral pratictional data
+if(isset($_POST['genralpbtn']))
+{
+  
+    // echo $orgname;
+	$query = mysqli_query($con,"SELECT * FROM `tbl_ruser`,tbl_role,orginzation where tbl_role.ro_id=tbl_ruser.ur_role_id and tbl_ruser.ur_orgtype = orginzation.orid and tbl_ruser.ur_role_id='5'");
+				
+	if($query)
+	{
+		echo'<link rel="stylesheet" href="https://cdn.datatables.net/1.10.23/css/dataTables.bootstrap4.min.css">
+		<button onclick="window.print()" class="btn btn-danger">Print</button>
+		<br>
+		<br>
+		<table class="nowrap nk-tb-list is-separate " data-auto-responsive="false" id="myTable">
+					<thead>
+						<tr class="nk-tb-item nk-tb-head">
+						
+							<th class="nk-tb-col"><span>Full Name</span></th>
+							<th class="nk-tb-col"><span>Email</span></th>
+							<th class="nk-tb-col"><span>Password</span></th>
+							<th class="nk-tb-col"><span>Role</span></th>
+							<th class="nk-tb-col"><span>Organisation Type</span></th>
+							<th class="nk-tb-col"><span>Organisation Name</span></th>
+							<th class="nk-tb-col"><span>Status</span></th>
+							<th class="nk-tb-col nk-tb-col-tools">
+								<ul class="nk-tb-actions gx-1 my-n1">
+									<li class="mr-n1">
+										<div class="dropdown">
+											<a href="#" class="dropdown-toggle btn btn-icon btn-trigger" data-toggle="dropdown"><em class="icon ni ni-more-h"></em></a>
+											<div class="dropdown-menu dropdown-menu-right">
+												<ul class="link-list-opt no-bdr">
+													<li><a href="#"><em class="icon ni ni-edit"></em><span>Edit Selected</span></a></li>
+													<li><a href="#"><em class="icon ni ni-trash"></em><span>Remove Selected</span></a></li>
+													<li><a href="#"><em class="icon ni ni-bar-c"></em><span>Update Stock</span></a></li>
+													<li><a href="#"><em class="icon ni ni-invest"></em><span>Update Price</span></a></li>
+												</ul>
+											</div>
+										</div>
+									</li>
+								</ul>
+							</th>
+						</tr><!-- .nk-tb-item -->
+					</thead>
+					 <tbody id="">';
+		while($fetch = mysqli_fetch_array($query))
+		{
+	$mid = $fetch['ur_id'];
+	$fname = $fetch['ur_fname'];
+	$sname = $fetch['ur_sname'];
+	$email = $fetch['ur_email'];
+	$pass = $fetch['ur_pass'];
+	// $mphn = $fetch['ur_contact'];
+	// $mdepart = $fetch['staff_department'];
+	// $mdob = $fetch['staff_dob'];
+	// $mrole = $fetch['tbl_role'];
+	// $mrname = $fetch['role_name'];
+
+	echo'   <tr class="nk-tb-item">
+	
+	<td class="nk-tb-col">
+		<span class="tb-product">
+			<span class="tb-sub">'.$fetch['ur_fname'].$fetch["ur_sname"].'</span>
+		</span>
+	</td>
+	<td class="nk-tb-col">
+		<span class="tb-sub">'.$fetch['ur_email'].'</span>
+	</td>
+	<td class="nk-tb-col">
+		<span class="tb-sub">'.$fetch['ur_pass'].'</span>
+	</td>
+	<td class="nk-tb-col">
+	<span class="tb-sub">'.$fetch['ro_role'].'</span>
+	</td>
+	<td class="nk-tb-col">
+		<span class="tb-sub">'.$fetch['or_type'].'</span>
+	</td>
+	<td class="nk-tb-col">
+		<span class="tb-sub">'.$fetch['or_name'].'</span>
+	</td>
+	<td class="nk-tb-col">';
+	if($fetch["ur_status"] =="not_approve"){
+		echo '<span class="btn btn-danger" onclick="eaprovenotaprove(\''.$mid.'\',\''.$fetch["ur_status"].'\')">Not Active</span>';
+	}elseif($fetch["ur_status"] =="approve"){
+		echo '<span class="btn btn-success" onclick="eaprovenotaprove(\''.$mid.'\',\''.$fetch["ur_status"].'\')">Active</span>';
+	}
+	echo '</td>
+	<td class="nk-tb-col nk-tb-col-tools">
+		<ul class="nk-tb-actions gx-1 my-n1">
+			<li class="mr-n1">
+				<div class="dropdown">
+					<a href="#" class="dropdown-toggle btn btn-icon btn-trigger" data-toggle="dropdown"><em class="icon ni ni-more-h"></em></a>
+					<div class="dropdown-menu dropdown-menu-right">
+						<ul class="link-list-opt no-bdr">';
+			// <li><a href="javascript:void(0)" onClick="openmodal1('."'$mid'".','."'$mname'".','."'$msname'".','."'$memail'".','."'$mpass'".','."'$mphn'".','."'$mdepart'".','."'$mdob'".','."'$mrole'".')"><em class="icon ni ni-edit"></em><span>Edit</span></a></li>
+							 
+							//  <li><a href="javascript:void(0)"><em class="icon ni ni-eye" data-toggle="modal" data-target="#modalForm2" onClick="openmodal2('."'$mname'".','."'$msname'".','."'$memail'".','."'$mpass'".')"></em><span>View</span></a></li>
+							
+							 echo '<li><a href="javascript:void(0)" onClick="confirm('."'$mid'".')"><em class="icon ni ni-trash"></em><span>Remove</span></a></li>
+							 <li><a href="javascript:void(0)" onClick="openmodal2('."'$mid'".','."'$fname'".','."'$sname'".','."'$email'".','."'$pass'".')"><em class="icon ni ni-edit"></em><span>Edit</span></a></li>
+
+						</ul>
+					</div>
+				</div>
+			</li>
+		</ul>
+	</td>
+	</tr>';
+										
+		}
+		echo'</tbody> </table>
+		<script src="https://cdn.datatables.net/1.10.23/js/jquery.dataTables.min.js"></script>
+	<script src="https://cdn.datatables.net/1.10.23/js/dataTables.bootstrap4.min.js"></script>
+	<script>$(document).ready(function () {
+		$("#myTable").DataTable({
+		
+		});
+	} )
+	</script>
+	';
+	}
+}
+if(isset($_POST['Optometristbtn']))
+{
+  
+	$query = mysqli_query($con,"SELECT * FROM `tbl_ruser`,tbl_role,orginzation where tbl_role.ro_id=tbl_ruser.ur_role_id and tbl_ruser.ur_orgtype = orginzation.orid and tbl_ruser.ur_role_id='6'");
+				
+	if($query)
+	{
+		echo'<link rel="stylesheet" href="https://cdn.datatables.net/1.10.23/css/dataTables.bootstrap4.min.css">
+		<button onclick="window.print()" class="btn btn-danger">Print</button>
+		<br>
+		<br>
+		<table class="nowrap nk-tb-list is-separate " data-auto-responsive="false" id="myTable">
+					<thead>
+						<tr class="nk-tb-item nk-tb-head">
+						
+							<th class="nk-tb-col"><span>Full Name</span></th>
+							<th class="nk-tb-col"><span>Email</span></th>
+							<th class="nk-tb-col"><span>Password</span></th>
+							<th class="nk-tb-col"><span>Role</span></th>
+							<th class="nk-tb-col"><span>Organisation Type</span></th>
+							<th class="nk-tb-col"><span>Organisation Name</span></th>
+							<th class="nk-tb-col"><span>Status</span></th>
+							<th class="nk-tb-col nk-tb-col-tools">
+								<ul class="nk-tb-actions gx-1 my-n1">
+									<li class="mr-n1">
+										<div class="dropdown">
+											<a href="#" class="dropdown-toggle btn btn-icon btn-trigger" data-toggle="dropdown"><em class="icon ni ni-more-h"></em></a>
+											<div class="dropdown-menu dropdown-menu-right">
+												<ul class="link-list-opt no-bdr">
+													<li><a href="#"><em class="icon ni ni-edit"></em><span>Edit Selected</span></a></li>
+													<li><a href="#"><em class="icon ni ni-trash"></em><span>Remove Selected</span></a></li>
+													<li><a href="#"><em class="icon ni ni-bar-c"></em><span>Update Stock</span></a></li>
+													<li><a href="#"><em class="icon ni ni-invest"></em><span>Update Price</span></a></li>
+												</ul>
+											</div>
+										</div>
+									</li>
+								</ul>
+							</th>
+						</tr><!-- .nk-tb-item -->
+					</thead>
+					 <tbody id="">';
+		while($fetch = mysqli_fetch_array($query))
+		{
+	$mid = $fetch['ur_id'];
+	// $mname = $fetch['staff_fname'];
+	// $msname = $fetch['staff_sname'];
+	// $memail = $fetch['staff_email'];
+	// $mpass = $fetch['staff_pass'];
+	// $mphn = $fetch['staff_contact'];
+	// $mdepart = $fetch['staff_department'];
+	// $mdob = $fetch['staff_dob'];
+	// $mrole = $fetch['tbl_role'];
+	// $mrname = $fetch['role_name'];
+	$fname = $fetch['ur_fname'];
+	$sname = $fetch["ur_sname"];
+	$email = $fetch['ur_email'];
+	$pass = $fetch['ur_pass'];
+	echo'   <tr class="nk-tb-item">
+	
+	<td class="nk-tb-col">
+		<span class="tb-product">
+			<span class="tb-sub">'.$fetch['ur_fname'].$fetch["ur_sname"].'</span>
+		</span>
+	</td>
+	<td class="nk-tb-col">
+		<span class="tb-sub">'.$fetch['ur_email'].'</span>
+	</td>
+	<td class="nk-tb-col">
+		<span class="tb-sub">'.$fetch['ur_pass'].'</span>
+	</td>
+	<td class="nk-tb-col">
+	<span class="tb-sub">'.$fetch['ro_role'].'</span>
+	</td>
+	<td class="nk-tb-col">
+		<span class="tb-sub">'.$fetch['or_type'].'</span>
+	</td>
+	<td class="nk-tb-col">
+		<span class="tb-sub">'.$fetch['or_name'].'</span>
+	</td>
+	<td class="nk-tb-col">';
+	if($fetch["ur_status"] =="not_approve"){
+		echo '<span class="btn btn-danger" onclick="oaprovenotaprove(\''.$mid.'\',\''."o".$fetch["ur_status"].'\')">Not Active</span>';
+	}elseif($fetch["ur_status"] =="approve"){
+		echo '<span class="btn btn-success" onclick="oaprovenotaprove(\''.$mid.'\',\''."o".$fetch["ur_status"].'\')">Active</span>';
+	}
+	echo '</td>
+	<td class="nk-tb-col nk-tb-col-tools">
+		<ul class="nk-tb-actions gx-1 my-n1">
+			<li class="mr-n1">
+				<div class="dropdown">
+					<a href="#" class="dropdown-toggle btn btn-icon btn-trigger" data-toggle="dropdown"><em class="icon ni ni-more-h"></em></a>
+					<div class="dropdown-menu dropdown-menu-right">
+						<ul class="link-list-opt no-bdr">';
+			// <li><a href="javascript:void(0)" onClick="openmodal1('."'$mid'".','."'$mname'".','."'$msname'".','."'$memail'".','."'$mpass'".','."'$mphn'".','."'$mdepart'".','."'$mdob'".','."'$mrole'".')"><em class="icon ni ni-edit"></em><span>Edit</span></a></li>
+							echo '<li><a href="javascript:void(0)" onClick="openmodal2('."'$mid'".','."'$fname'".','."'$sname'".','."'$email'".','."'$pass'".')"><em class="icon ni ni-edit"></em><span>Edit</span></a></li>
+							
+							<li><a href="javascript:void(0)" onClick="confirm('."'$mid'".')"><em class="icon ni ni-trash"></em><span>Remove</span></a></li>
+
+						</ul>
+					</div>
+				</div>
+			</li>
+		</ul>
+	</td>
+	</tr>';
+										
+		}
+		echo'</tbody> </table>
+		<script src="https://cdn.datatables.net/1.10.23/js/jquery.dataTables.min.js"></script>
+	<script src="https://cdn.datatables.net/1.10.23/js/dataTables.bootstrap4.min.js"></script>
+	<script>$(document).ready(function () {
+		$("#myTable").DataTable();
+	} )
+	</script>
+	';
+	}
+}
+
+
 ?>

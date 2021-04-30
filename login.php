@@ -267,14 +267,15 @@
 			contentType: false,
 			processData: false,
 			success: function(data){
+			
 				if(data =="not approve"){
-				    	toastr.warning("you can't login wait for admin approval!");
+					swal("Alert!", "Unable to validate details, awaiting admin approval", "warning");
 				}
 				if(data == "empasserr"){
-					toastr.error("Email Password Wrong!");
+					swal("Error!", "Email and Password Wrong", "error");
 				}
 				else if(data == "apperror"){
-					toastr.error("Please fill all fields!");
+					swal("Alert!", "Unable to validate details, awaiting admin approval", "warning");
 				}
 				else if (data == "subadmin"){
 					window.location.href = "sub_admin/index.php";
@@ -358,5 +359,5 @@ function showmodal(){
 	$("#hidemodal").show();
 }
 </script>
-
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 </html>

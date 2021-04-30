@@ -294,6 +294,12 @@ else
 					toastr.clear();
                NioApp.Toast("<h5>Location Already Exist</h5>", 'error',{position:'top-right'});	
                 }
+                else if(data == 'alreadysite'){
+				
+                toastr.clear();
+           NioApp.Toast("<h5>Site code Already Exist</h5>", 'error',{position:'top-right'});	
+            }
+
                 else if(data == 'alreadypost'){
 				
 					toastr.clear();

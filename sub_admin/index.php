@@ -134,34 +134,32 @@ $fetchsa=mysqli_fetch_array($qiu);
 									$orid=$fetch["ur_orgtype"];
             ?>
                                 
-                                        <div class="col-xxl-3 col-sm-6">
+                                        <a href="patientshow.php" class="col-xxl-3 col-sm-6">
                                             <div class="card">
                                                 <div class="nk-ecwg nk-ecwg6">
                                                     <div class="card-inner">
                                                         <div class="card-title-group">
                                                             <div class="card-title">
-                                                                <h6 class="title">TOTAL PATIENTS</h6>
+                                                                <h6 class="title">Total Patients Referred</h6>
                                                             </div>
                                                         </div>
                                                         <div class="data">
                                                             <div class="data-group">
                                                                 <div class="amount"><?php  echo $ser['num']?></div>
-                                                                <div class="nk-ecwg6-ck">
-                                                                    <canvas class="ecommerce-line-chart-s3" id="todayRevenue"></canvas>
-                                                                </div>
+                                                              
                                                             </div>
                                                         </div>
                                                     </div><!-- .card-inner -->
                                                 </div><!-- .nk-ecwg -->
                                             </div><!-- .card -->
-                                        </div><!-- .col -->
-                                         <div class="col-xxl-3 col-sm-6">
+                                        </a><!-- .col -->
+                                         <a href="refferels.php?reqtype=Appointment Request&status=2" class="col-xxl-3 col-sm-6">
                                             <div class="card">
                                                 <div class="nk-ecwg nk-ecwg6">
                                                     <div class="card-inner">
                                                         <div class="card-title-group">
                                                             <div class="card-title">
-                                                                <h6 class="title">Total Refferals Sent</h6>
+                                                                <h6 class="title">Total Referrals Sent</h6>
                                                             </div>
                                                         </div>
                                                         <div class="data">
@@ -172,22 +170,20 @@ $fetchsa=mysqli_fetch_array($qiu);
                                                                 $r=mysqli_fetch_array($q);
                                                                 echo $r["a"];
                                                                 }?></div>
-                                                                <div class="nk-ecwg6-ck">
-                                                                    <canvas class="ecommerce-line-chart-s3" id="todayOrders"></canvas>
-                                                                </div>
+                                                               
                                                             </div>
                                                             </div>
                                                     </div><!-- .card-inner -->
                                                 </div><!-- .nk-ecwg -->
                                             </div><!-- .card -->
-                                        </div><!-- .col -->
-                                        <div class="col-xxl-3 col-sm-6">
+                                        </a><!-- .col -->
+                                        <a href="refferels.php?reqtype=Appointment Request&status=1" class="col-xxl-3 col-sm-6 mt-2">
                                             <div class="card">
                                                 <div class="nk-ecwg nk-ecwg6">
                                                     <div class="card-inner">
                                                         <div class="card-title-group">
                                                             <div class="card-title">
-                                                                <h6 class="title">Total Refferals Accepted</h6>
+                                                                <h6 class="title">Total Referrals Accepted</h6>
                                                             </div>
                                                         </div>
                                                         <div class="data">
@@ -198,22 +194,20 @@ $fetchsa=mysqli_fetch_array($qiu);
                                                                 $r=mysqli_fetch_array($q);
                                                                 echo $r["a"];
                                                                 }?></div>
-                                                                <div class="nk-ecwg6-ck">
-                                                                    <canvas class="ecommerce-line-chart-s3" id="todayOrders"></canvas>
-                                                                </div>
+                                                              
                                                             </div>
                                                             </div>
                                                     </div><!-- .card-inner -->
                                                 </div><!-- .nk-ecwg -->
                                             </div><!-- .card -->
-                                        </div><!-- .col -->
-                                        <div class="col-xxl-3 col-sm-6">
+                                        </a><!-- .col -->
+                                        <a href="refferels.php?reqtype=Appointment Request&status=0" class="col-xxl-3 col-sm-6 mt-2">
                                             <div class="card">
                                                 <div class="nk-ecwg nk-ecwg6">
                                                     <div class="card-inner">
                                                         <div class="card-title-group">
                                                             <div class="card-title">
-                                                                <h6 class="title">Total Refferals Rejected</h6>
+                                                                <h6 class="title">Total Referrals Rejected</h6>
                                                             </div>
                                                         </div>
                                                         <div class="data">
@@ -224,15 +218,13 @@ $fetchsa=mysqli_fetch_array($qiu);
                                                                 $r=mysqli_fetch_array($q);
                                                                 echo $r["a"];
                                                                 }?></div>
-                                                                <div class="nk-ecwg6-ck">
-                                                                    <canvas class="ecommerce-line-chart-s3" id="todayOrders"></canvas>
-                                                                </div>
+                                                              
                                                             </div>
                                                             </div>
                                                     </div><!-- .card-inner -->
                                                 </div><!-- .nk-ecwg -->
                                             </div><!-- .card -->
-                                        </div><!-- .col -->
+                                        </a><!-- .col -->
                                      
                                         <?php
                            }
@@ -249,7 +241,7 @@ $fetchsa=mysqli_fetch_array($qiu);
                                         $usr = mysqli_fetch_assoc($qe);
                                        
                                          ?>
-                                       <div class="col-xxl-3 col-sm-6">
+                                       <a href="consultant.php?role=ServiceDefiner" class="col-xxl-3 col-sm-6">
                                             <div class="card">
                                                 <div class="nk-ecwg nk-ecwg6">
                                                     <div class="card-inner">
@@ -261,15 +253,13 @@ $fetchsa=mysqli_fetch_array($qiu);
                                                         <div class="data">
                                                             <div class="data-group">
                                                                 <div class="amount"><?php echo $usr['number']?></div>
-                                                                <div class="nk-ecwg6-ck">
-                                                                    <canvas class="ecommerce-line-chart-s3" id="todayCustomers"></canvas>
-                                                                </div>
+                                                                
                                                             </div>
                                                          </div>
                                                     </div><!-- .card-inner -->
                                                 </div><!-- .nk-ecwg -->
                                             </div><!-- .card -->
-                                        </div><!-- .col -->
+                                        </a><!-- .col -->
                                         <?php
                                          $loginem=   $_SESSION['consultant'];
                                 $idq = mysqli_query($con, "SELECT * FROM `tbl_ruser` WHERE `ur_email` = '$loginem'");
@@ -282,7 +272,7 @@ $fetchsa=mysqli_fetch_array($qiu);
               $hos = mysqli_fetch_assoc($qe);
             
                                         ?>
-                                           <div class="col-xxl-3 col-sm-6">
+                                           <a href="servicerefferels.php?reqtype=Advice request&status=1" class="col-xxl-3 col-sm-6">
                                             <div class="card">
                                                 <div class="nk-ecwg nk-ecwg6">
                                                     <div class="card-inner">
@@ -294,15 +284,13 @@ $fetchsa=mysqli_fetch_array($qiu);
                                                         <div class="data">
                                                             <div class="data-group">
                                                                 <div class="amount"><?php echo $hos['number']?></div>
-                                                                <div class="nk-ecwg6-ck">
-                                                                    <canvas class="ecommerce-line-chart-s3" id="todayRevenue"></canvas>
-                                                                </div>
+                                                              
                                                             </div>
                                                         </div>
                                                     </div><!-- .card-inner -->
                                                 </div><!-- .nk-ecwg -->
                                             </div><!-- .card -->
-                                        </div><!-- .col -->
+                                        </a><!-- .col -->
                                         <?php
              
                    $loginem=   $_SESSION['consultant'];
@@ -316,7 +304,7 @@ $fetchsa=mysqli_fetch_array($qiu);
               $hos = mysqli_fetch_assoc($qe);
             
                                         ?>
-                                         <div class="col-xxl-3 col-sm-6">
+                                         <a href="servicerefferels.php?reqtype=Advice request&status=1" class="col-xxl-3 col-sm-6 mt-2">
                                             <div class="card">
                                                 <div class="nk-ecwg nk-ecwg6">
                                                     <div class="card-inner">
@@ -328,15 +316,13 @@ $fetchsa=mysqli_fetch_array($qiu);
                                                         <div class="data">
                                                             <div class="data-group">
                                                                 <div class="amount"><?php echo $hos['number']?></div>
-                                                                <div class="nk-ecwg6-ck">
-                                                                    <canvas class="ecommerce-line-chart-s3" id="todayRevenue"></canvas>
-                                                                </div>
+                                                               
                                                             </div>
                                                         </div>
                                                     </div><!-- .card-inner -->
                                                 </div><!-- .nk-ecwg -->
                                             </div><!-- .card -->
-                                        </div><!-- .col -->
+                                        </a><!-- .col -->
                                         <?php
              
                   $loginem=   $_SESSION['consultant'];
@@ -350,7 +336,7 @@ $fetchsa=mysqli_fetch_array($qiu);
               $hos = mysqli_fetch_assoc($qe);
            
                                         ?>
-                                         <div class="col-xxl-3 col-sm-6">
+                                         <a href="servicerefferels.php?reqtype=Appointment Request&status=2" class="col-xxl-3 col-sm-6 mt-2">
                                             <div class="card">
                                                 <div class="nk-ecwg nk-ecwg6">
                                                     <div class="card-inner">
@@ -362,15 +348,13 @@ $fetchsa=mysqli_fetch_array($qiu);
                                                         <div class="data">
                                                             <div class="data-group">
                                                                 <div class="amount"><?php echo $hos['number']?></div>
-                                                                <div class="nk-ecwg6-ck">
-                                                                    <canvas class="ecommerce-line-chart-s3" id="todayRevenue"></canvas>
-                                                                </div>
+                                                               
                                                             </div>
                                                         </div>
                                                     </div><!-- .card-inner -->
                                                 </div><!-- .nk-ecwg -->
                                             </div><!-- .card -->
-                                        </div><!-- .col -->
+                                        </a><!-- .col -->
                                         <?php
             
                  $loginem=   $_SESSION['consultant'];
@@ -384,7 +368,7 @@ $fetchsa=mysqli_fetch_array($qiu);
               $hos = mysqli_fetch_assoc($qe);
             
                                         ?>
-                                        <div class="col-xxl-3 col-sm-6">
+                                        <a href="servicerefferels.php?reqtype=Appointment Request&status=2" class="col-xxl-3 col-sm-6 mt-2">
                                             <div class="card">
                                                 <div class="nk-ecwg nk-ecwg6">
                                                     <div class="card-inner">
@@ -396,15 +380,13 @@ $fetchsa=mysqli_fetch_array($qiu);
                                                         <div class="data">
                                                             <div class="data-group">
                                                                 <div class="amount"><?php echo $hos['number']?></div>
-                                                                <div class="nk-ecwg6-ck">
-                                                                    <canvas class="ecommerce-line-chart-s3" id="todayRevenue"></canvas>
-                                                                </div>
+                                                               
                                                             </div>
                                                         </div>
                                                     </div><!-- .card-inner -->
                                                 </div><!-- .nk-ecwg -->
                                             </div><!-- .card -->
-                                        </div><!-- .col -->
+                                        </a><!-- .col -->
                                         <?php
            
                                         ?>
@@ -426,7 +408,7 @@ $fetchsa=mysqli_fetch_array($qiu);
                                         $qe = mysqli_query($con, "SELECT COUNT(ur_id) AS number FROM tbl_ruser WHERE ur_role_id ='3' and ur_orgtype = '$orgid' and ur_orgcode = '$orcode' and ur_email != '$email'");
                                         $usr = mysqli_fetch_assoc($qe);
                                          ?>
-                                        <div class="col-xxl-3 col-sm-6">
+                                        <a href="consultant.php?role=consultant" class="col-xxl-3 col-sm-6 mt-2">
                                             <div class="card">
                                                 <div class="nk-ecwg nk-ecwg6">
                                                     <div class="card-inner">
@@ -438,15 +420,13 @@ $fetchsa=mysqli_fetch_array($qiu);
                                                         <div class="data">
                                                             <div class="data-group">
                                                                 <div class="amount"><?php echo $usr['number']?></div>
-                                                                <div class="nk-ecwg6-ck">
-                                                                    <canvas class="ecommerce-line-chart-s3" id="todayVisitors"></canvas>
-                                                                </div>
+                                                              
                                                             </div>
                                                         </div>
                                                     </div><!-- .card-inner -->
                                                 </div><!-- .nk-ecwg -->
                                             </div><!-- .card -->
-                                        </div><!-- .col -->
+                                        </a><!-- .col -->
                                        <?php
                            }
                             $id = $_SESSION['a_id'];
@@ -465,27 +445,25 @@ $fetchsa=mysqli_fetch_array($qiu);
                                         $usr = mysqli_fetch_assoc($qe);
                            
                                        ?>
-                                       <div class="col-xxl-3 col-sm-6">
+                                       <a href="consultant.php?role=GP_Refferer" class="col-xxl-3 col-sm-6 mt-2">
                                             <div class="card">
                                                 <div class="nk-ecwg nk-ecwg6">
                                                     <div class="card-inner">
                                                         <div class="card-title-group">
                                                             <div class="card-title">
-                                                                <h6 class="title">TOTAL GP REFFERS</h6>
+                                                                <h6 class="title">Total Registered Dentist</h6>
                                                             </div>
                                                         </div>
                                                         <div class="data">
                                                             <div class="data-group">
                                                                 <div class="amount"><?php echo $usr['number']?></div>
-                                                                <div class="nk-ecwg6-ck">
-                                                                    <canvas class="ecommerce-line-chart-s3" id="todayOrders"></canvas>
-                                                                </div>
+                                                               
                                                             </div>
                                                         </div>
                                                     </div><!-- .card-inner -->
                                                 </div><!-- .nk-ecwg -->
                                             </div><!-- .card -->
-                                        </div>
+                                        </a>
                                         <?php
                            }
                                         ?><!-- .col -->

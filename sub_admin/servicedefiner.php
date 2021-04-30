@@ -365,7 +365,7 @@ include_once('headernav.php');
 										<hr>
 									<strong><label class="col-form-control" for="">Weekend Exclusion (For all priorities)</label></strong>
 									<div class="form-control-wrap ml-5">
-										<input type="radio" value="Exclude Saturday and Sunday" name="ser_weekend">&nbsp;&nbsp;
+										<input type="radio" value="Exclude Saturday and Sunday" name="ser_weekend" id="ser_weekend">&nbsp;&nbsp;
 										<span>Exclude Saturday & Sunday</span>
 										<!-- <br>
 										<br>
@@ -616,6 +616,7 @@ include_once('headernav.php');
 									</div>
 								</div> 		
 							  </div>
+							  
 								<div class="col-lg-4" style="margin-top: 110px !important;">
 							  </div>
 							</div>  
@@ -627,9 +628,37 @@ include_once('headernav.php');
 				</div>
 
 				<br>
-				<div class="col-12">
+				<div class="col-lg-12">
+									 <!--<input type="text" name="rid" id="refferelid" hidden="true" value="">-->
+									 <label for="consultant">Consultant</label>
+									  <select class="form-control" name="consultant" id="consultant" >
+									  <option>Select</option>
+									  <?php
+									  $sql = mysqli_query($con,"SELECT * FROM `tbl_ruser` WHERE ur_orgtype = '$org' and ur_role_id = '3' and ur_fname != '$name'");
+									  if(mysqli_num_rows($sql))
+									  {
+										  while($fetch = mysqli_fetch_array($sql))
+										  {
+											  echo'<option value="'.$fetch['ur_id'].'">'.$fetch['ur_fname'].'</option>';
+										  }
+									  }
+									  ?>
+										 
+								 </select>
+									 </div>
+				<div class="col-md-3">
 					<div class="form-group">
 						<button type="submit" class="btn btn-lg btn-primary" id="privacysubmit">Save Informations</button>
+					</div>
+				</div>
+				<div class="col-md-3">
+					<div class="form-group">
+						<button type="button" class="btn btn-lg btn-info" id="privacysubmit" onclick="savedraft()">Save As Draft</button>
+					</div>
+				</div>
+				<div class="col-md-4">
+					<div class="form-group">
+						<button type="button" class="btn btn-lg btn-danger" id="privacysubmit" onclick="confirm()">Cancel</button>
 					</div>
 				</div>
 			</div>
@@ -860,12 +889,12 @@ function stringlength1(num)
 { 
  
 var no = num;
-var mnlen = 3;
-var mxlen = 8;
+var mnlen = 5;
+var mxlen = 15;
 if(no.length<mnlen || no.length> mxlen)
 { 
     
-$("#valid-nhs1").html("Please enter between 3 to 8 number").removeClass("text-success").addClass("text-danger");
+$("#valid-nhs1").html("Please enter between 5 to 15 number").removeClass("text-success").addClass("text-danger");
 $("#valid-nhs1").show();
 $('#hp_fax').val('');
 }
@@ -1377,6 +1406,210 @@ NioApp.Toast("<h5>All Fields are required</h5>", 'error',{position:'top-right'})
 }
 });
 
+function savedraft(){
+	
+var ser_name = $('#ser_name').val();
+var ser_publish = $('#ser_pub').val();
+
+var ser_cmnts = $('#ser_cmnts').val();
+var ser_loc = $('#ser_location').val();
+var ser_spec = $('#ser_speciality').val();
+var ser_app =[];
+
+$.each($("#ser_apptype option:selected"), function(){            
+	ser_app.push($(this).val());
+        });
+
+var ser_gen = $('#ser_gen').val();
+var ser_dir = $('#ser_direct').val();
+var ser_eff = $('#ser_effect').val();
+var ser_eff2 = $('#ser_effect2').val();
+
+var ser_ager = $('#ser_ager').val();
+var ser_ager2 = $('#ser_ager2').val();
+var ser_care = $('#ser_carem').val();
+var ser_clt = [];
+$.each($("#ser_cltype option:selected"), function(){            
+	ser_clt.push($(this).val());
+        });
+var ser_res = $('#re_reason').val();
+var ser_cmnt = $('#re_cmnt').val();
+var ser_conna = $('#ser_conname').val();
+var ser_conad = $('#ser_conadd').val();
+var ser_concoun = $('#ser_concount').val();
+var ser_conpos = $('#ser_conpost').val();
+
+var ser_hpcon = $('#hp_con').val();
+var ser_hpfax = $('#hp_fax').val();
+var ser_hptext = $('#hp_text').val();
+var ser_hpem = $('#hp_email').val();
+var ser_patel = $('#pa_tel').val();
+var ser_hop = $('#pa_hop').val();
+var ser_poend = $('#po_end').val();
+var ser_porec = $('#po_rec').val();
+var ser_podya = $('#po_day').val();
+var ser_poapt = $('#po_aptime').val();
+var ser_pores = $('#po_resp').val();
+var ser_popro = $('#po_prosys').val();
+var ser_instr = $('#ser_ins').val();
+var ser_show = $('#ser_show').val();
+var ser_conadd2 = $('#ser_conadd2').val();
+var ser_routin = $('#ser_routin').val();
+var ser_urgent = $('#ser_urgent').val();
+var ser_towweek = $('#ser_towweek').val();
+var ser_reqt = [];
+$.each($('input:checkbox[name="ser_reqt[]"]:checked'),function(){
+	ser_reqt.push($(this).val());
+});
+if(ser_name != '' && ser_loc != '' && ser_spec != '' && ser_app != '' && ser_gen != '' && ser_dir != '' && ser_eff != '' && ser_ager != '' && ser_care != '' && ser_clt != '' && ser_conna != '' && ser_conad != '' && ser_concoun != '' && ser_conpos != '' && ser_hpem != '')
+{
+
+var formdata = new FormData();
+formdata.append("savedraft","btn");
+formdata.append("ser_name",ser_name);
+formdata.append("ser_pub",ser_publish);
+formdata.append("ser_cmnts",ser_cmnts);
+formdata.append("ser_show",ser_show);
+formdata.append("ser_location",ser_loc);
+formdata.append("ser_speciality",ser_spec);
+formdata.append("ser_apptype[]",ser_app);
+formdata.append("ser_gen",ser_gen);
+formdata.append("ser_direct",ser_dir);
+formdata.append("ser_effect",ser_eff);
+formdata.append("ser_effect2",ser_eff2);
+formdata.append("ser_ager",ser_ager);
+formdata.append("ser_ager2",ser_ager2);
+formdata.append("ser_carem",ser_care);
+formdata.append("ser_cltype[]",ser_clt);
+formdata.append("re_reason",ser_res);
+formdata.append("re_cmnt",ser_cmnt);
+formdata.append("ser_conname",ser_conna);
+formdata.append("ser_conadd",ser_conad);
+formdata.append("ser_conadd2",ser_conadd2);
+formdata.append("ser_concount",ser_concoun);
+formdata.append("ser_conpost",ser_conpos);
+formdata.append("hp_con",ser_hpcon);
+formdata.append("hp_fax",ser_hpfax);
+formdata.append("hp_text",ser_hptext);
+formdata.append("hp_email",ser_hpem);
+formdata.append("pa_tel",ser_patel);
+formdata.append("pa_hop",ser_hop);
+formdata.append("po_end",ser_poend);
+formdata.append("po_rec",ser_porec);
+formdata.append("po_day",ser_podya);
+formdata.append("po_aptime",ser_poapt);
+formdata.append("po_resp",ser_pores);
+formdata.append("po_prosys",ser_popro);
+formdata.append("ser_ins",ser_instr);
+formdata.append("ser_routin",ser_routin);
+formdata.append("ser_urgent",ser_urgent);
+formdata.append("ser_towweek",ser_towweek);
+formdata.append("ser_reqt[]",ser_reqt);
+
+//formdata.append('ser_reqt',$('input:radio[name="ser_reqt"]:checked').val());
+formdata.append('ser_weekend',$('input:radio[name="ser_weekend"]:checked').val());
+
+$.ajax({
+type: 'POST',
+url: 'phpcode.php',
+data: formdata,
+contentType: false,
+processData:false,
+//            beforeSend: function(){
+//                $('#privacysubmit').attr("disabled","disabled");
+//                $('#privacyadd').css("opacity",".5");
+//            },
+success: function(data){
+	console.log(data);
+if(data == 'errorinslotm'){
+toastr.clear();
+NioApp.Toast("<h5>Something Went Wrong</h5>", 'error',{position:'top-right'});
+}
+else if(data == 'Successapps'){
+$('#servicedef')[0].reset();
+//					$('#servicedef').trigger('reset');
+toastr.clear();
+NioApp.Toast("<h5>Service Added to Draft</h5>", 'success',{position:'top-right'});
+			setTimeout(function(){window.location.href="service.php";}, 2000);
+
+}
+
+//                $('#privacyadd').css("opacity","");
+//                $("#privacysubmit").removeAttr("disabled");
+}
+});
+}
+else {
+    
+    if(ser_name == '' || ser_name == null)
+    {
+     
+        $('#ser_name').css("border", "2px solid red");
+    }
+    if(ser_loc == '' || ser_name == null)
+    {
+        $('#ser_location').css("border-color","red");
+    }
+    if(ser_spec == '')
+    {
+        $('#ser_speciality').css("border-color","red");
+    }
+    if(ser_app == '')
+    {
+        $('#ser_apptype').css("border-color","red");
+    }
+    if(ser_gen == '')
+    {
+        $('#ser_gen').css("border-color","red");
+    }
+    if(ser_dir == '')
+    {
+        $('#ser_direct').css("border-color","red");
+    }
+    if(ser_eff == '')
+    {
+        $('#ser_effect').css("border-color", "red");
+    }
+    if(ser_ager == '')
+    {
+        $('#ser_ager').css("border-color","red");
+    }
+    if(ser_care == '')
+    {
+        $('#ser_carem').css("border-color","red");
+    }
+    if(ser_clt == '')
+    {
+        $('#ser_cltype').css("border-color","red");
+    }
+    if(ser_conna == '')
+    {
+        $('#ser_conname').css("border-color", "red");
+    }
+    if(ser_conad == '')
+    {
+        $('#ser_conadd').css("border-color","red");
+    }
+    if(ser_concoun == '')
+    {
+        $('#ser_concount').css("border-color","red");
+    }
+    if(ser_conpos == '')
+    {
+        $('#ser_conpost').css("border-color","red");
+    }
+    if(ser_hpem == '')
+    {
+        $('#hp_email').css("border-color","red");
+    }
+toastr.clear();
+NioApp.Toast("<h5>All Fields are required</h5>", 'error',{position:'top-right'});
+}
+}
+
+
+
+
 //			$("#ser_refer").each(function(){
 //			if($(this).is(":checked")){
 //				alert("hello");
@@ -1533,7 +1766,21 @@ $('#reservationDate').on('change', function () {
 });
 });
 
-
+function confirm() {
+        Swal.fire({
+            title: 'Are you sure you want to Cancel?',
+            text: "The details will not be saved?",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonText: 'Yes, delete it!'
+        }).then(function(result) {
+            if (result.value) {
+                // Swal.fire('Deleted!', 'Manager has been deleted.', 'success');
+                $('#servicedef')[0].reset();
+				window.location.href="index.php";
+            }
+        });
+    }
 </script>
 
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>

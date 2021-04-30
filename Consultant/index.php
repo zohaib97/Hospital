@@ -85,7 +85,7 @@ include_once('header.php');
                 
             ?>
                                
-                                    <div class="col-xxl-3 col-sm-6">
+                                    <a href="servicerefferels.php?reqtype=Advice request&status=1" class="col-xxl-3 col-sm-6">
                                             <div class="card">
                                                 <div class="nk-ecwg nk-ecwg6">
                                                     <div class="card-inner">
@@ -97,15 +97,13 @@ include_once('header.php');
                                                         <div class="data">
                                                             <div class="data-group">
                                                                 <div class="amount"><?php echo $hos['number']?></div>
-                                                                <div class="nk-ecwg6-ck">
-                                                                    <canvas class="ecommerce-line-chart-s3" id="todayOrders"></canvas>
-                                                                </div>
+                                                                
                                                             </div>
                                                         </div>
                                                     </div><!-- .card-inner -->
                                                 </div><!-- .nk-ecwg -->
                                             </div><!-- .card -->
-                                        </div><!-- .col -->
+                                        </a><!-- .col -->
                                     
                                   
                                 
@@ -122,7 +120,7 @@ include_once('header.php');
                 
             ?>
            
-                                    <div class="col-xxl-3 col-sm-6">
+                                    <a href="servicerefferels.php?reqtype=Advice request&status=1" class="col-xxl-3 col-sm-6">
                                             <div class="card">
                                                 <div class="nk-ecwg nk-ecwg6">
                                                     <div class="card-inner">
@@ -134,15 +132,13 @@ include_once('header.php');
                                                         <div class="data">
                                                             <div class="data-group">
                                                                 <div class="amount"><?php echo $hos['number']?></div>
-                                                                <div class="nk-ecwg6-ck">
-                                                                    <canvas class="ecommerce-line-chart-s3" id="todayOrders"></canvas>
-                                                                </div>
+                                                                
                                                             </div>
                                                         </div>
                                                     </div><!-- .card-inner -->
                                                 </div><!-- .nk-ecwg -->
                                             </div><!-- .card -->
-                                        </div><!-- .col -->
+                                        </a><!-- .col -->
                                      <?php   
                                 $_SESSION['consultant'];
                                 $idq = mysqli_query($con, "SELECT * FROM `tbl_ruser` WHERE `ur_email` = '$loginem'");
@@ -155,7 +151,7 @@ include_once('header.php');
               $hos = mysqli_fetch_assoc($qe);
                 
             ?>
-                                      <div class="col-xxl-3 col-sm-6">
+                                      <a href="servicerefferels.php?reqtype=Appointment Request&status=2" class="col-xxl-3 col-sm-6 mt-2">
                                             <div class="card">
                                                 <div class="nk-ecwg nk-ecwg6">
                                                     <div class="card-inner">
@@ -167,15 +163,13 @@ include_once('header.php');
                                                         <div class="data">
                                                             <div class="data-group">
                                                                 <div class="amount"><?php echo $hos['number']?></div>
-                                                                <div class="nk-ecwg6-ck">
-                                                                    <canvas class="ecommerce-line-chart-s3" id="todayOrders"></canvas>
-                                                                </div>
+                                                                
                                                             </div>
                                                         </div>
                                                     </div><!-- .card-inner -->
                                                 </div><!-- .nk-ecwg -->
                                             </div><!-- .card -->
-                                        </div><!-- .col -->
+                                        </a><!-- .col -->
                                          <?php   
                                 $_SESSION['consultant'];
                                 $idq = mysqli_query($con, "SELECT * FROM `tbl_ruser` WHERE `ur_email` = '$loginem'");
@@ -188,7 +182,7 @@ include_once('header.php');
               $hos = mysqli_fetch_assoc($qe);
                 
             ?>
-                                        <div class="col-xxl-3 col-sm-6">
+                                        <a href="servicerefferels.php?reqtype=Appointment Request&status=2" class="col-xxl-3 col-sm-6 mt-2">
                                             <div class="card">
                                                 <div class="nk-ecwg nk-ecwg6">
                                                     <div class="card-inner">
@@ -200,15 +194,13 @@ include_once('header.php');
                                                         <div class="data">
                                                             <div class="data-group">
                                                                 <div class="amount"><?php echo $hos['number']?></div>
-                                                                <div class="nk-ecwg6-ck">
-                                                                    <canvas class="ecommerce-line-chart-s3" id="todayOrders"></canvas>
-                                                                </div>
+                                                                
                                                             </div>
                                                         </div>
                                                     </div><!-- .card-inner -->
                                                 </div><!-- .nk-ecwg -->
                                             </div><!-- .card -->
-                                        </div><!-- .col -->
+                                        </a><!-- .col -->
                                         
                                     </div><!-- .row -->
                                 </div><!-- .nk-block -->

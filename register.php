@@ -122,10 +122,7 @@ include_once('database/db.php');
 							  </div>
 							
 							
-							  <div class="form-group col-lg-6 mt-2">
-								 <input type="number" class="form-control" id="proregno" placeholder="Professional Registration No" name="proregno" autocomplete="off" onchange="proregnocheck()">
-								 <small id="valid-nhs"></small>
-							  </div>
+							 
 							  <div class="form-group col-lg-6 mt-2">
 								 <input type="text" class="form-control" id="orgcode" readonly placeholder="Organisation Code" name="orgcode" autocomplete="off">
 							  </div>
@@ -141,6 +138,13 @@ include_once('database/db.php');
 							 <div class="form-group col-lg-6 mt-2">
 								 <input type="text" class="form-control" id="postcode" readonly placeholder="Post Code" name="postcode" autocomplete="off">
 							  </div>
+							  <div class="form-group col-lg-6 mt-2">
+							    <select id="regbody" class="form-control select" name="regbody"  aria-placeholder="Title" autocomplete="off" >
+										<option>Select</option>
+									
+										
+									</select>
+							  </div>
 							  <div class="form-group col-lg-6">
 							    <label>Role</label>
 								<select class="form-control select" id="conrole" name="role" autocomplete="off">
@@ -155,6 +159,10 @@ include_once('database/db.php');
 									}
 									?>
 								</select>
+							  </div>
+							  <div class="form-group col-lg-6" style="margin-top: 40px;">
+								 <input type="number" class="form-control" id="proregno" placeholder="Professional Registration No" name="proregno" autocomplete="off" onchange="proregnocheck()">
+								 <small id="valid-nhs"></small>
 							  </div>
 							</div>
 						<div class="row">
@@ -343,8 +351,9 @@ $("#reg_form").on("submit", function(e)
 		var city = $('#city').val();
 		var postcode = $('#postcode').val();
 		var role = $('#conrole').val();
+		var regbody = $('#regbody').val();
 		
-		if(fname != '' && sname != '' && email != '' && pass != '' && role != '' && proregno !='' && orgname !=''){
+		if(fname != '' && sname != '' && email != '' && pass != '' && role != '' && proregno !='' && orgname !='' && regbody != ''){
 			
 			
 
@@ -370,7 +379,7 @@ $("#reg_form").on("submit", function(e)
 						{
 
 				// 			toastr.success("You have been registered successfully.Please Wait for admin approval!");
-							  swal("Success!", "Dear "+data['name']+" Thank you for registering on the Refferel System.\nThe details will be reviewed by admin before it is approved.\n You will recieve an email, once it has been approved\n  Regards\n The Refferel System!", "success");
+							  swal("Success!", "Dear "+data['name']+"\nThank you for registering.\n The details will be reviewed by the admin team, before being approved.\n You will receive an email once the registration has been approved.\n  Regards\n Referral Team", "success");
 							$("#regis").attr("disabled","disabled");
 							$("#reg_form")[0].reset();
 				
@@ -406,6 +415,17 @@ function orgname1(name){
 		success:function(res){
 		    console.log(res);
 		document.getElementById("orgname").innerHTML=res;
+		}
+	})
+
+	$.ajax({
+		url:"php/phpcode.php",
+		type:"POST",
+		data:{name:name,fetchregbody:"btn"},
+	
+		success:function(res){
+		    console.log(res);
+		document.getElementById("regbody").innerHTML=res;
 		}
 	})
 }

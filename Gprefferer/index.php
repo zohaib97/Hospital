@@ -72,33 +72,8 @@ include_once('header.php');
                                 </div><!-- .nk-block-head -->
                                 <div class="nk-block">
                                     <div class="row g-gs">
-                                        <div class="col-xxl-3 col-sm-6">
-                                            <div class="card">
-                                                <div class="nk-ecwg nk-ecwg6">
-                                                    <div class="card-inner">
-                                                        <div class="card-title-group">
-                                                            <div class="card-title">
-                                                                <h6 class="title">Total Service Appointment</h6>
-                                                            </div>
-                                                        </div>
-                                                        <div class="data">
-                                                            <div class="data-group">
-                                                                <div class="amount"><?php
-                                                                $q=mysqli_query($con,"SELECT count(*) as a FROM `tbl_serviceappointment` WHERE sp_refferalid ='$id'");
-                                                                if(mysqli_num_rows($q) >0){
-                                                                $r=mysqli_fetch_array($q);
-                                                                echo $r["a"];
-                                                                }?></div>
-                                                                <div class="nk-ecwg6-ck">
-                                                                    <canvas class="ecommerce-line-chart-s3" id="todayOrders"></canvas>
-                                                                </div>
-                                                            </div>
-                                                            </div>
-                                                    </div><!-- .card-inner -->
-                                                </div><!-- .nk-ecwg -->
-                                            </div><!-- .card -->
-                                        </div><!-- .col -->
-                                        <div class="col-xxl-3 col-sm-6">
+                                        
+                                        <a href="refferels.php?reqtype=Appointment Request&status=2" class="col-xxl-3 col-sm-6">
                                             <div class="card">
                                                 <div class="nk-ecwg nk-ecwg6">
                                                     <div class="card-inner">
@@ -115,16 +90,14 @@ include_once('header.php');
                                                                 $r=mysqli_fetch_array($q);
                                                                 echo $r["a"];
                                                                 }?></div>
-                                                                <div class="nk-ecwg6-ck">
-                                                                    <canvas class="ecommerce-line-chart-s3" id="todayOrders"></canvas>
-                                                                </div>
+                                                               
                                                             </div>
                                                             </div>
                                                     </div><!-- .card-inner -->
                                                 </div><!-- .nk-ecwg -->
                                             </div><!-- .card -->
-                                        </div><!-- .col -->
-                                        <div class="col-xxl-3 col-sm-6">
+                                        </a><!-- .col -->
+                                        <a href="refferels.php?reqtype=Appointment Request&status=1" class="col-xxl-3 col-sm-6">
                                             <div class="card">
                                                 <div class="nk-ecwg nk-ecwg6">
                                                     <div class="card-inner">
@@ -141,16 +114,14 @@ include_once('header.php');
                                                                 $r=mysqli_fetch_array($q);
                                                                 echo $r["a"];
                                                                 }?></div>
-                                                                <div class="nk-ecwg6-ck">
-                                                                    <canvas class="ecommerce-line-chart-s3" id="todayOrders"></canvas>
-                                                                </div>
+                                                                
                                                             </div>
                                                             </div>
                                                     </div><!-- .card-inner -->
                                                 </div><!-- .nk-ecwg -->
                                             </div><!-- .card -->
-                                        </div><!-- .col -->
-                                        <div class="col-xxl-3 col-sm-6">
+                                        </a><!-- .col -->
+                                        <a href="refferels.php?reqtype=Appointment Request&status=0" class="col-xxl-3 col-sm-6 mt-2">
                                             <div class="card">
                                                 <div class="nk-ecwg nk-ecwg6">
                                                     <div class="card-inner">
@@ -167,16 +138,14 @@ include_once('header.php');
                                                                 $r=mysqli_fetch_array($q);
                                                                 echo $r["a"];
                                                                 }?></div>
-                                                                <div class="nk-ecwg6-ck">
-                                                                    <canvas class="ecommerce-line-chart-s3" id="todayOrders"></canvas>
-                                                                </div>
+                                                                
                                                             </div>
                                                             </div>
                                                     </div><!-- .card-inner -->
                                                 </div><!-- .nk-ecwg -->
                                             </div><!-- .card -->
-                                        </div><!-- .col -->
-                                        <div class="col-xxl-3 col-sm-6">
+                                        </a><!-- .col -->
+                                        <a href="refferels.php?reqtype=Advice request&status=2" class="col-xxl-3 col-sm-6 mt-2">
                                             <div class="card">
                                                 <div class="nk-ecwg nk-ecwg6">
                                                     <div class="card-inner">
@@ -194,9 +163,7 @@ include_once('header.php');
                                                                 echo $r["a"];
                                                                 }
                                                                 ?></div>
-                                                                <div class="nk-ecwg6-ck">
-                                                                    <canvas class="ecommerce-line-chart-s3" id="todayRevenue"></canvas>
-                                                                </div>
+                                                               
                                                             </div>
                                                           </div>
                                                     </div><!-- .card-inner -->

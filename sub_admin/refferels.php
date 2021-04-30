@@ -91,6 +91,7 @@ include_once('../database/db.php');
 															<option value="Referrer Sent">Referrer Sent</option>
 														<option value="Referrer Accepted">Referrer Accepted</option>
 														<option value="Referrer  Rejected">Referrer  Rejected</option>
+														<option value="Drafts">Drafts</option>
 													<?php
 														}
 													?>
@@ -395,7 +396,24 @@ include_once('../database/db.php');
 				
 		var work = $("#worklist").val();
 		
-													
+
+		if(work == "Drafts"){
+		    	 $.ajax({    
+        type: "POST",
+        url: "gpphpcode.php", 
+		data:{refferelfetch6 :"btn"},	            
+        success: function(response){   
+			console.log(response);                 
+            $("#rdata").html(response); 
+            //alert(response);
+        }
+
+    });
+			document.getElementById('rdata').style.display = "block";
+			document.getElementById('hideno').style.display = "none";
+				
+		}		
+
 		if(work == "Referrer Sent"){
 		    	 $.ajax({    
         type: "POST",

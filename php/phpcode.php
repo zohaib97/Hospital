@@ -31,7 +31,7 @@ if(isset($_POST['registeruser']))
 	$address = test_input(mysqli_real_escape_string($con, $_POST['address']));	
 	$city = test_input(mysqli_real_escape_string($con, $_POST['city']));	
 	$postcode = test_input(mysqli_real_escape_string($con, $_POST['postcode']));
-	
+	$regbody = test_input(mysqli_real_escape_string($con, $_POST['regbody']));
 	$orgsql = mysqli_query($con,"SELECT * FROM orginzation WHERE orid = '$orgname' and or_type = '$orgtype'");
 	$fetchorg = mysqli_fetch_array($orgsql);
 	$orgname1 = $fetchorg['or_name'];
@@ -62,8 +62,8 @@ if(isset($_POST['registeruser']))
 			
 //			INSERT INTO `tbl_user`(`staff_fname`, `staff_sname`, `staff_email`, `staff_pass`, `staff_contact`, `staff_org`, `tbl_role`, `staff_hospitalid`, `u_NHS_no`) VALUES ('$nfame','$nsame','$email','$pass','$phn','$org','$urole','$hid','$nhs_num')
 			
-	$ins = "INSERT INTO `tbl_ruser`(`ur_fname`, `ur_sname`, `ur_email`, `ur_pass`, `title`, `ur_orgname`,`ur_orgcode`,`ur_orgtype`, `ur_role_id`, `ur_role_name`, `ur_orgphno`,`ur_orgaddress`, `ur_status`,`ur_proregno`,`ur_address`,`ur_city`,`ur_postcode`) 
-	VALUES ('$nfame','$nsame','$email','$pass','$title','$orgname1','$orgcode','$orgtype1','$urole','$rname','$orgphno','$orgaddress','not_approve','$proregno','$address','$city','$postcode')";
+	$ins = "INSERT INTO `tbl_ruser`(`ur_fname`, `ur_sname`, `ur_email`, `ur_pass`, `title`, `ur_orgname`,`ur_orgcode`,`ur_orgtype`, `ur_role_id`, `ur_role_name`, `ur_orgphno`,`ur_orgaddress`, `ur_status`,`ur_proregno`,`ur_address`,`ur_city`,`ur_postcode`,`ur_regbody`) 
+	VALUES ('$nfame','$nsame','$email','$pass','$title','$orgname1','$orgcode','$orgtype1','$urole','$rname','$orgphno','$orgaddress','not_approve','$proregno','$address','$city','$postcode','$regbody')";
 						
 	$q = mysqli_query($con,$ins);
 			
@@ -98,15 +98,15 @@ if(isset($_POST['loginpage']))
 	
 	$check = "SELECT * FROM `admin` WHERE `email` = '$lemail' and `password` = '$lpass' and `super_admin` = '0'";
 	$q = mysqli_query($con, $check);
-	$datacheck = mysqli_fetch_assoc($q);
-	$orgid = $datacheck['organization'];
-	$sql0 = mysqli_query($con,"SELECT * FROM `orginzation` WHERE orid = '$orgid'");
-	$orgfetch = mysqli_fetch_array($sql0);
+
 	
 	$nl = mysqli_num_rows($q);
 		
 	if($nl>0){
-		
+		$datacheck = mysqli_fetch_assoc($q);
+		$orgid = $datacheck['organization'];
+		$sql0 = mysqli_query($con,"SELECT * FROM `orginzation` WHERE orid = '$orgid'");
+		$orgfetch = mysqli_fetch_array($sql0);
 		if($datacheck['status'] == "approve"){
 			
 			if($orgfetch['or_type'] == "NHS Hospital")
@@ -445,6 +445,54 @@ if(isset($_POST["fetchorgname"]))
 
 }
 
+if(isset($_POST["fetchregbody"]))
+{
+	$name=$_POST["name"];
+	if($name == "NHS Hospital")
+	{
+echo"<option>Select</option>
+<option value='Admin & Management'>Admin & Management</option>
+<option value='General Medical Council (GMC)'>General Medical Council (GMC)</option>
+<option value='General Optical Council (GOC)'>General Optical Council (GOC)</option>
+<option value='General Dental Council (GDC)'>General Dental Council (GDC)</option>
+<option value='Nursing & Midwifery Council (NMC)'>Nursing & Midwifery Council (NMC)</option>";
+	}
+	if($name == "GP Practice")
+	{
+		echo"<option>Select</option>
+		<option value='General Medical Council (GMC)'>General Medical Council (GMC)</option>
+		<option value='Nursing & Midwifery Council (NMC)'>Nursing & Midwifery Council (NMC)</option>
+		";
+	}
+	if($name == "Dental Practice")
+	{
+		echo"<option>Select</option>
+		<option value='General Dental Council (GDC)'>General Dental Council (GDC)</option>
+		<option value='Nursing & Midwifery Council (NMC)'>Nursing & Midwifery Council (NMC)</option>
+		";
+	}
+	if($name == "Opticians")
+	{
+		echo"<option>Select</option>
+		<option value='General Optical Council (GOC)'>General Optical Council (GOC)</option>
+		";
+	}
+	if($name == "Community Hospital")
+	{
+		echo"<option>Select</option>
+<option value='Admin & Management'>Admin & Management</option>
+<option value='General Medical Council (GMC)'>General Medical Council (GMC)</option>
+<option value='General Optical Council (GOC)'>General Optical Council (GOC)</option>
+<option value='General Dental Council (GDC)'>General Dental Council (GDC)</option>
+<option value='Nursing & Midwifery Council (NMC)'>Nursing & Midwifery Council (NMC)</option>";
+	}
+	
+
+
+
+}
+
+
 if(isset($_POST["fetchrole"]))
 {
 	$name= $_POST["org"];
@@ -470,7 +518,7 @@ if(isset($_POST["fetchrole"]))
 	}
 	elseif($name == "Opticians")
 	{
-	     $js=mysqli_query($con,"SELECT * FROM `tbl_role` where ro_role='General practitioner'");
+	     $js=mysqli_query($con,"SELECT * FROM `tbl_role` where ro_role='Optometrist'");
 	echo'<option value="">select</option>';
 	while($row=mysqli_fetch_array($js))
 	{
@@ -480,7 +528,7 @@ if(isset($_POST["fetchrole"]))
 	}
 	elseif($name == "Dental Practice")
 	{
-	    $js=mysqli_query($con,"SELECT * FROM `tbl_role` where ro_role='General practitioner'");
+	    $js=mysqli_query($con,"SELECT * FROM `tbl_role` where ro_role='Dentist'");
 	echo'<option value="">select</option>';
 	while($row=mysqli_fetch_array($js))
 	{

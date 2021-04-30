@@ -46,12 +46,15 @@ if(!isset($_SESSION['gprefferer'])){
 									$qqqq = mysqli_query($con,"SELECT count(*) as a FROM tbl_consultantrefferels,tbl_refferelattachment WHERE tbl_refferelattachment.ra_refferelid=tbl_consultantrefferels.c_id and tbl_consultantrefferels.c_gpid = '$senderid' and reply='1' and status = 'unseen'");
 									$fds=mysqli_fetch_array($qqqq);
 									$mss = mysqli_query($con,"SELECT * FROM tbl_consultantrefferels,tbl_refferelattachment WHERE tbl_refferelattachment.ra_refferelid=tbl_consultantrefferels.c_id and tbl_consultantrefferels.c_gpid = '$senderid' and reply='1' and status = 'unseen'");
+									if(mysqli_num_rows($mss) > 0)
+									{
 									$fff111= mysqli_fetch_array($mss);
 									$reqtype111 = $fff111['request_type'] ? $fff111['request_type'] :"";
 									$cid = $fff111['ra_sender_id'] ? $fff111['ra_sender_id'] :"";
 									$query = mysqli_query($con,"SELECT * FROM `tbl_ruser` WHERE `ur_id` = '$cid'");
 						$cfetch = mysqli_fetch_array($query);
 												}
+											}
 					    ?>
 
 						<a href="#" class="dropdown-toggle nk-quick-nav-icon" data-toggle="dropdown">
@@ -67,6 +70,8 @@ if(!isset($_SESSION['gprefferer'])){
 								<ul class="chat-list">
 								<?php
 								if(isset($_SESSION['gprefferer'])){
+									if(mysqli_num_rows($mss) > 0)
+									{
 									if($fds["a"] >0){
 									  echo '	<li class="chat-item">
 										<a class="chat-link" href="refferels.php?status='.$fff111['c_status'].'&reqtype='.$fff111['request_type'].'">
@@ -92,6 +97,7 @@ if(!isset($_SESSION['gprefferer'])){
 									    
 									}
 								}
+							}
 								?>
 								</ul><!-- .chat-list -->
 							</div><!-- .nk-dropdown-body -->
@@ -104,15 +110,18 @@ if(!isset($_SESSION['gprefferer'])){
 						
 						$ks=mysqli_query($con,"SELECT * FROM `orginzation` where orid ='$orid'");
 						$klo=mysqli_fetch_array($ks);
+						$org = $klo['orid'];
 									$qqqq = mysqli_query($con,"SELECT count(*) as a FROM tbl_consultantrefferels,tbl_refferelattachment WHERE tbl_refferelattachment.ra_refferelid=tbl_consultantrefferels.c_id and tbl_consultantrefferels.c_gpid = '$id' and reply='1' ");
-									$fds=mysqli_fetch_array($qqqq);
+									$fdsw=mysqli_fetch_array($qqqq);
 									$mss = mysqli_query($con,"SELECT * FROM tbl_consultantrefferels,tbl_refferelattachment WHERE tbl_refferelattachment.ra_refferelid=tbl_consultantrefferels.c_id and tbl_consultantrefferels.c_gpid = '$id' and reply='1' ");
+									if(mysqli_num_rows($mss) > 0)
+									{
 									$fff111= mysqli_fetch_array($mss);
 									$reqtype111 = $fff111['request_type'] ? $fff111['request_type'] :"";
 									$cid = $fff111['ra_sender_id'] ? $fff111['ra_sender_id'] :"";
 									$query = mysqli_query($con,"SELECT * FROM `tbl_ruser` WHERE `ur_id` = '$cid'");
 						$cfetch = mysqli_fetch_array($query);
-							
+									}
 									?>
 				        	<a href="#" class="dropdown-toggle nk-quick-nav-icon" data-toggle="dropdown" style="width: 37px;height: 37px;">
 							<i class="icon ni ni-bell"></i>
