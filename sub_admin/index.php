@@ -266,7 +266,7 @@ $fetchsa=mysqli_fetch_array($qiu);
 			$dataid = mysqli_fetch_assoc($idq);
 			$orgid1 = $dataid['ur_orgtype'];
 				$urid = $dataid['ur_id'];
-                 $qe = mysqli_query($con, "SELECT COUNT(m_id) AS number FROM `tbl_consultantrefferels` JOIN `services` ON tbl_consultantrefferels.c_serid = services.service_id WHERE services.s_orgid = '$orgid1' and services.ser_priority_urg !='' and tbl_consultantrefferels.request_type = 'Advice Request' and tbl_consultantrefferels.c_userid = '$urid'");
+                 $qe = mysqli_query($con, "SELECT COUNT(m_id) AS number FROM `tbl_consultantrefferels` JOIN `services` ON tbl_consultantrefferels.c_serid = services.service_id WHERE services.s_orgid = '$orgid1' and services.ser_priority_urg !='' and tbl_consultantrefferels.request_type = 'Advice Request' and tbl_consultantrefferels.c_userid = '$urid' and tbl_consultantrefferels.c_status != '3'");
 
 
               $hos = mysqli_fetch_assoc($qe);
@@ -298,7 +298,7 @@ $fetchsa=mysqli_fetch_array($qiu);
 			$dataid = mysqli_fetch_assoc($idq);
 			$orgid1 = $dataid['ur_orgtype'];
 				$urid = $dataid['ur_id'];
-                 $qe = mysqli_query($con, "SELECT COUNT(m_id) AS number FROM `tbl_consultantrefferels` JOIN `services` ON tbl_consultantrefferels.c_serid = services.service_id WHERE services.s_orgid = '$orgid1' and services.ser_priority_rout !='' and tbl_consultantrefferels.request_type = 'Advice Request' and tbl_consultantrefferels.c_userid = '$urid'");
+                 $qe = mysqli_query($con, "SELECT COUNT(m_id) AS number FROM `tbl_consultantrefferels` JOIN `services` ON tbl_consultantrefferels.c_serid = services.service_id WHERE services.s_orgid = '$orgid1' and services.ser_priority_rout !='' and tbl_consultantrefferels.request_type = 'Advice Request' and tbl_consultantrefferels.c_userid = '$urid' and tbl_consultantrefferels.c_status != '3'");
 
 
               $hos = mysqli_fetch_assoc($qe);
@@ -330,7 +330,7 @@ $fetchsa=mysqli_fetch_array($qiu);
 			$dataid = mysqli_fetch_assoc($idq);
 			$orgid1 = $dataid['ur_orgtype'];
 				$urid = $dataid['ur_id'];
-                 $qe = mysqli_query($con, "SELECT COUNT(m_id) AS number FROM `tbl_consultantrefferels` JOIN `services` ON tbl_consultantrefferels.c_serid = services.service_id WHERE services.s_orgid = '$orgid1' and services.ser_priority_urg !='' and tbl_consultantrefferels.request_type = 'Appointment Request' and tbl_consultantrefferels.c_userid = '$urid'");
+                 $qe = mysqli_query($con, "SELECT COUNT(m_id) AS number FROM `tbl_consultantrefferels` JOIN `services` ON tbl_consultantrefferels.c_serid = services.service_id WHERE services.s_orgid = '$orgid1' and services.ser_priority_urg !='' and tbl_consultantrefferels.request_type = 'Appointment Request' and tbl_consultantrefferels.c_userid = '$urid' and tbl_consultantrefferels.c_status != '3'");
 
 
               $hos = mysqli_fetch_assoc($qe);
@@ -342,7 +342,7 @@ $fetchsa=mysqli_fetch_array($qiu);
                                                     <div class="card-inner">
                                                         <div class="card-title-group">
                                                             <div class="card-title">
-                                                                <h6 class="title">Urgent Refferals Awaiting Triage</h6>
+                                                                <h6 class="title">Urgent Referrals Awaiting Triage</h6>
                                                             </div>
                                                         </div>
                                                         <div class="data">
@@ -362,7 +362,7 @@ $fetchsa=mysqli_fetch_array($qiu);
 			$dataid = mysqli_fetch_assoc($idq);
 			$orgid1 = $dataid['ur_orgtype'];
 				$urid = $dataid['ur_id'];
-                 $qe = mysqli_query($con, "SELECT COUNT(m_id) AS number FROM `tbl_consultantrefferels` JOIN `services` ON tbl_consultantrefferels.c_serid = services.service_id WHERE services.s_orgid = '$orgid1' and services.ser_priority_rout !='' and tbl_consultantrefferels.request_type = 'Appointment Request' and tbl_consultantrefferels.c_userid = '$urid'");
+                 $qe = mysqli_query($con, "SELECT COUNT(m_id) AS number FROM `tbl_consultantrefferels` JOIN `services` ON tbl_consultantrefferels.c_serid = services.service_id WHERE services.s_orgid = '$orgid1' and services.ser_priority_rout !='' and tbl_consultantrefferels.request_type = 'Appointment Request' and tbl_consultantrefferels.c_userid = '$urid' and tbl_consultantrefferels.c_status != '3'");
 
 
               $hos = mysqli_fetch_assoc($qe);
@@ -374,7 +374,7 @@ $fetchsa=mysqli_fetch_array($qiu);
                                                     <div class="card-inner">
                                                         <div class="card-title-group">
                                                             <div class="card-title">
-                                                                <h6 class="title">Routine Refferals Awaiting Triage</h6>
+                                                                <h6 class="title">Routine Referrals Awaiting Triage</h6>
                                                             </div>
                                                         </div>
                                                         <div class="data">
@@ -439,9 +439,9 @@ $fetchsa=mysqli_fetch_array($qiu);
 								$ortype = $fetch1['or_type'];
 								$orname = $fetch1['or_name'];
 								$orcode = $fetch1['or_code'];
-                           if($ortype != "NHS Hospital")
+                           if($ortype == "Dental Practice")
                            {
-                                $qe = mysqli_query($con, "SELECT COUNT(ur_id) AS number FROM tbl_ruser WHERE ur_role_id ='5' and ur_orgtype = '$orgid' and ur_orgcode = '$orcode' and ur_email != '$email'");
+                                $qe = mysqli_query($con, "SELECT COUNT(ur_id) AS number FROM tbl_ruser WHERE ur_role_id ='1' and ur_orgtype = '$orgid' and ur_orgcode = '$orcode' and ur_email != '$email'");
                                         $usr = mysqli_fetch_assoc($qe);
                            
                                        ?>
@@ -466,7 +466,36 @@ $fetchsa=mysqli_fetch_array($qiu);
                                         </a>
                                         <?php
                            }
-                                        ?><!-- .col -->
+                           if($ortype = "NHS Hospital")
+                           {
+
+                            $qe = mysqli_query($con, "SELECT COUNT(ur_id) AS number FROM tbl_ruser WHERE ur_role_id ='5' and ur_orgtype = '$orgid' and ur_orgcode = '$orcode' and ur_email != '$email'");
+                            $usr = mysqli_fetch_assoc($qe);
+                                        ?>
+                                        <a href="consultant.php?role=GP_Refferer" class="col-xxl-3 col-sm-6 mt-2">
+                                            <div class="card">
+                                                <div class="nk-ecwg nk-ecwg6">
+                                                    <div class="card-inner">
+                                                        <div class="card-title-group">
+                                                            <div class="card-title">
+                                                                <h6 class="title">Total GP Referrers</h6>
+                                                            </div>
+                                                        </div>
+                                                        <div class="data">
+                                                            <div class="data-group">
+                                                                <div class="amount"><?php echo $usr['number']?></div>
+                                                               
+                                                            </div>
+                                                        </div>
+                                                    </div><!-- .card-inner -->
+                                                </div><!-- .nk-ecwg -->
+                                            </div><!-- .card -->
+                                        </a>
+                                        <?php
+                           }
+                                        ?>
+                                        
+                                        <!-- .col -->
                                         <!-- <div class="col-xxl-8">
                                             <div class="card card-full">
                                                 <div class="card-inner">

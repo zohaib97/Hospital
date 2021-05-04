@@ -50,7 +50,7 @@ include_once('../database/db.php');
 				<div class="nk-block-head nk-block-head-lg wide-sm">
 					<div class="nk-block-head-content">
 						<div class="nk-block-head-sub"><a class="back-to" href="index.php"><em class="icon ni ni-arrow-left"></em><span>Dashboard</span></a></div>
-						<h2 class="nk-block-title fw-normal">E-Refferel Service</h2>
+						<h2 class="nk-block-title fw-normal">E-Referral Service</h2>
 
 					</div>
 				</div>
@@ -248,8 +248,11 @@ include_once('../database/db.php');
 									 <input type="submit" class="btn btn-primary mt-5" name="rsubmit" value="Continue With Selected Service" id="rsubmit">
 									 
 									 </div>
-									 <div class="col-md-4" id="draft">
+									 <div class="col-md-2" id="draft">
 									 <input type="submit" class="btn btn-info mt-5" name="savedraft" value="Save As Draft" id="savedraft">
+								 </div>
+								 <div class="col-md-2" id="cancel">
+									 <input type="button" class="btn btn-info mt-5" name="cancelref" value="Cancel" id="cancelref">
 								 </div>
 								
 										</form>
@@ -1071,7 +1074,7 @@ $('#servage').val(serv);
 						else if(data["res"] == "Already")
 						{
 							toastr.clear();
-              NioApp.Toast("<h5>Refferel Already Created</h5>", 'warning',{position:'top-right'});
+              NioApp.Toast("<h5>Referral Already Created</h5>", 'warning',{position:'top-right'});
 						}
 //			
 					}
@@ -1113,7 +1116,7 @@ $('#servage').val(serv);
 						else if(data["res"] == "Already")
 						{
 							toastr.clear();
-              NioApp.Toast("<h5>Refferel Already Created</h5>", 'warning',{position:'top-right'});
+              NioApp.Toast("<h5>Referral Already Created</h5>", 'warning',{position:'top-right'});
 						}
 //			
 					}
@@ -1156,7 +1159,7 @@ $('#servage').val(serv);
 						else if(data["res"] == "Already")
 						{
 							toastr.clear();
-              NioApp.Toast("<h5>Refferel Already Created</h5>", 'warning',{position:'top-right'});
+              NioApp.Toast("<h5>Referral Already Created</h5>", 'warning',{position:'top-right'});
 						}
 //			
 					}
@@ -1222,7 +1225,7 @@ $('#servage').val(serv);
 						else if(data["res"] == "Already")
 						{
 							toastr.clear();
-              NioApp.Toast("<h5>Refferel Already Created</h5>", 'warning',{position:'top-right'});
+              NioApp.Toast("<h5>Referral Already Created</h5>", 'warning',{position:'top-right'});
 						}
 //			
 					}
@@ -1264,7 +1267,7 @@ $('#servage').val(serv);
 						else if(data["res"] == "Already")
 						{
 							toastr.clear();
-              NioApp.Toast("<h5>Refferel Already Created</h5>", 'warning',{position:'top-right'});
+              NioApp.Toast("<h5>Referral Already Created</h5>", 'warning',{position:'top-right'});
 						}
 //			
 					}
@@ -1307,7 +1310,7 @@ $('#servage').val(serv);
 						else if(data["res"] == "Already")
 						{
 							toastr.clear();
-              NioApp.Toast("<h5>Refferel Already Created</h5>", 'warning',{position:'top-right'});
+              NioApp.Toast("<h5>Referral Already Created</h5>", 'warning',{position:'top-right'});
 						}
 //			
 					}
@@ -1389,7 +1392,7 @@ $('#servage').val(serv);
 										else if(data["res"] == "Already")
 										{
 											toastr.clear();
-							NioApp.Toast("<h5>Refferel Already Created</h5>", 'warning',{position:'top-right'});
+							NioApp.Toast("<h5>Referral Already Created</h5>", 'warning',{position:'top-right'});
 										}
 				//			
 									}
@@ -1431,7 +1434,7 @@ $('#servage').val(serv);
 										else if(data["res"] == "Already")
 										{
 											toastr.clear();
-							NioApp.Toast("<h5>Refferel Already Created</h5>", 'warning',{position:'top-right'});
+							NioApp.Toast("<h5>Referral Already Created</h5>", 'warning',{position:'top-right'});
 										}
 				//			
 									}
@@ -1474,7 +1477,7 @@ $('#servage').val(serv);
 										else if(data["res"] == "Already")
 										{
 											toastr.clear();
-							NioApp.Toast("<h5>Refferel Already Created</h5>", 'warning',{position:'top-right'});
+							NioApp.Toast("<h5>Referral Already Created</h5>", 'warning',{position:'top-right'});
 										}
 				//			
 									}
@@ -1540,7 +1543,7 @@ $('#servage').val(serv);
 										else if(data["res"] == "Already")
 										{
 											toastr.clear();
-							NioApp.Toast("<h5>Refferel Already Created</h5>", 'warning',{position:'top-right'});
+							NioApp.Toast("<h5>Referral Already Created</h5>", 'warning',{position:'top-right'});
 										}
 				//			
 									}
@@ -1582,7 +1585,7 @@ $('#servage').val(serv);
 										else if(data["res"] == "Already")
 										{
 											toastr.clear();
-							NioApp.Toast("<h5>Refferel Already Created</h5>", 'warning',{position:'top-right'});
+							NioApp.Toast("<h5>Referral Already Created</h5>", 'warning',{position:'top-right'});
 										}
 				//			
 									}
@@ -1625,7 +1628,7 @@ $('#servage').val(serv);
 										else if(data["res"] == "Already")
 										{
 											toastr.clear();
-							NioApp.Toast("<h5>Refferel Already Created</h5>", 'warning',{position:'top-right'});
+							 NioApp.Toast("<h5>This patient has already had a "+data["spec"]+" referral, do you want to refer the patient again?</h5>", 'warning',{position:'top-right'});
 										}
 				//			
 									}
@@ -1807,10 +1810,11 @@ $('#dob').change(function(){
 function fetchconsultant(org)
 {
 // 	var org = $('#organisation').val();
+var servid = $('#serv_id').val();
 	$.ajax({    
         type: "POST",
         url: "phpcode.php", 
-		data:{org:org,fetchconsultant:"btn"},	             
+		data:{org:org,servid:servid,fetchconsultant:"btn"},	             
         success: function(response){ 
          
 			if(response == 'No Data Found')
@@ -1845,6 +1849,24 @@ $('#reservationDate').on('change', function () {
 });
 });
 
+$('#cancelref').on('click',function(){
+    
+    
+        Swal.fire({
+            title: 'Are you sure you want to Cancel This Referral?',
+            text: "The details will not be saved?",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonText: 'Yes, delete it!'
+        }).then(function(result) {
+            if (result.value) {
+                // Swal.fire('Deleted!', 'Manager has been deleted.', 'success');
+            
+				window.location.href="index.php";
+            }
+        });
+    
+})
 
 	</script>
 	

@@ -306,7 +306,7 @@
 				}
 			    else if(data == "notsubmit"){
 						// alert("Please fill all fields!");
-		swal("Wrong", "Please insert correct information.", "warning");
+		swal("Wrong", "Username or Password not recognised. Please try again or contact IT.", "warning");
 	
 				}
 

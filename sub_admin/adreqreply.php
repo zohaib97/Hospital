@@ -52,13 +52,13 @@ include_once('header.php');
 						
 				    ?>
                                             <nav class="p-1 bg-light mb-3 col-form-label font-weight-bold">Advice
-                                                Request Details - <span class="text-info"><?=$dref['c_nhsno']?></span>
+                                                Request Details 
                                             </nav>
                                             <?php
 						}elseif($dref['request_type'] == "Appointment Request"){
                                             ?>
                                             <nav class="p-1 bg-light mb-3 col-form-label font-weight-bold">Appointment
-                                                Request Details - <span class="text-info"><?=$dref['c_nhsno']?></span>
+                                                Request Details 
                                             </nav>
                                             <?php
 						}
@@ -134,7 +134,7 @@ include_once('header.php');
 														?>
                                                         <span class="font-weight-bold">Named Clinician</span>
                                                         <br>
-                                                        <span><?=$dref['ur_sname']?></span>
+                                                        <span><?= $dref['ur_fname'] ?> <?= $dref['ur_sname'] ?></span>
                                                     </div>
                                                     
                                                     <div class="col-md-6 mb-2">
@@ -169,7 +169,7 @@ include_once('header.php');
 													}
 													?>
 													  <div class="col-md-6 mb-2">
-                                                        <span class="font-weight-bold">Refer ID</span>
+                                                        <span class="font-weight-bold">Referral ID</span>
                                                         <br>
                                                         <span><?=$refid?></span>
                                                     </div>
@@ -182,13 +182,13 @@ include_once('header.php');
                                                     <div class="col-md-12 mb-2">
                                                         <span class="font-weight-bold">Registered Practice</span>
                                                         <br>
-                                                        <span><?=$dref["ur_address"]?></span>
+                                                        <span><?=$dref["ur_address"]?> <?=$dref["ur_orgaddress"]?></span>
                                                     </div>
                                                     
                                                    
                                                     <div class="col-md-6 mb-2">
                                                         <span class="font-weight-bold">Telephone: </span>
-                                                        <span><?=$dref['pt_telno']?></span>
+                                                        <span><?=$dref['ur_orgphno']?></span>
                                                     </div>
 
                                                 </ul>
@@ -240,10 +240,10 @@ include_once('header.php');
                                                         Status - <span class="text-info">Provider Response
                                                             Required</span></p></div>
                                                  <center>   <form id="reply" enctype="multipart/form-data">
-                                                        <div class="row bg-light p-1 ml-0 mr-0">
+                                                        <div class="row bg-light p-1 ml-0 mr-0 col-md-10">
                                                             <div class="col-6">
                                                                 <label class="col-form-label" for="">Add
-                                                                    Attachement</label>
+                                                                    Attachment</label>
                                                                 <span><input style="border-radius: 20px;" class="form-control" type="file"
                                                                         name="attachment"></span>
                                                             </div>
@@ -256,7 +256,7 @@ include_once('header.php');
                                                                         name="weblink"></span>
                                                             </div>
                                                             <div class="col-12 mt-1">
-                                                                <textarea style="border-radius: 20px;"
+                                                                <textarea style="border-radius: 20px;min-height:0px;"
                                                                     placeholder="Enter advice response detail here"
                                                                     class="form-control" name="cmntad" id="" cols="30"
                                                                     rows="3" required></textarea>
@@ -491,15 +491,12 @@ function accept(cid){
 	   //     }
 	   // })
 	}
-$('#acceptreason').on('submit',function(e){
-      e.preventDefault();
-   
-      var formdata = new FormData(this);
-      formdata.append("insertreason","btn");
+function acceptref(cid){
+ 
       $.ajax({
             type:"POST",
 	        url:"consultantphpcode.php",
-	        data: formdata,
+	        data: {cid:cid,insertreason:"btn"},
 	        contentType: false,
             processData: false,
 	        success:function(res){
@@ -524,7 +521,7 @@ $('#acceptreason').on('submit',function(e){
 	        }
 	        }
 	    })
-});
+};
 	function reject(cid){
 $('#rcid').val(cid);
    $('#rejectmodal').modal('show');

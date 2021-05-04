@@ -169,7 +169,7 @@ include_once('header.php');
 								}
 								elseif($ortype == "Dental Practice")
 								{
-								    $role = mysqli_query($con, "SELECT * FROM `tbl_role` WHERE ro_role ='General practitioner'");
+								    $role = mysqli_query($con, "SELECT * FROM `tbl_role` WHERE ro_role ='Dentist'");
 																while ($datarole = mysqli_fetch_assoc($role)) {
 								
 																?>

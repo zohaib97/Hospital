@@ -42,7 +42,7 @@
 								<li class="nk-menu-item">
 									<a href="servicerefferels.php" class="nk-menu-link">
 										<span class="nk-menu-icon"><em class="icon ni ni-swap"></em></span>
-										<span class="nk-menu-text">Service Refferels</span>
+										<span class="nk-menu-text">Service Referrals</span>
 									</a>
 								</li>
 														

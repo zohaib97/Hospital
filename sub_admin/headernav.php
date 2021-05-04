@@ -110,7 +110,7 @@ $fetchsa=mysqli_fetch_array($qiu);
 													<span class="time">Now</span>
 												</div>
 												<div class="chat-context">
-													<div class="text"><span>You have New Refferel Reply From '.$cfetch['ur_fname']." ".$cfetch['ur_sname'].'</span></div>
+													<div class="text"><span>You have New Referral Reply From '.$cfetch['ur_fname']." ".$cfetch['ur_sname'].'</span></div>
 													<div class="status delivered">
 														<em class="icon ni ni-check-circle-fill"></em>
 													</div>
@@ -136,7 +136,7 @@ $fetchsa=mysqli_fetch_array($qiu);
 													<span class="time">Now</span>
 												</div>
 												<div class="chat-context">
-													<div class="text"><span>You have New Refferel Reply From </span></div>
+													<div class="text"><span>You have New Referral Reply From </span></div>
 													<div class="status delivered">
 														<em class="icon ni ni-check-circle-fill"></em>
 													</div>
@@ -264,7 +264,7 @@ $fetchsa=mysqli_fetch_array($qiu);
 											<em class="icon icon-circle bg-warning-dim ni ni-curve-down-right"></em>
 										</div>
 									    <div class="nk-notification-content">
-											<div class="nk-notification-text">You have new <span>Refferal Request</span></div>
+											<div class="nk-notification-text">You have new <span>Referral Request</span></div>
 											<div class="nk-notification-time"><a href="servicerefferels.php?reqtype='.$reqtype111.'&status='.$status.'">View All</a></div>
 										</div>
 											</div>
@@ -279,7 +279,7 @@ $fetchsa=mysqli_fetch_array($qiu);
 											<em class="icon icon-circle bg-warning-dim ni ni-curve-down-right"></em>
 										</div>
 									    <div class="nk-notification-content">
-											<div class="nk-notification-text">You have new <span>Refferal Request Accepted</span></div>
+											<div class="nk-notification-text">You have new <span>Referral Request Accepted</span></div>
 											<div class="nk-notification-time"><a href="refferels.php?reqtype='.$reqtype111.'&status='.$status.'">View All</a></div>
 										</div>
 											</div>

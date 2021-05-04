@@ -104,7 +104,7 @@ include_once('../database/db.php');
 						<th class="nk-tb-col"><span>Sender Bookable</span></th>
 					<th class="nk-tb-col tb-col-sm"><span>Location</span></th>
 				
-					<th class="nk-tb-col"><span>Refferer Alert</span></th>
+					<th class="nk-tb-col"><span>Referrer Alert</span></th>
 					
 					<th class="nk-tb-col"><span>Organisation Type</span></th>
 					

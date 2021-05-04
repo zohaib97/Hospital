@@ -78,7 +78,7 @@ include_once('header.php');
 			$dataid = mysqli_fetch_assoc($idq);
 			$orgid = $dataid['ur_orgtype'];
 				$urid = $dataid['ur_id'];
-                 $qe = mysqli_query($con, "SELECT COUNT(m_id) AS number FROM `tbl_consultantrefferels` JOIN `services` ON tbl_consultantrefferels.c_serid = services.service_id WHERE services.s_orgid = '$orgid' and services.ser_priority_urg !='' and services.service_r_t_support = 'Advice Request,' and tbl_consultantrefferels.c_userid = '$urid'");
+                 $qe = mysqli_query($con, "SELECT COUNT(m_id) AS number FROM `tbl_consultantrefferels` JOIN `services` ON tbl_consultantrefferels.c_serid = services.service_id WHERE services.s_orgid = '$orgid' and services.ser_priority_urg !='' and services.service_r_t_support = 'Advice Request,' and tbl_consultantrefferels.c_userid = '$urid' and tbl_consultantrefferels.c_status != '3'");
 
 
               $hos = mysqli_fetch_assoc($qe);
@@ -113,7 +113,7 @@ include_once('header.php');
 			$dataid = mysqli_fetch_assoc($idq);
 			$orgid = $dataid['ur_orgtype'];
 				$urid = $dataid['ur_id'];
-                 $qe = mysqli_query($con, "SELECT COUNT(m_id) AS number FROM `tbl_consultantrefferels` JOIN `services` ON tbl_consultantrefferels.c_serid = services.service_id WHERE services.s_orgid = '$orgid' and services.ser_priority_rout !='' and services.service_r_t_support = 'Advice Request,' and tbl_consultantrefferels.c_userid = '$urid'");
+                 $qe = mysqli_query($con, "SELECT COUNT(m_id) AS number FROM `tbl_consultantrefferels` JOIN `services` ON tbl_consultantrefferels.c_serid = services.service_id WHERE services.s_orgid = '$orgid' and services.ser_priority_rout !='' and services.service_r_t_support = 'Advice Request,' and tbl_consultantrefferels.c_userid = '$urid' and tbl_consultantrefferels.c_status != '3'");
 
 
               $hos = mysqli_fetch_assoc($qe);
@@ -145,7 +145,7 @@ include_once('header.php');
 			$dataid = mysqli_fetch_assoc($idq);
 			$orgid = $dataid['ur_orgtype'];
 				$urid = $dataid['ur_id'];
-                 $qe = mysqli_query($con, "SELECT COUNT(m_id) AS number FROM `tbl_consultantrefferels` JOIN `services` ON tbl_consultantrefferels.c_serid = services.service_id WHERE services.s_orgid = '$orgid' and services.ser_priority_urg !='' and services.service_r_t_support = 'Appointment Request,' and tbl_consultantrefferels.c_userid = '$urid'");
+                 $qe = mysqli_query($con, "SELECT COUNT(m_id) AS number FROM `tbl_consultantrefferels` JOIN `services` ON tbl_consultantrefferels.c_serid = services.service_id WHERE services.s_orgid = '$orgid' and services.ser_priority_urg !='' and services.service_r_t_support = 'Appointment Request,' and tbl_consultantrefferels.c_userid = '$urid' and tbl_consultantrefferels.c_status != '3'");
 
 
               $hos = mysqli_fetch_assoc($qe);
@@ -157,7 +157,7 @@ include_once('header.php');
                                                     <div class="card-inner">
                                                         <div class="card-title-group">
                                                             <div class="card-title">
-                                                                <h6 class="title">Urgent Refferals Awaiting Triage</h6>
+                                                                <h6 class="title">Urgent Referrals Awaiting Triage</h6>
                                                             </div>
                                                         </div>
                                                         <div class="data">
@@ -176,7 +176,7 @@ include_once('header.php');
 			$dataid = mysqli_fetch_assoc($idq);
 			$orgid = $dataid['ur_orgtype'];
 			$urid = $dataid['ur_id'];
-                 $qe = mysqli_query($con, "SELECT COUNT(m_id) AS number FROM `tbl_consultantrefferels` JOIN `services` ON tbl_consultantrefferels.c_serid = services.service_id WHERE services.s_orgid = '$orgid' and services.ser_priority_rout !='' and services.service_r_t_support = 'Appointment Request,' and tbl_consultantrefferels.c_userid = '$urid'");
+                 $qe = mysqli_query($con, "SELECT COUNT(m_id) AS number FROM `tbl_consultantrefferels` JOIN `services` ON tbl_consultantrefferels.c_serid = services.service_id WHERE services.s_orgid = '$orgid' and services.ser_priority_rout !='' and services.service_r_t_support = 'Appointment Request,' and tbl_consultantrefferels.c_userid = '$urid' and tbl_consultantrefferels.c_status != '3'");
 
 
               $hos = mysqli_fetch_assoc($qe);
@@ -188,7 +188,7 @@ include_once('header.php');
                                                     <div class="card-inner">
                                                         <div class="card-title-group">
                                                             <div class="card-title">
-                                                                <h6 class="title">Routine Refferals Awaiting Triage</h6>
+                                                                <h6 class="title">Routine Referrals Awaiting Triage</h6>
                                                             </div>
                                                         </div>
                                                         <div class="data">

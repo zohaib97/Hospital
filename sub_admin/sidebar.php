@@ -90,7 +90,7 @@ include_once('../database/db.php');
 								<li class="nk-menu-item">
 									<a href="servicerefferels.php" class="nk-menu-link">
 										<span class="nk-menu-icon"><em class="icon ni ni-swap"></em></span>
-										<span class="nk-menu-text">Service Refferels</span>
+										<span class="nk-menu-text">Service Referrels</span>
 									</a>
 								</li>
                                 <li class="nk-menu-item">
@@ -146,13 +146,13 @@ include_once('../database/db.php');
 								<li class="nk-menu-item">
 									<a href="e-refferelservice.php" class="nk-menu-link">
 										<span class="nk-menu-icon"><em class="icon ni ni-users-fill"></em></span>
-                                        <span class="nk-menu-text">E-Refferel Service</span>
+                                        <span class="nk-menu-text">E-Referrel Service</span>
 									</a>
 								</li>
 								<li class="nk-menu-item">
 									<a href="refferels.php" class="nk-menu-link">
 									<span class="nk-menu-icon"><em class="icon ni ni-swap"></em></span>
-										<span class="nk-menu-text">Refferels</span>
+										<span class="nk-menu-text">Referrels</span>
 									</a>
 									</li>
                                 <?php

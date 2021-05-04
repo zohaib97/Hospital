@@ -1760,9 +1760,9 @@ if(isset($_POST['dentistbtn']))
 		</td>
 		<td class="nk-tb-col">';
 		if($fetch["ur_status"] =="not_approve"){
-			echo '<span class="btn btn-danger" onclick="aprovenotaprove(\''.$mid.'\',\''.$fetch["ur_status"].'\')">Not Active</span>';
+			echo '<span class="btn btn-danger" onclick="aprovenotaprove(\''.$mid.'\',\'d'.$fetch["ur_status"].'\')">Not Active</span>';
 		}elseif($fetch["ur_status"] =="approve"){
-			echo '<span class="btn btn-success" onclick="aprovenotaprove(\''.$mid.'\',\''.$fetch["ur_status"].'\')">Active</span>';
+			echo '<span class="btn btn-success" onclick="aprovenotaprove(\''.$mid.'\',\'d'.$fetch["ur_status"].'\')">Active</span>';
 		}
 		echo '</td>
 		<td class="nk-tb-col nk-tb-col-tools">
@@ -2610,6 +2610,49 @@ if(isset($_POST['method']))
 				}
 			
 		}
+		if($_POST['method'] == "dapprove")
+			{
+				
+				$id = $_POST['id'];
+				$query = "UPDATE `tbl_ruser` SET `ur_status` = 'not_approve' WHERE `ur_id` = '$id'";
+				$vq = mysqli_query($con,$query);
+				$sql = mysqli_query($con,"SELECT * FROM `tbl_ruser` WHERE ur_id = '$id'");
+		    $fe = mysqli_fetch_array($sql);
+				if($vq)
+				{
+					echo json_encode(array("res"=>"Success","name"=>$fe['ur_fname']." ".$fe['ur_sname']));
+				}
+			
+		}
+		if($_POST['method'] == "dnot_approve")
+		{
+			
+			$id = $_POST['id'];
+			$query = "UPDATE `tbl_ruser` SET `ur_status` = 'approve' WHERE `ur_id` = '$id'";
+			$vq = mysqli_query($con,$query);
+			$fs=mysqli_query($con,"SELECT * FROM tbl_ruser WHERE ur_id ='$id'");
+			$feh = mysqli_fetch_array($fs);
+			$email=$feh["ur_email"];
+			$to      = $email;
+	$subject = 'For Approval ';
+	$message = '<html><body>';
+	$message .= '<h1>You Have Been Approved By Admin!</h1>';
+	$message .= '</body></html>';
+	$headers = 'From: info@deevloopers.com' . "\r\n" .
+		'Reply-To: info@deevloopers.com' . "\r\n" .
+		"MIME-Version: 1.0\r\n".
+		"Content-Type: text/html; charset=ISO-8859-1\r\n";
+		'X-Mailer: PHP/' . phpversion();
+	
+	mail($to, $subject, $message, $headers);
+		$sql = mysqli_query($con,"SELECT * FROM `tbl_ruser` WHERE ur_id = '$id'");
+		    $fe = mysqli_fetch_array($sql);
+			if($vq > 0)
+			{
+			echo json_encode(array("res"=>"Success","name"=>$fe['ur_fname']." ".$fe['ur_sname']));
+			}
+			
+		}
 	//for Service Definer active
 	if($_POST['method'] == "sdrnot_approve")
 		{
@@ -2624,7 +2667,7 @@ if(isset($_POST['method']))
 			$to      = $email;
 	$subject = 'For Approval ';
 	$message = '<html><body>';
-	$message .= '<h1>You Has Been Approved By Admin!</h1>';
+	$message .= '<h1>You Have Been Approved By Admin!</h1>';
 	$message .= '</body></html>';
 	$headers = 'From: info@deevloopers.com' . "\r\n" .
 		'Reply-To: info@deevloopers.com' . "\r\n" .
@@ -2667,7 +2710,7 @@ if(isset($_POST['method']))
 			$to      = $email;
 	$subject = 'For Approval ';
 	$message = '<html><body>';
-	$message .= '<h1>You Has Been Approved By Admin!</h1>';
+	$message .= '<h1>You Have Been Approved By Admin!</h1>';
 	$message .= '</body></html>';
 	$headers = 'From: info@deevloopers.com' . "\r\n" .
 		'Reply-To: info@deevloopers.com' . "\r\n" .
@@ -2711,7 +2754,7 @@ if(isset($_POST['method']))
 			$to      = $email;
 	$subject = 'For Approval ';
 	$message = '<html><body>';
-	$message .= '<h1>You Has Been Approved By Admin!</h1>';
+	$message .= '<h1>You Have Been Approved By Admin!</h1>';
 	$message .= '</body></html>';
 	$headers = 'From: info@deevloopers.com' . "\r\n" .
 		'Reply-To: info@deevloopers.com' . "\r\n" .
@@ -2754,7 +2797,7 @@ if(isset($_POST['method']))
 			$to      = $email;
 	$subject = 'For Approval ';
 	$message = '<html><body>';
-	$message .= '<h1>You Has Been Approved By Admin!</h1>';
+	$message .= '<h1>You Have Been Approved By Admin!</h1>';
 	$message .= '</body></html>';
 	$headers = 'From: info@deevloopers.com' . "\r\n" .
 		'Reply-To: info@deevloopers.com' . "\r\n" .
@@ -2950,9 +2993,10 @@ $e = $_SESSION['superadmin'];
 					<th class="nk-tb-col"><span>Service Name</span></th>
 					<th class="nk-tb-col"><span>Service Request</span></th>
 					<th class="nk-tb-col"><span>Service Comments</span></th>
-					<th class="nk-tb-col"><span>Service refer</span></th>
-					<th class="nk-tb-col"><span>Service Location</span></th>
 					<th class="nk-tb-col"><span>Speciality</span></th>
+					<th class="nk-tb-col"><span>Status</span></th>
+					<th class="nk-tb-col"><span>Action</span></th>
+					
 					<th class="nk-tb-col"><span>Appointment type</span></th>
 					<th class="nk-tb-col"><span>Gender</span></th>
 					<th class="nk-tb-col"><span>Bookable</span></th>
@@ -2989,7 +3033,7 @@ $e = $_SESSION['superadmin'];
 		'.$fetch['service_id'].'
 	</td>
 	<td class="nk-tb-col">
-		<span class="tb-lead" onclick="openmodal3(\''.$fetch['s_id'].'\',\''.$fetch['s_name'].'\')" style="cursor:pointer;">'.$fetch['s_name'].'</span>
+		<a href="updateservice.php?sid='.$fetch['m_id'].'"><span class="tb-lead" style="cursor:pointer;">'.$fetch['s_name'].'</span></a>
 	</td>
 	<td class="nk-tb-col">
 		<span class="tb-lead">'.$fetch['service_r_t_support'].'</span>
@@ -2997,15 +3041,23 @@ $e = $_SESSION['superadmin'];
 	<td class="nk-tb-col">
 		<span class="tb-lead">'.$fetch['service_cmnts'].'</span>
 	</td>
-	<td class="nk-tb-col">
-		<span class="tb-lead">'.$fetch['service_refer'].'</span>
-	</td>
-	<td class="nk-tb-col">
-		<span class="tb-lead">'.$fetch['org_location'].'</span>
-	</td>
-	<td class="nk-tb-col">
+		<td class="nk-tb-col">
 	<span class="tb-lead">'.$fetch['spec_name'].'</span>
-    </td>
+    </td>';
+		if($fetch["status"] =="not_approve" || $fetch["service_publish"] == null){
+		echo '<td class="nk-tb-col"><span class="btn btn-danger" id="gbtn" onclick="eaprovenotaprove(\''.$rfid.'\',\'gnot_approve\')">Not Active</span></td>';
+	}elseif($fetch["status"] =="approve"){
+		echo '<td class="nk-tb-col"><span class="btn btn-success" id="gbtn" onclick="eaprovenotaprove(\''.$rfid.'\',\'g'.$fetch["status"].'\')">Active</span></td>';
+	}
+	elseif($fetch["status"] =="draft"){
+		echo '<td class="nk-tb-col"><span class="btn btn-success" id="gbtn" onclick="eaprovenotaprove(\''.$rfid.'\',\'g'.$fetch["status"].'\')">Draft</span></td>';
+	}
+	echo'
+	<td class="nk-tb-col">
+	<a href="javascript:void(0)" onClick="confirm('.$fetch['m_id'].')" class="btn btn-danger mt-1 btn-circle btn-sm"><em class="icon ni ni-trash"></em></a> | <a href="updateservice.php?sid='.$fetch['m_id'].'" class="btn btn-success btn-circle btn-sm"><em class="icon ni ni-edit "></em></a>
+	</td>
+
+
    <td class="nk-tb-col">
 	<span class="tb-lead">'.$fetch['app_type'].'</span>
     </td>
@@ -3111,7 +3163,7 @@ if(isset($_POST['readRecordbtnd']))
 				<tr class="nk-tb-item nk-tb-head">
 					
 				<th class="nk-tb-col"><span>Service Id</span></th>
-					<th class="nk-tb-col tb-col-sm"><span>Refferer Name</span></th>
+					<th class="nk-tb-col tb-col-sm"><span>Referrer Name</span></th>
 					<th class="nk-tb-col"><span>Service Name</span></th>
 					<th class="nk-tb-col"><span>NHS Number</span></th>
 					<th class="nk-tb-col tb-col-sm"><span>Patient Name</span></th>
@@ -3181,7 +3233,7 @@ if(isset($_POST['readRecordbtnd1']))
 				<tr class="nk-tb-item nk-tb-head">
 					
 				<th class="nk-tb-col"><span>Service Id</span></th>
-					<th class="nk-tb-col tb-col-sm"><span>Refferer Name</span></th>
+					<th class="nk-tb-col tb-col-sm"><span>Referrer Name</span></th>
 					<th class="nk-tb-col"><span>Service Name</span></th>
 					<th class="nk-tb-col"><span>UBRN Number</span></th>
 					<th class="nk-tb-col"><span>NHS Number</span></th>

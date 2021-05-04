@@ -323,7 +323,17 @@ include_once('connect.php');
         $('#id').val(id);
         $('#full-name').val(name);
 		$('#otype').val(type);
-        $('#ocontact').val(phone);
+      
+        $.ajax({
+            type: 'POST',
+            url: 'phpcode.php',
+            data: {type:type,fetchtype:"btn"},
+        
+          
+            success: function(data){
+        
+                $("#otype").html(data); 
+                $('#ocontact').val(phone);
         $('#ocode').val(code);
         $('#ofaddress').val(firstaddress);
         $('#oaddress').val(address);
@@ -332,6 +342,10 @@ include_once('connect.php');
         
         
         $('#modalForm').modal('show');
+            }
+			
+        });
+       
     };
 
     $("#orupdate").on('submit', function(e){

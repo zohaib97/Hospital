@@ -33,7 +33,7 @@ include_once('../database/db.php');
                             <div class="nk-content-body">
                                 <div class="components-preview wide-md mx-auto">
                                     <div class="nk-block-head nk-block-head-lg wide-sm">
-										 <h2 class="nk-block-title fw-normal">Refferels list</h2>
+										 <h2 class="nk-block-title fw-normal">Referrals list</h2>
                                     </div>									
 									<div>
 										<ul class="nk-menu">
@@ -323,12 +323,12 @@ include_once('../database/db.php');
             success: function(data){
       			 if(data == 'Error'){
                    toastr.clear(); 
-               NioApp.Toast("<h5>Refferel didn't Send Successfully</h5>", 'error',{position:'top-right'});
+               NioApp.Toast("<h5>Referral didn't Send Successfully</h5>", 'error',{position:'top-right'});
                 }
 				else if(data == 'Success'){
 					$('#attach')[0].reset();
 					toastr.clear();
-               NioApp.Toast("<h5>Refferel Sent Successfully</h5>", 'success',{position:'top-right'});
+               NioApp.Toast("<h5>Referral Sent Successfully</h5>", 'success',{position:'top-right'});
 		
 				
                 }

@@ -33,7 +33,7 @@ include_once('../database/db.php');
                             <div class="nk-content-body">
                                 <div class="components-preview wide-md mx-auto">
                                     <div class="nk-block-head nk-block-head-lg wide-sm">
-										<h2 class="nk-block-title fw-normal">Create Refferel</h2>
+										<h2 class="nk-block-title fw-normal">Create Referral</h2>
                                     </div>
                                     <div class="nk-block nk-block-lg">
                                        <div class="card p-5">

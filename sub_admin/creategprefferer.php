@@ -43,7 +43,7 @@ include_once('../database/db.php');
                             <div class="nk-content-body">
                                 <div class="components-preview wide-md mx-auto">
                                     <div class="nk-block-head nk-block-head-lg wide-sm">
-										<h2 class="nk-block-title fw-normal">Create GP Refferer</h2>
+										<h2 class="nk-block-title fw-normal">Create GP Referrer</h2>
                                     </div>
                                     <div class="nk-block nk-block-lg">
                                        <div class="card p-5">
@@ -155,7 +155,7 @@ include_once('../database/db.php');
 				else if(data == 'gpdone'){
 					$('#gpadd')[0].reset();
 					toastr.clear();
-               NioApp.Toast("<h5>G-P Refferer Added Successfully</h5>", 'success',{position:'top-right'});
+               NioApp.Toast("<h5>G-P Referrer Added Successfully</h5>", 'success',{position:'top-right'});
 									
                 }else {
 					toastr.clear();

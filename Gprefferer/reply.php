@@ -52,7 +52,7 @@ include_once('header.php');
 						{
 				    ?>
                                             <nav class="p-1 bg-light mb-3 col-form-label font-weight-bold">Advice
-                                                Request Details - <span class="text-info"><?=$dref['ra_refferelid']?></span>
+                                                Request Details
                                             </nav>
                                              <?php
 						}
@@ -60,7 +60,7 @@ include_once('header.php');
 						{
 				     ?>
 				     <nav class="p-1 bg-light mb-3 col-form-label font-weight-bold">Appointment
-                                                Request Details - <span class="text-info"><?=$dref['ra_refferelid']?></span>
+                                                Request Details 
                                             </nav>
                                             <?php
 						}
@@ -198,7 +198,7 @@ include_once('header.php');
 													}
 													?>
 													 <div class="col-md-6 mb-2"> 
-                                                        <span class="font-weight-bold">Refer ID </span>
+                                                        <span class="font-weight-bold">Referral ID </span>
                                                         <br>
                                                         <span><?=$refid?></span>
                                                     </div>
@@ -210,13 +210,13 @@ include_once('header.php');
                                                     </div> 
                                                  <div class="col-md-6 mb-2"> 
                                                         <span class="font-weight-bold">Telephone: </span><br>
-                                                        <span><?=$dref['pt_telno']?></span>
+                                                        <span><?=$dref['ur_orgphno']?></span>
                                                     </div> 
 
                                                     <div class="col-md-12 mb-2"> 
                                                         <span class="font-weight-bold">Registered Practice</span>
                                                         <br>
-                                                        <span><?=$dref["ur_address"]?></span>
+                                                        <span><?=$dref["ur_address"]?> <?=$dref["ur_orgaddress"]?></span>
                                                     </div> 
                                                  
                                                     
@@ -282,7 +282,7 @@ include_once('header.php');
                                                             </p></div>
                                                     <form id="reply" enctype="multipart/form-data" class="col-md-12 ml-0 float-left w-100">
                                                     
-                                                        <div class="row bg-light p-1 ml-0 w-100">
+                                                        <div class="row bg-light p-1 ml-0 w-100 col-md-10">
                                                             <div class="col-6">
                                                                 <label class="col-form-label" for="">Add
                                                                     Attachement</label>
@@ -300,7 +300,7 @@ include_once('header.php');
                                                                         name="weblink"></span>
                                                             </div>
                                                             <div class="col-12 mt-1" >
-                                                                <textarea style="border-radius: 20px;"
+                                                                <textarea style="border-radius: 20px;min-height:0px;"
                                                                     placeholder="Enter advice response detail here"
                                                                     class="form-control" name="cmntad" id="" cols="30"
                                                                     rows="3" required></textarea>

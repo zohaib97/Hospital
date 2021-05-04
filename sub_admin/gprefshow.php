@@ -165,7 +165,7 @@ include_once('../database/db.php');
       confirmButtonText: 'Yes, delete it!'
     }).then(function (result) {
       if (result.value) {
-        Swal.fire('Deleted!', 'G-p Refferer has been deleted.', 'success');
+        Swal.fire('Deleted!', 'G-p Referrer has been deleted.', 'success');
 		  deleteadmin(id);
       }
     });
@@ -183,12 +183,12 @@ include_once('../database/db.php');
                 if(data == 'Error'){
                     
               toastr.clear();
-    NioApp.Toast("<h5>G-p Refferer Didn't Delete</h5>", 'error',{position:'top-right'});
+    NioApp.Toast("<h5>G-p Referrer Didn't Delete</h5>", 'error',{position:'top-right'});
                 }
 				else if(data == 'Success'){
 				
           toastr.clear();
-    NioApp.Toast("<h5>G-p Refferer Delete Successfully</h5>", 'success',{position:'top-right'});
+    NioApp.Toast("<h5>G-p Referrer Delete Successfully</h5>", 'success',{position:'top-right'});
 					fetchadmindata();
                 }
 			
@@ -215,7 +215,7 @@ include_once('../database/db.php');
  
                 if(data == 'Error'){
                    toastr.clear();
-    NioApp.Toast("<h5>G-p Refferer didn't Updated</h5>", 'error',{position:'top-right'});
+    NioApp.Toast("<h5>G-p Referrer didn't Updated</h5>", 'error',{position:'top-right'});
             
                 }
 				else if(data == 'Success'){
@@ -223,12 +223,12 @@ include_once('../database/db.php');
 					{
 					
 						 toastr.clear();
-    NioApp.Toast("<h5>G-p Refferer De-Activated</h5>", 'error',{position:'top-right'});
+    NioApp.Toast("<h5>G-p Referrer De-Activated</h5>", 'error',{position:'top-right'});
 				fetchadmindata();
 					}
 					else{
               toastr.clear();
-    NioApp.Toast("<h5>G-p Refferer Activated Successfully</h5>", 'success',{position:'top-right'});
+    NioApp.Toast("<h5>G-p Referrer Activated Successfully</h5>", 'success',{position:'top-right'});
 				fetchadmindata();
 					
 					}

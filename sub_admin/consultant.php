@@ -68,7 +68,7 @@ include_once('header.php');
 								elseif($ortype == "GP Practice")
 								{
                                     ?>
-                                     <option value="GP_Refferer">Dentist</option>
+                                     <option value="GP_Refferer">Gp Referrer</option>
                                      <?php
 								}
 								elseif($ortype == "Opticians")
@@ -80,7 +80,7 @@ include_once('header.php');
 								elseif($ortype == "Dental Practice" || $ortype == "Community Hospital")
 								{
                                       ?>
-                                      <option value="GP_Refferer">Dentist</option>
+                                      <option value="Dentist">Dentist</option>
                                       <?php
                                       }
                                       ?>
@@ -190,7 +190,7 @@ include_once('header.php');
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title">Gp-Refferer Info</h5>
+                    <h5 class="modal-title">Gp-Referrer Info</h5>
                     <a href="#" class="close" data-dismiss="modal" aria-label="Close">
                         <em class="icon ni ni-cross"></em>
                     </a>
@@ -528,7 +528,7 @@ else
 
         var name = status;
         var ide = id;
-
+      
 
         $.ajax({
             type: 'POST',
@@ -542,21 +542,23 @@ else
 
             success: function(data) {
 
-                if (data == 'Error') {
+                if (data['res'] == 'Error') {
                     toastr.clear();
-                    NioApp.Toast("<h5>Consultant didn't Updated</h5>", 'error', {
+                    NioApp.Toast("<h5>"+data['name']+" didn't Updated</h5>", 'error', {
                         position: 'top-right'
                     });
 
                 } else if (data['res'] == 'Success') {
-                    if (name == 'capprove') {
+                  
+                    if (name == 'dapprove') {
 
                         toastr.clear();
                         NioApp.Toast("<h5>"+data['name']+" Account De-Activated</h5>", 'success', {
                             position: 'top-right'
                         });
                         fetchadmindata();
-                    } else {
+                    } 
+                    else {
                         toastr.clear();
                         NioApp.Toast("<h5>"+data['name']+" Account Activated Successfully</h5>", 'success', {
                             position: 'top-right'

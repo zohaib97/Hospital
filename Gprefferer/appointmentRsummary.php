@@ -104,7 +104,7 @@ include_once('../database/db.php');
 						<th class="nk-tb-col"><span>Sender Bookable</span></th>
 					<th class="nk-tb-col tb-col-sm"><span>Location</span></th>
 				
-					<th class="nk-tb-col"><span>Refferer Alert</span></th>
+					<th class="nk-tb-col"><span>Referrer Alert</span></th>
 					
 					<th class="nk-tb-col"><span>Organisation Type</span></th>
 					
@@ -398,12 +398,12 @@ include_once('../database/db.php');
             success: function(data){
       			 if(data == 'Error'){
                    toastr.clear(); 
-               NioApp.Toast("<h5>Refferel didn't Send Successfully</h5>", 'error',{position:'top-right'});
+               NioApp.Toast("<h5>Referral didn't Send Successfully</h5>", 'error',{position:'top-right'});
                 }
 				else if(data == 'Success'){
 					$('#attach')[0].reset();
 					toastr.clear();
-               NioApp.Toast("<h5>Refferel Sent Successfully</h5>", 'success',{position:'top-right'});
+               NioApp.Toast("<h5>Referral Sent Successfully</h5>", 'success',{position:'top-right'});
 		
 				
                 }

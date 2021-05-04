@@ -1799,10 +1799,7 @@ $e = $_SESSION['superadmin'];
 					<th class="nk-tb-col"><span>Priority  Week</span></th>
 					<th class="nk-tb-col"><span>2 Week Wait</span></th>
 					<th class="nk-tb-col"><span>Organisation Name</span></th>
-					<th class="nk-tb-col"><span>Status</span></th>
-							<th class="nk-tb-col ">
-							<span>Action</span>
-							</th>
+				
 					
 					
 				</tr><!-- .nk-tb-item -->
@@ -1818,7 +1815,7 @@ $e = $_SESSION['superadmin'];
 		'.$fetch['service_id'].'
 	</td>
 	<td class="nk-tb-col">
-		<span class="tb-lead" onclick="openmodal3(\''.$fetch['s_id'].'\',\''.$fetch['s_name'].'\')" style="cursor:pointer;">'.$fetch['s_name'].'</span>
+		<span class="tb-lead">'.$fetch['s_name'].'</span>
 	</td>
 	<td class="nk-tb-col">
 		<span class="tb-lead">'.$fetch['service_r_t_support'].'</span>
@@ -1891,17 +1888,6 @@ $e = $_SESSION['superadmin'];
 	<td class="nk-tb-col">
 		<span class="tb-lead">'.$fetch['s_orgname'].'</span>
 	</td>
-	';
-	if($fetch["status"] =="not_approve" || $fetch["service_publish"] == null){
-		echo '<td class="nk-tb-col"><span class="btn btn-danger" id="gbtn" onclick="eaprovenotaprove(\''.$rfid.'\',\'gnot_approve\')">Not Active</span></td>';
-	}elseif($fetch["status"] =="approve"){
-		echo '<td class="nk-tb-col"><span class="btn btn-success" id="gbtn" onclick="eaprovenotaprove(\''.$rfid.'\',\'g'.$fetch["status"].'\')">Active</span></td>';
-	}
-	echo '
-	<td class="nk-tb-col">
-	<a href="javascript:void(0)" onClick="confirm('.$fetch['m_id'].')" class="btn btn-danger mt-1 btn-circle btn-sm"><em class="icon ni ni-trash"></em></a> | <a href="updateservice.php?sid='.$fetch['m_id'].'" class="btn btn-success btn-circle btn-sm"><em class="icon ni ni-edit "></em></a>
-	</td>
-
 	</tr>';
 										
 		}
@@ -1941,24 +1927,7 @@ if(isset($_POST['consultantbtn']))
 							<th class="nk-tb-col"><span>Role</span></th>
 							<th class="nk-tb-col"><span>Organisation Type</span></th>
 							<th class="nk-tb-col "><span>Organisation Name</span></th>
-							<th class="nk-tb-col "><span>Status</span></th>
-							<th class="nk-tb-col nk-tb-col-tools">
-								<ul class="nk-tb-actions gx-1 my-n1">
-									<li class="mr-n1">
-										<div class="dropdown">
-											<a href="#" class="dropdown-toggle btn btn-icon btn-trigger" data-toggle="dropdown"><em class="icon ni ni-more-h"></em></a>
-											<div class="dropdown-menu dropdown-menu-right">
-												<ul class="link-list-opt no-bdr">
-													<li><a href="#"><em class="icon ni ni-edit"></em><span>Edit Selected</span></a></li>
-													<li><a href="#"><em class="icon ni ni-trash"></em><span>Remove Selected</span></a></li>
-													<li><a href="#"><em class="icon ni ni-bar-c"></em><span>Update Stock</span></a></li>
-													<li><a href="#"><em class="icon ni ni-invest"></em><span>Update Price</span></a></li>
-												</ul>
-											</div>
-										</div>
-									</li>
-								</ul>
-							</th>
+							
 						</tr><!-- .nk-tb-item -->
 					</thead>
 					 <tbody id="">';
@@ -2000,32 +1969,7 @@ if(isset($_POST['consultantbtn']))
 	<td class="nk-tb-col">
 		<span class="tb-sub">'.$fetch['or_name'].'</span>
 	</td>
-	<td class="nk-tb-col">';
-	if($fetch["ur_status"] =="not_approve"){
-		echo '<span class="btn btn-danger" onclick="aprovenotaprove(\''.$mid.'\',\'c'.$fetch["ur_status"].'\')">Not Active</span>';
-	}elseif($fetch["ur_status"] =="approve"){
-		echo '<span class="btn btn-success" onclick="aprovenotaprove(\''.$mid.'\',\'c'.$fetch["ur_status"].'\')">Active</span>';
-	}
-	echo '</td>
-	<td class="nk-tb-col nk-tb-col-tools">
-		<ul class="nk-tb-actions gx-1 my-n1">
-			<li class="mr-n1">
-				<div class="dropdown">
-					<a href="#" class="dropdown-toggle btn btn-icon btn-trigger" data-toggle="dropdown"><em class="icon ni ni-more-h"></em></a>
-					<div class="dropdown-menu dropdown-menu-right">
-						<ul class="link-list-opt no-bdr">';
-			// <li><a href="javascript:void(0)" onClick="openmodal1('."'$mid'".','."'$mname'".','."'$msname'".','."'$memail'".','."'$mpass'".','."'$mphn'".','."'$mdepart'".','."'$mdob'".','."'$mrole'".')"><em class="icon ni ni-edit"></em><span>Edit</span></a></li>
-							// <li><a href="#"><em class="icon ni ni-eye"></em><span>View</span></a></li>
-							
-							echo '<li><a href="javascript:void(0)" onClick="confirm('."'$mid'".')"><em class="icon ni ni-trash"></em><span>Remove</span></a></li>
-							<li><a href="javascript:void(0)" onClick="openmodal2('."'$mid'".','."'$fname'".','."'$sname'".','."'$email'".','."'$pass'".')"><em class="icon ni ni-edit"></em><span>Edit</span></a></li>
 
-						</ul>
-					</div>
-				</div>
-			</li>
-		</ul>
-	</td>
 	</tr>';
 										
 		}
@@ -2439,24 +2383,7 @@ if(isset($_POST['dentistbtn']))
 								<th class="nk-tb-col"><span>Role</span></th>
 								<th class="nk-tb-col"><span>Organisation Type</span></th>
 								<th class="nk-tb-col"><span>Organisation Name</span></th>
-								<th class="nk-tb-col"><span>Status</span></th>
-								<th class="nk-tb-col nk-tb-col-tools">
-									<ul class="nk-tb-actions gx-1 my-n1">
-										<li class="mr-n1">
-											<div class="dropdown">
-												<a href="#" class="dropdown-toggle btn btn-icon btn-trigger" data-toggle="dropdown"><em class="icon ni ni-more-h"></em></a>
-												<div class="dropdown-menu dropdown-menu-right">
-													<ul class="link-list-opt no-bdr">
-														<li><a href="#"><em class="icon ni ni-edit"></em><span>Edit Selected</span></a></li>
-														<li><a href="#"><em class="icon ni ni-trash"></em><span>Remove Selected</span></a></li>
-														<li><a href="#"><em class="icon ni ni-bar-c"></em><span>Update Stock</span></a></li>
-														<li><a href="#"><em class="icon ni ni-invest"></em><span>Update Price</span></a></li>
-													</ul>
-												</div>
-											</div>
-										</li>
-									</ul>
-								</th>
+								
 							</tr><!-- .nk-tb-item -->
 						</thead>
 						<tbody id="">';
@@ -2498,30 +2425,7 @@ if(isset($_POST['dentistbtn']))
 		<td class="nk-tb-col">
 			<span class="tb-sub">'.$fetch['or_name'].'</span>
 		</td>
-		<td class="nk-tb-col">';
-		if($fetch["ur_status"] =="not_approve"){
-			echo '<span class="btn btn-danger" onclick="aprovenotaprove(\''.$mid.'\',\''.$fetch["ur_status"].'\')">Not Active</span>';
-		}elseif($fetch["ur_status"] =="approve"){
-			echo '<span class="btn btn-success" onclick="aprovenotaprove(\''.$mid.'\',\''.$fetch["ur_status"].'\')">Active</span>';
-		}
-		echo '</td>
-		<td class="nk-tb-col nk-tb-col-tools">
-			<ul class="nk-tb-actions gx-1 my-n1">
-				<li class="mr-n1">
-					<div class="dropdown">
-						<a href="#" class="dropdown-toggle btn btn-icon btn-trigger" data-toggle="dropdown"><em class="icon ni ni-more-h"></em></a>
-						<div class="dropdown-menu dropdown-menu-right">
-							<ul class="link-list-opt no-bdr">';
-						echo '<li><a href="javascript:void(0)" onClick="openmodal2('."'$mid'".','."'$fname'".','."'$sname'".','."'$email'".','."'$pass'".')"><em class="icon ni ni-edit"></em><span>Edit</span></a></li>
-								
-								<li><a href="javascript:void(0)" onClick="confirm('."'$mid'".')"><em class="icon ni ni-trash"></em><span>Remove</span></a></li>
-
-							</ul>
-						</div>
-					</div>
-				</li>
-			</ul>
-		</td>
+		
 		</tr>';
 											
 			}
@@ -2559,24 +2463,7 @@ if(isset($_POST['genralpbtn']))
 							<th class="nk-tb-col"><span>Role</span></th>
 							<th class="nk-tb-col"><span>Organisation Type</span></th>
 							<th class="nk-tb-col"><span>Organisation Name</span></th>
-							<th class="nk-tb-col"><span>Status</span></th>
-							<th class="nk-tb-col nk-tb-col-tools">
-								<ul class="nk-tb-actions gx-1 my-n1">
-									<li class="mr-n1">
-										<div class="dropdown">
-											<a href="#" class="dropdown-toggle btn btn-icon btn-trigger" data-toggle="dropdown"><em class="icon ni ni-more-h"></em></a>
-											<div class="dropdown-menu dropdown-menu-right">
-												<ul class="link-list-opt no-bdr">
-													<li><a href="#"><em class="icon ni ni-edit"></em><span>Edit Selected</span></a></li>
-													<li><a href="#"><em class="icon ni ni-trash"></em><span>Remove Selected</span></a></li>
-													<li><a href="#"><em class="icon ni ni-bar-c"></em><span>Update Stock</span></a></li>
-													<li><a href="#"><em class="icon ni ni-invest"></em><span>Update Price</span></a></li>
-												</ul>
-											</div>
-										</div>
-									</li>
-								</ul>
-							</th>
+							
 						</tr><!-- .nk-tb-item -->
 					</thead>
 					 <tbody id="">';
@@ -2615,33 +2502,6 @@ if(isset($_POST['genralpbtn']))
 	<td class="nk-tb-col">
 		<span class="tb-sub">'.$fetch['or_name'].'</span>
 	</td>
-	<td class="nk-tb-col">';
-	if($fetch["ur_status"] =="not_approve"){
-		echo '<span class="btn btn-danger" onclick="eaprovenotaprove(\''.$mid.'\',\''.$fetch["ur_status"].'\')">Not Active</span>';
-	}elseif($fetch["ur_status"] =="approve"){
-		echo '<span class="btn btn-success" onclick="eaprovenotaprove(\''.$mid.'\',\''.$fetch["ur_status"].'\')">Active</span>';
-	}
-	echo '</td>
-	<td class="nk-tb-col nk-tb-col-tools">
-		<ul class="nk-tb-actions gx-1 my-n1">
-			<li class="mr-n1">
-				<div class="dropdown">
-					<a href="#" class="dropdown-toggle btn btn-icon btn-trigger" data-toggle="dropdown"><em class="icon ni ni-more-h"></em></a>
-					<div class="dropdown-menu dropdown-menu-right">
-						<ul class="link-list-opt no-bdr">';
-			// <li><a href="javascript:void(0)" onClick="openmodal1('."'$mid'".','."'$mname'".','."'$msname'".','."'$memail'".','."'$mpass'".','."'$mphn'".','."'$mdepart'".','."'$mdob'".','."'$mrole'".')"><em class="icon ni ni-edit"></em><span>Edit</span></a></li>
-							 
-							//  <li><a href="javascript:void(0)"><em class="icon ni ni-eye" data-toggle="modal" data-target="#modalForm2" onClick="openmodal2('."'$mname'".','."'$msname'".','."'$memail'".','."'$mpass'".')"></em><span>View</span></a></li>
-							
-							 echo '<li><a href="javascript:void(0)" onClick="confirm('."'$mid'".')"><em class="icon ni ni-trash"></em><span>Remove</span></a></li>
-							 <li><a href="javascript:void(0)" onClick="openmodal2('."'$mid'".','."'$fname'".','."'$sname'".','."'$email'".','."'$pass'".')"><em class="icon ni ni-edit"></em><span>Edit</span></a></li>
-
-						</ul>
-					</div>
-				</div>
-			</li>
-		</ul>
-	</td>
 	</tr>';
 										
 		}
@@ -2678,24 +2538,7 @@ if(isset($_POST['Optometristbtn']))
 							<th class="nk-tb-col"><span>Role</span></th>
 							<th class="nk-tb-col"><span>Organisation Type</span></th>
 							<th class="nk-tb-col"><span>Organisation Name</span></th>
-							<th class="nk-tb-col"><span>Status</span></th>
-							<th class="nk-tb-col nk-tb-col-tools">
-								<ul class="nk-tb-actions gx-1 my-n1">
-									<li class="mr-n1">
-										<div class="dropdown">
-											<a href="#" class="dropdown-toggle btn btn-icon btn-trigger" data-toggle="dropdown"><em class="icon ni ni-more-h"></em></a>
-											<div class="dropdown-menu dropdown-menu-right">
-												<ul class="link-list-opt no-bdr">
-													<li><a href="#"><em class="icon ni ni-edit"></em><span>Edit Selected</span></a></li>
-													<li><a href="#"><em class="icon ni ni-trash"></em><span>Remove Selected</span></a></li>
-													<li><a href="#"><em class="icon ni ni-bar-c"></em><span>Update Stock</span></a></li>
-													<li><a href="#"><em class="icon ni ni-invest"></em><span>Update Price</span></a></li>
-												</ul>
-											</div>
-										</div>
-									</li>
-								</ul>
-							</th>
+							
 						</tr><!-- .nk-tb-item -->
 					</thead>
 					 <tbody id="">';
@@ -2737,31 +2580,7 @@ if(isset($_POST['Optometristbtn']))
 	<td class="nk-tb-col">
 		<span class="tb-sub">'.$fetch['or_name'].'</span>
 	</td>
-	<td class="nk-tb-col">';
-	if($fetch["ur_status"] =="not_approve"){
-		echo '<span class="btn btn-danger" onclick="oaprovenotaprove(\''.$mid.'\',\''."o".$fetch["ur_status"].'\')">Not Active</span>';
-	}elseif($fetch["ur_status"] =="approve"){
-		echo '<span class="btn btn-success" onclick="oaprovenotaprove(\''.$mid.'\',\''."o".$fetch["ur_status"].'\')">Active</span>';
-	}
-	echo '</td>
-	<td class="nk-tb-col nk-tb-col-tools">
-		<ul class="nk-tb-actions gx-1 my-n1">
-			<li class="mr-n1">
-				<div class="dropdown">
-					<a href="#" class="dropdown-toggle btn btn-icon btn-trigger" data-toggle="dropdown"><em class="icon ni ni-more-h"></em></a>
-					<div class="dropdown-menu dropdown-menu-right">
-						<ul class="link-list-opt no-bdr">';
-			// <li><a href="javascript:void(0)" onClick="openmodal1('."'$mid'".','."'$mname'".','."'$msname'".','."'$memail'".','."'$mpass'".','."'$mphn'".','."'$mdepart'".','."'$mdob'".','."'$mrole'".')"><em class="icon ni ni-edit"></em><span>Edit</span></a></li>
-							echo '<li><a href="javascript:void(0)" onClick="openmodal2('."'$mid'".','."'$fname'".','."'$sname'".','."'$email'".','."'$pass'".')"><em class="icon ni ni-edit"></em><span>Edit</span></a></li>
-							
-							<li><a href="javascript:void(0)" onClick="confirm('."'$mid'".')"><em class="icon ni ni-trash"></em><span>Remove</span></a></li>
 
-						</ul>
-					</div>
-				</div>
-			</li>
-		</ul>
-	</td>
 	</tr>';
 										
 		}
@@ -2775,6 +2594,32 @@ if(isset($_POST['Optometristbtn']))
 	';
 	}
 }
+
+if(isset($_POST['fetchtype']))
+{
+		
+		$type = $_POST['type'];
+		$vdel = mysqli_query($con,"SELECT * FROM organisation_type");
+		if(mysqli_num_rows($vdel)>0)
+		{
+
+		
+			while($fetc = mysqli_fetch_array($vdel))
+			{
+			if($fetc['ort_name'] == $type)
+			{
+				echo'<option value="'.$fetc['ort_name'].'" selected>'.$fetc['ort_name'].'</option>';
+			}
+			else{
+			echo'<option value="'.$fetc['ort_name'].'">'.$fetc['ort_name'].'</option>';
+			}
+		
+			}
+		}
+		
+//		header('location:data-table.php');
+		
+	}
 
 
 ?>

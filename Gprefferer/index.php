@@ -79,7 +79,7 @@ include_once('header.php');
                                                     <div class="card-inner">
                                                         <div class="card-title-group">
                                                             <div class="card-title">
-                                                                <h6 class="title">Total Refferals Sent</h6>
+                                                                <h6 class="title">Total Referrals Sent</h6>
                                                             </div>
                                                         </div>
                                                         <div class="data">
@@ -103,7 +103,7 @@ include_once('header.php');
                                                     <div class="card-inner">
                                                         <div class="card-title-group">
                                                             <div class="card-title">
-                                                                <h6 class="title">Total Refferals Accepted</h6>
+                                                                <h6 class="title">Total Referrals Accepted</h6>
                                                             </div>
                                                         </div>
                                                         <div class="data">
@@ -127,7 +127,7 @@ include_once('header.php');
                                                     <div class="card-inner">
                                                         <div class="card-title-group">
                                                             <div class="card-title">
-                                                                <h6 class="title">Total Refferals Rejected</h6>
+                                                                <h6 class="title">Total Referrals Rejected</h6>
                                                             </div>
                                                         </div>
                                                         <div class="data">

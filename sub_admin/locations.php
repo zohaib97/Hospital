@@ -177,7 +177,7 @@ include_once('../database/db.php');
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title">Manager Info</h5>
+                    <h5 class="modal-title">Location Info</h5>
                     <a href="#" class="close" data-dismiss="modal" aria-label="Close">
                         <em class="icon ni ni-cross"></em>
                     </a>
@@ -237,7 +237,7 @@ include_once('../database/db.php');
                     </form>
                 </div>
                 <div class="modal-footer bg-light">
-                    <span class="sub-text">Manager Update</span>
+                    <span class="sub-text">Location Update</span>
                 </div>
             </div>
         </div>

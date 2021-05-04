@@ -52,13 +52,13 @@ include_once('header.php');
 						
 				    ?>
                                             <nav class="p-1 bg-light mb-3 col-form-label font-weight-bold">Advice
-                                                Request Details - <span class="text-info"><?=$dref['c_nhsno']?></span>
+                                                Request Details 
                                             </nav>
                                             <?php
 						}elseif($dref['request_type'] == "Appointment Request"){
                                             ?>
                                             <nav class="p-1 bg-light mb-3 col-form-label font-weight-bold">Appointment
-                                                Request Details - <span class="text-info"><?=$dref['c_nhsno']?></span>
+                                                Request Details 
                                             </nav>
                                             <?php
 						}
@@ -134,7 +134,7 @@ include_once('header.php');
 														?>
                                                         <span class="font-weight-bold">Named Clinician</span>
                                                         <br>
-                                                        <span><?=$dref['ur_sname']?></span>
+                                                        <span><?= $dref['ur_fname'] ?> <?= $dref['ur_sname'] ?></span>
                                                     </div>
                                                     
                                                     <div class="col-md-6 mb-2">
@@ -169,7 +169,7 @@ include_once('header.php');
 													}
 													?>
 													  <div class="col-md-6 mb-2">
-                                                        <span class="font-weight-bold">Refer ID</span>
+                                                        <span class="font-weight-bold">Referral ID</span>
                                                         <br>
                                                         <span><?=$refid?></span>
                                                     </div>
@@ -182,13 +182,13 @@ include_once('header.php');
                                                     <div class="col-md-12 mb-2">
                                                         <span class="font-weight-bold">Registered Practice</span>
                                                         <br>
-                                                        <span><?=$dref["ur_address"]?></span>
+                                                        <span><?=$dref["ur_address"]?> <?=$dref["ur_orgaddress"]?></span>
                                                     </div>
                                                     
                                                    
                                                     <div class="col-md-6 mb-2">
                                                         <span class="font-weight-bold">Telephone: </span>
-                                                        <span><?=$dref['pt_telno']?></span>
+                                                        <span><?=$dref['ur_orgphno']?></span>
                                                     </div>
 
                                                 </ul>
@@ -240,10 +240,10 @@ include_once('header.php');
                                                         Status - <span class="text-info">Provider Response
                                                             Required</span></p></div>
                                                  <center>   <form id="reply" enctype="multipart/form-data">
-                                                        <div class="row bg-light p-1 ml-0 mr-0">
+                                                        <div class="row bg-light p-1 ml-0 mr-0 col-md-10">
                                                             <div class="col-6">
                                                                 <label class="col-form-label" for="">Add
-                                                                    Attachement</label>
+                                                                    Attachment</label>
                                                                 <span><input style="border-radius: 20px;" class="form-control" type="file"
                                                                         name="attachment"></span>
                                                             </div>
@@ -256,11 +256,12 @@ include_once('header.php');
                                                                         name="weblink"></span>
                                                             </div>
                                                             <div class="col-12 mt-1">
-                                                                <textarea style="border-radius: 20px;"
+                                                                <textarea style="border-radius: 20px;min-height:0px;"
                                                                     placeholder="Enter advice response detail here"
                                                                     class="form-control" name="cmntad" id="" cols="30"
                                                                     rows="3" required></textarea>
                                                             </div>
+                                                             
                                                             <?php 
 															if(isset($_GET['nhsno'])){
 													$nhsno = $_GET['nhsno'];
@@ -269,10 +270,39 @@ include_once('header.php');
 													$dref1 = mysqli_fetch_assoc($qref);
 												}
 														?>
+                                                          
                                                             <button type="submit"
                                                                 class="btn btn-sm btn-info my-3 ml-3">Send</button>
-                                                                <a href="javascript:void(0)" onclick="accept('<?=$dref1["c_id"]?>')" class="btn btn-sm btn-primary my-3 ml-3">Accept</a>
+                                                                <a href="javascript:void(0)" onclick="acceptref('<?=$dref1["c_id"]?>')" class="btn btn-sm btn-primary my-3 ml-3">Accept</a>
+                                                             
                                                                 <a href="javascript:void(0)" onclick="reject('<?=$dref1["c_id"]?>')" class="btn btn-sm btn-danger my-3 ml-3">Reject</a>
+                                                                  
+                                                                   <div class="col-md-12">
+                                                                   <div class="row">
+									 <!--<input type="text" name="rid" id="refferelid" hidden="true" value="">-->
+									 <div class="col-md-2 pt-1">
+									 <label for="consultant">Consultant</label>
+									 </div>
+									 <div class="col-md-5">
+									  <select class="form-control" name="consultant" id="consultant">
+									  <option>Select</option>
+										 <?php
+										 $sql = mysqli_query($con, "SELECT * FROM `tbl_ruser` WHERE ur_orgtype = '$orid' and ur_id != '$senderid' and ur_role_id = '3'");
+										 if(mysqli_num_rows($sql) > 0)
+										 {
+										     while($f = mysqli_fetch_array($sql))
+										     {
+										         ?>
+										         
+										         <option value="<?=$f['ur_id']?>"><?=$f['ur_fname']?></option>
+										         <?php
+										     }
+										 }
+										 ?>
+								 </select>
+								 </div>
+									 </div>
+									 </div>
 </td>
 </td>
                                                         </div>
@@ -491,17 +521,13 @@ function accept(cid){
 	   //     }
 	   // })
 	}
-$('#acceptreason').on('submit',function(e){
-      e.preventDefault();
-   
-      var formdata = new FormData(this);
-      formdata.append("insertreason","btn");
+function acceptref(cid){
+
       $.ajax({
             type:"POST",
 	        url:"phpcode.php",
-	        data: formdata,
-	        contentType: false,
-            processData: false,
+	        data: {cid:cid,insertreason:"btn"},
+	       
 	        success:function(res){
 
 	        if(res == "success"){
@@ -524,7 +550,7 @@ $('#acceptreason').on('submit',function(e){
 	        }
 	        }
 	    })
-});
+};
 	function reject(cid){
 $('#rcid').val(cid);
    $('#rejectmodal').modal('show');
@@ -551,6 +577,10 @@ $('#rcid').val(cid);
                     position: 'top-right'
                 });
                 $('#rejectmodal').modal('hide');
+                 setTimeout(function(){
+                    
+                    window.location.href="index.php";
+                    }, 1500);
 	        }
 	        if(res == "error"){
 	          toastr.clear();

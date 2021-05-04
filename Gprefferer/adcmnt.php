@@ -111,12 +111,12 @@ include_once('header.php');
 													<li>
 														<span class="font-weight-bold">Registered Practice</span>
 														<br>
-														<span><?=$dref["ur_address"]?></span>
+														<span><?=$dref["ur_address"]?> <?=$dref["ur_orgaddress"]?></span>
 													</li>
 													<br>
 													<li>
 														<span class="font-weight-bold">Telephone: </span>
-														<span><?= $dref['pt_telno'] ?></span>
+														<span><?= $dref['ur_orgphno'] ?></span>
 													</li>
 
 												</ul>
@@ -187,7 +187,7 @@ include_once('header.php');
 													<br>
 													<br>
 													<form action="" id="cmntform" enctype="multipart/form-data">
-														<div class="row bg-light p-1">
+														<div class="row bg-light p-1 col-md-10">
 															<div class="col-6">
 																<label class="col-form-label" for="">Add Attachement</label>
 																<span><input class="form-control" type="file" name="attachment"></span>
@@ -204,9 +204,15 @@ include_once('header.php');
 																<span><input class="form-control" type="text" name="weblink"></span>
 															</div>
 															<div class="col-12 mt-1">
-																<textarea placeholder="Enter advice response detail here" class="form-control" name="cmntad" id="cmntad" cols="30" rows="3"></textarea>
+																<textarea placeholder="Enter advice response detail here" class="form-control" name="cmntad" id="cmntad" cols="30" rows="3" style="min-height:0px;"></textarea>
 															</div>
 															<button type="submit" class="btn btn-sm btn-info my-3 ml-3">Send</button>
+														
+									 <button type="button" class="btn btn-info btn-sm my-3 ml-3" name="savedraft" id="savedraft">Save As Draft</button>
+								
+								
+									 <button type="button" class="btn btn-danger btn-sm my-3 ml-3" name="cancelref" id="cancelref">Cancel</button>
+								
 														</div>
 													</form>
 												</div>
@@ -317,6 +323,30 @@ include_once('header.php');
 	<script src="assets/js/example-toastr.js?ver=2.2.0"></script>
 </body>
 <script>
+$('#savedraft').on('click',function(){
+    window.location.href="index.php";
+})
+
+$('#cancelref').on('click',function(){
+    
+    
+        Swal.fire({
+            title: 'Are you sure you want to Cancel This Referral?',
+            text: "The details will not be saved?",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonText: 'Yes, delete it!'
+        }).then(function(result) {
+            if (result.value) {
+                // Swal.fire('Deleted!', 'Manager has been deleted.', 'success');
+            
+				window.location.href="index.php";
+            }
+        });
+    
+})
+
+
 function showpat()
 {
 	$('#modalname').modal('show');

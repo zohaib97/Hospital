@@ -166,14 +166,14 @@ if(isset($_POST['serrefferelfetch']))
 <table class="nowrap nk-tb-list is-separate" data-auto-responsive="false" id="myTable">
 <thead>
 <tr class="nk-tb-item nk-tb-head">
-<th class="nk-tb-col"><span>Refferal ID</span></th>
-<th class="nk-tb-col"><span>Date Refferal Recieved</span></th>
+<th class="nk-tb-col"><span>Referral ID</span></th>
+<th class="nk-tb-col"><span>Date Referral Recieved</span></th>
 	<th class="nk-tb-col"><span>NHS no</span></th>
 	<th class="nk-tb-col"><span>Patient First name</span></th>
 	<th class="nk-tb-col"><span>Patient Last name</span></th>
 	<th class="nk-tb-col"><span>D.O.B</span></th>
 		<th class="nk-tb-col"><span>Response Chat Status </span></th>
-	<th class="nk-tb-col"><span>Reply To Refferer</span></th>
+	<th class="nk-tb-col"><span>Reply To Referrer</span></th>
 	<th class="nk-tb-col"><span>Accept </span></th>
 
 </tr><!-- .nk-tb-item -->
@@ -240,7 +240,7 @@ $hks=mysqli_fetch_array($qki2);
 	}
 echo'
 <td class="nk-tb-col">
-<a href="adreqreply.php?nhsno='.$fetch['pt_nhsno'].'&pid='.$fetch["c_rfid"].'&request_type=Advice Request" class="btn btn-info btn-sm">View Refferer</a>
+<a href="adreqreply.php?nhsno='.$fetch['pt_nhsno'].'&pid='.$fetch["c_rfid"].'&request_type=Advice Request" class="btn btn-info btn-sm">View Referrer</a>
 </td>';
 if($fetch["c_status"]==0){
 echo '
@@ -300,13 +300,13 @@ if(isset($_POST['serrefferelfetch1']))
 <table class="nowrap nk-tb-list is-separate" data-auto-responsive="false" id="myTable">
 <thead>
 <tr class="nk-tb-item nk-tb-head">
-	<th class="nk-tb-col"><span>Refferal ID</span></th>
-<th class="nk-tb-col"><span>Date Refferal Recieved</span></th>
+	<th class="nk-tb-col"><span>Referral ID</span></th>
+<th class="nk-tb-col"><span>Date Referral Recieved</span></th>
 	<th class="nk-tb-col"><span>NHS no</span></th>
 	<th class="nk-tb-col"><span>Patient First name</span></th>
 	<th class="nk-tb-col"><span>Patient Last name</span></th>
 	<th class="nk-tb-col"><span>D.O.B</span></th>
-	<th class="nk-tb-col"><span>Reply To Refferer</span></th>
+	<th class="nk-tb-col"><span>Reply To Referrer</span></th>
 	<th class="nk-tb-col"><span>Status </span></th>
 
 </tr><!-- .nk-tb-item -->
@@ -340,7 +340,7 @@ $dob = date_format($dobb,'d-m-Y');
 <span class="tb-lead">' . $dob . '</span>
 </td>
 <td class="nk-tb-col">
-<a href="adreqreply.php?nhsno='.$fetch['pt_nhsno'].'&pid='.$fetch["c_rfid"].'&request_type=Advice Request" class="btn btn-info btn-sm">View Refferer</a>
+<a href="adreqreply.php?nhsno='.$fetch['pt_nhsno'].'&pid='.$fetch["c_rfid"].'&request_type=Advice Request" class="btn btn-info btn-sm">View Referrer</a>
 </td>
 <td class="nk-tb-col">
 <span class="badge badge-danger">Response</span>
@@ -384,14 +384,14 @@ if(isset($_POST['serrefferelfetch2']))
 <table class="nowrap nk-tb-list is-separate" data-auto-responsive="false" id="myTable">
 <thead>
 <tr class="nk-tb-item nk-tb-head">
-    <th class="nk-tb-col"><span>Refferal ID</span></th>
-<th class="nk-tb-col"><span>Date Refferal Recieved</span></th>
+    <th class="nk-tb-col"><span>Referral ID</span></th>
+<th class="nk-tb-col"><span>Date Referral Recieved</span></th>
 	<th class="nk-tb-col"><span>NHS no</span></th>
 	<th class="nk-tb-col"><span>Response Chat Status </span></th>
 		<th class="nk-tb-col"><span>Patient First name</span></th>
 	<th class="nk-tb-col"><span>Patient Last name</span></th>
 	<th class="nk-tb-col"><span>D.O.B</span></th>
-	<th class="nk-tb-col"><span>Reply To Refferer</span></th>
+	<th class="nk-tb-col"><span>Reply To Referrer</span></th>
 	<th class="nk-tb-col"><span>Accept </span></th>
 
 </tr><!-- .nk-tb-item -->
@@ -459,7 +459,7 @@ echo'
 <span class="tb-lead">' . $dob . '</span>
 </td>
 <td class="nk-tb-col">
-<a href="adreqreply.php?nhsno='.$fetch['pt_nhsno'].'&pid='.$fetch["c_rfid"].'&request_type=Appointment Request" class="btn btn-info btn-sm">View Refferer</a>
+<a href="adreqreply.php?nhsno='.$fetch['pt_nhsno'].'&pid='.$fetch["c_rfid"].'&request_type=Appointment Request" class="btn btn-info btn-sm">View Referrer</a>
 </td>';
 if($fetch["c_status"]==0){
 echo '
@@ -525,14 +525,14 @@ if(isset($_POST['serrefferelfetch3']))
 <table class="nowrap nk-tb-list is-separate" data-auto-responsive="false" id="myTable">
 <thead>
 <tr class="nk-tb-item nk-tb-head">
-	<th class="nk-tb-col"><span>Refferal ID</span></th>
-<th class="nk-tb-col"><span>Date Refferal Recieved</span></th>
+	<th class="nk-tb-col"><span>Referral ID</span></th>
+<th class="nk-tb-col"><span>Date Referral Recieved</span></th>
 	<th class="nk-tb-col"><span>NHS no</span></th>
 	<th class="nk-tb-col"><span>Patient First name</span></th>
 	<th class="nk-tb-col"><span>Patient Last name</span></th>
 	<th class="nk-tb-col"><span>D.O.B</span></th>
 	
-	<th class="nk-tb-col"><span>Reply To Refferer</span></th>
+	<th class="nk-tb-col"><span>Reply To Referrer</span></th>
 	<th class="nk-tb-col"><span>Accept </span></th>
 
 </tr><!-- .nk-tb-item -->
@@ -566,7 +566,7 @@ $dob = date_format($dobb,'d-m-Y');
 <span class="tb-lead">' . $dob . '</span>
 </td>
 <td class="nk-tb-col">
-<a href="adreqreply.php?nhsno='.$fetch['pt_nhsno'].'&pid='.$fetch["c_rfid"].'&request_type=Appointment Request" class="btn btn-info btn-sm">View Refferer</a>
+<a href="adreqreply.php?nhsno='.$fetch['pt_nhsno'].'&pid='.$fetch["c_rfid"].'&request_type=Appointment Request" class="btn btn-info btn-sm">View Referrer</a>
 </td>';
 if($fetch["c_status"]==0){
 echo '
@@ -623,13 +623,13 @@ if(isset($_POST['serrefferelfetch4']))
 <table class="nowrap nk-tb-list is-separate" data-auto-responsive="false" id="myTable">
 <thead>
 <tr class="nk-tb-item nk-tb-head">
-    <th class="nk-tb-col"><span>Refferal ID</span></th>
-<th class="nk-tb-col"><span>Date Refferal Recieved</span></th>
+    <th class="nk-tb-col"><span>Referral ID</span></th>
+<th class="nk-tb-col"><span>Date Referral Recieved</span></th>
 	<th class="nk-tb-col"><span>NHS no</span></th>
 	<th class="nk-tb-col"><span>Patient First name</span></th>
 	<th class="nk-tb-col"><span>Patient Last name</span></th>
 	<th class="nk-tb-col"><span>D.O.B</span></th>
-	<th class="nk-tb-col"><span>Reply To Refferer</span></th>
+	<th class="nk-tb-col"><span>Reply To Referrer</span></th>
 	<th class="nk-tb-col"><span>Accept </span></th>
 
 </tr><!-- .nk-tb-item -->
@@ -663,7 +663,7 @@ if(isset($_POST['serrefferelfetch4']))
 <span class="tb-lead">' . $dob . '</span>
 </td>
 <td class="nk-tb-col">
-<a href="adreqreply.php?nhsno='.$fetch['pt_nhsno'].'&pid='.$fetch["c_rfid"].'&request_type=Appointment Request" class="btn btn-info btn-sm">View Refferer</a>
+<a href="adreqreply.php?nhsno='.$fetch['pt_nhsno'].'&pid='.$fetch["c_rfid"].'&request_type=Appointment Request" class="btn btn-info btn-sm">View Referrer</a>
 </td>';
 if($fetch["c_status"]==0){
 echo '
@@ -795,7 +795,7 @@ $da = date_format($date,"d-m-Y");
 			if($fe['reciever'] != $senderid)
 			{
 			echo' <div class="card p-2 col-md-7 float-right "
-			style="background-color: skyblue;text-align: right;color:white;border-radius:15px;"
+			style="background-color: #986cfb;text-align: right;color:white;border-radius:15px;"
 			>
 			<small><b> Sent By '.$dataid['ur_fname'].'('.$dataid["title"].') (Service Provider Clinician)</b></small>
 			<spane>'.$fe['ra_message'].'</spane>';
@@ -819,7 +819,7 @@ $da = date_format($date,"d-m-Y");
 			$date =date_create($fe['ra_date']);
 $da = date_format($date,"d-m-Y");
 				echo' <div class="card p-2 float-left col-md-7"
-			style="background-color: #58b666;color:white;text-align: left;border-radius:15px;"
+			style="background-color: #f5f6fa;color:black;text-align: left;border-radius:15px;"
 			>
 			<small><b> Sent By '.$dataid1['ur_fname'].' ('.$dataid1["title"].') (Referring Clinician)</b></small>
 			<spane>'.$fe['ra_message'].'</spane>
@@ -891,10 +891,11 @@ if(isset($_POST["fekk"])){
 
 if(isset($_POST["insertreason"])){
     $id= $_POST['cid'];
-    $reason = $_POST['reason'];
-       $q=mysqli_query($con,"INSERT INTO `tbl_refferel_reasons`(`refferel_id`, `reason`,`status`) VALUES ('$id','$reason','accepted')");
-       if($q){
+  
+     
+       
             $q=mysqli_query($con,"UPDATE tbl_consultantrefferels SET c_status='1' where c_id='$id'");
+            if($q){
            echo "success";
        }else{
            echo "error";
