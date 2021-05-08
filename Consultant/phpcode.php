@@ -916,6 +916,38 @@ if(isset($_POST["rejectreason"])){
     
 }
 
+if(isset($_POST["redirect"])){
+    $cid= $_POST['cid'];
+     $consultant = $_POST['consultant'];
+     $loginem = $_SESSION['consultant'];
+			$idq = mysqli_query($con, "SELECT * FROM `tbl_ruser` WHERE `ur_email` = '$loginem'");
+			$dataid = mysqli_fetch_assoc($idq);
+			$senderid = $dataid['ur_id'];
+       $q=mysqli_query($con,"UPDATE `tbl_consultantrefferels` SET `c_userid`= '$consultant' WHERE c_id = '$cid'");
+       if($q){
+            $q1=mysqli_query($con,"UPDATE `tbl_refferelattachment` SET `reciever`='$consultant' WHERE ra_refferelid = '$cid' and reciever = '$senderid'");
+            if($q1)
+            {
+                $q2=mysqli_query($con,"UPDATE `tbl_refferelattachment` SET `sender`='$consultant' WHERE ra_refferelid = '$cid' and sender = '$senderid'");
+                if($q2 && $q1)
+                {
+                     echo "success";
+                }
+                else{
+                    echo "error";
+                }
+            }
+            else{
+                echo "errorrec";
+            }
+          
+       }else{
+           echo "errorcon";
+       }
+    
+}
+
+
 //fetch Consultant data
 if(isset($_POST['consfetchupdate']))
 {

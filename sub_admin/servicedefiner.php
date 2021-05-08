@@ -628,7 +628,7 @@ include_once('headernav.php');
 				</div>
 
 				<br>
-				<div class="col-lg-12">
+				<div class="col-lg-6">
 									 <!--<input type="text" name="rid" id="refferelid" hidden="true" value="">-->
 									 <label for="consultant">Consultant</label>
 									  <select class="form-control" name="consultant" id="consultant" >
@@ -646,6 +646,8 @@ include_once('headernav.php');
 										 
 								 </select>
 									 </div>
+									 <div class="col-lg-6">
+									     </div>
 				<div class="col-md-3">
 					<div class="form-group">
 						<button type="submit" class="btn btn-lg btn-primary" id="privacysubmit">Save Informations</button>

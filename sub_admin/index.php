@@ -466,7 +466,7 @@ $fetchsa=mysqli_fetch_array($qiu);
                                         </a>
                                         <?php
                            }
-                           if($ortype = "NHS Hospital")
+                           if($ortype == "GP Practice")
                            {
 
                             $qe = mysqli_query($con, "SELECT COUNT(ur_id) AS number FROM tbl_ruser WHERE ur_role_id ='5' and ur_orgtype = '$orgid' and ur_orgcode = '$orcode' and ur_email != '$email'");

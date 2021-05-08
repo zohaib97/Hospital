@@ -250,8 +250,8 @@ include_once('header.php');
                                                             <div class="col-6">
                                                                 <label class="col-form-label" for="">Add Web
                                                                     Link</label>
-                                                                <input class="form-control" type="text" name="rid"
-                                                                    hidden="true" value="<?=$refid?>">
+                                                                <!-- <input class="form-control" type="text" name="rid"
+                                                                    hidden="true" value="<?=$refid?>"> -->
                                                                 <span><input style="border-radius: 20px;" class="form-control" type="text"
                                                                         name="weblink"></span>
                                                             </div>
@@ -279,14 +279,14 @@ include_once('header.php');
                                                                   
                                                                    <div class="col-md-12">
                                                                    <div class="row">
-									 <!--<input type="text" name="rid" id="refferelid" hidden="true" value="">-->
+									 <input type="text" name="rid" id="refferelid" hidden="true" value="">
 									 <div class="col-md-2 pt-1">
 									 <label for="consultant">Consultant</label>
 									 </div>
-									 <div class="col-md-5">
+									 <div class="col-md-4">
 									  <select class="form-control" name="consultant" id="consultant">
 									  <option>Select</option>
-										 <?php
+								 		 <?php
 										 $sql = mysqli_query($con, "SELECT * FROM `tbl_ruser` WHERE ur_orgtype = '$orid' and ur_id != '$senderid' and ur_role_id = '3'");
 										 if(mysqli_num_rows($sql) > 0)
 										 {
@@ -300,6 +300,10 @@ include_once('header.php');
 										 }
 										 ?>
 								 </select>
+								 </div>
+								 <div class="col-md-2">
+								     
+								     <a href="javascript:void(0)" onclick="redirect('<?=$dref1["c_id"]?>')" class="btn btn-sm btn-info my-1">Redirect</a>
 								 </div>
 									 </div>
 									 </div>
@@ -591,6 +595,40 @@ $('#rcid').val(cid);
 	        }
 	    })
 });
+	
+	
+		function redirect(cid){
+            
+           var consultant = $('#consultant').val();
+
+            $.ajax({
+            type:"POST",
+	        url:"phpcode.php",
+	        data: {consultant:consultant,cid:cid,redirect:"btn"},
+	        success:function(res){
+
+	        if(res == "success"){
+	            
+	        toastr.clear();
+                NioApp.Toast("<h5>Request Redirected</h5>", 'success', {
+                    position: 'top-right'
+                });
+               
+                 setTimeout(function(){
+                    
+                    window.location.href="index.php";
+                    }, 1500);
+	        }
+	        if(res == "error"){
+	          toastr.clear();
+                NioApp.Toast("<h5>Something Went Wrong</h5>", 'warning', {
+                    position: 'top-right'
+                });
+	        }
+	        }
+	    })
+	}
+	
 	
 function showpat()
 {

@@ -189,7 +189,7 @@ include_once('header.php');
 													<form action="" id="cmntform" enctype="multipart/form-data">
 														<div class="row bg-light p-1 col-md-10">
 															<div class="col-6">
-																<label class="col-form-label" for="">Add Attachement</label>
+																<label class="col-form-label" for="">Add Attachment</label>
 																<span><input class="form-control" type="file" name="attachment"></span>
 															</div>
 															<div class="col-6">

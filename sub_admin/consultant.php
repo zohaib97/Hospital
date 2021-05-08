@@ -186,11 +186,40 @@ include_once('header.php');
             </div>
         </div>
     </div> -->
+    
     <div class="modal fade" tabindex="-1" id="modalForm2">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title">Gp-Referrer Info</h5>
+                    <?php
+                     $id = $_SESSION['a_id'];
+								$sql = mysqli_query($con,"SELECT * FROM admin WHERE id = '$id'");
+								$fetch = mysqli_fetch_array($sql);
+								$orgid = $fetch['organization'];
+							
+								$sql1 = mysqli_query($con,"SELECT * FROM orginzation WHERE orid = '$orgid'");
+								$fetch1 = mysqli_fetch_array($sql1);
+								$ortype = $fetch1['or_type'];
+								if($ortype == "NHS Hospital")
+								{
+                    ?>
+                    <h5 class="modal-title">Consultant Info</h5>
+                    <?php
+								}
+								elseif($ortype == "GP Practice")
+								{
+                    ?>
+                    <h5 class="modal-title">GP-referrer Info</h5>
+                    <?php
+								}
+								elseif($ortype == "Dental Practice")
+								{
+								    
+                    ?>
+                    <h5 class="modal-title">Dentist Info</h5>
+                    <?php
+								}
+                    ?>
                     <a href="#" class="close" data-dismiss="modal" aria-label="Close">
                         <em class="icon ni ni-cross"></em>
                     </a>
@@ -239,7 +268,34 @@ include_once('header.php');
                     </form>
                 </div>
                 <div class="modal-footer bg-light">
-                    <span class="sub-text">GP-Refferer Update</span>
+                     <?php
+                     $id = $_SESSION['a_id'];
+								$sql = mysqli_query($con,"SELECT * FROM admin WHERE id = '$id'");
+								$fetch = mysqli_fetch_array($sql);
+								$orgid = $fetch['organization'];
+							
+								$sql1 = mysqli_query($con,"SELECT * FROM orginzation WHERE orid = '$orgid'");
+								$fetch1 = mysqli_fetch_array($sql1);
+								$ortype = $fetch1['or_type'];
+								if($ortype == "NHS Hospital")
+								{
+                    ?>
+                    <span class="sub-text">Consultatn Update</span>
+                    <?php
+								}
+								elseif($ortype == "GP Practice")
+								{
+                    ?>
+                    <span class="sub-text">Gp-referrer Update</span>
+                    <?php
+								}
+								elseif($ortype == "Dental Practice")
+								{
+                    ?>
+                    <span class="sub-text">Dentist Update</span>
+                    <?php
+								}
+                    ?>
                 </div>
             </div>
         </div>

@@ -285,7 +285,7 @@ include_once('header.php');
                                                         <div class="row bg-light p-1 ml-0 w-100 col-md-10">
                                                             <div class="col-6">
                                                                 <label class="col-form-label" for="">Add
-                                                                    Attachement</label>
+                                                                    Attachment</label>
                                                                 <span><input style="border-radius: 20px;" class="form-control" type="file"
                                                                         name="attachment"></span>
                                                             </div>
@@ -307,6 +307,7 @@ include_once('header.php');
                                                             </div>
                                                             <button type="submit"
                                                                 class="btn btn-sm btn-info my-3 ml-3">Send</button>
+                                                                <a href="printrpdf.php?c_id=<?=$_GET["c_id"]?>&coid=<?=$_GET["coid"]?>&pid=<?=$_GET["pid"]?>&rfno=<?=$_GET["rfno"]?>&nhsno=<?=$_GET["nhsno"]?>" class="btn btn-info btn-sm my-3 ml-3" >Print Refferal</a>
                                                         </div>
                                                     </form>
                                 </div>

@@ -1203,7 +1203,7 @@ if(isset($_POST['refferelfetch6']))
 		}
 		
 	
-	$query = mysqli_query($con,"SELECT * FROM `tbl_consultantrefferels`JOIN tbl_ruser ON tbl_ruser.ur_id = tbl_consultantrefferels.c_userid JOIN services ON services.service_id = tbl_consultantrefferels.c_serid JOIN service_name ON service_name.s_id = services.service_name JOIN service_cliniciant ON services.ser_cl_type= service_cliniciant.cl_id JOIN ser_specialty_add ON services.service_speciality = ser_specialty_add.spec_id JOIN orginzation ON orginzation.orid = tbl_consultantrefferels.c_orgid join tbl_refferelattachment on tbl_consultantrefferels.c_id = tbl_refferelattachment.ra_refferelid JOIN tbl_patients ON tbl_patients.pt_id = tbl_consultantrefferels.c_rfid where c_gpid = '$id' and tbl_refferelattachment.ra_refferelid = '$refferid' and c_status = '3' GROUP BY c_serid and c_id");
+	$query = mysqli_query($con,"SELECT * FROM `tbl_consultantrefferels`JOIN tbl_ruser ON tbl_ruser.ur_id = tbl_consultantrefferels.c_userid JOIN services ON services.service_id = tbl_consultantrefferels.c_serid JOIN service_name ON service_name.s_id = services.service_name JOIN service_cliniciant ON services.ser_cl_type= service_cliniciant.cl_id JOIN ser_specialty_add ON services.service_speciality = ser_specialty_add.spec_id JOIN orginzation ON orginzation.orid = tbl_consultantrefferels.c_orgid JOIN tbl_patients ON tbl_patients.pt_id = tbl_consultantrefferels.c_rfid where c_gpid = '$id' and c_status = '3' GROUP BY c_serid and c_id");
 
 	// $query = mysqli_query($con,"SELECT * FROM `tbl_consultantrefferels`,orginzation,tbl_patients where orginzation.orid=tbl_consultantrefferels.c_orgid and tbl_patients.pt_nhsno=tbl_consultantrefferels.c_nhsno and c_gpid = '$id'");
 	if($query)
@@ -1224,7 +1224,7 @@ if(isset($_POST['refferelfetch6']))
 					<th class="nk-tb-col tb-col-sm"><span>Organisation Name</span></th>
 					<th class="nk-tb-col"><span>Patient First Name</span></th>
 					<th class="nk-tb-col"><span>Patient Last Name</span></th>
-					
+					<th class="nk-tb-col"><span>View referrer</span></th>
 					<th class="nk-tb-col"><span>Status</span></th>
 					
 					
@@ -1267,6 +1267,9 @@ if(isset($_POST['refferelfetch6']))
 	</td>	
 	<td class="nk-tb-col">
 		<span class="tb-lead">'.$fetch['pt_surname'].'</span>
+	</td>
+		<td class="nk-tb-col">
+		<a class="btn btn-info btn-sm text-white" href="reply.php?c_id='.$fetch["c_id"].'&coid='.$fetch["c_userid"].'&pid='.$fetch["c_rfid"].'&rfno='.$fetch["c_id"].'&nhsno='.$fetch["c_nhsno"].'">Open </a>
 	</td>
 	';
 		if($fetch["c_status"] == 1 ){
@@ -2127,7 +2130,7 @@ if(isset($_POST['cmntdatabtn']))
 	if($weblink == ""  && $weblink == null)
 	{
 		$r = "(`ra_message`, `ra_attach`,`ra_refferelid`, `ra_sender_id`,`reciever`,`sender`,`status`) VALUES ('$cmnt','$file','$id','$senderid','$coid','$senderid','unseen')";
-		move_uploaded_file($_FILES['attachment']['tmp_name'],'assets/uploads/'.$file);
+		move_uploaded_file($_FILES['attachment']['tmp_name'],'../Gprefferer/assets/uploads/'.$file);
 	}
 	else if($file == "" && $file == null)
 	{
@@ -2137,10 +2140,10 @@ if(isset($_POST['cmntdatabtn']))
 	{
 		$r = "(`ra_message`,`ra_refferelid`, `ra_sender_id`,`reciever`,`sender`,`status`) VALUES ('$cmnt','$id','$senderid','$coid','$senderid','unseen')";
 	}
-	elseif($weblink !="" && $file !="")
+	elseif($weblink !="" && $file !="" && $weblink != null && $file != null)
 	{
 		$r = "(`ra_message`,`ra_attach`,`ra_weblink`,`ra_refferelid`, `ra_sender_id`,`reciever`,`sender`,`status`) VALUES ('$cmnt','$file','$weblink','$id','$senderid','$coid','$senderid','unseen')";
-		move_uploaded_file($_FILES['attachment']['tmp_name'],'assets/uploads/'.$file);
+		move_uploaded_file($_FILES['attachment']['tmp_name'],'../Gprefferer/assets/uploads/'.$file);
 	}
 	
 	
@@ -2148,7 +2151,16 @@ if(isset($_POST['cmntdatabtn']))
 	$q = mysqli_query($con,"INSERT INTO `tbl_refferelattachment`".$r."");
 	if($q)
 	{
-		$sql = mysqli_query($con,"UPDATE `tbl_consultantrefferels` SET `c_status`= '2' WHERE c_id = '$id'");
+	    $sql1 = mysqli_query($con,"SELECT * FROM tbl_consultantrefferels WHERE c_id = '$id'");
+	    if(mysqli_num_rows($sql1) > 0)
+	    {
+	        $fetch = mysqli_fetch_array($sql1);
+	        if($fetch['c_status'] == '3')
+	        {
+	            $sql = mysqli_query($con,"UPDATE `tbl_consultantrefferels` SET `c_status`= '2' WHERE c_id = '$id'");
+	        }
+	    }
+		
 		
 	unset($_SESSION['refferellastid']);
 		echo "Success";
@@ -2384,7 +2396,7 @@ $da = date_format($date,"d-m-Y");
 			if($fe['ra_attach'] != null)
 			{
 
-			echo'<a href="assets/uploads/'.$fe['ra_attach'].'" class="btn btn-info btn-sm col-md-5 p-0" download><i class="icon ni ni-arrow-down-round"></i>'.$fe['ra_attach'].'</a>';
+			echo'<a href="../Consultant/assets/uploads/'.$fe['ra_attach'].'" class="btn btn-info btn-sm col-md-5 p-0" download><i class="icon ni ni-arrow-down-round"></i>'.$fe['ra_attach'].'</a>';
 			}
 			echo'
 				<p class="text-right"><i class="icon ni ni-calendar-grid-58" aria-hidden="true"></i>'.$da.'</p>

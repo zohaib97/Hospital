@@ -273,6 +273,36 @@ include_once('header.php');
                                                                 class="btn btn-sm btn-info my-3 ml-3">Send</button>
                                                                 <a href="javascript:void(0)" onclick="accept('<?=$dref1["c_id"]?>')" class="btn btn-sm btn-primary my-3 ml-3">Accept</a>
                                                                 <a href="javascript:void(0)" onclick="reject('<?=$dref1["c_id"]?>')" class="btn btn-sm btn-danger my-3 ml-3">Reject</a>
+                                                                <div class="col-md-12">
+                                                                   <div class="row">
+									 <input type="text" name="rid" id="refferelid" hidden="true" value="">
+									 <div class="col-md-2 pt-1">
+									 <label for="consultant">Consultant</label>
+									 </div>
+									 <div class="col-md-4">
+									  <select class="form-control" name="consultant" id="consultant">
+									  <option>Select</option>
+								 		 <?php
+										 $sql = mysqli_query($con, "SELECT * FROM `tbl_ruser` WHERE ur_orgtype = '$orid' and ur_id != '$senderid' and ur_role_id = '3'");
+										 if(mysqli_num_rows($sql) > 0)
+										 {
+										     while($f = mysqli_fetch_array($sql))
+										     {
+										         ?>
+										         
+										         <option value="<?=$f['ur_id']?>"><?=$f['ur_fname']?></option>
+										         <?php
+										     }
+										 }
+										 ?>
+								 </select>
+								 </div>
+								 <div class="col-md-2">
+								     
+								     <a href="javascript:void(0)" onclick="redirect('<?=$dref1["c_id"]?>')" class="btn btn-sm btn-info my-1">Redirect</a>
+								 </div>
+									 </div>
+									 </div>
 </td>
 </td>
                                                         </div>
@@ -558,6 +588,41 @@ $('#rcid').val(cid);
 	        }
 	    })
 });
+	
+	
+	function redirect(cid){
+            
+           var consultant = $('#consultant').val();
+
+            $.ajax({
+            type:"POST",
+	        url:"consultantphpcode.php",
+	        data: {consultant:consultant,cid:cid,redirect:"btn"},
+	        success:function(res){
+
+	        if(res == "success"){
+	            
+	        toastr.clear();
+                NioApp.Toast("<h5>Request Redirected</h5>", 'success', {
+                    position: 'top-right'
+                });
+               
+                 setTimeout(function(){
+                    
+                    window.location.href="index.php";
+                    }, 1500);
+	        }
+	        if(res == "error"){
+	          toastr.clear();
+                NioApp.Toast("<h5>Something Went Wrong</h5>", 'warning', {
+                    position: 'top-right'
+                });
+	        }
+	        }
+	    })
+	}
+	
+	
 	
 function showpat()
 {

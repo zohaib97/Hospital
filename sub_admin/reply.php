@@ -280,12 +280,13 @@ include_once('header.php');
                                           <p>Advice Status - <span class="text-info">Provider Response
                                                             Required</span>
                                                             </p></div>
+                                                            <center>
                                                     <form id="reply" enctype="multipart/form-data" class="col-md-12 ml-0 float-left w-100">
                                                     
                                                         <div class="row bg-light p-1 ml-0 w-100 col-md-10">
                                                             <div class="col-6">
                                                                 <label class="col-form-label" for="">Add
-                                                                    Attachement</label>
+                                                                    Attachment</label>
                                                                 <span><input style="border-radius: 20px;" class="form-control" type="file"
                                                                         name="attachment"></span>
                                                             </div>
@@ -310,6 +311,7 @@ include_once('header.php');
                                                                 <a href="printrpdf.php?c_id=<?=$_GET["c_id"]?>&coid=<?=$_GET["coid"]?>&pid=<?=$_GET["pid"]?>&rfno=<?=$_GET["rfno"]?>&nhsno=<?=$_GET["nhsno"]?>" class="btn btn-info btn-sm my-3 ml-3" >Print Refferal</a>
                                                         </div>
                                                     </form>
+                                                    </center>
                                 </div>
                                 <!-- .components-preview -->
                             </div>
@@ -464,6 +466,7 @@ $("#reply").on('submit', function(e) {
                 $('#attach').css("opacity", ".5");
             },
             success: function(data) {
+                alert(data);
                 if (data == 'Error') {
                     toastr.clear();
                     NioApp.Toast("<h5>Something Went Wrong</h5>", 'error', {
